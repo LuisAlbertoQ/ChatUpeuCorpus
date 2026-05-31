@@ -1,0 +1,35 @@
+services:
+  llm:
+    build: ./llm
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - llm_data:/root/.ollama
+
+    environment:
+      LD_LIBRARY_PATH: /usr/lib/ollama/cuda_v13:/usr/lib/ollama
+      OLLAMA_LLM_LIBRARY: cuda_v13
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+    restart: unless-stopped
+  
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./vector_store:/app/vector_store
+    depends_on:
+      - llm
+
+volumes:
+  llm_data:

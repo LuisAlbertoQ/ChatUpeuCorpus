@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+.env.*
+venv/
+.venv/
+ENV/
+env/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+*.egg
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Docker
+**/docker-compose.override.yml
+**/docker-compose.*.yml
+
+# Chroma vector store and other persistent data
+/vector_store/
+**/vector_store/
+*.sqlite3
+
+# Ollama local data
+llm_data/
+
+# Logs
+*.log
+logs/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Pytest
+.pytest_cache/
+
+# MyPy
+.mypy_cache/
+
+# Coverage
+htmlcov/
+.coverage
+.coverage.*
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Temporary files
+*.swp
+*.swo
+*~
