@@ -9,16 +9,15 @@ client = None
 collection = None
 model = None
 PROMPT = PromptTemplate(
-    template="""Eres un asistente universitario. Responde la pregunta basándote ÚNICAMENTE en los siguientes fragmentos de documentos institucionales.
-Si la información no está en los fragmentos, di que no puedes responder.
-
-Fragmentos:
-{context}
-
-Pregunta: {question}
-
-Respuesta (incluye al final las fuentes en formato: Documento: nombre, Sección: artículo, Año: año):
-""",
+    template=(
+        "Eres un asistente universitario que responde preguntas sobre reglamentos, trámites y procedimientos para ESTUDIANTES de la Universidad Peruana Unión.\n"
+        "Utiliza ÚNICAMENTE los fragmentos de documentos institucionales que se te proporcionan.\n"
+        "Si los fragmentos no contienen información específica para responder EXACTAMENTE lo que el usuario pregunta, di: 'No encontré información suficiente en los documentos disponibles para responder tu pregunta con confianza.'\n"
+        "No inventes requisitos ni uses información de otros temas (como docencia, trabajo administrativo, etc.) para responder preguntas sobre estudiantes.\n\n"
+        "Fragmentos:\n{context}\n\n"
+        "Pregunta: {question}\n\n"
+        "Respuesta concisa (si tienes información suficiente, incluye al final las referencias a los documentos):"
+    ),
     input_variables=["context", "question"]
 )
 
@@ -44,13 +43,18 @@ def generar_respuesta(pregunta: str):
     # 3. Filtrar por umbral
     fragmentos_validos = []
     fuentes = []
+    distancias_debug = []
     for doc, meta, dist in zip(docs, metas, distancias):
+        distancias_debug.append(round(dist, 4))
         if dist < UMBRAL_DISTANCIA_COSENO:
             fragmentos_validos.append(doc)
             fuentes.append(f"{meta['documento']}, {meta.get('categoria', '')}")
     
     if not fragmentos_validos:
-        return {"respuesta": MENSAJES["M04"], "fuentes": []}
+        return {
+            "respuesta": MENSAJES["M04"], 
+            "fuentes": [],
+            "debug_distancias": distancias_debug}
     
     # 4. Prompt y LLM
     contexto = "\n\n".join(fragmentos_validos)
@@ -59,5 +63,8 @@ def generar_respuesta(pregunta: str):
     respuesta_generada = llm.invoke(prompt)
     
     # 5. Formatear salida
-    respuesta_final = f"{respuesta_generada}\n\nFuentes:\n" + "\n".join(fuentes)
-    return {"respuesta": respuesta_final, "fuentes": fuentes}
+    respuesta_final = respuesta_generada + "\n\n" + MENSAJES["M02"] + "\n" + "\n".join(fuentes)
+    return {
+        "respuesta": respuesta_final, 
+        "fuentes": fuentes,
+        "debug_distancias": distancias_debug}

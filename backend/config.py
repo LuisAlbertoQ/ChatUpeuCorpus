@@ -3,10 +3,10 @@ DOMINIO_CATEGORIAS = ["D01", "D02", "D03", "D04", "D05", "D06"]  # etc.
 
 # Umbrales técnicos
 UMBRAL_SIMILITUD = 0.7  # coseno (en realidad distancia < 0.3)
-TOP_K_FRAGMENTOS = 3
+TOP_K_FRAGMENTOS = 5
 MAX_PALABRAS_RESPUESTA = 350
 TIMEOUT_RESPUESTA = 15  # segundos
-UMBRAL_DISTANCIA_COSENO = 0.3  # equivalente a similitud >= 0.7
+UMBRAL_DISTANCIA_COSENO = 0.32  # equivalente a similitud >= 0.7
 
 # Mensajes
 MENSAJES = {

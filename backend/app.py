@@ -20,3 +20,10 @@ async def consultar(consulta: Consulta):
 @app.get("/bienvenida")
 async def bienvenida():
     return {"mensaje": MENSAJES["M01"]}
+
+@app.get("/documentos")
+async def listar_documentos():
+    from rag_pipeline import collection
+    docs = collection.get()  # obtiene todos los chunks
+    documentos = set(meta['documento'] for meta in docs['metadatas'])
+    return {"documentos_en_corpus": sorted(list(documentos))}
