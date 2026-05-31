@@ -11,16 +11,17 @@ model = None
 PROMPT = PromptTemplate(
     template=(
         "Eres un asistente universitario que responde preguntas sobre reglamentos, trámites y procedimientos para ESTUDIANTES de la Universidad Peruana Unión.\n"
-        "Utiliza ÚNICAMENTE los fragmentos de documentos institucionales que se te proporcionan.\n"
-        "Si los fragmentos no contienen información específica para responder EXACTAMENTE lo que el usuario pregunta, di: 'No encontré información suficiente en los documentos disponibles para responder tu pregunta con confianza.'\n"
-        "No inventes requisitos ni uses información de otros temas (como docencia, trabajo administrativo, etc.) para responder preguntas sobre estudiantes.\n\n"
+        "Utiliza EXCLUSIVAMENTE los fragmentos de documentos institucionales que se te proporcionan a continuación.\n"
+        "Responde ÚNICAMENTE si los fragmentos contienen información específica y suficiente para responder EXACTAMENTE lo que el usuario pregunta.\n"
+        "Si la información no es suficiente o no corresponde a lo preguntado, responde EXACTAMENTE con este texto: 'No encontré información suficiente en los documentos disponibles para responder tu pregunta con confianza.'\n"
+        "No agregues ninguna otra frase, ni sugerencias, ni detalles adicionales en ese caso.\n"
+        "Si decides responder, sé conciso y menciona las fuentes.\n\n"
         "Fragmentos:\n{context}\n\n"
         "Pregunta: {question}\n\n"
-        "Respuesta concisa (si tienes información suficiente, incluye al final las referencias a los documentos):"
+        "Respuesta:"
     ),
     input_variables=["context", "question"]
 )
-
 def inicializar():
     global client, collection, model
     client = chromadb.PersistentClient(path="./vector_store")
