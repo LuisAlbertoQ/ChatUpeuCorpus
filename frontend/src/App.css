@@ -36,6 +36,11 @@
 .message.chatbot {
   background: #e2e2e2;
 }
+
+.message-text {
+  white-space: pre-wrap;
+}
+
 .sources {
   font-size: 0.75rem;
   margin-top: 0.3rem;

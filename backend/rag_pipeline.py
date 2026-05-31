@@ -24,12 +24,15 @@ PROMPT = PromptTemplate(
 
         "Reglas de formato:\n"
         "- Mantén la estructura original de la información cuando sea posible.\n"
-        "- Si el contenido contiene listas, derechos, requisitos, pasos, categorías o elementos enumerados, preséntalos como lista con viñetas.\n"
+        "- Si el contenido contiene listas, derechos, requisitos, pasos, categorías o elementos enumerados, preséntalos como lista con viñetas."
         "- No juntes todos los elementos en un solo párrafo.\n"
         "- Usa saltos de línea entre elementos.\n"
         "- Si hay artículos o numerales, indícalos junto a cada elemento.\n"
         "- No inventes información que no aparezca en los fragmentos.\n"
         "- Resume únicamente cuando no se pierda información relevante.\n\n"
+
+        "No incluyas un apartado de 'Fuentes' o 'Referencias' al final de tu respuesta. "
+        "El sistema agregará las fuentes automáticamente.\n\n"
 
         "Fragmentos:\n{context}\n\n"
         "Pregunta:\n{question}\n\n"
@@ -73,7 +76,11 @@ def generar_respuesta(pregunta: str):
     # 4. Determinar tipo de mensaje y respuesta
     if not fragmentos_validos:
         tipo_mensaje = "M04"
-        respuesta_final = MENSAJES["M04"]
+        # Obtener el nombre del documento con la distancia más baja (aunque no pase el umbral)
+        doc_sugerido = metas[0]['documento'] if metas else "generales de la UPeU"
+        respuesta_final = MENSAJES["M04"].replace(
+            "[nombre del documento relacionado más cercano]", doc_sugerido
+        )
     else:
         tipo_mensaje = "M02"
         contexto = "\n\n".join(fragmentos_validos)

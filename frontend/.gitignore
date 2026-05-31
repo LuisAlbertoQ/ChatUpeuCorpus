@@ -1,0 +1,55 @@
+# Dependencies
+node_modules/
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Production
+/build
+/dist
+
+# Environment variables (secrets)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+!.env.example
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Editor directories and files
+.vscode/
+.idea/
+.subl-project
+*.sublime-workspace
+*.sublime-project
+.DS_Store
+.AppleDouble
+.LSOverride
+*.cer
+*.crt
+*.key
+*.pem
+
+# Temporary files
+*.swp
+*.swo
+*~
+.tmp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# IDE specific
+*.iml
+.gradle
+.idea/
+local.properties

@@ -1,0 +1,32 @@
+# Ollama local data and models
+/models/
+/data/
+*.bin
+*.gguf
+
+# Environment files
+.env
+.env.local
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+*.dll
+*.exe
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.log

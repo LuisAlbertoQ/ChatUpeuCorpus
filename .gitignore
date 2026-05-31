@@ -1,65 +1,33 @@
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-*.env
-.env.*
-venv/
-.venv/
-ENV/
-env/
-*.egg-info/
-.eggs/
-pip-wheel-metadata/
-*.egg
-
-# VS Code
+# IDE
 .vscode/
+.idea/
 *.code-workspace
 
 # Docker
 **/docker-compose.override.yml
 **/docker-compose.*.yml
 
-# Chroma vector store - INCLUIR en repo (corpus necesario para RAG)
+# ===== PROJECT-SPECIFIC =====
+# Chroma vector store (MUST be included in repo - contains corpus for RAG)
 # /vector_store/
 # **/vector_store/
 
-# Runtime databases (ignorar solo archivos de registro de interacciones)
+# Runtime databases (logs and interactions only - no source data)
 registro_interacciones.db
 /registro_interacciones.db
 
-# Ollama local data (ignorar)
+# Ollama service local data (large models, not needed in repo)
 llm_data/
 llm_data/**
 
-# Logs
-*.log
-logs/
-
-# System files
+# ===== GENERAL IGNORES =====
+# OS files
 .DS_Store
-Thumbs.db
-
-# Pytest
-.pytest_cache/
-
-# MyPy
-.mypy_cache/
-
-# Coverage
-htmlcov/
-.coverage
-.coverage.*
-
-# MacOS
-.DS_Store
-
-# Windows
 Thumbs.db
 
 # Temporary files
 *.swp
 *.swo
 *~
+*.tmp
+*.bak
