@@ -1,27 +1,43 @@
+import time
 from langchain.prompts import PromptTemplate
 from langchain_community.llms import Ollama
 import chromadb
 from sentence_transformers import SentenceTransformer
 from config import *
+from logger import registrar_interaccion
 
 # Variables globales que se inicializarán en startup
 client = None
 collection = None
 model = None
+
 PROMPT = PromptTemplate(
     template=(
-        "Eres un asistente universitario que responde preguntas sobre reglamentos, trámites y procedimientos para ESTUDIANTES de la Universidad Peruana Unión.\n"
-        "Utiliza EXCLUSIVAMENTE los fragmentos de documentos institucionales que se te proporcionan a continuación.\n"
-        "Responde ÚNICAMENTE si los fragmentos contienen información específica y suficiente para responder EXACTAMENTE lo que el usuario pregunta.\n"
-        "Si la información no es suficiente o no corresponde a lo preguntado, responde EXACTAMENTE con este texto: 'No encontré información suficiente en los documentos disponibles para responder tu pregunta con confianza.'\n"
-        "No agregues ninguna otra frase, ni sugerencias, ni detalles adicionales en ese caso.\n"
-        "Si decides responder, sé conciso y menciona las fuentes.\n\n"
+        "Eres un asistente universitario que responde preguntas sobre reglamentos, trámites y procedimientos para estudiantes de la Universidad Peruana Unión.\n\n"
+
+        "Utiliza EXCLUSIVAMENTE los fragmentos proporcionados.\n"
+
+        "Responde únicamente si los fragmentos contienen información específica y suficiente para responder exactamente la pregunta.\n"
+
+        "Si la información no es suficiente o no corresponde a la pregunta, responde EXACTAMENTE:\n"
+        "'No encontré información suficiente en los documentos disponibles para responder tu pregunta con confianza.'\n\n"
+
+        "Reglas de formato:\n"
+        "- Mantén la estructura original de la información cuando sea posible.\n"
+        "- Si el contenido contiene listas, derechos, requisitos, pasos, categorías o elementos enumerados, preséntalos como lista con viñetas.\n"
+        "- No juntes todos los elementos en un solo párrafo.\n"
+        "- Usa saltos de línea entre elementos.\n"
+        "- Si hay artículos o numerales, indícalos junto a cada elemento.\n"
+        "- No inventes información que no aparezca en los fragmentos.\n"
+        "- Resume únicamente cuando no se pierda información relevante.\n\n"
+
         "Fragmentos:\n{context}\n\n"
-        "Pregunta: {question}\n\n"
+        "Pregunta:\n{question}\n\n"
         "Respuesta:"
     ),
     input_variables=["context", "question"]
 )
+
 def inicializar():
     global client, collection, model
     client = chromadb.PersistentClient(path="./vector_store")
@@ -30,9 +46,12 @@ def inicializar():
     print("Recursos RAG inicializados correctamente.")
 
 def generar_respuesta(pregunta: str):
+    inicio = time.time()
+    
     # 1. Embedding
     embedding = model.encode([pregunta])[0].tolist()
-    # 2. Búsqueda
+    
+    # 2. Búsqueda en ChromaDB
     resultados = collection.query(
         query_embeddings=[embedding],
         n_results=TOP_K_FRAGMENTOS
@@ -41,31 +60,44 @@ def generar_respuesta(pregunta: str):
     metas = resultados['metadatas'][0]
     distancias = resultados['distances'][0]
     
-    # 3. Filtrar por umbral
+    # 3. Filtrar por umbral de distancia coseno
     fragmentos_validos = []
     fuentes = []
-    distancias_debug = []
+    distancias_debug = [round(d, 4) for d in distancias]
+    
     for doc, meta, dist in zip(docs, metas, distancias):
-        distancias_debug.append(round(dist, 4))
         if dist < UMBRAL_DISTANCIA_COSENO:
             fragmentos_validos.append(doc)
             fuentes.append(f"{meta['documento']}, {meta.get('categoria', '')}")
     
+    # 4. Determinar tipo de mensaje y respuesta
     if not fragmentos_validos:
-        return {
-            "respuesta": MENSAJES["M04"], 
-            "fuentes": [],
-            "debug_distancias": distancias_debug}
+        tipo_mensaje = "M04"
+        respuesta_final = MENSAJES["M04"]
+    else:
+        tipo_mensaje = "M02"
+        contexto = "\n\n".join(fragmentos_validos)
+        prompt = PROMPT.format(context=contexto, question=pregunta)
+        llm = Ollama(model="llama3", base_url="http://llm:11434")
+        respuesta_generada = llm.invoke(prompt)
+        respuesta_final = respuesta_generada + "\n\n" + MENSAJES["M02"] + "\n" + "\n".join(fuentes)
     
-    # 4. Prompt y LLM
-    contexto = "\n\n".join(fragmentos_validos)
-    prompt = PROMPT.format(context=contexto, question=pregunta)
-    llm = Ollama(model="llama3", base_url="http://llm:11434")
-    respuesta_generada = llm.invoke(prompt)
+    tiempo_total = time.time() - inicio
     
-    # 5. Formatear salida
-    respuesta_final = respuesta_generada + "\n\n" + MENSAJES["M02"] + "\n" + "\n".join(fuentes)
+    # 5. Registrar interacción
+    registrar_interaccion(
+        pregunta=pregunta,
+        respuesta=respuesta_final,
+        fuentes=fuentes,
+        tiempo_respuesta=tiempo_total,
+        umbral=UMBRAL_DISTANCIA_COSENO,
+        tipo_mensaje=tipo_mensaje
+    )
+    
+    # 6. Retornar resultado (incluye debug_distancias para validación)
     return {
-        "respuesta": respuesta_final, 
+        "respuesta": respuesta_final,
         "fuentes": fuentes,
-        "debug_distancias": distancias_debug}
+        "tipo_mensaje": tipo_mensaje,
+        "debug_distancias": distancias_debug
+    }

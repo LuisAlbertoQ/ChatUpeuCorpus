@@ -1,0 +1,56 @@
+.app-container {
+  max-width: 700px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+.app-header {
+  text-align: center;
+  padding: 1rem;
+}
+.disclaimer {
+  font-size: 0.8rem;
+  color: #666;
+}
+.chat-window {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+.welcome-message {
+  color: #555;
+  font-style: italic;
+}
+.message {
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+.message.usuario {
+  background: #d1e7ff;
+  text-align: right;
+}
+.message.chatbot {
+  background: #e2e2e2;
+}
+.sources {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+  color: #333;
+}
+.input-area {
+  display: flex;
+  margin-top: 1rem;
+}
+.input-area input {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+.input-area button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}

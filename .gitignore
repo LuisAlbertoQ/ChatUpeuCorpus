@@ -22,13 +22,17 @@ pip-wheel-metadata/
 **/docker-compose.override.yml
 **/docker-compose.*.yml
 
-# Chroma vector store and other persistent data
-/vector_store/
-**/vector_store/
-*.sqlite3
+# Chroma vector store - INCLUIR en repo (corpus necesario para RAG)
+# /vector_store/
+# **/vector_store/
 
-# Ollama local data
+# Runtime databases (ignorar solo archivos de registro de interacciones)
+registro_interacciones.db
+/registro_interacciones.db
+
+# Ollama local data (ignorar)
 llm_data/
+llm_data/**
 
 # Logs
 *.log
