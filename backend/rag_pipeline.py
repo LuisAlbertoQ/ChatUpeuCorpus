@@ -5,6 +5,7 @@ import chromadb
 from sentence_transformers import SentenceTransformer
 from config import *
 from logger import registrar_interaccion
+import re
 
 # Variables globales que se inicializarán en startup
 client = None
@@ -87,6 +88,12 @@ def generar_respuesta(pregunta: str):
         prompt = PROMPT.format(context=contexto, question=pregunta)
         llm = Ollama(model="llama3", base_url="http://llm:11434")
         respuesta_generada = llm.invoke(prompt)
+        
+        respuesta_generada = re.split(
+            r'\n(?:Fuente|Referencia|Nota|Fuentes consultadas)\s*:.*',
+            respuesta_generada,
+            flags=re.IGNORECASE
+        )[0].strip()
         respuesta_final = respuesta_generada + "\n\n" + MENSAJES["M02"] + "\n" + "\n".join(fuentes)
     
     tiempo_total = time.time() - inicio
