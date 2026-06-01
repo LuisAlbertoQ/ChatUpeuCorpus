@@ -1,6 +1,7 @@
 services:
   llm:
     build: ./llm
+    container_name: oe5-llm
     ports:
       - "11434:11434"
     volumes:
@@ -8,6 +9,7 @@ services:
     environment:
       LD_LIBRARY_PATH: /usr/lib/ollama/cuda_v13:/usr/lib/ollama
       OLLAMA_LLM_LIBRARY: cuda_v13
+      OLLAMA_MODEL: llama3
     deploy:
       resources:
         reservations:
@@ -15,27 +17,56 @@ services:
             - driver: nvidia
               count: all
               capabilities: [gpu]
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 5s
+      start_period: 120s
+      retries: 5
     restart: unless-stopped
 
   backend:
     build: ./backend
+    container_name: oe5-backend
     ports:
       - "8000:8000"
     volumes:
       - ./vector_store:/app/vector_store
       - ./registro_interacciones.db:/app/registro_interacciones.db
+    environment:
+      OLLAMA_BASE_URL: http://llm:11434
+      OLLAMA_MODEL: llama3
+      ALLOWED_ORIGINS: http://localhost:3000
+      MODO_PILOTO: "true"
+      LIMITE_PREGUNTAS_SESION: "10"
     depends_on:
-      - llm
+      llm:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/salud"]
+      interval: 30s
+      timeout: 5s
+      start_period: 60s
+      retries: 3
     restart: unless-stopped
 
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      args:
+        REACT_APP_API_URL: http://localhost:8000
+    container_name: oe5-frontend
     ports:
       - "3000:3000"
     depends_on:
-      - backend
-    environment:
-      - REACT_APP_API_URL=http://localhost:8000
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ >/dev/null || exit 1"]
+      interval: 30s
+      timeout: 5s
+      start_period: 10s
+      retries: 3
     restart: unless-stopped
 
 volumes:

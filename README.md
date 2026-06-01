@@ -11,36 +11,42 @@ El sistema permite a estudiantes y personal de la Universidad Peruana Unión (UP
 oe5_chatbot_upeu/
 ├── llm/                              # Servicio de IA generativa (Llama 3 con Ollama)
 │   ├── Dockerfile
-│   ├── entrypoint.sh
+│   ├── entrypoint.sh                 # Pre-pull del modelo en arranque
 │   └── .gitignore
 ├── backend/                          # API REST (FastAPI) y pipeline RAG
-│   ├── app.py                        # Endpoints: /consulta, /bienvenida, /historial, /documentos
-│   ├── config.py                     # Configuración: umbrales, mensajes, dominios (OE4)
-│   ├── logger.py                     # Registro anonimizado de interacciones (SQLite)
-│   ├── rag_pipeline.py               # Pipeline RAG: ChromaDB → LangChain → Llama 3
-│   ├── requirements.txt              # Dependencias Python
-│   ├── Dockerfile
+│   ├── app.py                        # Endpoints: /consulta, /bienvenida, /historial,
+│   │                                 #            /documentos, /politica-privacidad,
+│   │                                 #            /salud, /config-publica
+│   ├── config.py                     # Umbrales, mensajes M01-M07, dominios A-E,
+│   │                                 # keywords, patrones PII, sesión y CORS
+│   ├── logger.py                     # Registro ANONIMIZADO con sesion_id (Ley 29733)
+│   ├── rag_pipeline.py               # Pipeline RAG: validador dominio + retrieval +
+│   │                                 # filtro umbral + LLM con timeout + truncado
+│   ├── POLITICA_PRIVACIDAD.md        # Política de privacidad (Ley 29733)
+│   ├── requirements.txt
+│   ├── Dockerfile                    # Con HEALTHCHECK
 │   └── .gitignore
 ├── frontend/                         # Interfaz de usuario (React 18)
 │   ├── public/
 │   │   └── index.html
 │   ├── src/
-│   │   ├── App.js                    # Componente principal, gestión de conversación
-│   │   ├── App.css                   # Estilos de la interfaz
-│   │   ├── index.js                  # Entry point
+│   │   ├── App.js                    # Orquestador, sesion_id, banner privacidad,
+│   │   │                             # footer M07, contador piloto, borrado historial
+│   │   ├── App.css                   # Identidad visual UPeU (Fraunces + IBM Plex)
+│   │   ├── index.js
 │   │   └── components/
-│   │       ├── ChatWindow.js         # Ventana de chat
-│   │       ├── Message.js            # Componente de mensaje
-│   │       └── SourceBadge.js        # Insignias de fuentes
+│   │       ├── ChatWindow.js         # Scroll auto + empty state + thinking
+│   │       ├── Message.js            # Render por tipo M02-M06 con etiqueta visual
+│   │       └── SourceBadge.js        # Sello editorial con doc + sección + versión
+│   ├── nginx.conf                    # Config para servir el build de producción
 │   ├── package.json
-│   ├── package-lock.json
-│   ├── Dockerfile
+│   ├── Dockerfile                    # Multi-stage (build + nginx)
 │   └── .gitignore
 ├── vector_store/                     # Base vectorial ChromaDB (corpus persiste aquí)
 │   ├── chroma.sqlite3
 │   └── [uuid]/
-├── registro_interacciones.db         # Base de datos de interacciones (se crea en runtime)
-├── docker-compose.yml                # Orquestación de 3 servicios
+├── registro_interacciones.db         # Base de datos de interacciones anonimizadas
+├── docker-compose.yml                # Orquestación con healthchecks
 ├── .gitignore                        # Ignores a nivel proyecto (root)
 └── README.md                         # Este archivo
 ```
@@ -89,31 +95,32 @@ oe5_chatbot_upeu/
 Todos los parámetros técnicos y de negocio se encuentran en **`backend/config.py`**:
 
 ```python
-# Umbrales técnicos
-UMBRAL_DISTANCIA_COSENO = 0.32      # Rigurosidad: valores menores = más estricto
-TOP_K_FRAGMENTOS = 5                 # Cantidad máxima de chunks recuperados
-MAX_PALABRAS_RESPUESTA = 350         # Límite de palabras (no implementado aún)
-TIMEOUT_RESPUESTA = 15               # Timeout máximo en segundos (no implementado aún)
+# Umbrales técnicos (FIJOS por decisión del equipo)
+UMBRAL_DISTANCIA_COSENO = 0.32      # Equivale a similitud coseno ~0.68
+TOP_K_FRAGMENTOS = 5                 # Cantidad de chunks recuperados
+MAX_PALABRAS_RESPUESTA = 350         # Implementado: trunca con "(…)" (T03)
+TIMEOUT_RESPUESTA = 15               # Implementado: con M06 si excede (T04)
 
-# Dominio permitido (OE4)
-DOMINIO_CATEGORIAS = ["D01", "D02", "D03", "D04", "D05", "D06"]
+# Dominio permitido (categorías reales del corpus indexado)
+DOMINIO_CATEGORIAS = ["A", "B", "C", "D", "E"]
 
-# Mensajes de transparencia (M01-M07)
-MENSAJES = {
-    "M01": "Hola, soy un asistente basado en IA generativa...",
-    "M02": "Fuente(s): [documento, versión, año]",
-    "M03": "Solo puedo ayudarte con reglamentos académicos...",
-    "M04": "No encontré información suficiente...",
-    ...
-}
+# Mensajes de transparencia (M01-M07) — alineados con sección 4 del OE4
 ```
 
-**Para ajustar valores:** edita `backend/config.py` y reconstruye con:
+**Variables de entorno aceptadas por el backend:**
+
+| Variable | Default | Descripción |
+|---|---|---|
+| `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
+| `OLLAMA_MODEL` | `llama3` | Nombre del modelo a usar |
+| `ALLOWED_ORIGINS` | `http://localhost:3000` | CORS (lista separada por comas) |
+| `MODO_PILOTO` | `true` | Activa límite T07 y debug_distancias |
+| `LIMITE_PREGUNTAS_SESION` | `10` | Límite de preguntas por sesión piloto (T07) |
+
+**Para ajustar valores:** edita `backend/config.py` o pasa variables al `docker-compose.yml`, luego:
 ```powershell
 docker-compose up --build
 ```
-
-**Nota:** Algunos parámetros (`MAX_PALABRAS_RESPUESTA`, `TIMEOUT_RESPUESTA`) aparecen en config.py pero no están implementados en `rag_pipeline.py` aún.
 
 ## Instalación y ejecución
 
@@ -227,6 +234,53 @@ $csv.csv | Out-File -Encoding UTF8 historial.csv
 
 El archivo persiste en disco aunque detengas los contenedores, gracias al volumen definido en `docker-compose.yml`.
 
+## API – Endpoints expuestos
+
+| Método | Ruta | Propósito | Documento OE4 |
+|---|---|---|---|
+| `POST` | `/consulta` | Pipeline RAG → respuesta + fuentes + tipo_mensaje | RF01, RF03–RF05, T01–T08 |
+| `GET`  | `/bienvenida` | Mensaje M01 (aviso inicial) | M01 |
+| `GET`  | `/config-publica` | Parámetros visibles al frontend (umbrales, dominios, mensajes) | RNF05 |
+| `GET`  | `/historial?sesion_id=` | Exporta el historial en CSV (filtrable por sesión) | RF06, RF07 |
+| `DELETE` | `/historial/{sesion_id}` | Derecho al olvido (sección 3.4 OE4) | 3.4 |
+| `GET`  | `/documentos` | Introspección del corpus indexado | – |
+| `GET`  | `/politica-privacidad` | Texto de la política (Ley 29733) | 3.3 |
+| `GET`  | `/salud` | Healthcheck (usado por Docker) | RNF02 |
+
+## Cumplimiento del documento OE4 v2.0
+
+| Cláusula | Estado | Implementación |
+|---|---|---|
+| **D01–D06 → Dominios A–E reales del corpus** | OK | `config.MAPEO_CATEGORIAS` + `KEYWORDS_DOMINIO` |
+| **R01–R03 Restricciones de contenido** | OK | Prompt restrictivo en `rag_pipeline.PROMPT` |
+| **R04 Fuera de dominio** | OK | Validador por keywords + umbral en `_es_fuera_dominio_por_keywords` |
+| **R05 Sin corpus → sin respuesta** | OK | Filtro T01 + emisión M04 |
+| **R07 Contenido ético/legal** | OK | `KEYWORDS_ETICA` → M03 |
+| **3.2 Anonimización** | OK | `logger.anonimizar` aplica patrones PII antes de INSERT |
+| **3.3 Ley 29733** | OK | `backend/POLITICA_PRIVACIDAD.md` servido por `/politica-privacidad` |
+| **3.4 Derecho al olvido** | OK | `DELETE /historial/{sesion_id}` |
+| **M01 Bienvenida** | OK | `/bienvenida` consumido por el frontend al montar |
+| **M02 Respuesta con fuentes** | OK | Concatenado al final de respuestas exitosas |
+| **M03 Fuera de dominio** | OK | Validador → tipo_mensaje=M03 |
+| **M04 Baja certeza** | OK | Cuando todas las distancias > umbral |
+| **M05 Pregunta ambigua / multi-intención** | OK | `_pregunta_es_ambigua` + `_es_multi_intencion` |
+| **M06 Error técnico** | OK | `try/except` + timeout T04 |
+| **M07 Aviso permanente** | OK | Footer fijo con texto exacto |
+| **T01 Umbral 0.70 (sim)** | PARCIAL | Se usa distancia 0.32 (≈ similitud 0.68) por decisión del equipo |
+| **T02 Top-k 1–3** | PARCIAL | Se mantiene k=5 por decisión del equipo |
+| **T03 Máx 350 palabras** | OK | `_truncar_palabras` añade `(…)` y nota |
+| **T04 Timeout 15 s** | OK | `ThreadPoolExecutor` + `FutTimeout` → M06 |
+| **T05 Generación condicional** | OK | Solo si hay fragmentos válidos |
+| **T06 Multi-intención** | OK | Heurística de conectores + interrogativas |
+| **T07 Límite 10 preguntas/sesión piloto** | OK | `sesion_id` + `contar_preguntas_sesion` + HTTP 429 |
+| **T08 Fuentes enriquecidas** | OK | `_formatear_fuente` extrae artículo + versión + año + categoría |
+| **RNF01 Usabilidad** | OK | UI editorial cohesiva + estados + responsivo |
+| **RNF02 Rendimiento** | OK | Timeout + healthchecks + pre-pull del modelo |
+| **RNF03 Sin PII** | OK | Anonimización automática |
+| **RNF04 Trazabilidad** | OK | SourceBadge con sección + versión + categoría |
+| **RNF05 Modificabilidad** | OK | `config.py` + variables de entorno |
+| **RNF06 Transparencia** | OK | M01 al inicio + M07 permanente |
+
 ## Detener el sistema
 
 Para detener todos los servicios:
@@ -328,6 +382,6 @@ Este proyecto es de uso académico y educativo. Contacta con los autores para cu
 
 ---
 
-**Última actualización:** 31 de mayo de 2026  
-**Estado:** En producción (OE5 completado)  
+**Última actualización:** 1 de junio de 2026
+**Estado:** En producción (OE5 completado + OE4 v2.0 implementado al 100 % salvo T01/T02 fijados por decisión del equipo)
 **Próximos pasos:** Instrumentación de OE6 y OE8
