@@ -145,7 +145,9 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
 # -----------------------------------------------------------------------------
 MENSAJES = {
     "M01": "Hola, soy un asistente basado en IA generativa. Mis respuestas se fundamentan en documentos institucionales oficiales de la Universidad Peruana Unión (reglamentos, instructivos, cronogramas y lineamientos vigentes). Recuerda que mi función es informativa y no reemplaza la validación administrativa oficial. Si necesitas resolver un trámite personal, contacta directamente con la oficina correspondiente.",
-    "M02": "Fuentes consultadas:",
+    # M02 ya no se concatena al cuerpo (lo renderiza el frontend).
+    # Se conserva la clave para trazabilidad/telemetría.
+    "M02": "",
     "M03": "Lo siento, solo puedo ayudarte con consultas sobre reglamentos académicos, procedimientos administrativos, cronogramas, bienestar estudiantil y normas de convivencia de la UPeU. Tu pregunta está fuera de mi alcance. Si necesitas información personalizada o confidencial, te recomiendo acudir a la oficina administrativa correspondiente.",
     "M04": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento [nombre del documento relacionado más cercano] o contactar con la oficina correspondiente para una respuesta precisa.",
     "M05": "No entendí claramente tu pregunta. ¿Podrías reformularla con más detalles? Por ejemplo, indica el tipo de trámite, el documento o el procedimiento específico que te interesa.",

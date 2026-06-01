@@ -399,13 +399,11 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     if fue_truncada:
         respuesta_generada += "\n\n_Puedes consultar la fuente completa para más detalle._"
 
-    respuesta_final = (
-        respuesta_generada
-        + "\n\n"
-        + MENSAJES["M02"]
-        + "\n"
-        + "\n".join(f"- {f}" for f in fuentes)
-    )
+    # Las fuentes NO se concatenan al cuerpo: se devuelven en el JSON
+    # (`fuentes`) y el frontend las renderiza como footer profesional.
+    # Concatenarlas aquí producía duplicación visual ("Fuentes consultadas:"
+    # en el cuerpo + "Fuentes verificables" en el footer).
+    respuesta_final = respuesta_generada
 
     return _empaquetar(
         pregunta_limpia, respuesta_final, fuentes, "M02",

@@ -33,6 +33,7 @@ services:
     volumes:
       - ./vector_store:/app/vector_store
       - ./registro_interacciones.db:/app/registro_interacciones.db
+      - ./backend:/app
     environment:
       OLLAMA_BASE_URL: http://llm:11434
       OLLAMA_MODEL: llama3
