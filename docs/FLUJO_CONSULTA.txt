@@ -1,0 +1,101 @@
+FLUJO COMPLETO DE UNA CONSULTA - OE5 Chatbot UPeU
+====================================================
+
+USUARIO escribe y presiona Enter
+        |
+        v
++-----------------+   (1) App.js
+| FRONTEND (3000) |   React + nginx
+|                 |   - Agrega sesion_id (UUID de localStorage)
+|                 |   - fetch POST /consulta
+|                 |   - BLOQUEO VISUAL: solo el botón "Enviar" se deshabilita
+|                 |     (estado `cargando=true`); el resto de la UI sigue vivo
++--------+--------+
+         |  HTTP
+         v
++-----------------+   (2) app.py FastAPI
+| BACKEND (8000)  |   - Valida Pydantic (pregunta 1-1000 chars, sesion_id <=64)
+|                 |   - Cuenta preguntas de la sesion (T07 modo piloto)
+|                 |   - Llama generar_respuesta()
+|                 |   - BLOQUEO REAL: el handler espera sync hasta 25s (3 reintentos
+|                 |     x 25s + 2s backoff = ~77s maximo teorico)
++--------+--------+
+         |
+         v
++--------------------+   (3) rag_pipeline.py
+| RAG PIPELINE       |
+|                    |
+| (a) Validaciones:  |   - ambigua (M05), etica (M03), multi-intencion (M05),
+|                    |     fuera-dominio keywords (M03)
+|                    |
+| (b) Embedding:     |   - SentenceTransformer encode(pregunta)  <50ms
+|                    |     modelo: paraphrase-multilingual-MiniLM-L12-v2 (384 dim)
+|                    |
+| (c) Retrieval:     |   - ChromaDB query top_k=5
+|                    |   - Lee ./vector_store/chroma.sqlite3
+|                    |   - Calcula similitud coseno  <50ms
+|                    |   - Distancias: [0.32, 0.34, 0.35, 0.37, 0.40]
+|                    |
+| (d) Filtro T01:    |   - Mantiene solo los que pasan UMBRAL_DISTANCIA_COSENO
+|                    |   - Con UMBRAL=0.35 -> 4 de 5 chunks pasan
+|                    |   - Recorta cada chunk a 1200 chars (evita prompts enormes)
+|                    |
+| (e) Generacion:    |   - Llama a Ollama HTTP POST /api/generate
+|                    |   - num_predict=768, temperature=0.2
+|                    |   - TIMEOUT: 25s por intento, 3 intentos (1 con backoff 2s)
+|                    |
++---+-------+--------+
+    |       |
+    |       |  Si OK: vuelve al backend
+    |       |
+    v       v
++-------+--------+
+|  OLLAMA :11434 |
+|                |
+|  Llama 3 8B    |
+|  - GPU (3.5GB) |   AQUI SE BLOQUEABA
+|  - CPU (4.4GB) |   (3 capas offloaded a CPU)
+|  - n_ctx=4096  |   Si prompt > 4096 tokens -> loop o HTTP 500
+|  - warm-up     |   Si > 25s -> timeout del backend
+|                |   Si HTTP 500 -> retry con backoff
++----------------+
+
+POR QUE SE BLOQUEABA ANTES (el M06 con 30s o 47s):
+
+  1. PROMPT ENORME
+     5 chunks x ~2000 chars = ~10000 chars = ~2500 tokens de contexto
+     + 800 tokens de prompt + 512 tokens de respuesta
+     = 3800+ tokens -> n_ctx=4096 -> muy justo
+
+  2. OFFLOAD GPU<->CPU
+     Tu log decia: "offloaded 30/33 layers to GPU"
+     3 capas quedan en CPU, se intercambian con cada inferencia
+     Picos de 20-40s en lugar de 5-10s
+
+  3. LOOP INTERNO DEL LLM
+     Si el prompt esta en el limite, el modelo puede entrar en loop
+     generando el mismo token repetido -> no termina nunca
+     Ollama devuelve HTTP 500 despues de 15s de timeout interno
+
+  4. SIN BACKOFF
+     Antes: 2 intentos sin espera -> si Ollama estaba sobrecargado,
+     ambos intentos fallaban rapidamente -> M06
+
+AHORA:
+  - UMBRAL 0.32 -> 0.35: captura el chunk correcto
+  - TIMEOUT 15s -> 25s: da margen a Ollama con offload
+  - Recorte 1200 chars: evita prompts > 3000 tokens
+  - 3 reintentos con backoff: tolera HTTP 500 transitorio
+  - docker-compose restart backend: aplica cambios de codigo
+
+EL FRONTEND NO BLOQUEA EL SISTEMA:
+  - Solo deshabilita el boton "Enviar" mientras `cargando=true`
+  - Si quieres cancelar, solo cierra la pestana o navega
+  - El backend tiene 3 reintentos maximos (techo ~77s)
+  - Despues de eso, devuelve M06 honestamente
+
+EL BACKEND SI BLOQUEA EL REQUEST HTTP:
+  - uvicorn es sync (no async)
+  - El handler espera la respuesta del LLM
+  - Si el LLM tarda, el request HTTP espera
+  - Frontend muestra spinner hasta respuesta o error

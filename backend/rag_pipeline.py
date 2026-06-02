@@ -69,18 +69,22 @@ PROMPT = PromptTemplate(
         "Responde EXACTAMENTE 'No encontré información suficiente en los documentos "
         "disponibles para responder tu pregunta con confianza.' SOLO cuando los "
         "fragmentos no mencionen el tema de la pregunta en absoluto.\n\n"
-        "Reglas de formato:\n"
-        "- Mantén la estructura original de la información cuando sea posible.\n"
-        "- Si el contenido contiene listas, derechos, requisitos, pasos, categorías o "
-        "elementos enumerados, preséntalos como lista con viñetas.\n"
-        "- No juntes todos los elementos en un solo párrafo.\n"
-        "- Usa saltos de línea entre elementos.\n"
-        "- Si hay artículos o numerales, indícalos junto a cada elemento.\n"
+        "FORMATO OBLIGATORIO (respeta siempre estas reglas):\n"
+        "- Si los fragmentos contienen derechos, requisitos, pasos, artículos, "
+        "numerales o cualquier lista enumerada, DEBES presentarlos como lista "
+        "vertical con viñetas (•) o números (1., 2., 3., ...), UN elemento por línea.\n"
+        "- NUNCA juntes varios elementos en un solo párrafo separado solo por espacios.\n"
+        "- Cada viñeta debe ir en su propia línea. Usa saltos de línea explícitos (\\n) "
+        "entre viñetas, no espacios.\n"
+        "- Si hay artículos o numerales (112.1, 112.2, Artículo 8, etc.), conserva el "
+        "número junto a cada viñeta entre paréntesis.\n"
+        "- Antes de la lista, una línea de introducción breve (una sola línea).\n"
+        "- No agrupes ni resumas varios puntos en uno solo.\n\n"
+        "Otras reglas:\n"
         "- No inventes información que no aparezca en los fragmentos.\n"
-        "- Resume únicamente cuando no se pierda información relevante.\n"
-        "- Sé conciso: máximo 8 viñetas o 3 párrafos breves.\n\n"
-        "No incluyas un apartado de 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' "
-        "al final de tu respuesta. El sistema agregará las fuentes automáticamente.\n\n"
+        "- Sé conciso: máximo 8 viñetas o 3 párrafos breves.\n"
+        "- No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
+        "el sistema agregará las fuentes automáticamente.\n\n"
         "Fragmentos:\n{context}\n\n"
         "Pregunta:\n{question}\n\n"
         "Respuesta:"
@@ -230,9 +234,13 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
     paquete.  Hablar directo a `/api/generate` es más simple y
     compatible con cualquier versión del servidor Ollama.
 
-    Hace hasta 2 intentos: si el primero excede TIMEOUT_RESPUESTA
-    (típico cold-start del modelo en GPU/RAM), reintenta una vez.
-    Levanta `FutTimeout` si ambos intentos fallan.
+    Política de reintentos (no toca TIMEOUT_RESPUESTA):
+      - Intento 1: timeout estándar
+      - Intento 2: si fue `FutTimeout`, reintento inmediato
+      - Intento 3: si fue HTTP 500 de Ollama (modelo en loop /
+        pico de GPU), espera 2 s y reintenta — el error 500
+        suele ser transitorio
+    Levanta `FutTimeout` o `HTTPError` si todos los intentos fallan.
     Acota `num_predict` para que el LLM no genere respuestas tan
     largas que se salgan del timeout.
     """
@@ -241,7 +249,7 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
         "prompt": prompt,
         "stream": False,
         "options": {
-            "num_predict": 512,
+            "num_predict": 768,
             "temperature": 0.2,
         },
     }).encode("utf-8")
@@ -258,17 +266,33 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
             raise RuntimeError(f"Ollama devolvió respuesta vacía: {body!r}")
         return texto
 
-    last_err: FutTimeout | None = None
-    for intento in (1, 2):
+    last_err: Exception | None = None
+    # 3 intentos: 1 normal, 1 retry por timeout, 1 retry por 500
+    for intento, espera in ((1, 0), (2, 0), (3, 2)):
+        if espera:
+            time.sleep(espera)
         future = _executor.submit(_post)
         try:
             return future.result(timeout=TIMEOUT_RESPUESTA)
         except FutTimeout as exc:
             last_err = exc
             log.warning(
-                "Timeout T04 intento %d/2 (%ss); reintentando…",
+                "Timeout T04 intento %d/3 (%ss); %s",
                 intento, TIMEOUT_RESPUESTA,
+                "reintentando…" if intento < 3 else "agotado",
             )
+            continue
+        except HTTPError as exc:
+            last_err = exc
+            # 5xx es transitorio: reintento con backoff.
+            # 4xx (prompt inválido, etc.) NO reintentar.
+            if 500 <= exc.code < 600 and intento < 3:
+                log.warning(
+                    "Ollama HTTP %d intento %d/3; reintentando en %ds…",
+                    exc.code, intento, espera,
+                )
+                continue
+            raise
     raise last_err  # type: ignore[misc]
 
 
@@ -330,11 +354,22 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             )
 
     # --- Filtro por umbral T01 / T05 -----------------------------------------
+    # Cada fragmento se recorta a MAX_CHARS_POR_FRAGMENTO para evitar
+    # prompts enormes (8000+ tokens) que hacen que el LLM entre en
+    # loop o devuelva HTTP 500. El recorte conserva la cabecera
+    # (donde suele estar el artículo/título) y el final (donde
+    # suele estar el contenido relevante) del fragmento.
+    MAX_CHARS_POR_FRAGMENTO = 1200
     fragmentos_validos = []
     fuentes = []
     for doc, meta, dist in zip(docs, metas, distancias):
         if dist < UMBRAL_DISTANCIA_COSENO:
-            fragmentos_validos.append(doc)
+            texto = doc if len(doc) <= MAX_CHARS_POR_FRAGMENTO else (
+                doc[: MAX_CHARS_POR_FRAGMENTO // 2]
+                + "\n[…]\n"
+                + doc[-MAX_CHARS_POR_FRAGMENTO // 2 :]
+            )
+            fragmentos_validos.append(texto)
             fuentes.append(
                 _formatear_fuente(
                     meta.get("documento", "Documento sin nombre"),
