@@ -230,13 +230,17 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
     paquete.  Hablar directo a `/api/generate` es más simple y
     compatible con cualquier versión del servidor Ollama.
 
-    Política de reintentos (no toca TIMEOUT_RESPUESTA):
-      - Intento 1: timeout estándar
-      - Intento 2: si fue `FutTimeout`, reintento inmediato
-      - Intento 3: si fue HTTP 500 de Ollama (modelo en loop /
-        pico de GPU), espera 2 s y reintenta — el error 500
-        suele ser transitorio
-    Levanta `FutTimeout` o `HTTPError` si todos los intentos fallan.
+    Política de reintentos:
+      - Intento 1: timeout estándar.
+      - `FutTimeout`: NO se reintenta. El modelo es lento, reintentar
+        solo acumula tiempo (25s × 3 = 75s y vuelve a fallar). Se
+        levanta inmediatamente para devolver M06.
+      - `HTTPError` 5xx: se reintenta hasta 3 veces con backoff
+        (intentos 1, 2 inmediato + intento 3 con espera 2 s). El
+        500 de Ollama suele ser transitorio (pico de GPU / modelo
+        en warm-up).
+      - `HTTPError` 4xx: NO se reintenta (prompt inválido, etc.).
+    Levanta `FutTimeout` o `HTTPError` si los intentos fallan.
     Acota `num_predict` para que el LLM no genere respuestas tan
     largas que se salgan del timeout.
     """
@@ -263,7 +267,9 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
         return texto
 
     last_err: Exception | None = None
-    # 3 intentos: 1 normal, 1 retry por timeout, 1 retry por 500
+    # Reintentos solo para HTTP 5xx (transitorio). Timeout NO se reintenta:
+    # el modelo es lento y reintentar acumula tiempo sin mejorar la tasa
+    # de éxito (el siguiente intento tardará >= lo mismo).
     for intento, espera in ((1, 0), (2, 0), (3, 2)):
         if espera:
             time.sleep(espera)
@@ -271,13 +277,12 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
         try:
             return future.result(timeout=TIMEOUT_RESPUESTA)
         except FutTimeout as exc:
-            last_err = exc
+            # Modelo lento: NO reintentar, devolver M06 inmediatamente.
             log.warning(
-                "Timeout T04 intento %d/3 (%ss); %s",
+                "Timeout T04 intento %d (%ss); modelo lento, sin reintento",
                 intento, TIMEOUT_RESPUESTA,
-                "reintentando…" if intento < 3 else "agotado",
             )
-            continue
+            raise
         except HTTPError as exc:
             last_err = exc
             # 5xx es transitorio: reintento con backoff.
@@ -351,11 +356,11 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
 
     # --- Filtro por umbral T01 / T05 -----------------------------------------
     # Cada fragmento se recorta a MAX_CHARS_POR_FRAGMENTO para evitar
-    # prompts enormes (8000+ tokens) que hacen que el LLM entre en
-    # loop o devuelva HTTP 500. El recorte conserva la cabecera
-    # (donde suele estar el artículo/título) y el final (donde
-    # suele estar el contenido relevante) del fragmento.
-    MAX_CHARS_POR_FRAGMENTO = 1200
+    # prompts enormes que excedan el timeout con Llama 3 8B + 3 capas
+    # en CPU. El recorte conserva la cabecera (donde está el artículo)
+    # y el final (donde está el contenido relevante) del fragmento.
+    # Valor agresivo (700) para garantizar <30s en hardware lento.
+    MAX_CHARS_POR_FRAGMENTO = 700
     fragmentos_validos = []
     fuentes = []
     for doc, meta, dist in zip(docs, metas, distancias):
