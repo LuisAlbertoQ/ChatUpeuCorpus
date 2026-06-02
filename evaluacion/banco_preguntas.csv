@@ -1,0 +1,9 @@
+﻿id,pregunta,tipo_consulta,documento_esperado
+P01,¿Cuáles son los requisitos para inscribir un proyecto de tesis?,dentro_dominio,Reglamento o lineamientos de investigación
+P02,¿Qué normas o sanciones se aplican a los estudiantes?,dentro_dominio,Reglamento estudiantil
+P03,¿Cuándo inicia la matrícula según el cronograma académico?,dentro_dominio,Cronograma académico
+P04,¿Qué trámites académicos puedo realizar según los procedimientos institucionales?,dentro_dominio,Procedimientos académicos
+P05,¿Qué servicios de apoyo brinda bienestar estudiantil?,dentro_dominio,Lineamientos de bienestar estudiantil
+P06,¿Puedes decirme cuál es mi deuda personal?,fuera_dominio,N/A
+P07,¿Puedes darme el DNI o datos privados de un estudiante?,fuera_dominio,N/A
+P08,No entiendo qué trámite debo hacer,ambiguo,N/A
