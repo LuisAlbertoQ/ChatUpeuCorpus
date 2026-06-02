@@ -68,6 +68,8 @@ def inicializar_bd():
             conn.execute("ALTER TABLE interacciones ADD COLUMN sesion_id TEXT")
         if "error" not in existentes:
             conn.execute("ALTER TABLE interacciones ADD COLUMN error TEXT")
+        if "anonimizado_en" not in existentes:
+            conn.execute("ALTER TABLE interacciones ADD COLUMN anonimizado_en TEXT")
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_interacciones_sesion ON interacciones(sesion_id)"
         )
@@ -128,9 +130,11 @@ def contar_preguntas_sesion(sesion_id: str) -> int:
 
 
 def eliminar_por_sesion(sesion_id: str) -> int:
-    """Elimina todas las interacciones de una sesión (sección 3.4 OE4).
+    """Borra físicamente las filas de una sesión (uso administrativo).
 
-    Retorna el número de registros eliminados.
+    El endpoint público usa `anonimizar_por_sesion` para preservar
+    la data agregada (tipo_mensaje, tiempo, error) útil para
+    evaluación (OE6) sin retener contenido personal.
     """
     if not sesion_id:
         return 0
@@ -138,5 +142,45 @@ def eliminar_por_sesion(sesion_id: str) -> int:
         cur = conn.execute(
             "DELETE FROM interacciones WHERE sesion_id = ?",
             (sesion_id,),
+        )
+        return cur.rowcount
+
+
+def anonimizar_por_sesion(sesion_id: str) -> int:
+    """Sección 3.4 OE4 — derecho al olvido vía seudonimización.
+
+    Cumple el derecho de supresión de la Ley 29733 eliminando el
+    único nexo entre la fila y el usuario (`sesion_id`); preserva
+    el contenido (pregunta, respuesta, fuentes) para evaluación y
+    entrenamiento de madurez, ya que esos campos YA pasan por
+    `anonimizar()` al insertarse (DNI/email/tel/cod_est →
+    `[DNI]`/`[EMAIL]`/`[TEL]`/`[COD_EST]`).
+
+    - `sesion_id`        → 'anonimizado'   (corte del nexo personal)
+    - `error`            → ''              (limpia stack traces)
+    - `anonimizado_en`   → timestamp       (auditoría)
+    - `pregunta`, `respuesta`, `fuentes` → SE PRESERVAN
+    - `tipo_mensaje`, `tiempo_respuesta`, `umbral_usado`, `timestamp` → SE PRESERVAN
+
+    Retorna el número de filas seudonimizadas. Es idempotente.
+    """
+    if not sesion_id:
+        return 0
+    placeholder_sesion = "anonimizado"
+    with _conn() as conn:
+        cur = conn.execute(
+            """
+            UPDATE interacciones
+               SET sesion_id      = ?,
+                   error          = '',
+                   anonimizado_en = ?
+             WHERE sesion_id = ?
+               AND anonimizado_en IS NULL
+            """,
+            (
+                placeholder_sesion,
+                datetime.datetime.now().isoformat(),
+                sesion_id,
+            ),
         )
         return cur.rowcount

@@ -39,6 +39,7 @@ from logger import (
     DB_PATH,
     contar_preguntas_sesion,
     eliminar_por_sesion,
+    anonimizar_por_sesion,
     inicializar_bd,
 )
 from rag_pipeline import generar_respuesta, inicializar
@@ -214,14 +215,21 @@ async def obtener_historial(
 
 @app.delete("/historial/{sesion_id}", tags=["privacidad"])
 async def borrar_historial(sesion_id: str):
-    """Sección 3.4 OE4 — derecho de eliminación.
+    """Sección 3.4 OE4 — derecho al olvido vía anonimización.
 
-    Borra todas las interacciones asociadas a la sesión indicada.
+    NO borra las filas: anonimiza los campos personales
+    (pregunta, respuesta, fuentes, sesion_id) preservando la
+    data agregada (tipo_mensaje, tiempo_respuesta, error,
+    timestamp) para análisis de investigación (OE6).
     """
     if not sesion_id or len(sesion_id) > 64:
         raise HTTPException(status_code=400, detail="sesion_id inválido")
-    borradas = eliminar_por_sesion(sesion_id)
-    return {"borradas": borradas, "sesion_id": sesion_id}
+    anonimizadas = anonimizar_por_sesion(sesion_id)
+    return {
+        "anonimizadas": anonimizadas,
+        "sesion_id": sesion_id,
+        "modo": "anonimizacion",
+    }
 
 
 @app.get("/documentos", tags=["evaluacion"])

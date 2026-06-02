@@ -65,6 +65,7 @@ Tienes derecho a:
 2. **Rectificar** datos inexactos (en este sistema no hay datos identificables, pero el derecho aplica).
 3. **Eliminar (derecho al olvido)** todas las interacciones de tu sesión.
    - Endpoint: `DELETE /historial/{sesion_id}` o usando el botón **“Borrar mi historial”** del frontend.
+   - **Mecanismo (seudonimización):** al ejercer este derecho, el sistema sustituye el identificador de sesión por el valor genérico `anonimizado` y marca la fila con la fecha de la solicitud. Esto **corta el único nexo entre la fila y tu navegador**, satisfaciendo el derecho de supresión de la Ley 29733. Se **preservan** el texto de la pregunta, la respuesta, las fuentes y las métricas (tipo de mensaje, tiempo de respuesta, marca temporal), porque esos campos **ya están anonimizados al insertarse** (cualquier DNI, correo, teléfono o código de estudiante que hayas tipeado es sustituido por etiquetas como `[DNI]`, `[EMAIL]`, `[TEL]`, `[COD_EST]`) y son necesarios para la evaluación estadística y el entrenamiento de madurez del sistema (OE6/OE8). Si requieres la **eliminación física** de los registros, puedes solicitarla al equipo de investigación por los canales de contacto de la sección 8.
 4. **Oponerte** al tratamiento dejando de usar el sistema en cualquier momento.
 
 ---
