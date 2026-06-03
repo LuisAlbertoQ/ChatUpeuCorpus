@@ -11,7 +11,7 @@ import re
 UMBRAL_DISTANCIA_COSENO = 0.35   # Ajustado para capturar chunks relevantes en el limbo (0.30-0.34)
 TOP_K_FRAGMENTOS = 5
 MAX_PALABRAS_RESPUESTA = 500
-TIMEOUT_RESPUESTA = 40  # segundos; holgura para Llama 3 8B con offload GPU/CPU en respuestas largas
+TIMEOUT_RESPUESTA = 45  # segundos; holgura para Llama 3 8B con offload GPU/CPU en respuestas largas
 
 # -----------------------------------------------------------------------------
 # Dominio de consulta (sección 1 OE4)

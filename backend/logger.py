@@ -73,6 +73,72 @@ def inicializar_bd():
         conn.execute(
             "CREATE INDEX IF NOT EXISTS idx_interacciones_sesion ON interacciones(sesion_id)"
         )
+
+        # ---------------------------------------------------------------------
+        # Tablas para evaluación de madurez (OE8, modelo CMMI--TRL)
+        # ---------------------------------------------------------------------
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS banco_preguntas (
+                id TEXT PRIMARY KEY,
+                pregunta TEXT NOT NULL,
+                tipo_consulta TEXT NOT NULL,
+                documento_esperado TEXT,
+                categoria_esperada TEXT,
+                activa INTEGER DEFAULT 1
+            )
+            """
+        )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS evaluacion_piloto (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                sesion_id TEXT,
+                pregunta_id TEXT,
+                timestamp TEXT NOT NULL,
+                funcional INTEGER,
+                recuperacion INTEGER,
+                explicabilidad INTEGER,
+                usabilidad INTEGER,
+                gobernanza INTEGER,
+                preparacion INTEGER,
+                observacion TEXT,
+                FOREIGN KEY (pregunta_id) REFERENCES banco_preguntas(id)
+            )
+            """
+        )
+        conn.execute(
+            """
+            CREATE TABLE IF NOT EXISTS evaluacion_automatica (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                periodo TEXT NOT NULL,
+                fecha_calculo TEXT NOT NULL,
+                total_interacciones INTEGER,
+                pct_m02 REAL,
+                pct_m03 REAL,
+                pct_m04 REAL,
+                pct_m05 REAL,
+                pct_m06 REAL,
+                pct_con_fuentes REAL,
+                tiempo_promedio REAL,
+                tiempo_p95 REAL,
+                funcional_auto REAL,
+                recuperacion_auto REAL,
+                explicabilidad_auto REAL,
+                usabilidad_auto REAL,
+                gobernanza_auto REAL,
+                preparacion_auto REAL
+            )
+            """
+        )
+        # Migración no destructiva: añadir resumen si falta
+        cols_auto = _columnas_existentes(conn, "evaluacion_automatica")
+        if "puntaje_global" not in cols_auto:
+            conn.execute("ALTER TABLE evaluacion_automatica ADD COLUMN puntaje_global REAL")
+        if "nivel" not in cols_auto:
+            conn.execute("ALTER TABLE evaluacion_automatica ADD COLUMN nivel TEXT")
+        if "dimension_critica_minima" not in cols_auto:
+            conn.execute("ALTER TABLE evaluacion_automatica ADD COLUMN dimension_critica_minima REAL")
     print("Base de datos de registro inicializada.")
 
 

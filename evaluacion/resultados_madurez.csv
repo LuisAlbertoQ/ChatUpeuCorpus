@@ -1,13 +1,13 @@
-﻿dimension,puntaje,nivel_referencial
-Funcional,4.25,Optimizado
-Recuperación documental,4.38,Optimizado
-Explicabilidad y trazabilidad,4.25,Optimizado
-Usabilidad,4.12,Optimizado
-Gobernanza y uso responsable,4.62,Optimizado
-Preparación tecnológica y mejora,4.12,Optimizado
+﻿dimension,puntaje_auto,puntaje_piloto,puntaje_final,nivel
+Funcional,3.00,,3.00,Básico
+Recuperación documental,2.00,,2.00,Inicial
+Explicabilidad y trazabilidad,2.00,,2.00,Inicial
+Usabilidad,4.00,,4.00,Gestionado
+Gobernanza y uso responsable,5.00,,5.00,Optimizado
+Preparación tecnológica y mejora,2.00,,2.00,Inicial
 
-puntaje_global_original,4.29
-nivel_original,Optimizado
-dimension_critica_minima,4.12
-puntaje_global_ajustado,4.29
-nivel_ajustado,Optimizado
+total_interacciones,138
+total_evaluaciones_piloto,0
+puntaje_global,3.00
+nivel_madurez,Básico
+dimension_critica_minima,2.00

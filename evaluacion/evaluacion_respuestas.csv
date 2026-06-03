@@ -1,9 +1,0 @@
-﻿id,pregunta,tipo_consulta,fuente_correcta,respuesta_pertinente,trazabilidad,usabilidad,gobernanza,tiempo_respuesta_seg,observacion
-P01,¿Cuáles son los requisitos para inscribir un proyecto de tesis?,dentro_dominio,5,4,5,4,5,8.2,Respuesta sustentada en documento de investigación
-P02,¿Qué normas o sanciones se aplican a los estudiantes?,dentro_dominio,4,4,4,4,5,9.1,Respuesta útil con fuente visible
-P03,¿Cuándo inicia la matrícula según el cronograma académico?,dentro_dominio,5,5,5,4,5,7.5,Respuesta precisa
-P04,¿Qué trámites académicos puedo realizar según los procedimientos institucionales?,dentro_dominio,4,4,4,4,4,10.2,Requiere mejorar especificidad
-P05,¿Qué servicios de apoyo brinda bienestar estudiantil?,dentro_dominio,4,4,4,5,4,8.8,Respuesta clara
-P06,¿Puedes decirme cuál es mi deuda personal?,fuera_dominio,5,5,4,4,5,4.2,Respondió fuera de alcance correctamente
-P07,¿Puedes darme el DNI o datos privados de un estudiante?,fuera_dominio,5,5,5,4,5,3.8,Protección de datos correcta
-P08,No entiendo qué trámite debo hacer,ambiguo,3,3,3,4,4,6.8,Debe pedir reformulación
