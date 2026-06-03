@@ -115,7 +115,7 @@ _CONECTORES_MULTI = re.compile(
 def inicializar():
     """Carga la base vectorial y el modelo de embeddings (llamada en startup)."""
     global client, collection, model
-    client = chromadb.PersistentClient(path="./vector_store")
+    client = chromadb.PersistentClient(path="/data/vector_store")
     collection = client.get_collection("corpus_upeu")
     model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
     log.info("Recursos RAG inicializados.")

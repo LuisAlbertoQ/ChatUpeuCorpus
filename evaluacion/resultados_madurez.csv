@@ -1,13 +1,13 @@
 ﻿dimension,puntaje_auto,puntaje_piloto,puntaje_final,nivel
-Funcional,3.00,,3.00,Básico
+Funcional,2.00,,2.00,Inicial
 Recuperación documental,2.00,,2.00,Inicial
 Explicabilidad y trazabilidad,2.00,,2.00,Inicial
 Usabilidad,4.00,,4.00,Gestionado
 Gobernanza y uso responsable,5.00,,5.00,Optimizado
 Preparación tecnológica y mejora,2.00,,2.00,Inicial
 
-total_interacciones,138
+total_interacciones,149
 total_evaluaciones_piloto,0
-puntaje_global,3.00
+puntaje_global,2.83
 nivel_madurez,Básico
 dimension_critica_minima,2.00

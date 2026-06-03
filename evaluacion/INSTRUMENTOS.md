@@ -41,10 +41,15 @@ Inventario estructurado del corpus institucional.
 | Modelo de embeddings | _auto_ |
 | Última actualización | _auto_ |
 
-> Los campos marcados con `_auto_` se generan ejecutando:
+> Los campos marcados con `_auto_` se generan ejecutando el script
+> `evaluacion/generar_ficha.py`. **Este script necesita `chromadb`**,
+> por lo que debe ejecutarse **dentro del contenedor backend** (que ya
+> tiene la versión correcta `chromadb==0.4.22`):
 > ```bash
-> python evaluacion/generar_ficha.py
+> docker compose run --rm backend python /data/evaluacion/generar_ficha.py
 > ```
+> El script escribe `evaluacion/ficha_documental.md` en el host
+> (el volumen `./evaluacion:/data/evaluacion` propaga los cambios).
 
 ### 1.2 Distribución por categoría
 

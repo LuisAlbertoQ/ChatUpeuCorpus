@@ -3,7 +3,7 @@ import datetime
 from contextlib import contextmanager
 from config import PII_PATTERNS
 
-DB_PATH = "./registro_interacciones.db"
+DB_PATH = "/data/registro_interacciones.db"
 
 
 # -----------------------------------------------------------------------------

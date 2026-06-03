@@ -1,5 +1,7 @@
 FLUJO COMPLETO DE UNA CONSULTA - OE5 Chatbot UPeU
 ====================================================
+Actualizado: 2026-06-03 (refleja config.py y rag_pipeline.py vigentes)
+
 
 USUARIO escribe y presiona Enter
         |
@@ -8,7 +10,7 @@ USUARIO escribe y presiona Enter
 | FRONTEND (3000) |   React + nginx
 |                 |   - Agrega sesion_id (UUID de localStorage)
 |                 |   - fetch POST /consulta
-|                 |   - BLOQUEO VISUAL: solo el botón "Enviar" se deshabilita
+|                 |   - BLOQUEO VISUAL: solo el boton "Enviar" se deshabilita
 |                 |     (estado `cargando=true`); el resto de la UI sigue vivo
 +--------+--------+
          |  HTTP
@@ -17,8 +19,9 @@ USUARIO escribe y presiona Enter
 | BACKEND (8000)  |   - Valida Pydantic (pregunta 1-1000 chars, sesion_id <=64)
 |                 |   - Cuenta preguntas de la sesion (T07 modo piloto)
 |                 |   - Llama generar_respuesta()
-|                 |   - BLOQUEO REAL: el handler espera sync hasta 25s (3 reintentos
-|                 |     x 25s + 2s backoff = ~77s maximo teorico)
+|                 |   - BLOQUEO REAL: el handler espera sync hasta ~40s
+|                 |     (1 intento sin reintento en timeout, 3 reintentos en HTTP 5xx
+|                 |     con backoff 0/0/2s = ~124s maximo teorico, pero tipicamente <40s)
 +--------+--------+
          |
          v
@@ -30,19 +33,32 @@ USUARIO escribe y presiona Enter
 |                    |
 | (b) Embedding:     |   - SentenceTransformer encode(pregunta)  <50ms
 |                    |     modelo: paraphrase-multilingual-MiniLM-L12-v2 (384 dim)
+|                    |     MULTILINGUE: ES/EN/PT/FR/... (no usa all-MiniLM-L6-v2)
 |                    |
 | (c) Retrieval:     |   - ChromaDB query top_k=5
-|                    |   - Lee ./vector_store/chroma.sqlite3
+|                    |   - Lee /data/vector_store/chroma.sqlite3
 |                    |   - Calcula similitud coseno  <50ms
-|                    |   - Distancias: [0.32, 0.34, 0.35, 0.37, 0.40]
+|                    |   - Distancias tipicas: [0.29, 0.32, 0.35, 0.38, 0.42]
 |                    |
-| (d) Filtro T01:    |   - Mantiene solo los que pasan UMBRAL_DISTANCIA_COSENO
-|                    |   - Con UMBRAL=0.35 -> 4 de 5 chunks pasan
-|                    |   - Recorta cada chunk a 1200 chars (evita prompts enormes)
+| (d) Filtro T01:    |   - Mantiene solo los que pasan UMBRAL_DISTANCIA_COSENO=0.35
+|                    |   - Tipicamente 2-3 de 5 chunks pasan
+|                    |   - Recorta cada chunk a MAX_CHARS_POR_FRAGMENTO=700
+|                    |     (conserva cabecera+final, descarta el medio si >700)
 |                    |
 | (e) Generacion:    |   - Llama a Ollama HTTP POST /api/generate
-|                    |   - num_predict=768, temperature=0.2
-|                    |   - TIMEOUT: 25s por intento, 3 intentos (1 con backoff 2s)
+|                    |   - num_predict=1024, temperature=0.2
+|                    |   - PROMPT v2 con 8 reglas obligatorias:
+|                    |     1) USA TODAS las fuentes relevantes
+|                    |     2) NO inventes informacion
+|                    |     3) CADA bullet con cita (Documento, Articulo X°)
+|                    |     4) Lista vertical, un elemento por linea
+|                    |     5) Si enumera derechos/deberes, TODOS uno por uno
+|                    |     6) NO "Introduccion breve" ni prologos
+|                    |     7) NO atribuir articulos al documento equivocado
+|                    |     8) NO incluir "Fuentes:" al final (lo agrega el frontend)
+|                    |   - TIMEOUT: 40s por intento (TIMEOUT_RESPUESTA=40)
+|                    |   - Retry policy: 3 intentos solo en HTTP 5xx
+|                    |     (backoff 0/0/2s). FutTimeout NO se reintenta.
 |                    |
 +---+-------+--------+
     |       |
@@ -53,22 +69,23 @@ USUARIO escribe y presiona Enter
 |  OLLAMA :11434 |
 |                |
 |  Llama 3 8B    |
-|  - GPU (3.5GB) |   AQUI SE BLOQUEABA
-|  - CPU (4.4GB) |   (3 capas offloaded a CPU)
+|  - GPU (3.5GB) |   AQUI SE BLOQUEABA CON ANTERIORES CONFIGURACIONES
+|  - CPU (4.4GB) |   (3 capas offloaded a CPU con n_ctx=4096)
 |  - n_ctx=4096  |   Si prompt > 4096 tokens -> loop o HTTP 500
-|  - warm-up     |   Si > 25s -> timeout del backend
-|                |   Si HTTP 500 -> retry con backoff
+|  - warm-up     |   Si > 40s -> timeout del backend -> M06
+|                |   Si HTTP 500 -> retry con backoff (max 3 intentos)
 +----------------+
 
-POR QUE SE BLOQUEABA ANTES (el M06 con 30s o 47s):
+
+POR QUE SE BLOQUEABA ANTES (M06 con 30s o 47s):
 
   1. PROMPT ENORME
      5 chunks x ~2000 chars = ~10000 chars = ~2500 tokens de contexto
-     + 800 tokens de prompt + 512 tokens de respuesta
-     = 3800+ tokens -> n_ctx=4096 -> muy justo
+     + 800 tokens de prompt + 768 tokens de respuesta
+     = 4000+ tokens -> n_ctx=4096 -> muy justo
 
   2. OFFLOAD GPU<->CPU
-     Tu log decia: "offloaded 30/33 layers to GPU"
+     "offloaded 30/33 layers to GPU"
      3 capas quedan en CPU, se intercambian con cada inferencia
      Picos de 20-40s en lugar de 5-10s
 
@@ -77,25 +94,50 @@ POR QUE SE BLOQUEABA ANTES (el M06 con 30s o 47s):
      generando el mismo token repetido -> no termina nunca
      Ollama devuelve HTTP 500 despues de 15s de timeout interno
 
-  4. SIN BACKOFF
+  4. SIN BACKOFF EN RETRY
      Antes: 2 intentos sin espera -> si Ollama estaba sobrecargado,
      ambos intentos fallaban rapidamente -> M06
 
-AHORA:
-  - UMBRAL 0.32 -> 0.35: captura el chunk correcto
-  - TIMEOUT 15s -> 25s: da margen a Ollama con offload
-  - Recorte 1200 chars: evita prompts > 3000 tokens
-  - 3 reintentos con backoff: tolera HTTP 500 transitorio
-  - docker-compose restart backend: aplica cambios de codigo
+  5. MODELO DE EMBEDDINGS EN INGLES (chromadb 1.x)
+     El vector store se creo con `all-MiniLM-L6-v2` (ingles) y el
+     fallback `query_texts=` lo usaba para queries en espanol
+     -> distancias altas, chunks irrelevantes -> M04 o M02 baja calidad
+
+
+CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
+
+  - UMBRAL 0.32 -> 0.35: captura el chunk correcto sin tanto ruido
+  - TIMEOUT 15s -> 40s: holgura para Llama 3 8B con offload CPU
+  - MAX_CHARS 1200 -> 700: input ~42% menor, evita n_ctx=4096
+  - num_predict 768 -> 1024: cabe 20+ viñetas, suficiente para enumeraciones
+  - 3 reintentos con backoff 0/0/2s: tolera HTTP 500 transitorio
+  - FutTimeout NO se reintenta: el modelo es lento, retry solo acumula tiempo
+  - PROMPT v2 con regla #1 "USA TODAS las fuentes": evita respuestas cortas
+    que ignoraban el Estatuto cuando había un chunk más breve
+  - Modelo multilingüe (paraphrase-multilingual-MiniLM-L12-v2) con
+    query_embeddings= (no query_texts=) para queries en español
+
 
 EL FRONTEND NO BLOQUEA EL SISTEMA:
   - Solo deshabilita el boton "Enviar" mientras `cargando=true`
   - Si quieres cancelar, solo cierra la pestana o navega
-  - El backend tiene 3 reintentos maximos (techo ~77s)
-  - Despues de eso, devuelve M06 honestamente
+  - El backend tiene 3 reintentos maximos para HTTP 5xx
+  - En timeout, devuelve M06 inmediatamente (sin reintento)
+
 
 EL BACKEND SI BLOQUEA EL REQUEST HTTP:
   - uvicorn es sync (no async)
   - El handler espera la respuesta del LLM
   - Si el LLM tarda, el request HTTP espera
   - Frontend muestra spinner hasta respuesta o error
+
+
+ARCHIVOS DE DIAGNOSTICO:
+
+  - debug.py: ejecuta una consulta predefinida desde el contenedor
+    Uso: docker compose run --rm backend python /app/debug.py
+  - docker compose logs -f backend: logs en vivo (INFO/WARNING/ERROR)
+  - docker logs oe5-backend --tail 50: ultimas 50 lineas
+  - GET /salud: healthcheck simple (modo_piloto + status)
+  - GET /config-publica: parametros vigentes del backend
+  - GET /documentos: introspeccion del corpus indexado

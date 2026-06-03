@@ -61,16 +61,24 @@ tecnológica.
 
 ## Archivos
 
-| Archivo | Descripción |
-|---|---|
-| `calcular_madurez.py` | Script principal. Lee DB, calcula, genera reportes. |
-| `migrar_banco.py` | One-shot: importa `banco_preguntas.csv` a la DB. |
-| `reporte_madurez.md` | Deliverable. Se regenera al correr el script. |
-| `resultados_madurez.csv` | Deliverable. Se regenera al correr el script. |
-| `banco_preguntas.csv` | **Deprecated.** Conservar hasta migrar; eliminable después. |
-| `evaluacion_respuestas.csv` | **Deprecated.** Ya no se usa. |
+| Archivo | Descripción | Origen |
+|---|---|---|
+| `INSTRUMENTOS.md` | 5 instrumentos del OE6 (ficha, cotejo, gobernanza, rúbrica, SUS) | Manual |
+| `calcular_madurez.py` | Lee DB, calcula puntajes, genera reportes. | Script |
+| `generar_ficha.py` | Genera `ficha_documental.md` desde DB + ChromaDB. | Script |
+| `migrar_banco.py` | One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
+| `migrar_esquema_vector_store.py` | One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
+| `ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |
+| `reporte_madurez.md` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
+| `resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
 
 ## Flujo de trabajo
+
+> **Importante:** este proyecto es **100% Docker**. Los scripts de
+> evaluación que necesitan `chromadb` (`generar_ficha.py`) deben
+> ejecutarse **dentro del contenedor backend**, no en el host.
+> Los que solo usan `sqlite3` (`migrar_banco.py`,
+> `calcular_madurez.py`) pueden correr en el host.
 
 ### 1. Inicialización (una sola vez)
 
@@ -78,7 +86,7 @@ Asegurarse de que las tablas existen en la DB. El backend las crea
 automáticamente al arrancar, pero también pueden crearse manualmente:
 
 ```bash
-docker-compose restart backend
+docker compose restart backend
 ```
 
 ### 2. Migrar el banco de preguntas (una sola vez)
@@ -95,7 +103,7 @@ Tras verificar la migración, `banco_preguntas.csv` puede eliminarse.
 
 ### 3. Cargar puntajes del piloto (cuando aplique)
 
-Los puntajes Likert 1--5 de usuarios reales se insertan directamente
+Los puntajes Likert 1-5 de usuarios reales se insertan directamente
 en `evaluacion_piloto`. Puede hacerse desde un formulario web, una
 encuesta exportada a CSV, o directamente con SQL:
 
@@ -108,11 +116,28 @@ VALUES
  'Respuesta clara y con fuente');
 ```
 
-### 4. Calcular la madurez
+### 4. Generar la ficha documental (dentro del contenedor)
+
+```bash
+docker compose run --rm backend python /data/evaluacion/generar_ficha.py
+```
+
+El script escribe `evaluacion/ficha_documental.md` en el host
+(el volumen `./evaluacion:/data/evaluacion` propaga los cambios).
+
+### 5. Calcular la madurez (host o contenedor)
+
+En el host:
 
 ```bash
 cd evaluacion
 python calcular_madurez.py
+```
+
+O dentro del contenedor:
+
+```bash
+docker compose run --rm backend python /data/evaluacion/calcular_madurez.py
 ```
 
 El script:

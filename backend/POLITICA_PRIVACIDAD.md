@@ -1,8 +1,13 @@
 # Política de Privacidad – Chatbot UPeU
 
-**Versión 1.0 — Junio 2025**
+**Versión 1.1 — Junio 2026**
 **Marco legal:** Ley N.° 29733, Ley de Protección de Datos Personales del Perú y su Reglamento (D.S. N.° 003-2013-JUS).
 **Documento de alcance:** OE4 v2.0 (sección 3).
+
+> Cambios respecto a v1.0 (junio 2025): se aclara el mecanismo de
+> derecho al olvido (§5.3): es **seudonimización** (no eliminación
+> física) para preservar la data agregada de investigación, con campo
+> `anonimizado_en` para auditoría.
 
 ---
 
@@ -94,4 +99,4 @@ Cualquier consulta relativa a esta política puede dirigirse al equipo de invest
 
 ---
 
-*Última actualización: junio de 2025*
+*Última actualización: junio de 2026 (v1.1)*
