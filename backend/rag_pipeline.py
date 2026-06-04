@@ -97,6 +97,18 @@ _RE_ARTICULO = re.compile(
 )
 _RE_VERSION = re.compile(r"v\.?\s*(\d+(?:\.\d+)?)", re.IGNORECASE)
 _RE_ANIO = re.compile(r"\b(20\d{2})\b")
+
+# Stopwords simples para extraer keywords de la query (re-ranking)
+_STOPWORDS_ES = frozenset({
+    "el", "la", "los", "las", "un", "una", "unos", "unas", "de", "del", "al",
+    "y", "o", "u", "e", "que", "qué", "cual", "cuál", "como", "cómo", "donde",
+    "dónde", "cuando", "cuándo", "quien", "quién", "por", "para", "con", "sin",
+    "a", "en", "es", "son", "se", "su", "sus", "le", "les", "lo", "me", "te",
+    "nos", "os", "mi", "ti", "si", "no", "ya", "ha", "han", "he", "hay",
+    "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", "aquel",
+    "del", "más", "mas", "menos", "sobre", "entre", "hasta", "desde", "ante",
+})
+_BOOST_KEYWORD_POR_MATCH = 0.07  # descuento de distancia por keyword match
 _PALABRAS_INTERROGATIVAS = {
     "qué", "que", "cómo", "como", "cuándo", "cuando",
     "dónde", "donde", "quién", "quien", "cuál", "cual",
@@ -328,11 +340,17 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         )
 
     # --- Recuperación RAG -----------------------------------------------------
+    # Recuperamos más chunks (TOP_K_RAW) que los que mostraremos al LLM
+    # (TOP_K_FRAGMENTOS), para dar oportunidad a documentos pequeños
+    # (p.ej. la "Politica Institucional de trabajo digno y protección de
+    # la persona v.1" tiene solo 3 chunks) de aparecer en el ranking
+    # antes del re-ranking con boost por keywords.
+    TOP_K_RAW = max(TOP_K_FRAGMENTOS * 3, 15)
     try:
         embedding = model.encode([pregunta_limpia])[0].tolist()
         resultados = collection.query(
             query_embeddings=[embedding],
-            n_results=TOP_K_FRAGMENTOS,
+            n_results=TOP_K_RAW,
         )
     except Exception as exc:  # pragma: no cover
         log.exception("Fallo en retrieval")
@@ -342,7 +360,51 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
 
     docs = resultados["documents"][0]
     metas = resultados["metadatas"][0]
-    distancias = resultados["distances"][0]
+    distancias = list(resultados["distances"][0])
+
+    # --- Re-ranking con boost por keywords -----------------------------------
+    # Si la query contiene palabras clave (no stopwords) que también
+    # aparecen en el nombre del documento, restamos un pequeño valor a
+    # la distancia. Esto prioriza documentos cuyo nombre matchea con
+    # la intención explícita de la query (p.ej. "política" en la query
+    # debe boost el doc "Politica Institucional X").
+    keywords_query = [
+        w.lower() for w in re.findall(r"\b[a-záéíóúñü]{4,}\b", pregunta_limpia.lower())
+        if w.lower() not in _STOPWORDS_ES
+    ]
+    if keywords_query:
+        distancias_boosted = []
+        for d, m in zip(distancias, metas):
+            doc_norm = (m.get("documento", "") or "").lower()
+            matches = sum(1 for kw in keywords_query if kw in doc_norm)
+            boost = matches * _BOOST_KEYWORD_POR_MATCH
+            distancias_boosted.append(max(0.0, d - boost))
+        # Ordenar por distancia boosted ascendente y tomar TOP_K_FRAGMENTOS
+        orden = sorted(
+            range(len(distancias)),
+            key=lambda i: distancias_boosted[i],
+        )[:TOP_K_FRAGMENTOS]
+        docs = [docs[i] for i in orden]
+        metas = [metas[i] for i in orden]
+        # Guardamos la distancia ORIGINAL para debug (transparencia) pero
+        # el filtro de UMBRAL usa la distancia boosted (consistencia con
+        # el re-ranking: si el sistema cree que el chunk es relevante
+        # por keywords, no debe descartarlo por su distancia coseno).
+        distancias_para_filtro = [distancias_boosted[i] for i in orden]
+        log.info(
+            "Re-ranking: keywords=%s top_post=%s",
+            keywords_query, [(metas[i].get("documento", "")[:40], round(distancias[i], 3)) for i in range(len(orden))],
+        )
+        # Reemplazar la variable `distancias` para que el filtro de
+        # UMBRAL más abajo use la distancia boosted.
+        distancias = distancias_para_filtro
+    else:
+        # Sin keywords: top-K estándar por distancia
+        docs = docs[:TOP_K_FRAGMENTOS]
+        metas = metas[:TOP_K_FRAGMENTOS]
+        distancias = distancias[:TOP_K_FRAGMENTOS]
+
+    # Distancias ORIGINALES para debug (antes del boost)
     distancias_debug = [round(d, 4) for d in distancias]
 
     # Validación de dominio por embeddings: si NADA está cerca, fuera de dominio
@@ -427,6 +489,34 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         r"(?:\s+consultadas?|\s+verificables?|\s+utilizadas?)?\*?\*?\s*[:—\-]\s*.*$",
         respuesta_generada,
     )[0].rstrip()
+
+    # Convertir viñetas Unicode (•) a markdown estándar (- ). El LLM
+    # emite U+2022 BULLET que NO es markdown, así que ReactMarkdown
+    # no lo renderiza como lista. Reemplazamos `•` por `- ` solo al
+    # inicio de cada viñeta (después de \n o al inicio del texto).
+    respuesta_generada = re.sub(
+        r"(?m)^(\s*)•\s+",
+        r"\1- ",
+        respuesta_generada,
+    )
+    # También capturar `•` que aparezca precedido de \n sin espacio
+    respuesta_generada = re.sub(r"\n•\s+", "\n- ", respuesta_generada)
+    # Y al inicio absoluto del texto (por si el LLM no pone \n antes)
+    if respuesta_generada.lstrip().startswith("•"):
+        respuesta_generada = respuesta_generada.replace("•", "- ", 1)
+
+    # Eliminar frases meta que el LLM agrega al final cuando encuentra
+    # info parcial: "(El corpus no contiene información sobre X)",
+    # "(No hay información específica sobre ...)", etc.
+    # Estas frases confunden al usuario y duplican la respuesta.
+    respuesta_generada = re.sub(
+        r"\s*\((?:El corpus no contiene|N[o\u00f3] hay informaci[o\u00f3]n"
+        r"|No se encontr[o\u00f3] informaci[o\u00f3]n|"
+        r"El fragmento no (?:lo )?menciona)[^)]*\)\s*\.?\s*$",
+        "",
+        respuesta_generada,
+        flags=re.IGNORECASE,
+    ).rstrip()
 
     # T03: truncar a MAX_PALABRAS_RESPUESTA
     respuesta_generada, fue_truncada = _truncar_palabras(

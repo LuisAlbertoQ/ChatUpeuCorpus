@@ -2,9 +2,9 @@
 
 ## Resumen ejecutivo
 
-- **Total de interacciones evaluadas:** 149
+- **Total de interacciones evaluadas:** 191
 - **Total de evaluaciones de piloto:** 0
-- **Puntaje global final:** **2.83** / 5.00
+- **Puntaje global final:** **3.00** / 5.00
 - **Nivel de madurez:** **Básico**
 - **Dimensión crítica mínima:** 2.00
 
@@ -12,20 +12,20 @@
 
 | Métrica | Valor |
 |---|---:|
-| % respuestas exitosas (M02) | 49.7% |
-| % fuera de dominio (M03) | 2.7% |
-| % sin cobertura (M04) | 27.5% |
-| % preguntas ambiguas (M05) | 5.4% |
-| % errores (M06) | 14.8% |
-| % con fuentes documentales | 47.7% |
-| Tiempo promedio (segundos) | 16.09 |
+| % respuestas exitosas (M02) | 51.8% |
+| % fuera de dominio (M03) | 3.1% |
+| % sin cobertura (M04) | 28.8% |
+| % preguntas ambiguas (M05) | 4.7% |
+| % errores (M06) | 11.5% |
+| % con fuentes documentales | 50.3% |
+| Tiempo promedio (segundos) | 14.82 |
 
 ## Resultados por dimensión
 
 | Dimensión | Auto | Piloto | Final | Nivel |
 |---|---:|---:|---:|---|
-| Funcional | 2.00 | — | 2.00 | Inicial |
-| Recuperación documental | 2.00 | — | 2.00 | Inicial |
+| Funcional | 3.00 | — | 3.00 | Básico |
+| Recuperación documental | 3.00 | — | 3.00 | Básico |
 | Explicabilidad y trazabilidad | 2.00 | — | 2.00 | Inicial |
 | Usabilidad | 4.00 | — | 4.00 | Gestionado |
 | Gobernanza y uso responsable | 5.00 | — | 5.00 | Optimizado |
@@ -33,7 +33,7 @@
 
 ## Interpretación
 
-El chatbot alcanza un nivel de madurez **Básico** según el modelo CMMI--TRL adaptado, con un puntaje global de **2.83** sobre 5.00. El cálculo combina métricas automáticas del registro de interacciones con puntajes Likert del piloto de usuarios (100% automático (sin datos de piloto)).
+El chatbot alcanza un nivel de madurez **Básico** según el modelo CMMI--TRL adaptado, con un puntaje global de **3.00** sobre 5.00. El cálculo combina métricas automáticas del registro de interacciones con puntajes Likert del piloto de usuarios (100% automático (sin datos de piloto)).
 
 ## Regla de consistencia aplicada
 

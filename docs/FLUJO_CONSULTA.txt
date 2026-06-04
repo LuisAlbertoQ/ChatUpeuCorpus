@@ -35,17 +35,28 @@ USUARIO escribe y presiona Enter
 |                    |     modelo: paraphrase-multilingual-MiniLM-L12-v2 (384 dim)
 |                    |     MULTILINGUE: ES/EN/PT/FR/... (no usa all-MiniLM-L6-v2)
 |                    |
-| (c) Retrieval:     |   - ChromaDB query top_k=5
+| (c) Retrieval:     |   - ChromaDB query top_k_raw=15 (3x top_k final)
 |                    |   - Lee /data/vector_store/chroma.sqlite3
 |                    |   - Calcula similitud coseno  <50ms
-|                    |   - Distancias tipicas: [0.29, 0.32, 0.35, 0.38, 0.42]
+|                    |   - Distancias tipicas: [0.25, 0.30, 0.35, 0.38, 0.42, ...]
 |                    |
-| (d) Filtro T01:    |   - Mantiene solo los que pasan UMBRAL_DISTANCIA_COSENO=0.35
-|                    |   - Tipicamente 2-3 de 5 chunks pasan
+| (d) Re-ranking:    |   - Si la query tiene keywords (>=4 letras, no stopword):
+|                    |     * Para cada chunk: cuenta matches de keywords en
+|                    |       `meta["documento"]` (case-insensitive, substring)
+|                    |     * boost = matches * 0.07 (descuento de distancia)
+|                    |     * d_boosted = max(0.0, d_orig - boost)
+|                    |   - Ordena por d_boosted ascendente, top_k_final=5
+|                    |   - Si la query NO tiene keywords: top-5 por d_orig
+|                    |
+| (e) Filtro UMBRAL: |   - Mantiene los que pasan UMBRAL_DISTANCIA_COSENO=0.35
+|                    |   - USA d_boosted (no d_orig) para consistencia con re-ranking
+|                    |     Si el sistema cree que el chunk es relevante por
+|                    |     keywords, no debe descartarlo por su distancia coseno.
+|                    |   - Tipicamente 4-5 de 5 chunks pasan
 |                    |   - Recorta cada chunk a MAX_CHARS_POR_FRAGMENTO=700
 |                    |     (conserva cabecera+final, descarta el medio si >700)
 |                    |
-| (e) Generacion:    |   - Llama a Ollama HTTP POST /api/generate
+| (f) Generacion:    |   - Llama a Ollama HTTP POST /api/generate
 |                    |   - num_predict=1024, temperature=0.2
 |                    |   - PROMPT v2 con 8 reglas obligatorias:
 |                    |     1) USA TODAS las fuentes relevantes
@@ -59,6 +70,12 @@ USUARIO escribe y presiona Enter
 |                    |   - TIMEOUT: 40s por intento (TIMEOUT_RESPUESTA=40)
 |                    |   - Retry policy: 3 intentos solo en HTTP 5xx
 |                    |     (backoff 0/0/2s). FutTimeout NO se reintenta.
+|                    |
+| (g) Post-proceso:  |   - Bullet `•` (U+2022) -> `- ` (markdown estandar)
+|                    |   - Elimina meta-frases del LLM:
+|                    |     "(El corpus no contiene...", "No hay informacion...",
+|                    |      "No se encontro informacion...", "El fragmento
+|                    |      no menciona..."
 |                    |
 +---+-------+--------+
     |       |
@@ -116,6 +133,14 @@ CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
     que ignoraban el Estatuto cuando había un chunk más breve
   - Modelo multilingüe (paraphrase-multilingual-MiniLM-L12-v2) con
     query_embeddings= (no query_texts=) para queries en español
+  - top_k_raw=15 (3x top_k final): da margen al re-ranking para encontrar
+    chunks relevantes que están más abajo en la lista por distancia coseno
+    pero ganan por match de keywords con el nombre del documento
+  - Re-ranking híbrido: boost = 0.07 por keyword de la query presente en el
+    nombre del documento. d_boosted se usa para ranking Y filtro UMBRAL
+    (consistencia: si el sistema cree que es relevante por keywords, no
+    debe descartarlo por su distancia coseno).
+  - Post-proceso: `•` -> `- ` (markdown) y eliminación de meta-frases del LLM
 
 
 EL FRONTEND NO BLOQUEA EL SISTEMA:

@@ -127,8 +127,10 @@ se montan en un path padre distinto al del código:
 Parámetros editables en `backend/config.py`:
 
 ```python
-UMBRAL_DISTANCIA_COSENO = 0.35     # Distancia máxima aceptable (T01)
-TOP_K_FRAGMENTOS = 5               # Chunks a recuperar
+UMBRAL_DISTANCIA_COSENO = 0.35     # Distancia coseno máxima aceptable (boosted)
+TOP_K_FRAGMENTOS = 5               # Chunks a recuperar (post re-ranking)
+TOP_K_RAW = 15                     # Chunks iniciales del retrieval (3x TOP_K)
+_MAX_BOOST_POR_KEYWORD = 0.07      # Descuento de distancia por match keyword
 MAX_PALABRAS_RESPUESTA = 500       # T03: truncado a 500 palabras
 TIMEOUT_RESPUESTA = 50             # T04: segundos por intento del LLM
 MODO_PILOTO = True                 # Activa T07 (límite 10 preguntas/sesión)
@@ -140,6 +142,17 @@ Parámetros específicos del LLM en `rag_pipeline.py`:
 MAX_CHARS_POR_FRAGMENTO = 700      # Tamaño máx. de cada chunk en el prompt
 num_predict = 1024                 # Tokens máx. de respuesta generada
 temperature = 0.2                  # Creatividad baja (factual)
+
+# Re-ranking híbrido (rag_pipeline.py):
+# - Recupera TOP_K_RAW=15 chunks por distancia coseno
+# - Aplica boost de 0.07 por cada keyword de la query presente en
+#   `meta["documento"]` (case-insensitive, substring)
+# - Ordena por distancia boosted, toma TOP_K_FRAGMENTOS=5
+# - Usa distancia boosted (no original) para el filtro UMBRAL:
+#   si el sistema cree que un chunk es relevante por keywords,
+#   no debe descartarlo por su distancia coseno.
+# Esto resuelve el problema de documentos pequeños/poco frecuentes
+# que pierden ante documentos con mucho vocabulario solapado.
 ```
 
 **Variables de entorno (docker-compose.yml):**
@@ -188,10 +201,12 @@ Solo `build` si cambia `requirements.txt` o `Dockerfile`.
 3. Backend valida sesión (T07) y ejecuta pipeline RAG:
    - Validaciones (ambigua M05, ética M03, multi-intención M05, fuera-dominio M03)
    - Embedding con `paraphrase-multilingual-MiniLM-L12-v2` (multilingüe, 384 dim)
-   - Retrieval top-5 en ChromaDB
-   - Filtro por umbral T01 (UMBRAL=0.35)
+   - Retrieval top-15 en ChromaDB (TOP_K_RAW=15, 3x top-K final)
+   - Re-ranking por keywords: boost de 0.07 por match en `meta["documento"]`
+   - Selección top-5 por distancia boosted, filtro UMBRAL=0.35 (sobre boosted)
    - Truncado de cada chunk a 700 chars (evita prompts enormes)
    - LLM con PROMPT v2 (USA TODAS las fuentes + citas por viñeta + lista vertical)
+   - Post-proceso: `•` → `- ` (markdown) + eliminación de meta-frases
    - Sanear bloque "Fuentes:" final + truncado T03
 4. Respuesta + fuentes + tipo_mensaje
 5. Render en frontend (markdown + `SourceBadge`)
@@ -319,8 +334,8 @@ docker compose down -v           # elimina también el volumen de modelos Ollama
 ## Autores
 
 - **David Robert Yucra Mamani**
-- **Gladys Rosaura Yana Pari**
 - **Luis Alberto Quilla López**
+- **Gladys Rosaura Yana Pari**
 
 **Asesor:** Mg. Esteban Tocto Cano
 
