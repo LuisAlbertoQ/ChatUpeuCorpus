@@ -62,8 +62,8 @@ oe5_chatbot_upeu/
 │   ├── resultados_madurez.csv        # Auto-generada (puntajes por dimensión)
 │   ├── generar_ficha.py              # Auto-genera ficha_documental.md
 │   ├── calcular_madurez.py           # Auto-genera reporte_madurez.md + CSV
-│   ├── migrar_banco.py               # One-shot CSV → tabla `banco_preguntas`
-│   └── migrar_esquema_vector_store.py # One-shot: arregla esquema chromadb
+│   ├── migrar_banco.py               # [YA EJECUTADO] One-shot CSV → tabla `banco_preguntas`
+│   └── migrar_esquema_vector_store.py # [YA EJECUTADO] One-shot: arregla esquema chromadb
 ├── docs/
 │   └── FLUJO_CONSULTA.txt            # Diagrama del flujo de una consulta
 ├── vector_store/                     # Base vectorial ChromaDB (corpus persiste aquí)

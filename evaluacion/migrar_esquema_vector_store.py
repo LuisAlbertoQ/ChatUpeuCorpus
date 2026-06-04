@@ -1,4 +1,15 @@
 """
+migrar_esquema_vector_store.py
+==============================
+
+ESTADO: ONE-SHOT YA EJECUTADO (junio 2026). NO requiere re-ejecución.
+El vector_store actual ya tiene las columnas `topic` y el sistema
+funciona correctamente con chromadb 0.4.22.
+
+CONSERVADO POR: trazabilidad de auditoría (OE4) y reproducibilidad
+(reinstalación con un vector_store antiguo).
+
+PROPÓSITO ORIGINAL:
 Migra el vector_store del esquema chromadb 1.x (config_json_str, schema_str)
 de vuelta al esquema esperado por chromadb 0.4.22 (topic).
 

@@ -2,12 +2,20 @@
 # -*- coding: utf-8 -*-
 """
 migrar_banco.py
+================
 
+ESTADO: ONE-SHOT YA EJECUTADO (junio 2026). NO requiere re-ejecución.
+La tabla `banco_preguntas` ya contiene las 8 preguntas migradas.
+
+CONSERVADO POR: trazabilidad de auditoría (OE4) y reproducibilidad
+(reinstalación del sistema desde cero).
+
+PROPÓSITO ORIGINAL:
 Migra el banco de preguntas desde CSV a la tabla `banco_preguntas`
 de `registro_interacciones.db`. Operación idempotente (usa
 INSERT OR IGNORE sobre la PK).
 
-Uso:
+Uso (solo si necesitas reinstalar desde CSVs originales):
     python migrar_banco.py
 
 Después de una migración exitosa, el archivo `banco_preguntas.csv`

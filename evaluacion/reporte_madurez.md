@@ -2,7 +2,7 @@
 
 ## Resumen ejecutivo
 
-- **Total de interacciones evaluadas:** 191
+- **Total de interacciones evaluadas:** 199
 - **Total de evaluaciones de piloto:** 0
 - **Puntaje global final:** **3.00** / 5.00
 - **Nivel de madurez:** **Básico**
@@ -12,13 +12,13 @@
 
 | Métrica | Valor |
 |---|---:|
-| % respuestas exitosas (M02) | 51.8% |
-| % fuera de dominio (M03) | 3.1% |
-| % sin cobertura (M04) | 28.8% |
-| % preguntas ambiguas (M05) | 4.7% |
-| % errores (M06) | 11.5% |
-| % con fuentes documentales | 50.3% |
-| Tiempo promedio (segundos) | 14.82 |
+| % respuestas exitosas (M02) | 52.8% |
+| % fuera de dominio (M03) | 3.5% |
+| % sin cobertura (M04) | 27.6% |
+| % preguntas ambiguas (M05) | 4.5% |
+| % errores (M06) | 11.6% |
+| % con fuentes documentales | 51.3% |
+| Tiempo promedio (segundos) | 15.09 |
 
 ## Resultados por dimensión
 

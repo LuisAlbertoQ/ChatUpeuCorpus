@@ -505,17 +505,23 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     if respuesta_generada.lstrip().startswith("•"):
         respuesta_generada = respuesta_generada.replace("•", "- ", 1)
 
-    # Eliminar frases meta que el LLM agrega al final cuando encuentra
-    # info parcial: "(El corpus no contiene información sobre X)",
-    # "(No hay información específica sobre ...)", etc.
-    # Estas frases confunden al usuario y duplican la respuesta.
+    # Eliminar frases meta que el LLM agrega cuando encuentra info parcial
+    # o cree que no tiene datos. Son jerga tecnica que confunde al usuario
+    # ("corpus", "fragmentos proporcionados", "los documentos no contienen").
+    # Variantes observadas:
+    #   "No hay información específica sobre X en los fragmentos proporcionados."
+    #   "El corpus no contiene información sobre este tema."
+    #   "Los documentos no incluyen/proporcionan información sobre X."
+    #   "(El corpus no contiene información sobre X.)"
     respuesta_generada = re.sub(
-        r"\s*\((?:El corpus no contiene|N[o\u00f3] hay informaci[o\u00f3]n"
+        r"(?i)\s*(?:\(\s*)?(?:El corpus no contiene|N[o\u00f3] hay informaci[o\u00f3]n"
         r"|No se encontr[o\u00f3] informaci[o\u00f3]n|"
-        r"El fragmento no (?:lo )?menciona)[^)]*\)\s*\.?\s*$",
+        r"El fragmento no (?:lo )?menciona|"
+        r"Los documentos (?:no|tampoco) (?:incluyen|proporcionan|"
+        r"contienen|abordan|cubren)|"
+        r"En los fragmentos proporcionados)[^.)]*(?:\.|\)?\s*\.?)\s*$",
         "",
         respuesta_generada,
-        flags=re.IGNORECASE,
     ).rstrip()
 
     # T03: truncar a MAX_PALABRAS_RESPUESTA
@@ -529,6 +535,25 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     # (`fuentes`) y el frontend las renderiza como footer profesional.
     # Concatenarlas aquí producía duplicación visual ("Fuentes consultadas:"
     # en el cuerpo + "Fuentes verificables" en el footer).
+
+    # Si despues del post-proceso la respuesta quedo vacia o muy corta
+    # (porque el LLM solo emitio meta-frases tipo "no hay informacion"),
+    # el LLM esencialmente dijo "no se". En ese caso usamos M04 (mensaje
+    # oficial de "sin cobertura" en config.py) y cambiamos el tipo de
+    # mensaje. Asi el usuario ve un mensaje consistente del sistema,
+    # no jerga tecnica del LLM.
+    if not respuesta_generada.strip() or len(respuesta_generada.strip()) < 30:
+        log.info(
+            "Respuesta del LLM quedo vacia/corta tras post-proceso; "
+            "sustituyendo por M04 (sin_cobertura). pregunta=%r",
+            pregunta_limpia,
+        )
+        respuesta_final = MENSAJES["M04"]
+        return _empaquetar(
+            pregunta_limpia, respuesta_final, fuentes, "M04",
+            inicio, sesion_id, distancias_debug,
+        )
+
     respuesta_final = respuesta_generada
 
     return _empaquetar(

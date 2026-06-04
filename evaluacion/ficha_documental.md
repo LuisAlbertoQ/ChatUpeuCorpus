@@ -11,7 +11,7 @@
 | Total de fragmentos (chunks) | 3886 |
 | Total de preguntas en banco | 8 (8 activas) |
 | Total de evaluaciones piloto registradas | 0 |
-| Total de interacciones del chatbot | 191 |
+| Total de interacciones del chatbot | 199 |
 | Modelo de embeddings | paraphrase-multilingual-MiniLM-L12-v2 |
 | Espacio vectorial | cosine |
 | Última actualización | 2026-06-04 |
