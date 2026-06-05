@@ -101,7 +101,7 @@ se montan en un path padre distinto al del código:
 | **Servidor ASGI** | Uvicorn | 0.27.0 |
 | **Lenguaje (backend)** | Python | 3.10 |
 | **Orquestación RAG** | LangChain | 0.1.0 + community 0.0.10 |
-| **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-MiniLM-L12-v2` (384 dims) |
+| **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-mpnet-base-v2` (768 dims) |
 | **Base vectorial** | ChromaDB | 0.4.22 (distancia coseno) |
 | **Modelo LLM** | Llama 3 (8B) | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
 | **Contenedor LLM** | Ollama | latest con CUDA v13 |
@@ -200,7 +200,7 @@ Solo `build` si cambia `requirements.txt` o `Dockerfile`.
 1. Usuario escribe pregunta → 2. Frontend envía `POST /consulta`
 3. Backend valida sesión (T07) y ejecuta pipeline RAG:
    - Validaciones (ambigua M05, ética M03, multi-intención M05, fuera-dominio M03)
-   - Embedding con `paraphrase-multilingual-MiniLM-L12-v2` (multilingüe, 384 dim)
+   - Embedding con `paraphrase-multilingual-mpnet-base-v2` (multilingüe, 768 dim)
    - Retrieval top-15 en ChromaDB (TOP_K_RAW=15, 3x top-K final)
    - Re-ranking por keywords: boost de 0.07 por match en `meta["documento"]`
    - Selección top-5 por distancia boosted, filtro UMBRAL=0.35 (sobre boosted)

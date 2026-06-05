@@ -32,7 +32,7 @@ USUARIO escribe y presiona Enter
 |                    |     fuera-dominio keywords (M03)
 |                    |
 | (b) Embedding:     |   - SentenceTransformer encode(pregunta)  <50ms
-|                    |     modelo: paraphrase-multilingual-MiniLM-L12-v2 (384 dim)
+|                    |     modelo: paraphrase-multilingual-mpnet-base-v2 (768 dim)
 |                    |     MULTILINGUE: ES/EN/PT/FR/... (no usa all-MiniLM-L6-v2)
 |                    |
 | (c) Retrieval:     |   - ChromaDB query top_k_raw=15 (3x top_k final)
@@ -119,11 +119,14 @@ POR QUE SE BLOQUEABA ANTES (M06 con 30s o 47s):
      El vector store se creo con `all-MiniLM-L6-v2` (ingles) y el
      fallback `query_texts=` lo usaba para queries en espanol
      -> distancias altas, chunks irrelevantes -> M04 o M02 baja calidad
+     (Resuelto en junio 2026: regenerado con `paraphrase-multilingual-mpnet-base-v2`,
+     768 dim, cobertura 10/10 vs 0/10 inicial)
 
 
 CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
 
-  - UMBRAL 0.32 -> 0.35: captura el chunk correcto sin tanto ruido
+  - UMBRAL 0.32 -> 0.35 -> 0.40: captura chunks relevantes en el limbo
+    (0.30-0.39) que UMBRAL=0.35 descartaba. Cobertura 8/10 -> 10/10.
   - TIMEOUT 15s -> 40s: holgura para Llama 3 8B con offload CPU
   - MAX_CHARS 1200 -> 700: input ~42% menor, evita n_ctx=4096
   - num_predict 768 -> 1024: cabe 20+ viñetas, suficiente para enumeraciones
@@ -131,8 +134,10 @@ CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
   - FutTimeout NO se reintenta: el modelo es lento, retry solo acumula tiempo
   - PROMPT v2 con regla #1 "USA TODAS las fuentes": evita respuestas cortas
     que ignoraban el Estatuto cuando había un chunk más breve
-  - Modelo multilingüe (paraphrase-multilingual-MiniLM-L12-v2) con
-    query_embeddings= (no query_texts=) para queries en español
+  - Modelo multilingüe (paraphrase-multilingual-mpnet-base-v2, 768 dim)
+    con query_embeddings= (no query_texts=) para queries en español.
+    Reemplazó a MiniLM-L12-v2 (384 dim) tras comparativa de 3 modelos:
+    mpnet 10/10 > bge-m3 10/10 (peor ranking) > MiniLM 8/10 en cobertura.
   - top_k_raw=15 (3x top_k final): da margen al re-ranking para encontrar
     chunks relevantes que están más abajo en la lista por distancia coseno
     pero ganan por match de keywords con el nombre del documento

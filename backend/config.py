@@ -8,7 +8,7 @@ import re
 # -----------------------------------------------------------------------------
 # Umbrales técnicos (NO MODIFICAR por instrucción explícita del equipo)
 # -----------------------------------------------------------------------------
-UMBRAL_DISTANCIA_COSENO = 0.35   # Ajustado para capturar chunks relevantes en el limbo (0.30-0.34)
+UMBRAL_DISTANCIA_COSENO = 0.40   # Ajustado para capturar chunks relevantes en el limbo (0.30-0.34)
 TOP_K_FRAGMENTOS = 5
 MAX_PALABRAS_RESPUESTA = 500
 TIMEOUT_RESPUESTA = 50  # segundos; holgura para Llama 3 8B con offload GPU/CPU en respuestas largas

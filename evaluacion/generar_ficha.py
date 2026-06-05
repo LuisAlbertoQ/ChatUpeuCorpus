@@ -114,7 +114,7 @@ def main() -> int:
         f"| Total de preguntas en banco | {total_banco} ({activos} activas) |",
         f"| Total de evaluaciones piloto registradas | {total_piloto} |",
         f"| Total de interacciones del chatbot | {total_inter} |",
-        f"| Modelo de embeddings | paraphrase-multilingual-MiniLM-L12-v2 |",
+        f"| Modelo de embeddings | paraphrase-multilingual-mpnet-base-v2 (768 dim) |",
         f"| Espacio vectorial | cosine |",
         f"| Última actualización | {hoy} |",
         "",

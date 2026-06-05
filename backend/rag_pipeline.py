@@ -71,7 +71,7 @@ PROMPT = PromptTemplate(
         "3. CADA bullet debe terminar con la cita entre paréntesis con el formato: "
         "(Documento, Artículo X°). Ejemplo: • Recibir formación académica de calidad "
         "(ESTATUTO 2024, Artículo 112°).\n"
-        "4. Presenta los resultados como lista vertical con viñetas (•) o numerada "
+        "4. Presenta los resultados como lista vertical con viñetas (•) o numerada, UN elemento por línea. Cada viñeta debe contener al menos un enunciado completo. No generes viñetas vacías."
         "(1., 2., 3., ...), UN elemento por línea. NUNCA juntes varios elementos en "
         "un solo párrafo separado solo por espacios.\n"
         "5. Si el usuario pregunta por derechos/deberes/procedimientos enumerados, "
@@ -129,7 +129,7 @@ def inicializar():
     global client, collection, model
     client = chromadb.PersistentClient(path="/data/vector_store")
     collection = client.get_collection("corpus_upeu")
-    model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+    model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2")
     log.info("Recursos RAG inicializados.")
     print("Recursos RAG inicializados correctamente.")
 
