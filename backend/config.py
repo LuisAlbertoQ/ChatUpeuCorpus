@@ -138,7 +138,7 @@ ALLOWED_ORIGINS = [
 ]
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://llm:11434")
-OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
 
 # -----------------------------------------------------------------------------
 # Mensajes de transparencia (sección 4 OE4) — M01 a M07

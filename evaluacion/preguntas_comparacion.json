@@ -1,0 +1,12 @@
+[
+    {"id": "Q01", "pregunta": "¿Qué dice el estatuto sobre las autoridades universitarias?", "categoria_objetivo": "A", "tema": "Gobierno"},
+    {"id": "Q02", "pregunta": "¿Cómo se eligen el rector y vicerrectores?", "categoria_objetivo": "A", "tema": "Gobierno"},
+    {"id": "Q03", "pregunta": "¿Cuáles son los requisitos para obtener el título profesional?", "categoria_objetivo": "B", "tema": "Académico"},
+    {"id": "Q04", "pregunta": "¿Cómo me matriculo en la UPeU?", "categoria_objetivo": "B", "tema": "Académico"},
+    {"id": "Q05", "pregunta": "¿Qué requisitos hay para un proyecto de tesis?", "categoria_objetivo": "C", "tema": "Investigación"},
+    {"id": "Q06", "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?", "categoria_objetivo": "C", "tema": "Investigación"},
+    {"id": "Q07", "pregunta": "¿Qué becas ofrece la universidad?", "categoria_objetivo": "D", "tema": "Bienestar"},
+    {"id": "Q08", "pregunta": "¿Qué sanciones existen para los estudiantes?", "categoria_objetivo": "D", "tema": "Bienestar"},
+    {"id": "Q09", "pregunta": "¿Qué dice la política de trabajo digno?", "categoria_objetivo": "E", "tema": "Laboral"},
+    {"id": "Q10", "pregunta": "¿Quién supervisa la auditoría interna?", "categoria_objetivo": "E", "tema": "Laboral"}
+]

@@ -9,7 +9,7 @@ services:
     environment:
       LD_LIBRARY_PATH: /usr/lib/ollama/cuda_v13:/usr/lib/ollama
       OLLAMA_LLM_LIBRARY: cuda_v13
-      OLLAMA_MODEL: llama3
+      OLLAMA_MODEL: qwen2.5:7b
     deploy:
       resources:
         reservations:
@@ -37,7 +37,7 @@ services:
       - ./registro_interacciones.db:/data/registro_interacciones.db
     environment:
       OLLAMA_BASE_URL: http://llm:11434
-      OLLAMA_MODEL: llama3
+      OLLAMA_MODEL: qwen2.5:7b
       ALLOWED_ORIGINS: http://localhost:3000
       MODO_PILOTO: "true"
       LIMITE_PREGUNTAS_SESION: "10"

@@ -19,7 +19,7 @@ El sistema permite a estudiantes y personal de la Universidad Peruana Unión (UP
 
 ```
 oe5_chatbot_upeu/
-├── llm/                              # Servicio de IA generativa (Llama 3 con Ollama)
+├── llm/                              # Servicio de IA generativa (Qwen2.5-7B con Ollama)
 │   ├── Dockerfile
 │   ├── entrypoint.sh                 # Pre-pull + warm-up del modelo en arranque
 │   └── .gitignore
@@ -103,9 +103,10 @@ se montan en un path padre distinto al del código:
 | **Orquestación RAG** | LangChain | 0.1.0 + community 0.0.10 |
 | **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-mpnet-base-v2` (768 dims) |
 | **Base vectorial** | ChromaDB | 0.4.22 (distancia coseno) |
-| **Modelo LLM** | Llama 3 (8B) | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
-| **Contenedor LLM** | Ollama | latest con CUDA v13 |
+| **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
+| **Contenedor LLM** | Ollama | latest con CUDA v13. Modelo por defecto: Qwen2.5-7B |
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
+| **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
 | **Registro de datos** | SQLite 3 | 4 tablas (ver `evaluacion/README_EVALUACION.md`) |
 | **Frontend build tool** | Node.js + npm | 18-alpine en contenedor |
 
@@ -113,7 +114,7 @@ se montan en un path padre distinto al del código:
 
 1. **Docker Desktop** instalado y funcionando
    - Modo WSL 2 (recomendado) o Hyper-V
-   - 20 GB de espacio libre (imágenes + modelo Llama 3 ~ 4-12 GB)
+    - 20 GB de espacio libre (imágenes + modelo Qwen2.5-7B ~ 4.7 GB)
 2. **(Recomendado) GPU NVIDIA** con drivers CUDA v13 instalados
    - Sin GPU: respuestas en ~30-60 s
    - Con GPU: respuestas en ~5-15 s
@@ -160,7 +161,7 @@ temperature = 0.2                  # Creatividad baja (factual)
 | Variable | Default | Descripción |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
-| `OLLAMA_MODEL` | `llama3` | Modelo a usar |
+| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar (ver comparativa en `evaluacion/COMPARACION_LLMS.md`) |
 | `ALLOWED_ORIGINS` | `http://localhost:3000` | CORS (lista separada por comas) |
 | `MODO_PILOTO` | `true` | Activa límite T07 y `debug_distancias` |
 | `LIMITE_PREGUNTAS_SESION` | `10` | T07: tope de preguntas por sesión |
@@ -185,7 +186,7 @@ docker compose ps
 # http://localhost:3000
 ```
 
-**Primera ejecución (10-30 min):** descarga imágenes base, modelo Llama 3, instala dependencias.
+**Primera ejecución (10-30 min):** descarga imágenes base, modelo Qwen2.5-7B, instala dependencias.
 
 **Recarga de código Python (después de editar *.py en backend/):**
 ```powershell
@@ -279,7 +280,7 @@ Ver `docs/FLUJO_CONSULTA.txt` para el diagrama detallado.
 
 ```powershell
 docker compose up -d
-# Esperar ~35-40s para que Llama 3 termine warm-up
+# Esperar ~35-40s para que el modelo LLM termine warm-up
 ```
 
 Verificar que todo esté saludable:
@@ -369,7 +370,7 @@ Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
 | `sqlite3.OperationalError: no such column: collections.topic` | Vector store escrito con chromadb 1.x, contenedor con 0.4.22 | `docker compose run --rm backend python /data/evaluacion/migrar_esquema_vector_store.py` (ya ejecutado, solo si reinstalas con vector store viejo) |
 | `Anterior: Error al conectar con el servidor` en frontend | Backend no inició o CORS | `docker compose logs backend` |
 | `ModuleNotFoundError: chromadb` al ejecutar `generar_ficha.py` desde host | Host sin chromadb | Usar `docker compose run --rm backend python /data/evaluacion/generar_ficha.py` |
-| **Respuesta muy lenta** (30+ s) | Llama 3 descargándose o GPU no disponible | Esperar warm-up (primeras 2-3 consultas). Sin GPU: normal. |
+| **Respuesta muy lenta** (30+ s) | Modelo descargándose o GPU no disponible | Esperar warm-up (primeras 2-3 consultas). Sin GPU: normal. |
 | **Backend no arranca** | `ImportError: sentence_transformers` | `docker compose build backend` (si cambió requirements.txt) |
 | **Base vectorial no se encuentra** | `vector_store/` vacío | Copiar desde `oe1_arquitectura_corpus/vector_store/` |
 | **Timeouts M06 (>30 s)** | LLM sobrecargado o CPU bajo | `docker compose down && docker compose up`. Reducir `TOP_K_FRAGMENTOS`. |
