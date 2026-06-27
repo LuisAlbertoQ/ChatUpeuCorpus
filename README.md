@@ -13,7 +13,7 @@ El sistema permite a estudiantes y personal de la Universidad Peruana Unión (UP
 | **OE5** Sistema conversacional con IA explicable | ✅ 100 % | Frontend + Backend + RAG + LLM + registro |
 | **OE6** Instrumentos de evaluación de madurez | ✅ 100 % | `evaluacion/INSTRUMENTOS.md` (5 instrumentos) |
 | **OE7** Validación por expertos (V de Aiken) | ⏳ Pendiente (proceso) | Ejecutar con 3-5 expertos externos |
-| **OE8** Cálculo de madurez y piloto con usuarios | 🟡 En curso (infraestructura lista) | `evaluacion/reporte_madurez.md` (Básico – 2.83/5.00) |
+| **OE8** Cálculo de madurez y piloto con usuarios | 🟡 En curso (infraestructura lista) | `evaluacion/reporte_madurez.md` (Básico – 3.00/5.00) |
 
 ## Estructura del proyecto
 
@@ -273,46 +273,100 @@ Ver `docs/FLUJO_CONSULTA.txt` para el diagrama detallado.
 | **RNF05 Modificabilidad** | ✅ | `config.py` + variables de entorno |
 | **RNF06 Transparencia** | ✅ | M01 al inicio + M07 permanente |
 
-## Evaluación de madurez (OE6 / OE8)
+## Guía rápida de ejecución
 
-Para detalles completos ver `evaluacion/README_EVALUACION.md`. Resumen:
+### 1. Iniciar todo
 
 ```powershell
-# Desde el host (solo lee SQLite, no necesita chromadb en host)
-python evaluacion/calcular_madurez.py
-
-# Desde el contenedor (recomendado para generar_ficha.py)
-docker compose run --rm backend python /data/evaluacion/generar_ficha.py
+docker compose up -d
+# Esperar ~35-40s para que Llama 3 termine warm-up
 ```
 
-**Madurez actual** (149 interacciones, 0 evaluaciones de piloto, auto-calculada):
+Verificar que todo esté saludable:
+```powershell
+docker compose ps                     # los 3 contenedores deben mostrar "Up"
+curl http://localhost:8000/salud      # debe responder {"status":"ok","modo_piloto":true,...}
+curl http://localhost:3000            # frontend (puede tardar 10s en 1er carga)
+```
+
+### 2. Probar una consulta
+
+```powershell
+$body = @{ pregunta = "Cómo obtengo el título profesional"; sesion_id = "mi-prueba" } | ConvertTo-Json
+Invoke-RestMethod -Uri "http://localhost:8000/consulta" -Method Post -Body $body -ContentType "application/json"
+```
+
+### 3. Después de cambiar código Python (backend/*.py)
+
+```powershell
+docker compose restart backend       # ~25s warm-up
+```
+
+### 4. Después de cambiar requirements.txt o Dockerfile
+
+```powershell
+docker compose build backend
+docker compose up -d
+```
+
+### 5. Regenerar la evaluación
+
+```powershell
+# Ficha documental (necesita chromadb → contenedor)
+docker compose run --rm backend python /data/evaluacion/generar_ficha.py
+
+# Madurez (solo sqlite3 → host o contenedor)
+docker compose run --rm backend python /data/evaluacion/calcular_madurez.py
+```
+
+### 6. Ver logs
+
+```powershell
+docker compose logs -f backend       # logs del pipeline RAG en vivo
+docker compose logs -f llm           # logs de Ollama
+docker compose logs -f frontend      # logs de nginx
+```
+
+### 7. Ver configuración vigente
+
+```powershell
+curl http://localhost:8000/config-publica   # umbral, timeout, modo piloto, etc.
+```
+
+### 8. Detener
+
+```powershell
+docker compose down                 # detiene contenedores (conserva datos)
+docker compose down -v              # elimina también volumen de modelos Ollama
+```
+
+**Datos preservados entre reinicios:** `vector_store/`, `registro_interacciones.db`, `evaluacion/`.
+
+## Evaluación de madurez (OE6 / OE8)
+
+Para detalles completos ver `evaluacion/README_EVALUACION.md`.
+
+**Madurez actual** (229 interacciones, 0 evaluaciones de piloto):
 
 | Dimensión | Puntaje | Nivel |
 |---|---:|---|
-| Funcional | 2.00 | Inicial |
-| Recuperación documental | 2.00 | Inicial |
+| Funcional | 3.00 | Básico |
+| Recuperación documental | 3.00 | Básico |
 | Explicabilidad y trazabilidad | 2.00 | Inicial |
 | Usabilidad | 4.00 | Gestionado |
 | Gobernanza y uso responsable | 5.00 | Optimizado |
 | Preparación tecnológica y mejora | 2.00 | Inicial |
-| **Global** | **2.83** | **Básico** |
+| **Global** | **3.00** | **Básico** |
 
-Próximos pasos: completar OE7 (validación de instrumentos con expertos, V de Aiken) y OE8 (piloto con usuarios reales, INSERT en `evaluacion_piloto`).
+Métricas crudas: M02=54.1%, M04=25.8%, M06=10.5%, tiempo=14.7s.
 
-## Detener el sistema
-
-```powershell
-docker compose down              # detiene contenedores (conserva datos)
-docker compose down -v           # elimina también el volumen de modelos Ollama
-```
-
-**Datos preservados entre reinicios:** `vector_store/`, `registro_interacciones.db`, `evaluacion/`. Solo se borra el volumen anónimo `llm_data` con `down -v` (los modelos se redescargan).
+Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
 
 ## Solución de problemas
 
 | Error | Causa probable | Solución |
 |-------|-----------------|----------|
-| `sqlite3.OperationalError: no such column: collections.topic` | Vector store escrito con chromadb 1.x, contenedor con 0.4.22 | `python evaluacion/migrar_esquema_vector_store.py` (idempotente) |
+| `sqlite3.OperationalError: no such column: collections.topic` | Vector store escrito con chromadb 1.x, contenedor con 0.4.22 | `docker compose run --rm backend python /data/evaluacion/migrar_esquema_vector_store.py` (ya ejecutado, solo si reinstalas con vector store viejo) |
 | `Anterior: Error al conectar con el servidor` en frontend | Backend no inició o CORS | `docker compose logs backend` |
 | `ModuleNotFoundError: chromadb` al ejecutar `generar_ficha.py` desde host | Host sin chromadb | Usar `docker compose run --rm backend python /data/evaluacion/generar_ficha.py` |
 | **Respuesta muy lenta** (30+ s) | Llama 3 descargándose o GPU no disponible | Esperar warm-up (primeras 2-3 consultas). Sin GPU: normal. |
@@ -350,6 +404,6 @@ Proyecto académico y educativo. Contacta con los autores para cualquier uso com
 
 ---
 
-**Última actualización:** 3 de junio de 2026
-**Estado:** OE4-5-6 completados · OE7 pendiente (proceso) · OE8 en curso (Básico – 2.83/5.00)
+**Última actualización:** 5 de junio de 2026
+**Estado:** OE4-5-6 completados · OE7 pendiente (proceso) · OE8 en curso (Básico – 3.00/5.00)
 **Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8)

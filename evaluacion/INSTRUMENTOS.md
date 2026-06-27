@@ -345,7 +345,7 @@ VALUES
 
 -- 2. Re-calcular madurez incluyendo los datos del piloto
 -- (ejecutar desde la terminal)
--- python calculo_madurez.py
+-- python calcular_madurez.py
 ```
 
 La próxima ejecución de `calcular_madurez.py` combinará:

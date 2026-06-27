@@ -66,8 +66,8 @@ tecnológica.
 | `INSTRUMENTOS.md` | 5 instrumentos del OE6 (ficha, cotejo, gobernanza, rúbrica, SUS) | Manual |
 | `calcular_madurez.py` | Lee DB, calcula puntajes, genera reportes. | Script |
 | `generar_ficha.py` | Genera `ficha_documental.md` desde DB + ChromaDB. | Script |
-| `migrar_banco.py` | One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
-| `migrar_esquema_vector_store.py` | One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
+| `migrar_banco.py` | [YA EJECUTADO] One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
+| `migrar_esquema_vector_store.py` | [YA EJECUTADO] One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
 | `ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |
 | `reporte_madurez.md` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
 | `resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
@@ -89,9 +89,10 @@ automáticamente al arrancar, pero también pueden crearse manualmente:
 docker compose restart backend
 ```
 
-### 2. Migrar el banco de preguntas (una sola vez)
+### 2. Migrar el banco de preguntas (ya ejecutado)
 
-Si vienes del esquema anterior con `banco_preguntas.csv`:
+**Nota: este paso ya se ejecutó en junio 2026.** Si reinstalas el sistema
+desde cero y tienes el CSV original, puedes migrarlo así:
 
 ```bash
 cd evaluacion
@@ -109,7 +110,7 @@ encuesta exportada a CSV, o directamente con SQL:
 
 ```sql
 INSERT INTO evaluacion_piloto
-(sesion_id, pregunta_id, timestamp, funcional, recuperacion,
+(sesion_id, pregunta_id, timestamp_inicio, funcional, recuperacion,
  explicabilidad, usabilidad, gobernanza, preparacion, observacion)
 VALUES
 ('anonimizado', 'P01', '2026-06-02T10:00:00', 5, 5, 4, 4, 5, 4,
