@@ -1,6 +1,6 @@
 # Ficha documental del corpus UPeU
 
-**Fecha de generación:** 2026-06-05
+**Fecha de generación:** 2026-07-02
 
 ## 1. Datos generales
 
@@ -11,10 +11,10 @@
 | Total de fragmentos (chunks) | 3886 |
 | Total de preguntas en banco | 8 (8 activas) |
 | Total de evaluaciones piloto registradas | 0 |
-| Total de interacciones del chatbot | 226 |
+| Total de interacciones del chatbot | 254 |
 | Modelo de embeddings | paraphrase-multilingual-mpnet-base-v2 (768 dim) |
 | Espacio vectorial | cosine |
-| Última actualización | 2026-06-05 |
+| Última actualización | 2026-07-02 |
 
 ## 2. Distribución por categoría
 
@@ -118,4 +118,4 @@
 
 ---
 
-_Ficha generada automáticamente el 2026-06-05 por `generar_ficha.py`._
+_Ficha generada automáticamente el 2026-07-02 por `generar_ficha.py`._
