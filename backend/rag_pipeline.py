@@ -376,30 +376,28 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             matches = sum(1 for kw in keywords_query if kw in doc_norm)
             boost = matches * _BOOST_KEYWORD_POR_MATCH
             distancias_boosted.append(max(0.0, d - boost))
-        # Ordenar por distancia boosted ascendente y tomar TOP_K_FRAGMENTOS
+        # Ordenar TODO el pool (TOP_K_RAW) por distancia boosted. NUNCA
+        # recortar aquí a TOP_K_FRAGMENTOS: el filtro de UMBRAL (T01) se
+        # aplica después sobre el pool completo. Recortar antes hacía que
+        # un chunk relevante rankeado #4+ se descartara aunque pasara el
+        # umbral (p.ej. "constancia de estudios" → falso M04 con top_k=3).
         orden = sorted(
             range(len(distancias)),
             key=lambda i: distancias_boosted[i],
-        )[:TOP_K_FRAGMENTOS]
+        )
         docs = [docs[i] for i in orden]
         metas = [metas[i] for i in orden]
-        # Guardamos la distancia ORIGINAL para debug (transparencia) pero
-        # el filtro de UMBRAL usa la distancia boosted (consistencia con
-        # el re-ranking: si el sistema cree que el chunk es relevante
-        # por keywords, no debe descartarlo por su distancia coseno).
-        distancias_para_filtro = [distancias_boosted[i] for i in orden]
+        distancias = [distancias_boosted[i] for i in orden]
         log.info(
-            "Re-ranking: keywords=%s top_post=%s",
-            keywords_query, [(metas[i].get("documento", "")[:40], round(distancias[i], 3)) for i in range(len(orden))],
+            "Re-ranking: keywords=%s top_%s=%s",
+            keywords_query,
+            TOP_K_FRAGMENTOS,
+            [(metas[i].get("documento", "")[:40], round(distancias[i], 3))
+             for i in range(min(len(orden), TOP_K_FRAGMENTOS))],
         )
-        # Reemplazar la variable `distancias` para que el filtro de
-        # UMBRAL más abajo use la distancia boosted.
-        distancias = distancias_para_filtro
     else:
-        # Sin keywords: top-K estándar por distancia
-        docs = docs[:TOP_K_FRAGMENTOS]
-        metas = metas[:TOP_K_FRAGMENTOS]
-        distancias = distancias[:TOP_K_FRAGMENTOS]
+        # Sin keywords: el pool ya viene ordenado por distancia (sin recorte).
+        pass
 
     # Distancias ORIGINALES para debug (antes del boost)
     distancias_debug = [round(d, 4) for d in distancias]
@@ -423,7 +421,10 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     fragmentos_validos = []
     fuentes = []
     distancias_validas = []
+    doc_sugerido = None
     for doc, meta, dist in zip(docs, metas, distancias):
+        if len(fuentes) >= TOP_K_FRAGMENTOS:
+            break
         if dist < UMBRAL_DISTANCIA_COSENO:
             texto = doc if len(doc) <= MAX_CHARS_POR_FRAGMENTO else (
                 doc[: MAX_CHARS_POR_FRAGMENTO // 2]
@@ -441,6 +442,8 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             # Distancia asociada a cada fuente (1:1 con `fuentes`) para que el
             # frontend muestre la similitud (%) de cada badge (ítem 7 Tier 2).
             distancias_validas.append(round(dist, 4))
+            if doc_sugerido is None:
+                doc_sugerido = meta.get("documento", "documentos generales de la UPeU")
 
     # --- Sin fragmentos válidos → M04 ----------------------------------------
     if not fragmentos_validos:
@@ -549,7 +552,10 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             "sustituyendo por M04 (sin_cobertura). pregunta=%r",
             pregunta_limpia,
         )
-        respuesta_final = MENSAJES["M04"]
+        respuesta_final = MENSAJES["M04"].replace(
+            "[nombre del documento relacionado más cercano]",
+            doc_sugerido or "documentos generales de la UPeU",
+        )
         return _empaquetar(
             pregunta_limpia, respuesta_final, fuentes, "M04",
             inicio, sesion_id, distancias_validas,

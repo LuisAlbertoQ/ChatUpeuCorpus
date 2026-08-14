@@ -129,7 +129,7 @@ Parámetros editables en `backend/config.py`:
 
 ```python
 UMBRAL_DISTANCIA_COSENO = 0.40     # Distancia coseno máxima aceptable (boosted)
-TOP_K_FRAGMENTOS = 3               # Chunks a recuperar (post re-ranking)
+TOP_K_FRAGMENTOS = 4               # Máx. chunks que llegan al LLM (filtro por umbral primero)
 TOP_K_RAW = 15                     # Chunks iniciales del retrieval (3x TOP_K)
 _MAX_BOOST_POR_KEYWORD = 0.07      # Descuento de distancia por match keyword
 MAX_PALABRAS_RESPUESTA = 500       # T03: truncado a 500 palabras
@@ -150,12 +150,15 @@ temperature = 0.2                  # Creatividad baja (factual)
 # - Recupera TOP_K_RAW=15 chunks por distancia coseno
 # - Aplica boost de 0.07 por cada keyword de la query presente en
 #   `meta["documento"]` (case-insensitive, substring)
-# - Ordena por distancia boosted, toma TOP_K_FRAGMENTOS=3
+# - Ordena TODO el pool por distancia boosted y aplica el filtro UMBRAL
+#   sobre el pool completo (el umbral decide la relevancia, NO el recorte)
+# - Entrega al LLM como máximo TOP_K_FRAGMENTOS=4 chunks que pasaron el umbral
 # - Usa distancia boosted (no original) para el filtro UMBRAL:
 #   si el sistema cree que un chunk es relevante por keywords,
 #   no debe descartarlo por su distancia coseno.
 # Esto resuelve el problema de documentos pequeños/poco frecuentes
-# que pierden ante documentos con mucho vocabulario solapado.
+# que pierden ante documentos con mucho vocabulario solapado, y evita
+# que un chunk relevante rankeado #4+ se descarte antes del umbral.
 ```
 
 **Variables de entorno (docker-compose.yml):**
