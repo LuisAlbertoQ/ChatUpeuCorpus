@@ -1,6 +1,6 @@
 FLUJO COMPLETO DE UNA CONSULTA - OE5 Chatbot UPeU
 ====================================================
-Actualizado: 2026-06-03 (refleja config.py y rag_pipeline.py vigentes)
+Actualizado: 2026-08-14 (refleja config.py y rag_pipeline.py vigentes)
 
 
 USUARIO escribe y presiona Enter
@@ -45,14 +45,14 @@ USUARIO escribe y presiona Enter
 |                    |       `meta["documento"]` (case-insensitive, substring)
 |                    |     * boost = matches * 0.07 (descuento de distancia)
 |                    |     * d_boosted = max(0.0, d_orig - boost)
-|                    |   - Ordena por d_boosted ascendente, top_k_final=5
-|                    |   - Si la query NO tiene keywords: top-5 por d_orig
+|                    |   - Ordena por d_boosted ascendente, top_k_final=3
+|                    |   - Si la query NO tiene keywords: top-3 por d_orig
 |                    |
-| (e) Filtro UMBRAL: |   - Mantiene los que pasan UMBRAL_DISTANCIA_COSENO=0.35
+| (e) Filtro UMBRAL: |   - Mantiene los que pasan UMBRAL_DISTANCIA_COSENO=0.40
 |                    |   - USA d_boosted (no d_orig) para consistencia con re-ranking
 |                    |     Si el sistema cree que el chunk es relevante por
 |                    |     keywords, no debe descartarlo por su distancia coseno.
-|                    |   - Tipicamente 4-5 de 5 chunks pasan
+|                    |   - Tipicamente 2-3 de 3 chunks pasan
 |                    |   - Recorta cada chunk a MAX_CHARS_POR_FRAGMENTO=700
 |                    |     (conserva cabecera+final, descarta el medio si >700)
 |                    |
@@ -67,7 +67,7 @@ USUARIO escribe y presiona Enter
 |                    |     6) NO "Introduccion breve" ni prologos
 |                    |     7) NO atribuir articulos al documento equivocado
 |                    |     8) NO incluir "Fuentes:" al final (lo agrega el frontend)
-|                    |   - TIMEOUT: 40s por intento (TIMEOUT_RESPUESTA=40)
+|                    |   - TIMEOUT: 50s por intento (TIMEOUT_RESPUESTA=50)
 |                    |   - Retry policy: 3 intentos solo en HTTP 5xx
 |                    |     (backoff 0/0/2s). FutTimeout NO se reintenta.
 |                    |
@@ -125,9 +125,15 @@ POR QUE SE BLOQUEABA ANTES (M06 con 30s o 47s):
 
 CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
 
-  - UMBRAL 0.32 -> 0.35 -> 0.40: captura chunks relevantes en el limbo
-    (0.30-0.39) que UMBRAL=0.35 descartaba. Cobertura 8/10 -> 10/10.
-  - TIMEOUT 15s -> 40s: holgura para Llama 3 8B / Qwen2.5-7B (Qwen es ~2.7× más rápido)
+  - UMBRAL 0.32 -> 0.35 -> 0.40 -> 0.50(prueba) -> 0.40 (final evaluado 08-2026):
+    captura chunks relevantes en el limbo (0.30-0.39) que UMBRAL=0.35 descartaba,
+    sin dejar pasar el ruido de 0.40-0.50. Evaluado en 08-2026: M02 9/10, preciso.
+  - MARGEN_FUERA_DOMINIO = 0.10 (ahora en config.py): fuera de dominio por
+    embeddings solo si TODAS las distancias superan UMBRAL + 0.10 (0.50).
+  - TOP_K_FRAGMENTOS = 3 (k=5 -> 3): prompt más corto, menos timeout (T02 OE4),
+    enumeraciones aún completas; TOP_K_RAW = max(3*3, 15) = 15.
+  - TIMEOUT 15s -> 40s -> 50s: holgura para Llama 3 8B / Qwen2.5-7B (Qwen ~2.7× rápido)
+  - KEYWORDS_FUERA_DOMINIO incluye "dni"/"deuda": pedir datos personales -> M03 (08-2026)
   - MAX_CHARS 1200 -> 700: input ~42% menor, evita n_ctx=4096
   - num_predict 768 -> 1024: cabe 20+ viñetas, suficiente para enumeraciones
   - 3 reintentos con backoff 0/0/2s: tolera HTTP 500 transitorio

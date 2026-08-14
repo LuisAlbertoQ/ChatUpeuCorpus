@@ -31,6 +31,7 @@ from config import (
     KEYWORDS_ETICA,
     KEYWORDS_FUERA_DOMINIO,
     MAPEO_CATEGORIAS,
+    MARGEN_FUERA_DOMINIO,
     MAX_PALABRAS_RESPUESTA,
     MENSAJES,
     MODO_PILOTO,
@@ -51,10 +52,6 @@ client = None
 collection = None
 model = None
 _executor = ThreadPoolExecutor(max_workers=2)
-
-# Margen extra sobre el umbral: si TODAS las distancias superan
-# UMBRAL + MARGEN, la pregunta se considera fuera de dominio.
-MARGEN_FUERA_DOMINIO = 0.10
 
 # -----------------------------------------------------------------------------
 # Prompt del sistema (alineado a T05: solo desde fragmentos)

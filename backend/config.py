@@ -9,9 +9,13 @@ import re
 # Umbrales técnicos (NO MODIFICAR por instrucción explícita del equipo)
 # -----------------------------------------------------------------------------
 UMBRAL_DISTANCIA_COSENO = 0.40   # Ajustado para capturar chunks relevantes en el limbo (0.30-0.34)
-TOP_K_FRAGMENTOS = 5
+TOP_K_FRAGMENTOS = 3
 MAX_PALABRAS_RESPUESTA = 500
-TIMEOUT_RESPUESTA = 50  # segundos; holgura para Llama 3 8B con offload GPU/CPU en respuestas largas
+TIMEOUT_RESPUESTA = 50  # segundos; holgura para qwen 2.5 en respuestas largas
+
+# Margen extra sobre UMBRAL para declarar una pregunta "fuera de dominio"
+# por embeddings (R04): si TODAS las distancias superan UMBRAL + MARGEN → M03.
+MARGEN_FUERA_DOMINIO = 0.10
 
 # -----------------------------------------------------------------------------
 # Dominio de consulta (sección 1 OE4)
@@ -91,6 +95,8 @@ KEYWORDS_FUERA_DOMINIO = [
     "covid", "diabetes", "cáncer", "cancer", "medicamento",
     # Receta / cocina
     "receta", "cocinar", "comida", "ingrediente",
+    # Datos personales / financieros del usuario (pedir info privada → M03)
+    "dni", "deuda",
 ]
 
 # Términos sensibles / éticos (R07) — disparan M03

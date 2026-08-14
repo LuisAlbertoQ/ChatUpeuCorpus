@@ -128,13 +128,14 @@ se montan en un path padre distinto al del código:
 Parámetros editables en `backend/config.py`:
 
 ```python
-UMBRAL_DISTANCIA_COSENO = 0.35     # Distancia coseno máxima aceptable (boosted)
-TOP_K_FRAGMENTOS = 5               # Chunks a recuperar (post re-ranking)
+UMBRAL_DISTANCIA_COSENO = 0.40     # Distancia coseno máxima aceptable (boosted)
+TOP_K_FRAGMENTOS = 3               # Chunks a recuperar (post re-ranking)
 TOP_K_RAW = 15                     # Chunks iniciales del retrieval (3x TOP_K)
 _MAX_BOOST_POR_KEYWORD = 0.07      # Descuento de distancia por match keyword
 MAX_PALABRAS_RESPUESTA = 500       # T03: truncado a 500 palabras
 TIMEOUT_RESPUESTA = 50             # T04: segundos por intento del LLM
 MODO_PILOTO = True                 # Activa T07 (límite 10 preguntas/sesión)
+MARGEN_FUERA_DOMINIO = 0.10        # R04: umbral extra para "fuera de dominio"
 ```
 
 Parámetros específicos del LLM en `rag_pipeline.py`:
@@ -148,7 +149,7 @@ temperature = 0.2                  # Creatividad baja (factual)
 # - Recupera TOP_K_RAW=15 chunks por distancia coseno
 # - Aplica boost de 0.07 por cada keyword de la query presente en
 #   `meta["documento"]` (case-insensitive, substring)
-# - Ordena por distancia boosted, toma TOP_K_FRAGMENTOS=5
+# - Ordena por distancia boosted, toma TOP_K_FRAGMENTOS=3
 # - Usa distancia boosted (no original) para el filtro UMBRAL:
 #   si el sistema cree que un chunk es relevante por keywords,
 #   no debe descartarlo por su distancia coseno.
@@ -204,7 +205,7 @@ Solo `build` si cambia `requirements.txt` o `Dockerfile`.
    - Embedding con `paraphrase-multilingual-mpnet-base-v2` (multilingüe, 768 dim)
    - Retrieval top-15 en ChromaDB (TOP_K_RAW=15, 3x top-K final)
    - Re-ranking por keywords: boost de 0.07 por match en `meta["documento"]`
-   - Selección top-5 por distancia boosted, filtro UMBRAL=0.35 (sobre boosted)
+   - Selección top-3 por distancia boosted, filtro UMBRAL=0.40 (sobre boosted)
    - Truncado de cada chunk a 700 chars (evita prompts enormes)
    - LLM con PROMPT v2 (USA TODAS las fuentes + citas por viñeta + lista vertical)
    - Post-proceso: `•` → `- ` (markdown) + eliminación de meta-frases
@@ -259,10 +260,10 @@ Ver `docs/FLUJO_CONSULTA.txt` para el diagrama detallado.
 | **M06 Error técnico** | ✅ | `try/except` + timeout T04 |
 | **M07 Aviso permanente** | ✅ | Footer fijo con texto exacto |
 | **M08 Límite de sesión** | ✅ | HTTP 429 + `M08_LIMITE` en `MENSAJES` |
-| **T01 Umbral similitud 0.70** | 🟡 Parcial | Se usa distancia 0.35 (≈ similitud 0.65) por decisión del equipo |
-| **T02 Top-k 1–3** | 🟡 Parcial | Se mantiene k=5 por decisión del equipo |
+| **T01 Umbral similitud 0.70** | 🟡 Parcial | Se usa distancia 0.40 (≈ similitud 0.60) por decisión del equipo |
+| **T02 Top-k 1–3** | 🟡 Parcial | Se mantiene k=3 por decisión del equipo |
 | **T03 Máx 350 palabras** | ✅ | `_truncar_palabras` añade `(…)` (configurado a 500) |
-| **T04 Timeout 15 s** | ✅ | `urllib.request` + `FutTimeout` → M06 (configurado a 40 s) |
+| **T04 Timeout 15 s** | ✅ | `urllib.request` + `FutTimeout` → M06 (configurado a 50 s) |
 | **T05 Generación condicional** | ✅ | Solo si hay fragmentos válidos |
 | **T06 Multi-intención** | ✅ | Heurística de conectores + interrogativas |
 | **T07 Límite 10 preguntas/sesión piloto** | ✅ | `sesion_id` + `contar_preguntas_sesion` + HTTP 429 |
@@ -347,7 +348,7 @@ docker compose down -v              # elimina también volumen de modelos Ollama
 
 Para detalles completos ver `evaluacion/README_EVALUACION.md`.
 
-**Madurez actual** (229 interacciones, 0 evaluaciones de piloto):
+**Madurez actual** (266 interacciones, 0 evaluaciones de piloto):
 
 | Dimensión | Puntaje | Nivel |
 |---|---:|---|
@@ -356,10 +357,10 @@ Para detalles completos ver `evaluacion/README_EVALUACION.md`.
 | Explicabilidad y trazabilidad | 2.00 | Inicial |
 | Usabilidad | 4.00 | Gestionado |
 | Gobernanza y uso responsable | 5.00 | Optimizado |
-| Preparación tecnológica y mejora | 2.00 | Inicial |
+| Preparación tecnológica y mejora | 3.00 | Básico |
 | **Global** | **3.00** | **Básico** |
 
-Métricas crudas: M02=54.1%, M04=25.8%, M06=10.5%, tiempo=14.7s.
+Métricas crudas: M02=57.9%, M04=22.6%, M06=9.4%, tiempo=15.03s.
 
 Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
 
@@ -405,6 +406,6 @@ Proyecto académico y educativo. Contacta con los autores para cualquier uso com
 
 ---
 
-**Última actualización:** 5 de junio de 2026
+**Última actualización:** 14 de agosto de 2026
 **Estado:** OE4-5-6 completados · OE7 pendiente (proceso) · OE8 en curso (Básico – 3.00/5.00)
 **Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8)
