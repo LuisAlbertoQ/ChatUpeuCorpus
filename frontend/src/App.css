@@ -380,6 +380,29 @@ body {
   padding: 2px 7px;
   border-radius: 3px;
 }
+.source-badge__similitud {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-2);
+  background: #fbf4e0;
+  border: 1px solid var(--gold-soft);
+  padding: 2px 7px;
+  border-radius: 3px;
+}
+.source-badge__similitud-num {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+.source-badge__similitud-label {
+  font-size: 9.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
 
 .source-badge__categoria {
   font-size: 11.5px;

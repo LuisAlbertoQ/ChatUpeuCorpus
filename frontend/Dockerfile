@@ -16,7 +16,9 @@ RUN npm run build
 # ============== STAGE 2: nginx ==============
 FROM nginx:1.27-alpine
 
-RUN rm /etc/nginx/conf.d/default.conf
+# curl para el HEALTHCHECK (nginx-alpine no lo trae; busybox wget
+# fallaba y dejaba el contenedor en "unhealthy").
+RUN apk add --no-cache curl && rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=build /app/build /usr/share/nginx/html
@@ -24,6 +26,6 @@ COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 3000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
-  CMD wget -qO- http://localhost:3000/ >/dev/null || exit 1
+  CMD curl -fsS http://localhost:3000/ >/dev/null || exit 1
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -133,6 +133,11 @@ PII_PATTERNS = [
 MODO_PILOTO = os.getenv("MODO_PILOTO", "true").lower() == "true"
 LIMITE_PREGUNTAS_SESION = int(os.getenv("LIMITE_PREGUNTAS_SESION", "10"))
 
+# Depuración: expone `debug_distancias` (y metadatos internos) en la respuesta
+# de /consulta. Es independiente de MODO_PILOTO: en el piloto va "true" (igual
+# que hoy); en un despliegue real se apaga y el frontend degrada con gracia.
+DEBUG_LOG = os.getenv("DEBUG_LOG", "false").lower() == "true"
+
 # -----------------------------------------------------------------------------
 # Infraestructura
 # -----------------------------------------------------------------------------

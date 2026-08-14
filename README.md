@@ -135,6 +135,7 @@ _MAX_BOOST_POR_KEYWORD = 0.07      # Descuento de distancia por match keyword
 MAX_PALABRAS_RESPUESTA = 500       # T03: truncado a 500 palabras
 TIMEOUT_RESPUESTA = 50             # T04: segundos por intento del LLM
 MODO_PILOTO = True                 # Activa T07 (límite 10 preguntas/sesión)
+DEBUG_LOG = True                   # Expone debug_distancias en /consulta
 MARGEN_FUERA_DOMINIO = 0.10        # R04: umbral extra para "fuera de dominio"
 ```
 
@@ -164,7 +165,8 @@ temperature = 0.2                  # Creatividad baja (factual)
 | `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
 | `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar (ver comparativa en `evaluacion/COMPARACION_LLMS.md`) |
 | `ALLOWED_ORIGINS` | `http://localhost:3000` | CORS (lista separada por comas) |
-| `MODO_PILOTO` | `true` | Activa límite T07 y `debug_distancias` |
+| `MODO_PILOTO` | `true` | Activa límite T07 (10 preguntas/sesión) |
+| `DEBUG_LOG` | `false` | Expone `debug_distancias` en `/consulta` (el chip de afinidad % del frontend usa esos datos). En el piloto va `true`; en producción se apaga y el frontend degrada sin el porcentaje |
 | `LIMITE_PREGUNTAS_SESION` | `10` | T07: tope de preguntas por sesión |
 
 ## Instalación y ejecución

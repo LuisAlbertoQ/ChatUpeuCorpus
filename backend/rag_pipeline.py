@@ -26,6 +26,7 @@ from langchain.prompts import PromptTemplate
 from sentence_transformers import SentenceTransformer
 
 from config import (
+    DEBUG_LOG,
     DOMINIO_CATEGORIAS,
     KEYWORDS_DOMINIO,
     KEYWORDS_ETICA,
@@ -34,7 +35,6 @@ from config import (
     MARGEN_FUERA_DOMINIO,
     MAX_PALABRAS_RESPUESTA,
     MENSAJES,
-    MODO_PILOTO,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
     TIMEOUT_RESPUESTA,
@@ -422,6 +422,7 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     MAX_CHARS_POR_FRAGMENTO = 700
     fragmentos_validos = []
     fuentes = []
+    distancias_validas = []
     for doc, meta, dist in zip(docs, metas, distancias):
         if dist < UMBRAL_DISTANCIA_COSENO:
             texto = doc if len(doc) <= MAX_CHARS_POR_FRAGMENTO else (
@@ -437,6 +438,9 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
                     doc,
                 )
             )
+            # Distancia asociada a cada fuente (1:1 con `fuentes`) para que el
+            # frontend muestre la similitud (%) de cada badge (ítem 7 Tier 2).
+            distancias_validas.append(round(dist, 4))
 
     # --- Sin fragmentos válidos → M04 ----------------------------------------
     if not fragmentos_validos:
@@ -548,14 +552,14 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         respuesta_final = MENSAJES["M04"]
         return _empaquetar(
             pregunta_limpia, respuesta_final, fuentes, "M04",
-            inicio, sesion_id, distancias_debug,
+            inicio, sesion_id, distancias_validas,
         )
 
     respuesta_final = respuesta_generada
 
     return _empaquetar(
         pregunta_limpia, respuesta_final, fuentes, "M02",
-        inicio, sesion_id, distancias_debug,
+        inicio, sesion_id, distancias_validas,
     )
 
 
@@ -608,6 +612,6 @@ def _empaquetar(
         "tipo_mensaje": tipo_mensaje,
         "tiempo_respuesta": round(tiempo_total, 3),
     }
-    if MODO_PILOTO:
+    if DEBUG_LOG:
         salida["debug_distancias"] = debug_distancias
     return salida

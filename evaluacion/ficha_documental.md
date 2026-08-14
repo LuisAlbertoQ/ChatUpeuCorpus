@@ -11,7 +11,7 @@
 | Total de fragmentos (chunks) | 3886 |
 | Total de preguntas en banco | 8 (8 activas) |
 | Total de evaluaciones piloto registradas | 0 |
-| Total de interacciones del chatbot | 266 |
+| Total de interacciones del chatbot | 280 |
 | Modelo de embeddings | paraphrase-multilingual-mpnet-base-v2 (768 dim) |
 | Espacio vectorial | cosine |
 | Última actualización | 2026-08-14 |
