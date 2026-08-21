@@ -112,8 +112,11 @@ _PALABRAS_INTERROGATIVAS = {
     "cuánto", "cuanto", "por qué", "porque",
 }
 _CONECTORES_MULTI = re.compile(
-    r"\b(y\s+adem[áa]s|tambi[ée]n\s+(quiero|me)|y\s+por\s+otra\s+parte|"
-    r"adem[áa]s\s+de\s+eso|y\s+tambi[ée]n|;|/)\b",
+    # El \b solo aplica a las frases verbales; [;/] va fuera del grupo
+    # porque un boundary nunca colinda con puntuación (bug hallado por
+    # tests: "¿X?; ¿Y?" no se detectaba como multi-intención).
+    r"\b(y\s+adem[áa]s|tambi[ée]n\s+(?:quiero|me)|y\s+por\s+otra\s+parte|"
+    r"adem[áa]s\s+de\s+eso|y\s+tambi[ée]n)\b|[;/]",
     re.IGNORECASE,
 )
 
@@ -148,7 +151,10 @@ def _pregunta_es_ambigua(pregunta: str) -> bool:
         return True
     # Si la única palabra "significativa" es una interrogativa, es ambigua.
     contenido = [p for p in palabras if p not in _PALABRAS_INTERROGATIVAS and len(p) > 2]
-    return len(contenido) < 2
+    # Basta UNA palabra de contenido: preguntas válidas del tipo
+    # "¿qué es la matrícula?" tienen solo un término de fondo y antes
+    # se marcaban como ambiguas (falso M05; hallado por tests Tier 3).
+    return not contenido
 
 
 def _es_multi_intencion(pregunta: str) -> bool:
