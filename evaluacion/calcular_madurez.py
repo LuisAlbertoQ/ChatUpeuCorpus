@@ -25,8 +25,9 @@ from __future__ import annotations
 
 import csv
 import datetime
+import re
 import sqlite3
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from statistics import mean
 from typing import Dict, Optional
@@ -63,6 +64,66 @@ DIMENSIONES_CRITICAS = [
 CAPS_NIVEL = {"Inicial": 2.00, "Básico": 3.00, "Gestionado": 4.00, "Optimizado": 5.00}
 NIVELES_NUM = {"Inicial": 1, "Básico": 2, "Gestionado": 3, "Optimizado": 4}
 
+# Categorías del corpus (A-E) y regex para extraerlas de las fuentes
+# guardadas en `interacciones` (formato: "... · [B – Académico y estudios]").
+CATEGORIAS_CORPUS = ["A", "B", "C", "D", "E"]
+_RE_CATEGORIA_FUENTE = re.compile(r"\[([A-E])\s*[–-]")
+
+
+# -----------------------------------------------------------------------------
+# Desglose por categoría (dónde falta corpus)
+# -----------------------------------------------------------------------------
+def calcular_desglose_categorias(conn) -> Dict[str, Dict[str, float]]:
+    """Contador de interacciones por categoría del corpus (ítem 4 Tier 3).
+
+    Atribuye cada interacción CON fuentes a la categoría de su primera
+    fuente (categoría primaria). Permite detectar qué categorías
+    concentran más M04 ("el corpus tenía candidatos pero el sistema no
+    respondió") = dónde falta o sobra corpus.
+
+    Nota: M03/M05 no llevan fuentes, por lo que no aparecen aquí.
+    """
+    filas = conn.execute(
+        """
+        SELECT tipo_mensaje, fuentes FROM interacciones
+        WHERE fuentes IS NOT NULL AND fuentes != ''
+        """
+    ).fetchall()
+
+    desglose = {
+        cat: {"total": 0, "M02": 0, "M03": 0, "M04": 0, "M05": 0, "M06": 0}
+        for cat in CATEGORIAS_CORPUS
+    }
+
+    for tipo_mensaje, fuentes_raw in filas:
+        m = _RE_CATEGORIA_FUENTE.search(fuentes_raw or "")
+        if not m:
+            continue
+        cat = m.group(1)
+        if cat not in desglose:
+            continue
+        desglose[cat]["total"] += 1
+        if tipo_mensaje in desglose[cat]:
+            desglose[cat][tipo_mensaje] += 1
+
+    return desglose
+
+
+def categoria_peor_cobertura(desglose: Dict) -> Optional[Dict]:
+    """Categoría con mayor % M04 entre las que tienen interacciones."""
+    candidatas = []
+    for cat, d in desglose.items():
+        if d["total"] > 0:
+            pct_m04 = d["M04"] / d["total"] * 100
+            candidatas.append((pct_m04, cat, d))
+    if not candidatas:
+        return None
+    pct_m04, cat, d = max(candidatas, key=lambda x: x[0])
+    if pct_m04 <= 0:
+        return None
+    return {"categoria": cat, "pct_m04": pct_m04, **{
+        k: v for k, v in d.items() if k != "total"}}
+
 
 # -----------------------------------------------------------------------------
 # Dataclass
@@ -78,6 +139,7 @@ class ResultadoMadurez:
     total_interacciones: int
     total_piloto: int
     metricas_raw: Dict
+    desglose_categorias: Dict = field(default_factory=dict)
 
 
 # -----------------------------------------------------------------------------
@@ -341,6 +403,40 @@ def generar_reporte(r: ResultadoMadurez) -> None:
         nivel = clasificar_nivel(final)
         lineas.append(f"| {dim} | {auto:.2f} | {piloto} | {final:.2f} | {nivel} |")
 
+    # Desglose por categoría (dónde falta corpus)
+    if r.desglose_categorias:
+        lineas.extend([
+            "",
+            "## Cobertura por categoría del corpus (A–E)",
+            "",
+            "Atribución por la categoría de la primera fuente citada.",
+            "M03/M05 no llevan fuentes y no aparecen. Un % M04 alto en una",
+            "categoría indica dónde falta (o es débil) el corpus (OE1).",
+            "",
+            "| Categoría | Interacciones | M02 | M04 | M06 | % M04 |",
+            "|---|---:|---:|---:|---:|---:|",
+        ])
+        for cat in CATEGORIAS_CORPUS:
+            d = r.desglose_categorias[cat]
+            if d["total"] == 0:
+                continue
+            pct_m04 = d["M04"] / d["total"] * 100
+            lineas.append(
+                f"| {cat} | {d['total']} | {d['M02']} | {d['M04']} "
+                f"| {d['M06']} | {pct_m04:.1f}% |"
+            )
+        peor = categoria_peor_cobertura(r.desglose_categorias)
+        if peor:
+            lineas.extend([
+                "",
+                (
+                    f"**Categoría con peor cobertura:** `{peor['categoria']}` "
+                    f"con **{peor['pct_m04']:.1f}%** de M04 "
+                    f"({peor['M04']} de {r.desglose_categorias[peor['categoria']]['total']} "
+                    f"interacciones con fuentes)."
+                ),
+            ])
+
     pesos_txt = (
         f"60% automático / 40% piloto"
         if r.dimensiones_piloto
@@ -431,6 +527,9 @@ def main() -> int:
     dim_final = combinar_dimensiones(dim_auto, dim_piloto)
     puntaje, nivel, dim_min = aplicar_regla_consistencia(dim_final)
 
+    # 3b. Desglose por categoría (dónde falta corpus)
+    desglose = calcular_desglose_categorias(conn)
+
     # 4. Snapshot histórico en evaluacion_automatica
     guardar_snapshot(conn, metricas, dim_auto, nivel, puntaje, dim_min)
     conn.commit()
@@ -447,6 +546,7 @@ def main() -> int:
         total_interacciones=metricas["total_interacciones"],
         total_piloto=total_piloto,
         metricas_raw=metricas,
+        desglose_categorias=desglose,
     )
     generar_reporte(resultado)
     generar_csv_resultados(resultado)
@@ -463,6 +563,15 @@ def main() -> int:
     print(f"Reporte:   {REPORTE_MD}")
     print(f"CSV:       {RESULTADOS_CSV}")
     print(f"Snapshot:  tabla 'evaluacion_automatica'")
+
+    peor = categoria_peor_cobertura(desglose)
+    if peor:
+        total_cat = desglose[peor["categoria"]]["total"]
+        print("-" * 60)
+        print(
+            f"Cobertura por categoría: peor = {peor['categoria']} "
+            f"({peor['pct_m04']:.1f}% M04 de {total_cat} interacciones)"
+        )
     return 0
 
 

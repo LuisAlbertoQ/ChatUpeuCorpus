@@ -2,7 +2,7 @@
 
 ## Resumen ejecutivo
 
-- **Total de interacciones evaluadas:** 280
+- **Total de interacciones evaluadas:** 289
 - **Total de evaluaciones de piloto:** 0
 - **Puntaje global final:** **3.00** / 5.00
 - **Nivel de madurez:** **Básico**
@@ -12,13 +12,13 @@
 
 | Métrica | Valor |
 |---|---:|
-| % respuestas exitosas (M02) | 58.6% |
-| % fuera de dominio (M03) | 5.0% |
+| % respuestas exitosas (M02) | 58.1% |
+| % fuera de dominio (M03) | 5.2% |
 | % sin cobertura (M04) | 22.1% |
-| % preguntas ambiguas (M05) | 5.4% |
-| % errores (M06) | 8.9% |
-| % con fuentes documentales | 58.6% |
-| Tiempo promedio (segundos) | 14.81 |
+| % preguntas ambiguas (M05) | 5.5% |
+| % errores (M06) | 9.0% |
+| % con fuentes documentales | 58.8% |
+| Tiempo promedio (segundos) | 14.79 |
 
 ## Resultados por dimensión
 
@@ -30,6 +30,22 @@
 | Usabilidad | 4.00 | — | 4.00 | Gestionado |
 | Gobernanza y uso responsable | 5.00 | — | 5.00 | Optimizado |
 | Preparación tecnológica y mejora | 3.00 | — | 3.00 | Básico |
+
+## Cobertura por categoría del corpus (A–E)
+
+Atribución por la categoría de la primera fuente citada.
+M03/M05 no llevan fuentes y no aparecen. Un % M04 alto en una
+categoría indica dónde falta (o es débil) el corpus (OE1).
+
+| Categoría | Interacciones | M02 | M04 | M06 | % M04 |
+|---|---:|---:|---:|---:|---:|
+| A | 55 | 54 | 1 | 0 | 1.8% |
+| B | 60 | 57 | 3 | 0 | 5.0% |
+| C | 15 | 15 | 0 | 0 | 0.0% |
+| D | 4 | 4 | 0 | 0 | 0.0% |
+| E | 20 | 19 | 1 | 0 | 5.0% |
+
+**Categoría con peor cobertura:** `B` con **5.0%** de M04 (3 de 60 interacciones con fuentes).
 
 ## Interpretación
 

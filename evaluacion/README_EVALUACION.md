@@ -159,6 +159,9 @@ Reporte ejecutivo con:
 - Resumen (interacciones, piloto, puntaje global, nivel)
 - Métricas crudas (% M02, % M06, tiempo, fuentes)
 - Tabla de puntajes por dimensión (auto, piloto, final, nivel)
+- Cobertura por categoría del corpus A–E (qué categorías concentran
+  más M04 = dónde falta o es débil el corpus; atribución por primera
+  fuente citada, solo interacciones que llevan fuentes)
 - Interpretación automática
 - Regla de consistencia aplicada
 
