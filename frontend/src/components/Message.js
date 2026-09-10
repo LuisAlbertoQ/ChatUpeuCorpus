@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import SourceBadge from './SourceBadge';
 
 /**
@@ -39,7 +40,7 @@ function Message({ mensaje }) {
       </header>
 
       <div className="msg__body">
-        <ReactMarkdown>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {mensaje.texto || mensaje.respuesta || ''}
         </ReactMarkdown>
       </div>
