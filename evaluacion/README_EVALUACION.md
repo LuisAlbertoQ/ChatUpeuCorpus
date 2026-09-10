@@ -66,6 +66,10 @@ tecnológica.
 | `INSTRUMENTOS.md` | 5 instrumentos del OE6 (ficha, cotejo, gobernanza, rúbrica, SUS) | Manual |
 | `calcular_madurez.py` | Lee DB, calcula puntajes, genera reportes. | Script |
 | `generar_ficha.py` | Genera `ficha_documental.md` desde DB + ChromaDB. | Script |
+| `calibrar_umbral.py` | Grid search umbral × top_k sobre el banco (evidencia del 0.40). | Script |
+| `diagnostico_banco.py` / `sondeo_top3.py` | Diagnóstico por pregunta y sondeo de retrieval. | Script |
+| `preguntas_comparacion.json` | Banco v2: 17 preguntas con documento/artículo esperado. | Manual |
+| `evaluar_modelo.ps1` | Corre el banco end-to-end contra `/consulta` en vivo → JSON. | Script |
 | `migrar_banco.py` | [YA EJECUTADO] One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
 | `migrar_esquema_vector_store.py` | [YA EJECUTADO] One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
 | `ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |

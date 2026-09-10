@@ -75,13 +75,15 @@ $Resultados | ConvertTo-Json -Depth 5 | Set-Content $OutputFile
 
 Write-Host ""
 Write-Host "=== RESUMEN ==="
-$m02 = ($Resultados | Where-Object { $_.tipo_mensaje -eq "M02" }).Count
-$m04 = ($Resultados | Where-Object { $_.tipo_mensaje -eq "M04" }).Count
-$m03 = ($Resultados | Where-Object { $_.tipo_mensaje -eq "M03" }).Count
-$m05 = ($Resultados | Where-Object { $_.tipo_mensaje -eq "M05" }).Count
-$m06 = ($Resultados | Where-Object { $_.tipo_mensaje -eq "M06" }).Count
-$err = ($Resultados | Where-Object { $_.tipo_mensaje -eq "ERROR" }).Count
-$tiempos = $Resultados | Where-Object { $_.tiempo_seg -gt 0 } | Select-Object -ExpandProperty tiempo_seg
+# @() fuerza array: sin esto, un único match devuelve el hashtable y
+# .Count contaría sus claves (11) en vez de los resultados (bug 2026-08-21).
+$m02 = @($Resultados | Where-Object { $_.tipo_mensaje -eq "M02" }).Count
+$m04 = @($Resultados | Where-Object { $_.tipo_mensaje -eq "M04" }).Count
+$m03 = @($Resultados | Where-Object { $_.tipo_mensaje -eq "M03" }).Count
+$m05 = @($Resultados | Where-Object { $_.tipo_mensaje -eq "M05" }).Count
+$m06 = @($Resultados | Where-Object { $_.tipo_mensaje -eq "M06" }).Count
+$err = @($Resultados | Where-Object { $_.tipo_mensaje -eq "ERROR" }).Count
+$tiempos = @($Resultados | Where-Object { $_.tiempo_seg -gt 0 } | Select-Object -ExpandProperty tiempo_seg)
 $prom_t = if ($tiempos) { [math]::Round(($tiempos | Measure-Object -Average).Average, 2) } else { 0 }
 
 Write-Host "M02: $m02/$($Preguntas.Count) | M04: $m04 | M03: $m03 | M05: $m05 | M06: $m06 | ERROR: $err"

@@ -353,19 +353,35 @@ docker compose down -v              # elimina también volumen de modelos Ollama
 
 Para detalles completos ver `evaluacion/README_EVALUACION.md`.
 
-**Madurez actual** (266 interacciones, 0 evaluaciones de piloto):
+**Madurez actual** (300 interacciones, 0 evaluaciones de piloto):
 
 | Dimensión | Puntaje | Nivel |
 |---|---:|---|
 | Funcional | 3.00 | Básico |
 | Recuperación documental | 3.00 | Básico |
-| Explicabilidad y trazabilidad | 2.00 | Inicial |
+| Explicabilidad y trazabilidad | 3.00 | Básico |
 | Usabilidad | 4.00 | Gestionado |
 | Gobernanza y uso responsable | 5.00 | Optimizado |
 | Preparación tecnológica y mejora | 3.00 | Básico |
-| **Global** | **3.00** | **Básico** |
+| **Global** | **3.50** | **Gestionado** |
 
-Métricas crudas: M02=57.9%, M04=22.6%, M06=9.4%, tiempo=15.03s.
+Métricas crudas: M02=59.0%, M04=22.0%, M06=8.7%, tiempo=14.91s.
+
+### Banco end-to-end (17 preguntas, corpus v2)
+
+Ejecutar con `powershell -ExecutionPolicy Bypass -File evaluacion/evaluar_modelo.ps1`
+(requiere backend en vivo; guarda `evaluacion/resultados_<modelo>.json`):
+
+| Métrica | Corpus v1 (3886 chunks) | Corpus v2 (6259 chunks) |
+|---|---|---|
+| M02 (respuesta con fuentes) | 9/10* | **16/17** |
+| M04 | — | 1/17 (Q04 matrícula: recupera 4 fuentes pero el LLM no redacta) |
+| Tiempo promedio | — | 8.32s (máx 19.43s) |
+| Q12 "cambiar de carrera" | M04 (chunk a d=0.436) | **M02** (d=0.387) |
+| Q11 "constancia de estudios" | M04 | **M02** (cita Art. 53° Admisión) |
+
+*Bco anterior de 10 preguntas. El re-chunking 1-artículo-por-chunk resolvió
+los falsos M04 de Q11 y Q12. Ver `evaluacion/calibracion_resumen.md`.
 
 Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
 
