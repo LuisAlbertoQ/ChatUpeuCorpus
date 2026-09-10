@@ -1,6 +1,6 @@
 # Ficha documental del corpus UPeU
 
-**Fecha de generación:** 2026-08-14
+**Fecha de generación:** 2026-09-10
 
 ## 1. Datos generales
 
@@ -8,23 +8,23 @@
 |---|---|
 | Versión del corpus | v1.0 |
 | Total de documentos indexados | 48 |
-| Total de fragmentos (chunks) | 3886 |
+| Total de fragmentos (chunks) | 6259 |
 | Total de preguntas en banco | 8 (8 activas) |
 | Total de evaluaciones piloto registradas | 0 |
-| Total de interacciones del chatbot | 280 |
+| Total de interacciones del chatbot | 300 |
 | Modelo de embeddings | paraphrase-multilingual-mpnet-base-v2 (768 dim) |
 | Espacio vectorial | cosine |
-| Última actualización | 2026-08-14 |
+| Última actualización | 2026-09-10 |
 
 ## 2. Distribución por categoría
 
 | Categoría | Nombre | # Documentos | # Fragmentos | % del corpus |
 |---|---|---:|---:|---:|
-| A | Gobierno y estatuto institucional | 6 | 1509 | 38.8% |
-| B | Académico y estudios | 13 | 1362 | 35.0% |
-| C | Investigación | 7 | 420 | 10.8% |
-| D | Bienestar estudiantil | 3 | 95 | 2.4% |
-| E | Laboral, docencia y políticas | 19 | 500 | 12.9% |
+| A | Gobierno y estatuto institucional | 6 | 2249 | 35.9% |
+| B | Académico y estudios | 13 | 2229 | 35.6% |
+| C | Investigación | 7 | 677 | 10.8% |
+| D | Bienestar estudiantil | 3 | 249 | 4.0% |
+| E | Laboral, docencia y políticas | 19 | 855 | 13.7% |
 
 ## 3. Listado de documentos por categoría
 
@@ -118,4 +118,4 @@
 
 ---
 
-_Ficha generada automáticamente el 2026-08-14 por `generar_ficha.py`._
+_Ficha generada automáticamente el 2026-09-10 por `generar_ficha.py`._
