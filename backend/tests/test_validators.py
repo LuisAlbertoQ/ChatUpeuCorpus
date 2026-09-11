@@ -23,6 +23,7 @@ from rag_pipeline import (
     _pregunta_es_ambigua,
     _truncar_palabras,
     _es_multi_intencion,
+    _validar_encuadre,
 )
 
 
@@ -290,6 +291,78 @@ class TestFormatearFuente:
         fuente = _formatear_fuente("DOC", "A", "CAPÍTULO II\ncontenido")
         # El regex detecta "capítulo ii" y lo capitaliza.
         assert "Capítulo" in fuente or "capítulo" in fuente.lower()
+
+
+# =============================================================================
+# _validar_encuadre → guardrail anti-alucinación de nombres
+# =============================================================================
+class TestValidarEncuadre:
+    """El encuadre 'Según el X:' solo sobrevive si X está en fuentes."""
+
+    FUENTES = [
+        "REGLAMENTO DE ESTUDIOS V5_2025 · Artículo 34º · v5 · [B – Académico]",
+        "TUPA V6 2023 UPeU · v6 2023 · [A – Gobierno]",
+    ]
+
+    def test_encuadre_correcto_se_conserva(self):
+        r = _validar_encuadre(
+            "Según el REGLAMENTO DE ESTUDIOS V5_2025:\n- La constancia…",
+            self.FUENTES,
+        )
+        assert r.startswith("Según el REGLAMENTO DE ESTUDIOS V5_2025:")
+
+    def test_encuadre_insensible_a_mayusculas(self):
+        r = _validar_encuadre(
+            "Según el reglamento de estudios v5_2025:\n- La constancia…",
+            self.FUENTES,
+        )
+        assert r.startswith("Según el")
+
+    def test_encuadre_con_coma_y_parafrasis_leve_se_conserva(self):
+        # Mismo documento con "DE"/tildes de diferencia (caso real Q11).
+        r = _validar_encuadre(
+            "Según el REGLAMENTO DE ADMISIÓN 2025.v7, Artículo 53°, la nota…",
+            ["REGLAMENTO ADMISION 2025.v7 · Artículo 53° · [B]"],
+        )
+        assert r.startswith("Según el")
+
+    def test_encuadre_con_coma_fabricado_se_elimina(self):
+        r = _validar_encuadre(
+            "Según el REGLAMENTO ADMISION 2025.v7, la nota…",
+            self.FUENTES,
+        )
+        assert not r.startswith("Según el")
+        assert r.startswith("la nota")
+
+    def test_encuadre_fabricado_se_elimina(self):
+        # Caso real banco 17Q: repetía ADMISION en todas las preguntas.
+        r = _validar_encuadre(
+            "Según el REGLAMENTO ADMISION 2025.v7:\n- La constancia…",
+            self.FUENTES,
+        )
+        assert not r.startswith("Según el")
+        assert r.startswith("- La constancia")
+
+    def test_encuadre_inexistente_se_elimina(self):
+        # Caso real: "Reglamento Académico 2025.v7" no existe en el corpus.
+        r = _validar_encuadre(
+            "Según el Reglamento Académico 2025.v7:\n- La constancia…",
+            self.FUENTES,
+        )
+        assert not r.startswith("Según el")
+
+    def test_sin_encuadre_intacto(self):
+        texto = "- La constancia se solicita… (Artículo 34º)"
+        assert _validar_encuadre(texto, self.FUENTES) == texto
+
+    def test_sin_fuentes_elimina_encuadre(self):
+        # Sin evidencia no se puede verificar → se elimina.
+        r = _validar_encuadre("Según el REGLAMENTO X:\n- Algo…", [])
+        assert not r.startswith("Según el")
+
+    def test_respuesta_vacia(self):
+        assert _validar_encuadre("", self.FUENTES) == ""
+        assert _validar_encuadre(None, self.FUENTES) is None
 
 
 # =============================================================================

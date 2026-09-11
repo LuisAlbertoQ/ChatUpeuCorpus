@@ -61,7 +61,11 @@ PROMPT = PromptTemplate(
         "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
         "Respondes basándote ESTRICTAMENTE en los fragmentos del corpus proporcionados abajo.\n\n"
         "FORMATO DE RESPUESTA (adáptalo a la pregunta):\n"
-        "- Empieza con UNA línea de encuadre: 'Según el [Documento]:'. Sin prólogos adicionales.\n"
+        "- Empieza con UNA línea de encuadre usando el nombre EXACTO de una "
+        "de las fuentes, p. ej. 'Según el REGLAMENTO DE ESTUDIOS V5_2025:'. "
+        "COPIA el nombre literal del fragmento: no lo abrevies, no lo "
+        "parafrasees y jamás inventes un documento. Si no estás seguro del "
+        "nombre, OMITE la línea y responde directo. Sin prólogos adicionales.\n"
         "- Pregunta factual simple (quién/cuál/cuánto/qué es): respuesta directa en 1-3 oraciones, con su cita.\n"
         "- Enumeración (derechos, requisitos, pasos, modalidades): lista con viñetas (•) o numerada, UN elemento por línea, cada uno con su cita.\n"
         "- Comparaciones, escalas, ponderaciones o cifras por categoría: tabla markdown (| columna |) con citas en cada fila.\n"
@@ -202,6 +206,50 @@ def _es_fuera_dominio_por_keywords(pregunta: str) -> bool | None:
 # =============================================================================
 # Utilidades de presentación
 # =============================================================================
+_RE_ENCUADRE = re.compile(r"^\s*Según el (.+?)[:,]\s*", re.IGNORECASE)
+
+
+def _normalizar_nombre(texto: str) -> str:
+    """Minúsculas, sin tildes, espacios colapsados (para comparar nombres)."""
+    import unicodedata
+    t = unicodedata.normalize("NFKD", texto or "").lower()
+    t = "".join(c for c in t if not unicodedata.combining(c))
+    return re.sub(r"\s+", " ", re.sub(r"[^\w\s]", " ", t)).strip()
+
+
+def _validar_encuadre(respuesta: str, fuentes: list) -> str:
+    """Elimina la línea de encuadre si cita un documento ausente en fuentes.
+
+    Guardrail determinístico contra alucinación de nombres (hallazgo banco
+    17Q prompt-v2: el LLM repetía 'REGLAMENTO ADMISION 2025.v7' como encuadre
+    en todas las preguntas, e inventó 'Reglamento Académico 2025.v7').
+
+    Se conserva si hay coincidencia por subcadena O solapamiento de
+    tokens >= 50% (tolera "DE"/tildes: 'REGLAMENTO DE ADMISIÓN' vs
+    'REGLAMENTO ADMISION 2025.v7'). Solo se elimina el encuadre, nunca
+    el contenido de la respuesta.
+    """
+    m = _RE_ENCUADRE.match(respuesta or "")
+    if not m:
+        return respuesta
+    citado = _normalizar_nombre(m.group(1))
+    if not citado:
+        return respuesta
+    toks_citado = set(citado.split())
+    for f in fuentes or []:
+        parte = (f.split("·")[0] if "·" in f else f)
+        doc = _normalizar_nombre(parte)
+        if not doc:
+            continue
+        if citado in doc or doc in citado:
+            return respuesta
+        toks_doc = set(doc.split())
+        solape = len(toks_citado & toks_doc) / max(len(toks_citado), 1)
+        if solape >= 0.5:
+            return respuesta
+    return (respuesta or "")[m.end():].lstrip()
+
+
 def _truncar_palabras(texto: str, maximo: int) -> tuple[str, bool]:
     """T03: trunca a `maximo` palabras y agrega indicador."""
     palabras = texto.split()
@@ -536,6 +584,16 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         "",
         respuesta_generada,
     ).rstrip()
+
+    # Guardrail de encuadre: si la línea "Según el X:" cita un documento
+    # que NO está entre las fuentes, se elimina (alucinación de nombre).
+    antes_encuadre = respuesta_generada
+    respuesta_generada = _validar_encuadre(respuesta_generada, fuentes)
+    if respuesta_generada != antes_encuadre:
+        log.info(
+            "Encuadre con documento no citado eliminado. pregunta=%r",
+            pregunta_limpia,
+        )
 
     # T03: truncar a MAX_PALABRAS_RESPUESTA
     respuesta_generada, fue_truncada = _truncar_palabras(
