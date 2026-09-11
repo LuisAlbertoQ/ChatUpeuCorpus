@@ -60,30 +60,18 @@ PROMPT = PromptTemplate(
     template=(
         "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
         "Respondes basándote ESTRICTAMENTE en los fragmentos del corpus proporcionados abajo.\n\n"
-        "FORMATO DE RESPUESTA (adáptalo a la pregunta):\n"
-        "- Empieza con UNA línea de encuadre usando el nombre EXACTO de una "
-        "de las fuentes, p. ej. 'Según el REGLAMENTO DE ESTUDIOS V5_2025:'. "
-        "COPIA el nombre literal del fragmento: no lo abrevies, no lo "
-        "parafrasees y jamás inventes un documento. Si no estás seguro del "
-        "nombre, OMITE la línea y responde directo. Sin prólogos adicionales.\n"
-        "- Pregunta factual simple (quién/cuál/cuánto/qué es): respuesta directa en 1-3 oraciones, con su cita.\n"
-        "- Enumeración (derechos, requisitos, pasos, modalidades): lista con viñetas (•) o numerada, UN elemento por línea, cada uno con su cita.\n"
-        "- Comparaciones, escalas, ponderaciones o cifras por categoría: tabla markdown (| columna |) con citas en cada fila.\n"
-        "- Si los fragmentos traen contexto directamente relacionado (p. ej. la escala junto a la nota mínima), agrégalo como complemento breve, siempre citado.\n\n"
+        "Da la respuesta en el formato que mejor encaje: texto directo breve, "
+        "lista con viñetas (•) o tabla markdown. Cada dato factual termina "
+        "con su cita: (Documento, Artículo X°), por ejemplo: "
+        "• Recibir formación de calidad (ESTATUTO 2024, Artículo 112°).\n\n"
         "REGLAS OBLIGATORIAS:\n"
-        "1. USA solo las fuentes con información directamente relevante para la pregunta (ignora las tangenciales aunque vengan en contexto).\n"
+        "1. USA solo las fuentes con información directamente relevante (ignora las tangenciales).\n"
         "2. NO inventes información que no esté en los fragmentos. Si los fragmentos no "
         "mencionan algo, di 'El corpus no contiene información sobre X'.\n"
-        "3. TODA afirmación factual lleva su cita entre paréntesis con el "
-        "nombre REAL del documento y su artículo, ejemplo: "
-        "(REGLAMENTO ADMISION 2025.v7, Artículo 53°). Nunca escribas la "
-        "palabra genérica 'Documento': usa siempre el nombre que aparece "
-        "en cada fragmento. En listas, cada viñeta termina con su cita; "
-        "en tablas, cada fila.\n"
-        "4. NO agregues prólogos más allá de la línea de encuadre.\n"
-        "5. NO atribuyas un artículo al documento equivocado. Cita SOLO lo que aparece "
-        "literalmente en cada fragmento.\n"
-        "6. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
+        "3. Copia el nombre del documento literalmente desde el fragmento; "
+        "jamás inventes ni completes nombres de documentos.\n"
+        "4. NO atribuyas un artículo al documento equivocado.\n"
+        "5. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
         "el sistema agregará las fuentes automáticamente.\n\n"
         "Fragmentos del corpus (usa solo estos):\n{context}\n\n"
         "Pregunta del estudiante: {question}\n\n"
@@ -248,6 +236,62 @@ def _validar_encuadre(respuesta: str, fuentes: list) -> str:
         if solape >= 0.5:
             return respuesta
     return (respuesta or "")[m.end():].lstrip()
+
+
+_RE_CITA = re.compile(
+    r"\(([^()]{3,80}?),\s*"
+    r"((?:Art[íi]culo|Cap[íi]tulo|Secci[óo]n|T[íi]tulo)[^()]{0,40}?)\)"
+)
+_RE_NUMERO = re.compile(r"\d+")
+
+
+def _reparar_citas(respuesta: str, fuentes: list) -> tuple[str, int]:
+    """Repara citas `(DOC, Artículo NN)` con documento ausente en fuentes.
+
+    Caso real banco 17Q: el LLM citaba bien los números de artículo pero
+    con nombres inventados ("REGLAMENTO ADMISION..." en todas, e incluso
+    "REGLAMENTO UNIVERSITARIO 2024" que no existe).
+      - Si el artículo NN coincide con el de alguna fuente → sustituye DOC
+        por el nombre real de esa fuente.
+      - Si ni documento ni artículo existen → elimina el paréntesis.
+    Retorna (texto, nº de reparaciones). Solo toca citas, nunca contenido.
+    """
+    refs = []
+    for f in fuentes or []:
+        partes = (f or "").split("·")
+        doc_orig = partes[0].strip() if partes else ""
+        doc_norm = _normalizar_nombre(doc_orig)
+        art_num = None
+        for p in partes[1:]:
+            m = _RE_NUMERO.search(p)
+            if m and re.search(
+                    r"art[íi]culo|cap[íi]tulo|secci[óo]n|t[íi]tulo",
+                    p, re.IGNORECASE):
+                art_num = m.group(0)
+                break
+        if doc_norm:
+            refs.append((doc_norm, art_num, doc_orig))
+
+    reparaciones = [0]
+
+    def _arreglar(m):
+        doc_citado = _normalizar_nombre(m.group(1))
+        art_m = _RE_NUMERO.search(m.group(2) or "")
+        art_citado = art_m.group(0) if art_m else None
+        if doc_citado and any(
+                doc_citado in d or d in doc_citado for d, _, _ in refs):
+            return m.group(0)
+        if art_citado:
+            for d_norm, a_num, d_orig in refs:
+                if a_num and a_num == art_citado:
+                    reparaciones[0] += 1
+                    return f"({d_orig}, {m.group(2).strip()})"
+        reparaciones[0] += 1
+        return ""
+
+    texto = _RE_CITA.sub(_arreglar, respuesta or "")
+    texto = re.sub(r"\s+([.,;:])", r"\1", texto)
+    return texto, reparaciones[0]
 
 
 def _truncar_palabras(texto: str, maximo: int) -> tuple[str, bool]:
@@ -593,6 +637,15 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         log.info(
             "Encuadre con documento no citado eliminado. pregunta=%r",
             pregunta_limpia,
+        )
+
+    # Reparación de citas: si una cita (DOC, Artículo NN) usa un documento
+    # ausente en fuentes pero el artículo coincide, se sustituye por el
+    # nombre real; si ni el artículo existe, se elimina el paréntesis.
+    respuesta_generada, n_rep = _reparar_citas(respuesta_generada, fuentes)
+    if n_rep:
+        log.info(
+            "Citas reparadas=%d. pregunta=%r", n_rep, pregunta_limpia,
         )
 
     # T03: truncar a MAX_PALABRAS_RESPUESTA

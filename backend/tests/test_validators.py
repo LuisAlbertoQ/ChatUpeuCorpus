@@ -24,6 +24,7 @@ from rag_pipeline import (
     _truncar_palabras,
     _es_multi_intencion,
     _validar_encuadre,
+    _reparar_citas,
 )
 
 
@@ -363,6 +364,62 @@ class TestValidarEncuadre:
     def test_respuesta_vacia(self):
         assert _validar_encuadre("", self.FUENTES) == ""
         assert _validar_encuadre(None, self.FUENTES) is None
+
+
+# =============================================================================
+# _reparar_citas → corrige nombres inventados usando el nº de artículo
+# =============================================================================
+class TestRepararCitas:
+    """El nº de artículo identifica la fuente real aunque el nombre falle."""
+
+    FUENTES = [
+        "ESTATUTO 2024. 04-09-2024 · Artículo 50° · 2024 · [A – Gobierno]",
+        "ESTATUTO 2024. 04-09-2024 · Artículo 48° · 2024 · [A – Gobierno]",
+    ]
+
+    def test_cita_correcta_intacta(self):
+        texto = "- La licencia del decano (ESTATUTO 2024. 04-09-2024, Artículo 50°)."
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert n == 0
+        assert nuevo == texto
+
+    def test_nombre_mal_articulo_bien_sustituye(self):
+        # Caso real Q01: artículo 50 correcto, documento inventado.
+        texto = "- La licencia del decano (REGLAMENTO ADMISION 2025.v7, Artículo 50°)."
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert n == 1
+        assert "REGLAMENTO ADMISION" not in nuevo
+        assert "ESTATUTO 2024. 04-09-2024" in nuevo
+        assert "Artículo 50°" in nuevo
+
+    def test_documento_inexistente_se_sustituye(self):
+        # "REGLAMENTO UNIVERSITARIO 2024" no existe en el corpus.
+        texto = "- El Consejo es órgano de gobierno (REGLAMENTO UNIVERSITARIO 2024, Artículo 48°)."
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert n == 1
+        assert "UNIVERSITARIO 2024" not in nuevo
+        assert "ESTATUTO 2024. 04-09-2024" in nuevo
+
+    def test_cita_totalmente_falsa_se_elimina(self):
+        texto = "El trámite cuesta S/ 100 (REGLAMENTO FALSO, Artículo 999°)."
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert n == 1
+        assert "(" not in nuevo
+        assert "El trámite cuesta S/ 100." in nuevo
+
+    def test_sin_citas_intacto(self):
+        texto = "Respuesta sin citas parentéticas."
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert (nuevo, n) == (texto, 0)
+
+    def test_varias_citas_mixtas(self):
+        texto = ("A (ESTATUTO 2024. 04-09-2024, Artículo 50°). "
+                 "B (REGLAMENTO X, Artículo 48°). "
+                 "C (REGLAMENTO Y, Artículo 777°).")
+        nuevo, n = _reparar_citas(texto, self.FUENTES)
+        assert n == 2
+        assert nuevo.count("ESTATUTO 2024. 04-09-2024") == 2
+        assert "Artículo 777°" not in nuevo
 
 
 # =============================================================================
