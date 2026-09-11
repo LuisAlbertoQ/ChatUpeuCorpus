@@ -372,13 +372,14 @@ Métricas crudas: M02=59.0%, M04=22.0%, M06=8.7%, tiempo=14.91s.
 Ejecutar con `powershell -ExecutionPolicy Bypass -File evaluacion/evaluar_modelo.ps1`
 (requiere backend en vivo; guarda `evaluacion/resultados_<modelo>.json`):
 
-| Métrica | Corpus v1 (3886 chunks) | Corpus v2 (6259 chunks) |
-|---|---|---|
-| M02 (respuesta con fuentes) | 9/10* | **16/17** |
-| M04 | — | 1/17 (Q04 matrícula: recupera 4 fuentes pero el LLM no redacta) |
-| Tiempo promedio | — | 8.32s (máx 19.43s) |
-| Q12 "cambiar de carrera" | M04 (chunk a d=0.436) | **M02** (d=0.387) |
-| Q11 "constancia de estudios" | M04 | **M02** (cita Art. 53° Admisión) |
+| Métrica | Corpus v1 (3886 chunks) | Corpus v2 (6259 chunks) | Corpus v2 + prompt adaptativo |
+|---|---|---|---|
+| M02 (respuesta con fuentes) | 9/10* | **16/17** | **16/17** |
+| M04 | — | 1/17 (Q04 matrícula: recupera 4 fuentes pero el LLM no redacta) | 1/17 (Q04, mismo fallo de generación) |
+| Tiempo promedio | — | 8.32s (máx 19.43s) | 14.81s (máx 43.92s; respuestas más ricas) |
+| Q12 "cambiar de carrera" | M04 (chunk a d=0.436) | **M02** (d=0.387) | **M02** |
+| Q11 "constancia de estudios" | M04 | **M02** (cita Art. 53° Admisión) | **M02** + línea de encuadre e info complementaria |
+| Formato | Lista forzada, sin encuadre | Lista forzada | Encuadre + directa/lista/tabla según pregunta |
 
 *Bco anterior de 10 preguntas. El re-chunking 1-artículo-por-chunk resolvió
 los falsos M04 de Q11 y Q12. Ver `evaluacion/calibracion_resumen.md`.
