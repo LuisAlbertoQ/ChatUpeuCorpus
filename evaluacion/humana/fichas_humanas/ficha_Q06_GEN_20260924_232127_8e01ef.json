@@ -1,0 +1,107 @@
+{
+  "pregunta_id": "Q06",
+  "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?",
+  "respuesta_congelada": "- Los artículos científicos deben ser publicados o estar en proceso de revisión por pares. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°)\n\n- Deben generarse al menos dos artículos científicos como resultado de la tesis doctoral. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°)\n\n- Se recomienda seleccionar revistas indexadas en Scopus, Wiley, IEEE Xplore, Mathematical Reviews, Medline, SPIE Digital Library, McGraw-Hill, Springer, Taylor & Francis Group, EconLit, ProQuest, Jstor, Bentham Science o Web of Science. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°)\n\n- El asesor o co-asesor puede someter el trabajo a la revista seleccionada asumiendo el rol de autor corresponsal. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0165",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 119°",
+      "distancia": 0.20563220977783203
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0153",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 107°",
+      "distancia": 0.21908128261566162
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0137",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 93°",
+      "distancia": 0.2712821960449219
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0058",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 21°",
+      "distancia": 0.3061025142669678
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 119° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 107° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 93° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 21° · v8 2025 · [C – Investigación]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q06_P01",
+      "descripcion": "Artículos derivados de tesis doctoral pueden someterse con acompañamiento y coautoría del asesor",
+      "evidencia": "Artículo 119°. Sumisión y publicación de los artículos. Los artículos científicos derivados de la ejecución del proyecto de tesis doctoral podrán ser sometidos a evaluación y publicación con el acompañamiento y la coautoría del asesor",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q06_P02",
+      "descripcion": "La contribución del asesor debe cumplir criterios éticos y académicos de autoría científica",
+      "evidencia": "siempre que dicha contribución cumpla con los criterios éticos y académicos establecidos para la autoría científica.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q06_P03",
+      "descripcion": "La sumisión puede realizarse posterior a la inscripción del proyecto de tesis doctoral",
+      "evidencia": "La submisión y eventual publicación de los artículos podrá realizarse posterior a la inscripción del Proyecto de tesis doctoral.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "119°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "107°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "93°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "93°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

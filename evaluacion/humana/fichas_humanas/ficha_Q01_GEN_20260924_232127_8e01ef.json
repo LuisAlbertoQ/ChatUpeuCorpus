@@ -1,0 +1,218 @@
+{
+  "pregunta_id": "Q01",
+  "pregunta": "¿Qué dice el estatuto sobre las autoridades universitarias?",
+  "respuesta_congelada": "- Consejo de Facultad. Es el órgano de gobierno de la facultad y está bajo la dirección del decano. (ESTATUTO 2024, Artículo 48°)\n- Defensoría universitaria. Es un órgano tutelar autónomo de los derechos fundamentales de los miembros de la comunidad universitaria, depositaria de las denuncias o reclamaciones por infracción de los derechos y preserva el principio de autoridad responsable. Está a cargo de un profesional nombrado por el Consejo Universitario por el tiempo de dos (2) años a propuesta del rector. Es regulado en su funcionamiento y atribuciones por el reglamento respectivo y el Reglamento General. (ESTATUTO 2024, Artículo 124°)\n- El decano tiene las siguientes atribuciones: \n  - Cautelar el marco filosófico, axiológico, misional y espiritual en el desarrollo de los programas de estudios, dentro o fuera del campus de la UPeU.\n  - Cumplir y hacer cumplir los reglamentos y acuerdos de los órganos de gobierno y de la facultad.\n  - Dar cuenta al Consejo Universitario.\n  - Supervisar y promover la educación continua, el seguimiento de los egresados y evaluación del perfil profesional.\n  - Vincular a la facultad a través de alianzas estratégicas, programas, proyectos, actividades y acciones.\n  - Las demás que le asignen la ley, el Estatuto, el Reglamento General o normas específicas. (ESTATUTO 2024, Artículo 53°)",
+  "contexto_real": [
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0085",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 48°",
+      "distancia": 0.14612530946731567,
+      "texto_verificado": "Artículo 48°. Consejo de Facultad. Es el órgano de gobierno de la facultad y está bajo la dirección del decano."
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0181",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 124°",
+      "distancia": 0.1559436249732971,
+      "texto_verificado": "Artículo 124°. Defensoría universitaria. Es un órgano tutelar autónomo de los derechos fundamentales de los miembros de la comunidad universitaria, depositaria de las denuncias o reclamaciones por infracción de los derechos y preserva el principio de autoridad responsable. Está a cargo de un profesional nombrado por el Consejo Universitario por el tiempo de dos (2) años a propuesta del rector. Es regulado en su funcionamiento y atribuciones por el reglamento respectivo y el Reglamento General."
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0092",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 53°",
+      "distancia": 0.17395197629928588,
+      "texto_verificado": "Artículo 53°. Atribuciones. El decano tiene las siguientes atribuciones: 53.1. Cautelar el marco filosófico, axiológico, misional y espiritual en el desarrollo de los programas de estudios, dentro o fuera del campus de la UPeU. 53.2. Cumplir y hacer cumplir los reglamentos y acuerdos de los órganos de gobierno y de la facultad. 53.3. Dar cuenta de su gestión ante los órganos de gobierno. 53.13. Supervisar y promover la educación continua, el seguimiento de los egresados y evaluación del perfil profesional. 53.14. Vincular a la facultad a través de alianzas estratégicas, programas, proyectos, actividades y acciones. 53.15. Las demás que le asignen la ley, el Estatuto, el Reglamento General o normas específicas. [Texto completo verificado vía ChromaDB collection.get(ids=[...]) el 2026-09-25; no se infiere por número de artículo.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO RESIDENCIAS UNIVERSITARIAS_0017",
+      "documento": "REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf",
+      "articulo": "Artículo 7°",
+      "distancia": 0.17705183506011962,
+      "texto_verificado": "[No utilizado por la respuesta; no se verificó texto completo porque ningún claim lo cita. Se deja constancia para no inferir soporte.]"
+    }
+  ],
+  "fuentes_finales": [
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 48° · 2024 · [A – Gobierno y estatuto institucional]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 124° · 2024 · [A – Gobierno y estatuto institucional]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 53° · 2024 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf · Artículo 7° · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "invalid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Determinístico: citation_match=invalid según el evaluador automático deterministic_v2."
+  },
+  "evaluacion_humana": {
+    "evaluador": "investigador_manual_v1",
+    "timestamp": null,
+    "puntos_esperados": [
+      {
+        "punto_id": "Q01_P01",
+        "descripcion": "Las instancias de gobierno de la UPeU incluyen la Asamblea Universitaria como máximo órgano",
+        "evidencia": "Artículo 19°. Instancias de Gobierno. Las instancias de gobierno de la UPeU, son los órganos de gobierno y autoridades que se indican a continuación: 19.1. La Asamblea Universitaria.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta no menciona la Asamblea Universitaria ni el Art.19. Habla de Consejo de Facultad, Defensoría y Decano, que son órganos distintos. No hay equivalencia.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q01_P02",
+        "descripcion": "El Consejo Universitario es órgano de gestión, dirección y ejecución académica y administrativa",
+        "evidencia": "Artículo 32°. Consejo Universitario. Es el órgano de gestión, dirección y ejecución académica, administrativa, económica y financiera de la UPeU",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta menciona Consejo de Facultad (Art48), no Consejo Universitario (Art32). Son órganos diferentes con funciones distintas.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q01_P03",
+        "descripcion": "El Rector es elegido por la Asamblea Universitaria por cinco años y puede ser reelegido",
+        "evidencia": "Artículo 34°. Rector. El rector de la UPeU es elegido por la Asamblea Universitaria, por un período de cinco (5) años, y puede ser reelegido.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No hay mención al Rector ni a su elección/periodo. La respuesta solo lista Decano y Defensoría.",
+        "fragmento_respuesta": ""
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "Q01_C01",
+        "claim_texto": "El Consejo de Facultad es el órgano de gobierno de la facultad.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0085: 'Es el órgano de gobierno de la facultad...'",
+        "justificacion": "Literal en chunk 0085."
+      },
+      {
+        "claim_id": "Q01_C02",
+        "claim_texto": "El Consejo de Facultad está bajo la dirección del decano.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0085: '...está bajo la dirección del decano.'",
+        "justificacion": "Literal en chunk 0085."
+      },
+      {
+        "claim_id": "Q01_C03",
+        "claim_texto": "La Defensoría universitaria es un órgano tutelar autónomo de los derechos fundamentales.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'Defensoría universitaria. Es un órgano tutelar autónomo de los derechos fundamentales de los miembros de la comunidad universitaria'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C04",
+        "claim_texto": "La Defensoría es depositaria de las denuncias o reclamaciones por infracción de derechos.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'depositaria de las denuncias o reclamaciones por infracción de los derechos'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C05",
+        "claim_texto": "La Defensoría preserva el principio de autoridad responsable.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'y preserva el principio de autoridad responsable.'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C06",
+        "claim_texto": "La Defensoría está a cargo de un profesional nombrado por el Consejo Universitario.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'Está a cargo de un profesional nombrado por el Consejo Universitario'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C07",
+        "claim_texto": "El profesional responsable de la Defensoría es nombrado por dos años.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'por el tiempo de dos (2) años'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C08",
+        "claim_texto": "El nombramiento del responsable de la Defensoría se realiza a propuesta del rector.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'a propuesta del rector.'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C09",
+        "claim_texto": "La Defensoría es regulada en su funcionamiento y atribuciones por el reglamento respectivo y el Reglamento General.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0181: 'Es regulado en su funcionamiento y atribuciones por el reglamento respectivo y el Reglamento General.'",
+        "justificacion": "Literal en chunk 0181."
+      },
+      {
+        "claim_id": "Q01_C10",
+        "claim_texto": "El decano debe cautelar el marco filosófico, axiológico, misional y espiritual en el desarrollo de los programas de estudios.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.1. Cautelar el marco filosófico, axiológico, misional y espiritual en el desarrollo de los programas de estudios, dentro o fuera del campus de la UPeU.'",
+        "justificacion": "Literal en chunk 0092."
+      },
+      {
+        "claim_id": "Q01_C11",
+        "claim_texto": "El decano debe cumplir y hacer cumplir los reglamentos y acuerdos de los órganos de gobierno y de la facultad.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.2. Cumplir y hacer cumplir los reglamentos y acuerdos de los órganos de gobierno y de la facultad.'",
+        "justificacion": "Literal en chunk 0092."
+      },
+      {
+        "claim_id": "Q01_C12",
+        "claim_texto": "El decano debe dar cuenta al Consejo Universitario.",
+        "estado": "PARCIALMENTE_SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.3. Dar cuenta de su gestión ante los órganos de gobierno.' El texto respalda dar cuenta ante órganos de gobierno en general, pero no especifica 'al Consejo Universitario' como afirma la respuesta.",
+        "justificacion": "Soporte parcial: el chunk confirma la obligación de dar cuenta, pero no el destinatario específico que añade la respuesta. No se infiere por número de artículo."
+      },
+      {
+        "claim_id": "Q01_C13",
+        "claim_texto": "El decano debe supervisar y promover la educación continua, el seguimiento de los egresados y evaluación del perfil profesional.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.13. Supervisar y promover la educación continua, el seguimiento de los egresados y evaluación del perfil profesional.'",
+        "justificacion": "Literal en chunk 0092."
+      },
+      {
+        "claim_id": "Q01_C14",
+        "claim_texto": "El decano debe vincular a la facultad a través de alianzas estratégicas, programas, proyectos, actividades y acciones.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.14. Vincular a la facultad a través de alianzas estratégicas, programas, proyectos, actividades y acciones.'",
+        "justificacion": "Literal en chunk 0092."
+      },
+      {
+        "claim_id": "Q01_C15",
+        "claim_texto": "El decano cumple las demás funciones que le asignen la ley, el Estatuto, el Reglamento General o normas específicas.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0092: '53.15. Las demás que le asignen la ley, el Estatuto, el Reglamento General o normas específicas.'",
+        "justificacion": "Literal en chunk 0092."
+      }
+    ],
+    "citas": [
+      {
+        "cita_texto": "ESTATUTO 2024, Artículo 48°",
+        "documento": "ESTATUTO 2024",
+        "articulo": "48°",
+        "tipo": "A",
+        "claim_asociado": "Q01_C01; Q01_C02",
+        "estado": "CORRECTA",
+        "justificacion": "Tras leer chunk 0085. Respalda Q01_C01 y Q01_C02 literalmente."
+      },
+      {
+        "cita_texto": "ESTATUTO 2024, Artículo 124°",
+        "documento": "ESTATUTO 2024",
+        "articulo": "124°",
+        "tipo": "A",
+        "claim_asociado": "Q01_C03; Q01_C04; Q01_C05; Q01_C06; Q01_C07; Q01_C08; Q01_C09",
+        "estado": "CORRECTA",
+        "justificacion": "Tras leer chunk 0181 completo. Cada claim asociado tiene soporte literal en Art124."
+      },
+      {
+        "cita_texto": "ESTATUTO 2024, Artículo 53°",
+        "documento": "ESTATUTO 2024",
+        "articulo": "53°",
+        "tipo": "A",
+        "claim_asociado": "Q01_C10; Q01_C11; Q01_C12; Q01_C13; Q01_C14; Q01_C15",
+        "estado": "PARCIAL",
+        "justificacion": "El Artículo 53° respalda Q01_C09, Q01_C10, Q01_C12, Q01_C13 y Q01_C14. Para Q01_C11 respalda la obligación de dar cuenta ante órganos de gobierno, pero no especifica que sea directamente al Consejo Universitario."
+      }
+    ],
+    "relevancia": 2,
+    "relevancia_justificacion": "Responde tangencialmente sobre autoridades (menciona Decano/Consejo Facultad/Defensoría) pero omite las 3 autoridades centrales pedidas por Q01 (Asamblea, Consejo Universitario, Rector). Útil pero mayormente insuficiente. Criterio a mantener en Q02-Q17: 5 todo, 4 omisión menor, 3 parcial, 2 mayormente insuficiente, 1 no responde.",
+    "notas": "La falta de completitud se relaciona con que el Top4 no contenía los Artículos 19°, 32° y 34°. La faithfulness debe calcularse a partir de los claims atómicos contrastados con el contexto real. Los ratios serán calculados por calcular_metricas_humanas.py tras la importación."
+  }
+}

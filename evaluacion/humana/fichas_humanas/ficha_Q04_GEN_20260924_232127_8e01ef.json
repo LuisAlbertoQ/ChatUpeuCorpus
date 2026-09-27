@@ -1,0 +1,70 @@
+{
+  "pregunta_id": "Q04",
+  "pregunta": "¿Cómo me matriculo en la UPeU?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento REGLAMENTO GENERAL UPeU 2023.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0425",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 319°",
+      "distancia": 0.2645632553100586
+    },
+    {
+      "chunk_id": "TUPA V6 2023 UPeU_0011",
+      "documento": "TUPA V6 2023 UPeU.pdf",
+      "articulo": "",
+      "distancia": 0.2998379397392273
+    },
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0476",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 366°",
+      "distancia": 0.30633270025253295
+    },
+    {
+      "chunk_id": "REGLAMENTO ADMISION 2025.v7_0041",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "Artículo 14°",
+      "distancia": 0.31686508655548096
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 319° · 2023 · [A – Gobierno y estatuto institucional]",
+    "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 366° · 2023 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 14° · v7 2025 · [B – Académico y estudios]"
+  ],
+  "tipo_mensaje": "M04",
+  "source_validity": "valid",
+  "citation_match": "not_applicable",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q04_P01",
+      "descripcion": "La matrícula es acto formal, voluntario, personal y obligatorio que otorga derechos y obligaciones",
+      "evidencia": "Artículo 70° Definición de matrícula: Alcance y consecuencias. La matrícula es un acto formal, voluntario, personal y obligatorio por medio del cual el estudiante adquiere los derechos y obligaciones",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q04_P02",
+      "descripcion": "Modalidades de matrícula: presencial como regla y excepcionalmente por tercera persona con carta poder",
+      "evidencia": "Artículo 71° Modalidades de matrícula. Son modalidades de matrícula las siguientes: 71.1. Presencial. En general, la matrícula es de carácter presencial",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q04_P03",
+      "descripcion": "Cronograma de matrícula es propuesto por vicerrectorado académico y aprobado por Consejo Universitario",
+      "evidencia": "Artículo 72° Cronograma de matrícula. La fecha de inicio y finalización del proceso de matrícula para cualquier nivel y modalidad de estudios es de carácter institucional, propuesta por el vicerrectorado académico y aprobado por el Consejo Universitario.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": null,
+  "notas": ""
+}

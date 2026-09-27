@@ -1,0 +1,87 @@
+{
+  "pregunta_id": "Q04",
+  "pregunta": "¿Cómo me matriculo en la UPeU?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento REGLAMENTO GENERAL UPeU 2023.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0425",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 319°",
+      "distancia": 0.2645632553100586
+    },
+    {
+      "chunk_id": "TUPA V6 2023 UPeU_0011",
+      "documento": "TUPA V6 2023 UPeU.pdf",
+      "articulo": "",
+      "distancia": 0.2998379397392273
+    },
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0476",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 366°",
+      "distancia": 0.30633270025253295
+    },
+    {
+      "chunk_id": "REGLAMENTO ADMISION 2025.v7_0041",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "Artículo 14°",
+      "distancia": 0.31686508655548096
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 319° · 2023 · [A – Gobierno y estatuto institucional]",
+    "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 366° · 2023 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 14° · v7 2025 · [B – Académico y estudios]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "not_applicable",
+    "citation_presence": 0,
+    "answerable_but_abstained": 1,
+    "tipo_mensaje": "M04",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q04_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q04_P01",
+        "descripcion": "La matrícula es acto formal, voluntario, personal y obligatorio que otorga derechos y obligaciones",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 70°",
+        "evidencia": "Artículo 70° Definición de matrícula: Alcance y consecuencias. La matrícula es un acto formal, voluntario, personal y obligatorio por medio del cual el estudiante adquiere los derechos y obligaciones",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Respuesta M04 de abstención; no contiene ningún contenido sustantivo sobre matrícula.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q04_P02",
+        "descripcion": "Modalidades de matrícula: presencial como regla y excepcionalmente por tercera persona con carta poder",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 71°",
+        "evidencia": "Artículo 71º. Modalidades de matrícula. Son modalidades de matrícula las siguientes: 71.1. Presencial. En general, la matrícula es de carácter presencial. Excepcionalmente, la matrícula presencial, por causas de enfermedad grave o impedimento físico acreditado del estudiante, puede ser efectuada por una tercera persona con carta poder, bajo la responsabilidad absoluta del estudiante.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Respuesta M04 sin contenido; no preasignado por ser M04 sino por ausencia literal de contenido.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q04_P03",
+        "descripcion": "Cronograma de matrícula es propuesto por vicerrectorado académico y aprobado por Consejo Universitario",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 72°",
+        "evidencia": "Artículo 72° Cronograma de matrícula. La fecha de inicio y finalización del proceso de matrícula para cualquier nivel y modalidad de estudios es de carácter institucional, propuesta por el vicerrectorado académico y aprobado por el Consejo Universitario.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin contenido sustantivo en la respuesta.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": 1,
+  "relevancia_justificacion": "No responde al objetivo: es una abstención M04 en pregunta ANSWERABLE, sin información sobre matrícula. Evaluado literalmente, no con valor fijo automático.",
+  "notas": "answerable_but_abstained=1 ya persistido en diagnósticos. Sin claims factuales evaluables → faithfulness NULL. Sin citas → citation correctness NULL. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

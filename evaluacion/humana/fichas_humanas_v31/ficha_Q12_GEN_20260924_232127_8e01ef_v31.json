@@ -1,0 +1,94 @@
+{
+  "pregunta_id": "Q12",
+  "pregunta": "¿Cuál es el procedimiento para cambiar de carrera?",
+  "respuesta_congelada": "- Es posible realizar un solo cambio de carrera profesional y modalidad de estudios durante el proceso de admisión. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO ADMISION 2025.v7_0077",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "Artículo 40°",
+      "distancia": 0.38701385259628296,
+      "texto_verificado": "Artículo 40°. Cambio de carrera y de modalidad de estudios en la etapa o proceso de postulación. Es posible, solo un (1) cambio de carrera profesional y de modalidad de estudios, mientras se desarrolla el proceso de admisión, con pago del 20% del costo de inscripción. Debe realizarse 72 horas antes del examen de admisión."
+    },
+    {
+      "chunk_id": "REGLAMENTO GRADOS Y TITULOS.v8 2025_0138",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+      "articulo": "artículo 2.4",
+      "distancia": 0.3995410203933716,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 40° · v7 2025 · [B – Académico y estudios]",
+    "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · artículo 2.4 · v8 2025 · [B – Académico y estudios]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q12_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q12_P01",
+        "descripcion": "Traslado procede automáticamente si existen vacantes no cubiertas en admisión",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 283º",
+        "evidencia": "283.1. Automáticamente si existen vacantes no cubiertas en admisión en la carrera profesional o programa académico.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta habla de cambio en proceso de admisión (Art40), no de traslado por vacantes no cubiertas (283.1).",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q12_P02",
+        "descripcion": "Traslado procede si hay renuncia a vacante obtenida en nómina de ingresantes",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 283º",
+        "evidencia": "283.2. Automáticamente si en la nómina de ingresantes se produjo renuncia a la vacante obtenida.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a renuncia de vacante.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q12_P03",
+        "descripcion": "Traslado procede al final de matrícula extemporánea si hay reserva de matrícula",
+        "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+        "articulo": "Artículo 283º",
+        "evidencia": "283.3. Al final de la matrícula extemporánea, si de los ingresantes a la carrera profesional o programa académico uno o más solicitaron reserva de matrícula.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a matrícula extemporánea ni reserva.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q12_C01",
+        "claim_texto": "Es posible realizar un solo cambio de carrera profesional y modalidad de estudios durante el proceso de admisión.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0077 Art40: 'Es posible, solo un (1) cambio de carrera profesional y de modalidad de estudios, mientras se desarrolla el proceso de admisión'",
+        "justificacion": "Una sola regla aplicada conjuntamente a carrera y modalidad; se acepta como un claim (criterio Q02_C01). Literal en chunk 0077."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q12_CIT01",
+      "cita_texto": "REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "40°",
+      "tipo": "A",
+      "claim_asociado": "Q12_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0077. Respalda Q12_C01."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Describe un cambio de carrera real (en admisión), información útil y relacionada, pero omite el procedimiento de traslado Art283 esperado.",
+  "notas": "Completitud 0 estricta. Faithfulness desde chunk 0077 verificado. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

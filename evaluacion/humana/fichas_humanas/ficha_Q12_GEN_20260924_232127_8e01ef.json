@@ -1,0 +1,66 @@
+{
+  "pregunta_id": "Q12",
+  "pregunta": "¿Cuál es el procedimiento para cambiar de carrera?",
+  "respuesta_congelada": "- Es posible realizar un solo cambio de carrera profesional y modalidad de estudios durante el proceso de admisión. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO ADMISION 2025.v7_0077",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "Artículo 40°",
+      "distancia": 0.38701385259628296
+    },
+    {
+      "chunk_id": "REGLAMENTO GRADOS Y TITULOS.v8 2025_0138",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+      "articulo": "artículo 2.4",
+      "distancia": 0.3995410203933716
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 40° · v7 2025 · [B – Académico y estudios]",
+    "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · artículo 2.4 · v8 2025 · [B – Académico y estudios]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q12_P01",
+      "descripcion": "Traslado procede automáticamente si existen vacantes no cubiertas en admisión",
+      "evidencia": "283.1. Automáticamente si existen vacantes no cubiertas en admisión en la carrera profesional o programa académico.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q12_P02",
+      "descripcion": "Traslado procede si hay renuncia a vacante obtenida en nómina de ingresantes",
+      "evidencia": "283.2. Automáticamente si en la nómina de ingresantes se produjo renuncia a la vacante obtenida.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q12_P03",
+      "descripcion": "Traslado procede al final de matrícula extemporánea si hay reserva de matrícula",
+      "evidencia": "283.3. Al final de la matrícula extemporánea, si de los ingresantes a la carrera profesional o programa académico uno o más solicitaron reserva de matrícula.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°",
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "articulo": "40°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

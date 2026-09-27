@@ -1,0 +1,98 @@
+{
+  "pregunta_id": "Q13",
+  "pregunta": "¿Qué incentivos hay para investigadores?",
+  "respuesta_congelada": "- Incentivo honorífico: Reconocimiento académico público por la destacada y prominente participación en investigación, difusión de resultados o premios otorgados. (REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf, Artículo 37°)\n\n- Bonificaciones económicas: Otorgadas a coordinadores/jefes de grupo de investigación, docentes investigadores y terceros que cumplan con ciertos requisitos. (REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf, Artículo 10°)\n\n- Premios: Asignación económica única no remunerativa para estudiantes y egresados sin vínculo laboral con la UPeU. (REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0045",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "Artículo 37°",
+      "distancia": 0.18624799728393554
+    },
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0006",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "",
+      "distancia": 0.23464303493499755
+    },
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0018",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "Artículo 10°",
+      "distancia": 0.2541657018661499
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGADORES UPeU V1 2025_0024",
+      "documento": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+      "articulo": "Artículo 10°",
+      "distancia": 0.2577245759963989
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 37° · 2025 · [C – Investigación]",
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · 2025 · [C – Investigación]",
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 10° · 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf · Artículo 10° · v1 2025 · [C – Investigación]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "invalid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q13_P01",
+      "descripcion": "Bonificación otorgada mientras mantenga vínculo laboral vigente con la UPeU",
+      "evidencia": "22.1 Es otorgado mientras mantengan el vínculo laboral vigente con la UPeU.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q13_P02",
+      "descripcion": "Beneficiario debe tener al menos 20 horas de dedicación y UPeU como afiliación principal en CTI Vitae",
+      "evidencia": "22.2 El beneficiario debe tener al menos veinte (20) horas (media carga) lectivas o no lectivas de dedicación laboral a la UPeU",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q13_P03",
+      "descripcion": "Bono mensual según nivel Renacyt a partir de informe de DGI",
+      "evidencia": "22.4 El beneficiario recibirá el bono mensual correspondiente según el nivel Renacyt (ver tablas de Incentivos) a partir de la fecha del informe enviado por la DGI",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf, Artículo 37°",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "37°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf, Artículo 10°",
+      "documento": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+      "articulo": "10°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "",
+      "tipo": "B",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

@@ -1,0 +1,62 @@
+{
+  "pregunta_id": "Q11",
+  "pregunta": "¿Cómo solicito una constancia de estudios?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento REGLAMENTO DE ESTUDIOS V5_2025.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS V5_2025_0186",
+      "documento": "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+      "articulo": "Artículo 114º",
+      "distancia": 0.26081889152526855
+    },
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS V5_2025_0461",
+      "documento": "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+      "articulo": "Artículo 339º",
+      "distancia": 0.26378583192825317
+    },
+    {
+      "chunk_id": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1_0002",
+      "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1.pdf",
+      "articulo": "Capítulo III",
+      "distancia": 0.30485087633132935
+    },
+    {
+      "chunk_id": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1_0043",
+      "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1.pdf",
+      "articulo": "Capítulo III",
+      "distancia": 0.30485087633132935
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Artículo 114º · v5 · [B – Académico y estudios]",
+    "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Artículo 339º · v5 · [B – Académico y estudios]",
+    "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1.pdf · Capítulo III · v1 · [B – Académico y estudios]",
+    "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1.pdf · Capítulo III · v1 · [B – Académico y estudios]"
+  ],
+  "tipo_mensaje": "M04",
+  "source_validity": "valid",
+  "citation_match": "not_applicable",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q11_P01",
+      "descripcion": "La constancia de estudios se solicita ante Secretaría General según TUPA vigente (Res. 2432-2023)",
+      "evidencia": "TEXTO ÚNICO DE PROCEDIMIENTOS ACADÉMICO - ADMINISTRATIVOS (TUPA) RESOLUCIÓN N° 2432-2023/UPeU-CU del 25-05-2023 (v.6 2023",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q11_P02",
+      "descripcion": "El TUPA regula procedimientos académico-administrativos con vigencia por plazo indeterminado",
+      "evidencia": "RESOLUCIÓN N° 2838-2017/UPeU-CU del 28-12-2017 (v.3 2018, vigencia por plazo indeterminado)",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": null,
+  "notas": ""
+}

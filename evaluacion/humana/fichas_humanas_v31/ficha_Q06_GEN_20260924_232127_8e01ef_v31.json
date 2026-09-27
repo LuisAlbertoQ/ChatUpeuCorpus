@@ -1,0 +1,161 @@
+{
+  "pregunta_id": "Q06",
+  "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?",
+  "respuesta_congelada": "- Los artículos científicos deben ser publicados o estar en proceso de revisión por pares. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°)\n\n- Deben generarse al menos dos artículos científicos como resultado de la tesis doctoral. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°)\n\n- Se recomienda seleccionar revistas indexadas en Scopus, Wiley, IEEE Xplore, Mathematical Reviews, Medline, SPIE Digital Library, McGraw-Hill, Springer, Taylor & Francis Group, EconLit, ProQuest, Jstor, Bentham Science o Web of Science. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°)\n\n- El asesor o co-asesor puede someter el trabajo a la revista seleccionada asumiendo el rol de autor corresponsal. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0165",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 119°",
+      "distancia": 0.20563220977783203,
+      "texto_verificado": "Artículo 119°. Los artículos derivados de tesis doctoral podrán someterse con acompañamiento y coautoría del asesor, cumpliendo criterios éticos; la sumisión podrá realizarse posterior a la inscripción del Proyecto. 119.1 revista indexada (Scopus, Wiley, IEEE...). 119.2.1 primer artículo publicado o aceptado. 119.2.2 segundo artículo en revisión por pares."
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0153",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 107°",
+      "distancia": 0.21908128261566162,
+      "texto_verificado": "Artículo 107°. Como resultado de la tesis doctoral deben generarse mínimamente dos (2) artículos científicos."
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0137",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 93°",
+      "distancia": 0.2712821960449219,
+      "texto_verificado": "Artículo 93°. Sumisión del artículo: seleccionar revista indexada (Scopus, Wiley, IEEE Xplore, Medline, Springer, Taylor & Francis, EconLit, ProQuest, Jstor, Bentham, Web of Science). Se recomienda que el asesor o coasesor someta el trabajo asumiendo el rol de autor corresponsal."
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0058",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 21°",
+      "distancia": 0.3061025142669678,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 119° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 107° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 93° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 21° · v8 2025 · [C – Investigación]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q06_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q06_P01",
+        "descripcion": "Artículos derivados de tesis doctoral pueden someterse con acompañamiento y coautoría del asesor",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 119°",
+        "evidencia": "Artículo 119°. Sumisión y publicación de los artículos. Los artículos científicos derivados de la ejecución del proyecto de tesis doctoral podrán ser sometidos a evaluación y publicación con el acompañamiento y la coautoría del asesor",
+        "estado": "PARCIAL",
+        "justificacion": "Menciona el rol del asesor como autor corresponsal en la sumisión, pero omite el acompañamiento y la coautoría exigidos.",
+        "fragmento_respuesta": "El asesor o co-asesor puede someter el trabajo a la revista seleccionada asumiendo el rol de autor corresponsal."
+      },
+      {
+        "punto_id": "Q06_P02",
+        "descripcion": "La contribución del asesor debe cumplir criterios éticos y académicos de autoría científica",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 119°",
+        "evidencia": "siempre que dicha contribución cumpla con los criterios éticos y académicos establecidos para la autoría científica.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona criterios éticos ni de autoría.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q06_P03",
+        "descripcion": "La sumisión puede realizarse posterior a la inscripción del proyecto de tesis doctoral",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 119°",
+        "evidencia": "La submisión y eventual publicación de los artículos podrá realizarse posterior a la inscripción del Proyecto de tesis doctoral.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona la inscripción del proyecto ni el momento de la sumisión.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q06_C01",
+        "claim_texto": "Los artículos científicos deben ser publicados o estar en proceso de revisión por pares.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0165 Art119: '119.2.1 El primer artículo debe ser publicado o aceptado para publicación. 119.2.2 El segundo artículo debe estar en proceso de revisión por pares.'",
+        "justificacion": "Literal en chunk 0165, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q06_C02",
+        "claim_texto": "Deben generarse al menos dos artículos científicos como resultado de la tesis doctoral.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0153 Art107: 'deben generarse mínimamente dos (2) artículos científicos que deberán ser publicados en revistas de alto impacto.'",
+        "justificacion": "Literal en chunk 0153."
+      },
+      {
+        "claim_id": "Q06_C03",
+        "claim_texto": "Se recomienda seleccionar una revista indexada en Scopus, Wiley, IEEE Xplore u otras de la lista.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0137 Art93 y chunk 0165 119.1: lista Scopus, Wiley, IEEE Xplore, Medline, Springer, Taylor & Francis, EconLit, ProQuest, Jstor, Bentham, Web of Science. El contexto exige/indica selección de revista indexada, por lo que respalda esta formulación más débil.",
+        "justificacion": "Refleja exactamente el verbo de la respuesta ('se recomienda'); el contexto respalda la selección de revista indexada."
+      },
+      {
+        "claim_id": "Q06_C04",
+        "claim_texto": "El asesor o co-asesor puede someter el trabajo asumiendo el rol de autor corresponsal.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0137 Art93: 'Se recomienda que el asesor o coasesor someta el trabajo a la revista asumiendo el rol de autor corresponsal.'",
+        "justificacion": "Literal en chunk 0137."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q06_CIT01",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "119°",
+      "tipo": "A",
+      "claim_asociado": "Q06_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0165 (119.2.1/119.2.2). Respalda Q06_C01."
+    },
+    {
+      "citation_id": "Q06_CIT02",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "107°",
+      "tipo": "A",
+      "claim_asociado": "Q06_C02",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0153. Respalda Q06_C02."
+    },
+    {
+      "citation_id": "Q06_CIT03",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "93°",
+      "tipo": "A",
+      "claim_asociado": "Q06_C03",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0137. La lista de revistas está literal."
+    },
+    {
+      "citation_id": "Q06_CIT04",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 93°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "93°",
+      "tipo": "A",
+      "claim_asociado": "Q06_C04",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0137. Respalda el rol de autor corresponsal."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Aporta requisitos reales de publicación (estado, dos artículos, revistas, corresponsal), pero omite dos de los tres puntos esperados del Art119 (criterios éticos e inscripción). Respuesta parcial.",
+  "notas": "Completitud 0 estricta (1 PARCIAL). Faithfulness desde claims atómicos verificados en chunks 0165/0153/0137. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

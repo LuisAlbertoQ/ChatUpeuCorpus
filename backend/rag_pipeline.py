@@ -26,8 +26,10 @@ from langchain.prompts import PromptTemplate
 from sentence_transformers import SentenceTransformer
 
 from config import (
+    CORPUS_VERSION,
     DEBUG_LOG,
     DOMINIO_CATEGORIAS,
+    EMBEDDING_MODEL,
     KEYWORDS_DOMINIO,
     KEYWORDS_ETICA,
     KEYWORDS_FUERA_DOMINIO,
@@ -37,10 +39,18 @@ from config import (
     MENSAJES,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
+    PROMPT_VERSION,
+    RAG_DISTANCE_THRESHOLD,
+    RAG_TOP_K_FINAL,
+    RAG_TOP_K_RAW,
+    RANKING_METHOD,
+    RANKING_VERSION,
     TIMEOUT_RESPUESTA,
+    # Alias por compatibilidad — no usar directamente, preferir RAG_*
     TOP_K_FRAGMENTOS,
     UMBRAL_DISTANCIA_COSENO,
 )
+from context_builder import construir_contexto, construir_fuentes
 from logger import registrar_interaccion
 
 log = logging.getLogger("rag")
@@ -123,7 +133,8 @@ def inicializar():
     """Carga la base vectorial y el modelo de embeddings (llamada en startup)."""
     global client, collection, model
     client = chromadb.PersistentClient(path="/data/vector_store")
-    collection = client.get_collection("corpus_upeu")
+    #collection = client.get_collection("corpus_upeu")
+    collection = client.get_collection("corpus_upeu_v2")
     model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2")
     log.info("Recursos RAG inicializados.")
     print("Recursos RAG inicializados correctamente.")
@@ -189,6 +200,25 @@ def _es_fuera_dominio_por_keywords(pregunta: str) -> bool | None:
     if dentro:
         return False
     return None
+
+
+def _clasificar_validacion_m05(pregunta: str) -> str:
+    """Clasifica M05 en subtipos Fase 5 §4.3 sin cambiar semántica.
+
+    too_short: <5 chars o <3 palabras
+    ambiguous: sin palabra de contenido
+    multi_intent: por conectores (se determina fuera de esta función)
+    """
+    texto = pregunta.strip()
+    if len(texto) < 5:
+        return "too_short"
+    palabras = re.findall(r"\w+", texto.lower())
+    if len(palabras) < 3:
+        return "too_short"
+    contenido = [p for p in palabras if p not in _PALABRAS_INTERROGATIVAS and len(p) > 2]
+    if not contenido:
+        return "ambiguous"
+    return "ambiguous"  # fallback, multi_intent se detecta por _es_multi_intencion
 
 
 # =============================================================================
@@ -413,47 +443,111 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
 def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     """Orquesta el pipeline RAG y devuelve un dict serializable a JSON."""
     inicio = time.time()
+    inicio_perf = time.perf_counter()
     pregunta_limpia = (pregunta or "").strip()
+    pregunta_normalizada = pregunta_limpia
+    embedding_latency_ms: float | None = None
+    retrieval_latency_ms: float | None = None
+    llm_latency_ms: float | None = None
+    http_status: int | None = None
+    citation_validation: str | None = None
+    citation_repairs: int | None = None
+    # Para metadata de retrieval (se rellenan tras filtering)
+    _retrieved_chunk_ids: list | None = None
+    _retrieved_document_ids: list | None = None
+    _retrieved_articles: list | None = None
+    _retrieved_distances: list | None = None
+    _num_valid_chunks: int | None = None
+    _sources_for_log: list | None = None
 
     # --- Validaciones previas (no requieren LLM ni embeddings) ---------------
     if _pregunta_es_ambigua(pregunta_limpia):
+        vr = _clasificar_validacion_m05(pregunta_limpia)
         return _responder_simple(
-            pregunta_limpia, MENSAJES["M05"], "M05", inicio, sesion_id
+            pregunta_limpia, MENSAJES["M05"], "M05", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=0,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            validation_reason=vr,
         )
 
     if _es_etica_sensible(pregunta_limpia):
         return _responder_simple(
-            pregunta_limpia, MENSAJES["M03"], "M03", inicio, sesion_id
+            pregunta_limpia, MENSAJES["M03"], "M03", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            failure_reason="sensitive_request",
         )
 
     if _es_multi_intencion(pregunta_limpia):
         return _responder_simple(
-            pregunta_limpia, MENSAJES["M05"], "M05", inicio, sesion_id
+            pregunta_limpia, MENSAJES["M05"], "M05", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            validation_reason="multi_intent",
         )
 
     dominio_kw = _es_fuera_dominio_por_keywords(pregunta_limpia)
     if dominio_kw is True:
         return _responder_simple(
-            pregunta_limpia, MENSAJES["M03"], "M03", inicio, sesion_id
+            pregunta_limpia, MENSAJES["M03"], "M03", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            failure_reason="out_of_domain",
         )
 
     # --- Recuperación RAG -----------------------------------------------------
-    # Recuperamos más chunks (TOP_K_RAW) que los que mostraremos al LLM
-    # (TOP_K_FRAGMENTOS), para dar oportunidad a documentos pequeños
+    # Recuperamos más chunks (RAG_TOP_K_RAW) que los que mostraremos al LLM
+    # (RAG_TOP_K_FINAL), para dar oportunidad a documentos pequeños
     # (p.ej. la "Politica Institucional de trabajo digno y protección de
     # la persona v.1" tiene solo 3 chunks) de aparecer en el ranking
     # antes del re-ranking con boost por keywords.
-    TOP_K_RAW = max(TOP_K_FRAGMENTOS * 3, 15)
+    # RAG_TOP_K_RAW es configurable por env (default 15) — FASE 4.
+    TOP_K_RAW = RAG_TOP_K_RAW
     try:
+        t0_emb = time.perf_counter()
         embedding = model.encode([pregunta_limpia])[0].tolist()
+        embedding_latency_ms = round((time.perf_counter() - t0_emb) * 1000, 2)
+        t0_ret = time.perf_counter()
         resultados = collection.query(
             query_embeddings=[embedding],
             n_results=TOP_K_RAW,
         )
+        retrieval_latency_ms = round((time.perf_counter() - t0_ret) * 1000, 2)
     except Exception as exc:  # pragma: no cover
         log.exception("Fallo en retrieval")
         return _responder_simple(
-            pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id, error=str(exc)
+            pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            error=str(exc), error_type="exception",
         )
 
     docs = resultados["documents"][0]
@@ -492,9 +586,9 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         log.info(
             "Re-ranking: keywords=%s top_%s=%s",
             keywords_query,
-            TOP_K_FRAGMENTOS,
+            RAG_TOP_K_FINAL,
             [(metas[i].get("documento", "")[:40], round(distancias[i], 3))
-             for i in range(min(len(orden), TOP_K_FRAGMENTOS))],
+             for i in range(min(len(orden), RAG_TOP_K_FINAL))],
         )
     else:
         # Sin keywords: el pool ya viene ordenado por distancia (sin recorte).
@@ -506,48 +600,64 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     # Validación de dominio por embeddings: si NADA está cerca, fuera de dominio
     if dominio_kw is None and distancias:
         min_dist = min(distancias)
-        if min_dist > UMBRAL_DISTANCIA_COSENO + MARGEN_FUERA_DOMINIO:
+        if min_dist > RAG_DISTANCE_THRESHOLD + MARGEN_FUERA_DOMINIO:
             return _responder_simple(
                 pregunta_limpia, MENSAJES["M03"], "M03", inicio, sesion_id,
+                pregunta_normalizada=pregunta_normalizada,
+                latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+                embedding_latency_ms=embedding_latency_ms,
+                retrieval_latency_ms=retrieval_latency_ms,
+                top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+                threshold_used=RAG_DISTANCE_THRESHOLD,
+                num_valid_chunks=0,
+                embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+                prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+                ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
                 debug_distancias=distancias_debug,
+                failure_reason="out_of_domain",
             )
 
-    # --- Filtro por umbral T01 / T05 -----------------------------------------
-    # Cada fragmento se recorta a MAX_CHARS_POR_FRAGMENTO para evitar
-    # prompts enormes que excedan el timeout con Llama 3 8B + 3 capas
-    # en CPU. El recorte conserva la cabecera (donde está el artículo)
-    # y el final (donde está el contenido relevante) del fragmento.
-    # Valor agresivo (700) para garantizar <30s en hardware lento.
+    # --- Filtro por umbral T01 / T05 + Construcción determinística (Fase 2) ---
+    # T01 se aplica sobre el pool completo (no se recortó antes a TOP_K).
+    # Fase 2 §12 y §15: el contexto y las fuentes se construyen vía
+    # funciones puras construir_contexto() / construir_fuentes() a partir
+    # de metadatos recuperados, nunca del texto generado por el LLM.
+    # Cada fragmento conserva cabecera+cola si excede 700 chars.
     MAX_CHARS_POR_FRAGMENTO = 700
-    fragmentos_validos = []
-    fuentes = []
-    distancias_validas = []
+    fragmentos_struct: list[dict] = []
     doc_sugerido = None
     for doc, meta, dist in zip(docs, metas, distancias):
-        if len(fuentes) >= TOP_K_FRAGMENTOS:
+        if len(fragmentos_struct) >= RAG_TOP_K_FINAL:
             break
-        if dist < UMBRAL_DISTANCIA_COSENO:
+        if dist < RAG_DISTANCE_THRESHOLD:
             texto = doc if len(doc) <= MAX_CHARS_POR_FRAGMENTO else (
                 doc[: MAX_CHARS_POR_FRAGMENTO // 2]
                 + "\n[…]\n"
                 + doc[-MAX_CHARS_POR_FRAGMENTO // 2 :]
             )
-            fragmentos_validos.append(texto)
-            fuentes.append(
-                _formatear_fuente(
-                    meta.get("documento", "Documento sin nombre"),
-                    meta.get("categoria", ""),
-                    doc,
-                )
-            )
-            # Distancia asociada a cada fuente (1:1 con `fuentes`) para que el
-            # frontend muestre la similitud (%) de cada badge (ítem 7 Tier 2).
-            distancias_validas.append(round(dist, 4))
+            frag = {
+                "documento": meta.get("documento", "Documento sin nombre"),
+                "categoria": meta.get("categoria", "") or meta.get("categoria_tematica", ""),
+                "categoria_tematica": meta.get("categoria_tematica", "") or meta.get("categoria", ""),
+                "articulo": meta.get("articulo", "") or "",
+                "chunk_id": meta.get("chunk_id", ""),
+                "text": texto,
+                "texto": texto,  # alias para compatibilidad del builder
+                "distance": dist,
+                "num_chars": len(texto),
+                "page": meta.get("page", "") or meta.get("pagina", ""),
+            }
+            if not frag["articulo"]:
+                m_art = _RE_ARTICULO.search(doc or "")
+                if m_art:
+                    frag["articulo"] = m_art.group(1).strip().capitalize()
+                    frag["article"] = frag["articulo"]
+            fragmentos_struct.append(frag)
             if doc_sugerido is None:
-                doc_sugerido = meta.get("documento", "documentos generales de la UPeU")
+                doc_sugerido = frag["documento"]
 
     # --- Sin fragmentos válidos → M04 ----------------------------------------
-    if not fragmentos_validos:
+    if not fragmentos_struct:
         tipo_mensaje = "M04"
         doc_sugerido = metas[0]["documento"] if metas else "documentos generales de la UPeU"
         respuesta_final = MENSAJES["M04"].replace(
@@ -556,33 +666,149 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         return _empaquetar(
             pregunta_limpia, respuesta_final, [], tipo_mensaje,
             inicio, sesion_id, distancias_debug,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=0,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            failure_reason="retrieval_no_coverage",
         )
 
+    # Construcción determinística (Fase 2 §12 y §15)
+    fuentes = construir_fuentes(fragmentos_struct)
+    distancias_validas = [round(f["distance"], 4) for f in fragmentos_struct]
+    contexto = construir_contexto(fragmentos_struct)
+
     # --- Generación condicionada (T05) ---------------------------------------
-    contexto = "\n\n".join(fragmentos_validos)
     prompt = PROMPT.format(context=contexto, question=pregunta_limpia)
 
+    # Metadatos de retrieval para logging Fase 5 §9 (1:1 y orden)
+    _retrieved_chunk_ids = [f.get("chunk_id", "") for f in fragmentos_struct]
+    _retrieved_document_ids = [f.get("documento", "") for f in fragmentos_struct]
+    _retrieved_articles = [f.get("articulo", "") for f in fragmentos_struct]
+    _retrieved_distances = [round(f.get("distance", 0), 4) for f in fragmentos_struct]
+    _num_valid_chunks = len(fragmentos_struct)
+    _sources_for_log = list(fuentes)
+
+    t0_llm = time.perf_counter()
     try:
         respuesta_generada = _invocar_llm_con_timeout(prompt)
-    except FutTimeout:
+        llm_latency_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
+        http_status = 200
+    except FutTimeout as exc:
+        llm_latency_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
         log.warning("Timeout T04 (%ss) excedido", TIMEOUT_RESPUESTA)
         return _responder_simple(
             pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
-            error=f"timeout_{TIMEOUT_RESPUESTA}s",
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=_num_valid_chunks,
+            retrieved_chunk_ids=_retrieved_chunk_ids,
+            retrieved_document_ids=_retrieved_document_ids,
+            retrieved_articles=_retrieved_articles,
+            retrieved_distances=_retrieved_distances,
+            sources=_sources_for_log,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
             debug_distancias=distancias_debug,
+            error=f"timeout_{TIMEOUT_RESPUESTA}s",
+            error_type="timeout",
+            http_status=None,
         )
-    except (HTTPError, URLError) as exc:
+    except HTTPError as exc:
+        llm_latency_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
         log.error("Ollama HTTP/URL error: %s", exc)
+        # Distinguir 5xx vs 4xx para error_type
+        code = getattr(exc, "code", None)
+        if isinstance(code, int) and 500 <= code < 600:
+            err_type = "http_5xx"
+        else:
+            err_type = "exception"
         return _responder_simple(
             pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
-            error=f"ollama_{type(exc).__name__}: {exc}",
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=_num_valid_chunks,
+            retrieved_chunk_ids=_retrieved_chunk_ids,
+            retrieved_document_ids=_retrieved_document_ids,
+            retrieved_articles=_retrieved_articles,
+            retrieved_distances=_retrieved_distances,
+            sources=_sources_for_log,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
             debug_distancias=distancias_debug,
+            error=f"ollama_{type(exc).__name__}: {exc}",
+            error_type=err_type,
+            http_status=code if isinstance(code, int) else None,
+        )
+    except URLError as exc:
+        llm_latency_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
+        log.error("Ollama URL error: %s", exc)
+        return _responder_simple(
+            pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=_num_valid_chunks,
+            retrieved_chunk_ids=_retrieved_chunk_ids,
+            retrieved_document_ids=_retrieved_document_ids,
+            retrieved_articles=_retrieved_articles,
+            retrieved_distances=_retrieved_distances,
+            sources=_sources_for_log,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            debug_distancias=distancias_debug,
+            error=f"ollama_URLError: {exc}",
+            error_type="exception",
+            http_status=None,
         )
     except Exception as exc:
+        llm_latency_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
         log.exception("Fallo en llamada al LLM")
         return _responder_simple(
             pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
-            error=str(exc), debug_distancias=distancias_debug,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=_num_valid_chunks,
+            retrieved_chunk_ids=_retrieved_chunk_ids,
+            retrieved_document_ids=_retrieved_document_ids,
+            retrieved_articles=_retrieved_articles,
+            retrieved_distances=_retrieved_distances,
+            sources=_sources_for_log,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            debug_distancias=distancias_debug,
+            error=str(exc),
+            error_type="exception",
+            http_status=None,
         )
 
     # --- Sanear respuesta del LLM --------------------------------------------
@@ -648,6 +874,20 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             "Citas reparadas=%d. pregunta=%r", n_rep, pregunta_limpia,
         )
 
+    # Citation validation Fase 5 §6: estado semántico
+    has_citations_final = bool(_RE_CITA.search(respuesta_generada))
+    if not has_citations_final and n_rep == 0:
+        citation_validation = "not_applicable"
+    elif n_rep == 0 and has_citations_final:
+        citation_validation = "valid"
+    elif n_rep > 0 and has_citations_final:
+        citation_validation = "repaired"
+    elif n_rep > 0 and not has_citations_final:
+        citation_validation = "failed"
+    else:
+        citation_validation = "not_applicable"
+    citation_repairs = n_rep if n_rep > 0 else 0
+
     # T03: truncar a MAX_PALABRAS_RESPUESTA
     respuesta_generada, fue_truncada = _truncar_palabras(
         respuesta_generada, MAX_PALABRAS_RESPUESTA
@@ -679,6 +919,26 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         return _empaquetar(
             pregunta_limpia, respuesta_final, fuentes, "M04",
             inicio, sesion_id, distancias_validas,
+            pregunta_normalizada=pregunta_normalizada,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+            threshold_used=RAG_DISTANCE_THRESHOLD,
+            num_valid_chunks=_num_valid_chunks,
+            retrieved_chunk_ids=_retrieved_chunk_ids,
+            retrieved_document_ids=_retrieved_document_ids,
+            retrieved_articles=_retrieved_articles,
+            retrieved_distances=_retrieved_distances,
+            sources=_sources_for_log,
+            citation_validation=citation_validation,
+            citation_repairs=citation_repairs,
+            embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+            prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+            ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+            http_status=200,
+            failure_reason="generation_empty",
         )
 
     respuesta_final = respuesta_generada
@@ -686,11 +946,30 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     return _empaquetar(
         pregunta_limpia, respuesta_final, fuentes, "M02",
         inicio, sesion_id, distancias_validas,
+        pregunta_normalizada=pregunta_normalizada,
+        latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+        embedding_latency_ms=embedding_latency_ms,
+        retrieval_latency_ms=retrieval_latency_ms,
+        llm_latency_ms=llm_latency_ms,
+        top_k_raw=RAG_TOP_K_RAW, top_k_final=RAG_TOP_K_FINAL,
+        threshold_used=RAG_DISTANCE_THRESHOLD,
+        num_valid_chunks=_num_valid_chunks,
+        retrieved_chunk_ids=_retrieved_chunk_ids,
+        retrieved_document_ids=_retrieved_document_ids,
+        retrieved_articles=_retrieved_articles,
+        retrieved_distances=_retrieved_distances,
+        sources=_sources_for_log,
+        citation_validation=citation_validation,
+        citation_repairs=citation_repairs,
+        embedding_model=EMBEDDING_MODEL, llm_model=OLLAMA_MODEL,
+        prompt_version=PROMPT_VERSION, corpus_version=CORPUS_VERSION,
+        ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
+        http_status=200,
     )
 
 
 # =============================================================================
-# Helpers de empaquetado y respuesta corta
+# Helpers de empaquetado y respuesta corta (Fase 5: aceptan campos internos)
 # =============================================================================
 def _responder_simple(
     pregunta: str,
@@ -700,10 +979,12 @@ def _responder_simple(
     sesion_id: str,
     debug_distancias: list | None = None,
     error: str = "",
+    **kwargs,
 ) -> dict:
     return _empaquetar(
         pregunta, respuesta, [], tipo_mensaje,
         inicio, sesion_id, debug_distancias or [], error,
+        **kwargs,
     )
 
 
@@ -716,18 +997,96 @@ def _empaquetar(
     sesion_id: str,
     debug_distancias: list,
     error: str = "",
+    pregunta_normalizada: str | None = None,
+    latency_total_ms: float | None = None,
+    embedding_latency_ms: float | None = None,
+    retrieval_latency_ms: float | None = None,
+    llm_latency_ms: float | None = None,
+    top_k_raw: int | None = None,
+    top_k_final: int | None = None,
+    threshold_used: float | None = None,
+    num_valid_chunks: int | None = None,
+    retrieved_chunk_ids: list | None = None,
+    retrieved_document_ids: list | None = None,
+    retrieved_articles: list | None = None,
+    retrieved_distances: list | None = None,
+    sources: list | None = None,
+    citation_validation: str | None = None,
+    citation_repairs: int | None = None,
+    embedding_model: str | None = None,
+    llm_model: str | None = None,
+    prompt_version: str | None = None,
+    corpus_version: str | None = None,
+    ranking_method: str | None = None,
+    ranking_version: str | None = None,
+    http_status: int | None = None,
+    failure_reason: str | None = None,
+    validation_reason: str | None = None,
+    error_type: str | None = None,
 ) -> dict:
     tiempo_total = time.time() - inicio
+    # latency_total_ms: si el caller ya midió con perf_counter, úsalo; si no, deriva de tiempo_total
+    if latency_total_ms is None:
+        latency_total_ms = round(tiempo_total * 1000.0, 2)
+    # threshold_used por defecto es el configurado
+    if threshold_used is None:
+        threshold_used = RAG_DISTANCE_THRESHOLD
+    # versionado por defecto desde config
+    if embedding_model is None:
+        embedding_model = EMBEDDING_MODEL
+    if llm_model is None:
+        llm_model = OLLAMA_MODEL
+    if prompt_version is None:
+        prompt_version = PROMPT_VERSION
+    if corpus_version is None:
+        corpus_version = CORPUS_VERSION
+    if ranking_method is None:
+        ranking_method = RANKING_METHOD
+    if ranking_version is None:
+        ranking_version = RANKING_VERSION
+    if top_k_raw is None:
+        top_k_raw = RAG_TOP_K_RAW
+    if top_k_final is None:
+        top_k_final = RAG_TOP_K_FINAL
+    # sources JSON por defecto es copia de fuentes si no se provee
+    if sources is None:
+        sources = list(fuentes) if fuentes else None
     try:
         registrar_interaccion(
             pregunta=pregunta,
             respuesta=respuesta,
             fuentes=fuentes,
             tiempo_respuesta=tiempo_total,
-            umbral=UMBRAL_DISTANCIA_COSENO,
+            umbral=threshold_used,
             tipo_mensaje=tipo_mensaje,
             sesion_id=sesion_id,
             error=error,
+            pregunta_normalizada=pregunta_normalizada if pregunta_normalizada is not None else pregunta,
+            latency_total_ms=latency_total_ms,
+            embedding_latency_ms=embedding_latency_ms,
+            retrieval_latency_ms=retrieval_latency_ms,
+            llm_latency_ms=llm_latency_ms,
+            top_k_raw=top_k_raw,
+            top_k_final=top_k_final,
+            threshold_used=threshold_used,
+            num_valid_chunks=num_valid_chunks,
+            retrieved_chunk_ids=retrieved_chunk_ids,
+            retrieved_document_ids=retrieved_document_ids,
+            retrieved_articles=retrieved_articles,
+            retrieved_distances=retrieved_distances,
+            sources=sources,
+            citation_validation=citation_validation,
+            citation_repairs=citation_repairs,
+            embedding_model=embedding_model,
+            llm_model=llm_model,
+            prompt_version=prompt_version,
+            corpus_version=corpus_version,
+            ranking_method=ranking_method,
+            ranking_version=ranking_version,
+            http_status=http_status,
+            failure_reason=failure_reason,
+            validation_reason=validation_reason,
+            error_type=error_type,
         )
     except Exception:  # pragma: no cover
         log.exception("Fallo al registrar interacción (no bloqueante)")

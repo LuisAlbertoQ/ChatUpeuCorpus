@@ -11,9 +11,9 @@ El sistema permite a estudiantes y personal de la Universidad Peruana Unión (UP
 |---|---|---|
 | **OE4** Reglas de transparencia y explicabilidad | ✅ 100 % (T01/T02 fijados por decisión del equipo) | `backend/config.py` + `rag_pipeline.py` |
 | **OE5** Sistema conversacional con IA explicable | ✅ 100 % | Frontend + Backend + RAG + LLM + registro |
-| **OE6** Instrumentos de evaluación de madurez | ✅ 100 % | `evaluacion/INSTRUMENTOS.md` (5 instrumentos) |
+| **OE6** Instrumentos de evaluación de madurez | ✅ 100 % | `evaluacion/madurez_oe8/INSTRUMENTOS.md` (5 instrumentos) |
 | **OE7** Validación por expertos (V de Aiken) | ⏳ Pendiente (proceso) | Ejecutar con 3-5 expertos externos |
-| **OE8** Cálculo de madurez y piloto con usuarios | 🟡 En curso (infraestructura lista) | `evaluacion/reporte_madurez.md` (Básico – 3.00/5.00) |
+| **OE8** Cálculo de madurez y piloto con usuarios | 🟡 FASE 5 cerrada (auto) · FASE 6 pendiente de datos | `evaluacion/madurez_oe8/reporte_madurez.md` · instrumento piloto 30 ítems listo, 0 respuestas reales |
 
 ## Estructura del proyecto
 
@@ -27,12 +27,16 @@ oe5_chatbot_upeu/
 │   ├── app.py                        # Endpoints: /consulta, /bienvenida, /historial,
 │   │                                 #            /documentos, /politica-privacidad,
 │   │                                 #            /salud, /config-publica
-│   ├── config.py                     # Umbrales, mensajes M01-M08, dominios A-E,
-│   │                                 # keywords, patrones PII, sesión y CORS
-│   ├── logger.py                     # Registro ANONIMIZADO + seudonimización
-│   │                                 # (Ley 29733) + 4 tablas de evaluación
-│   ├── rag_pipeline.py               # Pipeline RAG: validador + retrieval + LLM
-│   │                                 # (PROMPT v2) + truncado + retry policy
+│   ├── config.py                     # RAG_DISTANCE_THRESHOLD=0.40, TOP_K_RAW=15/FINAL=4,
+│   │                                 # mensajes M01-M08, dominios A-E, keywords, PII, CORS
+│   ├── logger.py                     # Registro ANONIMIZADO + seudonimización (Ley 29733)
+│   │                                 # + migraciones de ~20 tablas de evaluación
+│   ├── rag_pipeline.py               # Pipeline RAG: validadores + retrieval + re-ranking
+│   │                                 # (boost keyword 0.07) + LLM (PROMPT v2-adaptativo)
+│   │                                 # + truncado + retry policy + guardrails de citas
+│   ├── context_builder.py            # Construcción determinística de contexto/fuentes (Fase 2)
+│   ├── validators_evaluacion.py      # source_validity / citation_match determinísticos
+│   ├── tests/                        # Suite pytest (312 tests en verde)
 │   ├── POLITICA_PRIVACIDAD.md        # Política de privacidad (Ley 29733)
 │   ├── requirements.txt
 │   ├── Dockerfile                    # Con HEALTHCHECK
@@ -47,30 +51,35 @@ oe5_chatbot_upeu/
 │   │   ├── index.js
 │   │   └── components/
 │   │       ├── ChatWindow.js         # Scroll auto + empty state + thinking
-│   │       ├── Message.js            # Render por tipo M02-M08 con etiqueta visual
-│   │       └── SourceBadge.js        # Sello editorial con doc + sección + versión
+│   │       ├── Message.js            # Render por tipo M02-M08 + markdown (remark-gfm/tablas)
+│   │       └── SourceBadge.js        # Chip "Relevancia %" (no probabilidad) + doc + sección
 │   ├── nginx.conf
 │   ├── package.json
 │   ├── Dockerfile                    # Multi-stage (build + nginx)
 │   └── .gitignore
-├── evaluacion/                       # Instrumentos y cálculo de madurez (OE6/OE8)
-│   ├── INSTRUMENTOS.md               # 5 instrumentos: ficha, cotejo funcional,
-│   │                                 # gobernanza, rúbrica explicabilidad, SUS
+├── evaluacion/                       # Evaluación técnica + madurez (ver README_EVALUACION.md)
 │   ├── README_EVALUACION.md          # Flujo de trabajo de evaluación
-│   ├── ficha_documental.md           # Auto-generada (corpus indexado)
-│   ├── reporte_madurez.md            # Auto-generada (cálculo CMMI--TRL)
-│   ├── resultados_madurez.csv        # Auto-generada (puntajes por dimensión)
-│   ├── generar_ficha.py              # Auto-genera ficha_documental.md
-│   ├── calcular_madurez.py           # Auto-genera reporte_madurez.md + CSV
-│   ├── migrar_banco.py               # [YA EJECUTADO] One-shot CSV → tabla `banco_preguntas`
-│   └── migrar_esquema_vector_store.py # [YA EJECUTADO] One-shot: arregla esquema chromadb
-├── docs/
+│   ├── banco/                        # Ground truth: preguntas_comparacion.json (17 Q),
+│   │                                 # sincronizar_banco.py, CHANGELOG_GROUNDTRUTH_V31.md
+│   ├── retrieval/                    # evaluar_rag.py, calibrar_umbral.py, métricas EXP_*.csv
+│   ├── generacion/                   # baseline_generacion_v3_oficial.py, harnesses, JSON/CSV
+│   ├── humana/                       # Fichas Q01-Q17 (fichas_humanas_v31/, 66 puntos),
+│   │                                 # importar_ficha_humana.py, calcular_metricas_humanas.py,
+│   │                                 # GUIA_EVALUACION_HUMANA_V3.md
+│   ├── madurez_oe8/                  # calcular_madurez.py, instrumento piloto 30 ítems,
+│   │                                 # importar_piloto.py, reporte_madurez.md
+│   └── legacy/                       # Scripts/resultados históricos (evaluar_modelo.ps1…)
+├── docs/                             # Especificación del proyecto
+│   ├── PARTE_2_CHATBOT_RAG.md        # Fases 1-7 del chatbot RAG
+│   ├── PARTE_3_EVALUACION_MADUREZ.md # Fases 1-6 de evaluación y madurez OE8
 │   └── FLUJO_CONSULTA.txt            # Diagrama del flujo de una consulta
 ├── vector_store/                     # Base vectorial ChromaDB (corpus persiste aquí)
-│   ├── chroma.sqlite3                # 48 documentos, 3886 chunks
+│   ├── chroma.sqlite3                # corpus_upeu_v2, 5126 chunks, mpnet-768
 │   └── [uuid]/
-├── registro_interacciones.db         # 4 tablas: interacciones, banco_preguntas,
-│                                     #   evaluacion_piloto, evaluacion_automatica
+├── registro_interacciones.db         # DB oficial: interacciones, banco_preguntas,
+│                                     # experimentos_rag, evaluacion_retrieval/generacion,
+│                                     # groundtruth_v31_*, detalle humano, banco_no_answer…
+├── backups/                          # Respaldos y snapshots corruptos (forense, no usar)
 ├── docker-compose.yml                # Orquestación con healthchecks y /data/...
 ├── .gitignore
 ├── debug.py                          # Script de diagnóstico manual
@@ -101,13 +110,14 @@ se montan en un path padre distinto al del código:
 | **Servidor ASGI** | Uvicorn | 0.27.0 |
 | **Lenguaje (backend)** | Python | 3.10 |
 | **Orquestación RAG** | LangChain | 0.1.0 + community 0.0.10 |
-| **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-mpnet-base-v2` (768 dims) |
-| **Base vectorial** | ChromaDB | 0.4.22 (distancia coseno) |
+| **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-mpnet-base-v2` (768 dims, ganador 10/10) |
+| **Base vectorial** | ChromaDB | 0.4.22, colección `corpus_upeu_v2`, distancia coseno |
 | **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
 | **Contenedor LLM** | Ollama | latest con CUDA v13. Modelo por defecto: Qwen2.5-7B |
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
-| **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
-| **Registro de datos** | SQLite 3 | 4 tablas (ver `evaluacion/README_EVALUACION.md`) |
+| **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
+| **Registro de datos** | SQLite 3 | ~20 tablas (ver `evaluacion/README_EVALUACION.md`) |
+| **Suite de tests** | pytest (Docker) | 312 passed |
 | **Frontend build tool** | Node.js + npm | 18-alpine en contenedor |
 
 ## Requisitos previos
@@ -120,7 +130,7 @@ se montan en un path padre distinto al del código:
    - Con GPU: respuestas en ~5-15 s
 3. **Carpeta `vector_store/`** con el corpus indexado
    - Se obtiene del proyecto `oe1_arquitectura_corpus/vector_store/`
-   - Tamaño: ~100-500 MB (48 documentos → 3886 chunks)
+   - Tamaño: ~100-500 MB (corpus_upeu_v2 → 5126 chunks, 1 artículo = 1 chunk)
 4. **Python 3.10+ y `chromadb==0.4.22`** (opcional, solo si quieres regenerar la ficha documental desde host — ver `evaluacion/README_EVALUACION.md`)
 
 ## Configuración
@@ -240,10 +250,16 @@ Ver `docs/FLUJO_CONSULTA.txt` para el diagrama detallado.
 
 | Tabla | Propósito | Quién la llena |
 |---|---|---|
-| `interacciones` | Log de cada consulta (anonimizado) | Backend automático |
-| `banco_preguntas` | Banco canónico de preguntas de prueba | `migrar_banco.py` (one-shot desde CSV) |
-| `evaluacion_piloto` | Puntajes Likert 1-5 de usuarios reales | INSERT manual o formulario |
-| `evaluacion_automatica` | Snapshots históricos de madurez | `calcular_madurez.py` (1 fila por ejecución) |
+| `interacciones` | Log de cada consulta (anonimizado, 35 cols. Fase 5) | Backend automático |
+| `banco_preguntas` | Banco 17 Q v3 + P01-P08 históricos | `evaluacion/banco/sincronizar_banco.py` |
+| `groundtruth_v31_*` | Ground truth oficial v3.1 (17 Q / 66 puntos) | Curación auditada (congelado) |
+| `experimentos_rag` | Snapshots de experimentos retrieval/generación/negativo | Harnesses `evaluacion/` |
+| `evaluacion_retrieval` | 255 candidatos Top15 del baseline + reevaluación | `evaluacion/retrieval/evaluar_rag*.py` |
+| `evaluacion_generacion` | 17 respuestas oficiales + métricas determinísticas | `evaluacion/generacion/baseline_generacion_v3_oficial.py` |
+| `evaluacion_*_detalle` | Juicios humanos (completitud/faithfulness/citas) | `evaluacion/humana/importar_ficha_humana.py` |
+| `banco_no_answer` | Banco negativo N01-N06 (SIN_COBERTURA) | Curación (congelado) |
+| `evaluacion_piloto` / `piloto_respuestas` | Piloto OE8 (0 respuestas reales aún) | `evaluacion/madurez_oe8/importar_piloto.py` |
+| `evaluacion_automatica` | Snapshots OE8 (etiqueta `OE8_AUTO_PRE_PILOTO`) | `evaluacion/madurez_oe8/calcular_madurez.py --auto-only` |
 
 ## Cumplimiento del documento OE4 v2.0
 
@@ -320,10 +336,13 @@ docker compose up -d
 
 ```powershell
 # Ficha documental (necesita chromadb → contenedor)
-docker compose run --rm backend python /data/evaluacion/generar_ficha.py
+docker compose run --rm backend python /data/evaluacion/legacy/generar_ficha.py
 
-# Madurez (solo sqlite3 → host o contenedor)
-docker compose run --rm backend python /data/evaluacion/calcular_madurez.py
+# Madurez automática OE8 pre-piloto (solo sqlite3 → host o contenedor)
+docker compose run --rm backend python /data/evaluacion/madurez_oe8/calcular_madurez.py --auto-only
+
+# Suite completa de tests
+docker compose exec backend pytest tests -q   # 312 passed
 ```
 
 ### 6. Ver logs
@@ -353,44 +372,55 @@ docker compose down -v              # elimina también volumen de modelos Ollama
 
 Para detalles completos ver `evaluacion/README_EVALUACION.md`.
 
-**Madurez actual** (300 interacciones, 0 evaluaciones de piloto):
+**Madurez automática pre-piloto** (961 interacciones, 0 respuestas de piloto):
 
 | Dimensión | Puntaje | Nivel |
 |---|---:|---|
-| Funcional | 3.00 | Básico |
+| Funcional | 2.00 | Inicial |
 | Recuperación documental | 3.00 | Básico |
-| Explicabilidad y trazabilidad | 3.00 | Básico |
-| Usabilidad | 4.00 | Gestionado |
+| Explicabilidad y trazabilidad | 2.00 | Inicial |
+| Usabilidad | 5.00 | Optimizado |
 | Gobernanza y uso responsable | 5.00 | Optimizado |
-| Preparación tecnológica y mejora | 3.00 | Básico |
-| **Global** | **3.50** | **Gestionado** |
+| Preparación tecnológica y mejora | 2.00 | Inicial |
 
-Métricas crudas: M02=59.0%, M04=22.0%, M06=8.7%, tiempo=14.91s.
+Métricas crudas: M02=42.7%, M04=22.5%, M06=10.5%, fuentes=56.3%, tiempo prom=5.95s.
+Nivel final pendiente de piloto (FASE 6) y combinación 60/40.
+
+> ⚠️ Las 1066 interacciones incluyen **492 filas sintéticas `t-*`** de `test_fase5_logging.py`/`test_config_rag.py` (46%, 2026-09-24–27), detectado en auditoría. No se eliminan (trazabilidad del snapshot FASE 5); los tests ya quedaron aislados a DB temporal para no seguir contaminando. Diagnóstico sin `t-*`: 549 filas, M02=69.9% (solo informativo, no oficial).
 
 ### Banco end-to-end (17 preguntas, corpus v2)
 
 Ejecutar con `powershell -ExecutionPolicy Bypass -File evaluacion/evaluar_modelo.ps1`
 (requiere backend en vivo; guarda `evaluacion/resultados_<modelo>.json`):
 
-| Métrica | Corpus v1 (3886 chunks) | Corpus v2 (6259 chunks) | Corpus v2 + prompt adaptativo |
-|---|---|---|---|
-| M02 (respuesta con fuentes) | 9/10* | **16/17** | **16/17** |
-| M04 | — | 1/17 (Q04 matrícula: recupera 4 fuentes pero el LLM no redacta) | 1/17 (Q04, mismo fallo de generación) |
-| Tiempo promedio | — | 8.32s (máx 19.43s) | 14.81s (máx 43.92s; respuestas más ricas) |
-| Q12 "cambiar de carrera" | M04 (chunk a d=0.436) | **M02** (d=0.387) | **M02** |
-| Q11 "constancia de estudios" | M04 | **M02** (cita Art. 53° Admisión) | **M02** + línea de encuadre e info complementaria |
-| Formato | Lista forzada, sin encuadre | Lista forzada | Encuadre + directa/lista/tabla según pregunta |
+| Métrica | Corpus v1 (3886 chunks) | Corpus v2 (5126 chunks) + prompt adaptativo |
+|---|---|---|
+| M02 (respuesta con fuentes) | 9/10* | **16/17** |
+| M04 | — | 1/17 (Q04 matrícula: recupera 4 fuentes pero el LLM no redacta) |
+| Tiempo promedio | — | 14.81s (máx 43.92s; respuestas más ricas) |
+| Q12 "cambiar de carrera" | M04 (chunk a d=0.436) | **M02** (d=0.387) |
+| Q11 "constancia de estudios" | M04 | **M02** (cita Art. 53° Admisión) + encuadre |
+| Formato | Lista forzada, sin encuadre | Encuadre + directa/lista/tabla según pregunta |
 
 *Bco anterior de 10 preguntas. El re-chunking 1-artículo-por-chunk resolvió
-los falsos M04 de Q11 y Q12. Ver `evaluacion/calibracion_resumen.md`.
+los falsos M04 de Q11 y Q12. Ver `evaluacion/retrieval/calibracion_resumen.md`.
 
-Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
+### Evaluación técnica cerrada (PARTE_3, ground truth v3.1)
+
+| Nivel | Métrica |
+|---|---|
+| Retrieval (mismo Top15, GT v3.1) | doc Hit@15 0.882 · art Hit@15 0.600 / Recall 0.489 · final art 0.467/0.400 |
+| Generación oficial (17 respuestas congeladas) | completitud micro 0.106 · faithfulness micro 0.918 · citation micro 0.879 · relevancia 2.53 |
+| Abstención (banco negativo N01-N06) | accuracy 1.0 (M04×4, M03×2, 0 alucinaciones) |
+
+Próximos pasos: OE7 (validación con expertos), OE8 piloto con usuarios (instrumento 30 ítems listo).
 
 ## Solución de problemas
 
 | Error | Causa probable | Solución |
 |-------|-----------------|----------|
-| `sqlite3.OperationalError: no such column: collections.topic` | Vector store escrito con chromadb 1.x, contenedor con 0.4.22 | `docker compose run --rm backend python /data/evaluacion/migrar_esquema_vector_store.py` (ya ejecutado, solo si reinstalas con vector store viejo) |
+| `sqlite3.OperationalError: no such column: collections.topic` | Vector store escrito con chromadb 1.x, contenedor con 0.4.22 | `docker compose run --rm backend python /data/evaluacion/retrieval/migrar_esquema_vector_store.py` (ya ejecutado, solo si reinstalas con vector store viejo) |
+| `database disk image is malformed` en SQLite | Escritura concurrente host↔backend sobre el bind-mount | **Nunca tocar el .db con el backend corriendo**; respaldos en `backups/` |
 | `Anterior: Error al conectar con el servidor` en frontend | Backend no inició o CORS | `docker compose logs backend` |
 | `ModuleNotFoundError: chromadb` al ejecutar `generar_ficha.py` desde host | Host sin chromadb | Usar `docker compose run --rm backend python /data/evaluacion/generar_ficha.py` |
 | **Respuesta muy lenta** (30+ s) | Modelo descargándose o GPU no disponible | Esperar warm-up (primeras 2-3 consultas). Sin GPU: normal. |
@@ -405,9 +435,9 @@ Próximos pasos: OE7 (validación con expertos), OE8 (piloto con 10+ usuarios).
 |----------|-----------|-----------|
 | **OE4** (Reglas y transparencia) | `backend/config.py` + `rag_pipeline.py` | Umbrales, dominios, mensajes M01-M08 definidos y aplicados |
 | **OE5** (Sistema conversacional) | Proyecto completo | Frontend + Backend + RAG + LLM + registro anonimizado |
-| **OE6** (Instrumentos) | `evaluacion/INSTRUMENTOS.md` | 5 instrumentos (ficha, cotejo, gobernanza, rúbrica, SUS) |
+| **OE6** (Instrumentos) | `evaluacion/madurez_oe8/INSTRUMENTOS.md` | 5 instrumentos (ficha, cotejo, gobernanza, rúbrica, SUS) |
 | **OE7** (Validación por expertos) | _Pendiente_ | Ejecutar con 3-5 expertos, calcular V de Aiken |
-| **OE8** (Madurez del sistema) | `evaluacion/calcular_madurez.py` + `reporte_madurez.md` | Modelo CMMI--TRL adaptado, 6 dimensiones, 4 niveles |
+| **OE8** (Madurez del sistema) | `evaluacion/madurez_oe8/calcular_madurez.py --auto-only` | Modelo CMMI--TRL adaptado, 6 dimensiones, 4 niveles, umbrales en `UMBRALES_OE8` |
 
 ## Autores
 
@@ -428,6 +458,6 @@ Proyecto académico y educativo. Contacta con los autores para cualquier uso com
 
 ---
 
-**Última actualización:** 14 de agosto de 2026
-**Estado:** OE4-5-6 completados · OE7 pendiente (proceso) · OE8 en curso (Básico – 3.00/5.00)
-**Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8)
+**Última actualización:** 27 de septiembre de 2026
+**Estado:** OE4-5-6 completados · PARTE_3 FASE 1-5 cerradas (retrieval/generación/humana/negativo/auto) · OE7 pendiente · OE8 FASE 6 pendiente de datos
+**Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8, instrumento v1 listo)

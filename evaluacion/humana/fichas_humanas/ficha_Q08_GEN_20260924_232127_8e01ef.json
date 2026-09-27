@@ -1,0 +1,107 @@
+{
+  "pregunta_id": "Q08",
+  "pregunta": "¿Qué sanciones existen para los estudiantes?",
+  "respuesta_congelada": "- Sanciones reguladas en reglamentos específicos (ESTATUTO 2024. 04-09-2024, Artículo 114°).\n- No recibir credenciales o autorización para realizar prácticas preprofesionales o pasantías, internados, movilidad académica o análogos y brindar servicios remunerados a la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).\n- No recibir cartas de recomendación o de cualquier índole por parte de la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).\n- No participar en ninguna otra actividad, acción u otro tipo de participación del estudiante sancionado (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS POSGRADO 2025_0320",
+      "documento": "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf",
+      "articulo": "Capítulo II",
+      "distancia": 0.15706634521484375
+    },
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS V5_2025_0349",
+      "documento": "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+      "articulo": "Capítulo II",
+      "distancia": 0.15706634521484375
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0166",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 114°",
+      "distancia": 0.17239344120025635
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0083",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 55°",
+      "distancia": 0.20263290405273438
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf · Capítulo II · 2025 · [B – Académico y estudios]",
+    "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Capítulo II · v5 · [B – Académico y estudios]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 114° · 2024 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 55° · v3 · [D – Bienestar estudiantil]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q08_P01",
+      "descripcion": "Sancionado por falta grave/muy grave no puede acceder a matrícula ordinaria o extraordinaria",
+      "evidencia": "55.1. Acceder a realizar la matrícula ordinaria o extraordinaria en períodos regulares, complementarios o extraordinarios.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q08_P02",
+      "descripcion": "Sancionado no puede beneficiarse de las becas que ofrece la UPeU durante la sanción y semestre siguiente",
+      "evidencia": "55.2. Beneficiarse de las becas que ofrece la UPeU.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q08_P03",
+      "descripcion": "Sancionado no puede encargarse de prácticas o ayudantías de cátedra",
+      "evidencia": "55.4. Encargarse de prácticas, ayudantías de catedra",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "ESTATUTO 2024. 04-09-2024, Artículo 114°",
+      "documento": "ESTATUTO 2024. 04-09-2024",
+      "articulo": "114°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

@@ -1,0 +1,154 @@
+{
+  "pregunta_id": "Q13",
+  "pregunta": "¿Qué incentivos hay para investigadores?",
+  "respuesta_congelada": "- Incentivo honorífico: Reconocimiento académico público por la destacada y prominente participación en investigación, difusión de resultados o premios otorgados. (REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf, Artículo 37°)\n\n- Bonificaciones económicas: Otorgadas a coordinadores/jefes de grupo de investigación, docentes investigadores y terceros que cumplan con ciertos requisitos. (REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf, Artículo 10°)\n\n- Premios: Asignación económica única no remunerativa para estudiantes y egresados sin vínculo laboral con la UPeU. (REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0045",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "Artículo 37°",
+      "distancia": 0.18624799728393554,
+      "texto_verificado": "Artículo 37°. Incentivo honorífico. Reconocimiento académico público por la destacada participación en investigación, la difusión de sus resultados o premios otorgados."
+    },
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0006",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "",
+      "distancia": 0.23464303493499755,
+      "texto_verificado": "PREMIO: asignación de un monto económico único, no periódico, otorgado a estudiantes y egresados sin vínculo laboral con la UPeU, de carácter no remunerativo."
+    },
+    {
+      "chunk_id": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0018",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "Artículo 10°",
+      "distancia": 0.2541657018661499,
+      "texto_verificado": "Artículo 10°. Beneficiarios: 10.1 Coordinador/Jefe de grupo. 10.2 Docente investigador. 10.5 Terceros. 10.6 Estudiantes y egresados sólo premios o subvenciones."
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGADORES UPeU V1 2025_0024",
+      "documento": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+      "articulo": "Artículo 10°",
+      "distancia": 0.2577245759963989,
+      "texto_verificado": "Artículo 10° (10.12-10.15): cumplimiento normativo, gestión de fondos, postulación a financiamiento, proyectos liderados. No contiene la lista de beneficiarios de bonificaciones."
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 37° · 2025 · [C – Investigación]",
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · 2025 · [C – Investigación]",
+    "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 10° · 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf · Artículo 10° · v1 2025 · [C – Investigación]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "invalid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q13_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q13_P01",
+        "descripcion": "Bonificación otorgada mientras mantenga vínculo laboral vigente con la UPeU",
+        "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+        "articulo": "Artículo 22°",
+        "evidencia": "22.1 Es otorgado mientras mantengan el vínculo laboral vigente con la UPeU.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta menciona bonificaciones a coordinadores/docentes/terceros (Art10), no la bonificación RENACYT por vínculo laboral del Art22.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q13_P02",
+        "descripcion": "Beneficiario debe tener al menos 20 horas de dedicación y UPeU como afiliación principal en CTI Vitae",
+        "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+        "articulo": "Artículo 22°",
+        "evidencia": "22.2 El beneficiario debe tener al menos veinte (20) horas (media carga) lectivas o no lectivas de dedicación laboral a la UPeU evidenciado por vínculo laboral (contrato) vigente. 22.3 El beneficiario debe tener en su CTi Vitae a la UPeU como afiliación principal.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a 20 horas ni CTI Vitae.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q13_P03",
+        "descripcion": "Bono mensual según nivel Renacyt a partir de informe de DGI",
+        "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+        "articulo": "Artículo 22°",
+        "evidencia": "22.4 El beneficiario recibirá el bono mensual correspondiente según el nivel Renacyt (ver tablas de Incentivos) a partir de la fecha del informe enviado por la DGI",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a bono Renacyt ni DGI.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q13_P04",
+        "descripcion": "Mantenimiento de la bonificación: actualización DGI/DTH, publicación Scopus/WoS y boleta de pago",
+        "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+        "articulo": "Artículo 22°",
+        "evidencia": "22.5 La DGI actualiza el monto ante la DTH dos veces al año. 22.6 Para mantenerla el docente debe publicar al menos 1 artículo en Scopus/Web of Science. 22.7 La bonificación es consignada en la boleta de pago, de libre disposición y remunerativa.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a actualización, publicaciones Scopus ni boleta.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q13_C01",
+        "claim_texto": "Existe un incentivo honorífico consistente en reconocimiento académico público por participación en investigación, difusión o premios.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0045 Art37: 'Incentivo honorífico. Reconocimiento académico público por la destacada participación en investigación, la difusión de sus resultados o premios otorgados.'",
+        "justificacion": "Literal en chunk 0045, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q13_C02",
+        "claim_texto": "Las bonificaciones económicas se otorgan a coordinadores/jefes de grupo, docentes investigadores y terceros que cumplan requisitos.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0018 Art10 (INCENTIVOS): beneficiarios 10.1 Coordinador/Jefe, 10.2 Docente investigador, 10.5 Terceros. El contenido del claim está en el contexto aunque la cita apunte a otro documento.",
+        "justificacion": "Faithfulness evalúa claim vs contexto, no vs cita: el contenido está soportado por el chunk 0018."
+      },
+      {
+        "claim_id": "Q13_C03",
+        "claim_texto": "Los premios son una asignación económica única no remunerativa para estudiantes y egresados sin vínculo laboral.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0006 glosario PREMIO: 'asignación de un monto económico único, no periódico, otorgado a estudiantes y egresados sin vínculo laboral, de carácter no remunerativo.'",
+        "justificacion": "Literal en chunk 0006."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q13_CIT01",
+      "cita_texto": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf, Artículo 37°",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "37°",
+      "tipo": "A",
+      "claim_asociado": "Q13_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0045. Respalda Q13_C01."
+    },
+    {
+      "citation_id": "Q13_CIT02",
+      "cita_texto": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf, Artículo 10°",
+      "documento": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+      "articulo": "10°",
+      "tipo": "A",
+      "claim_asociado": "Q13_C02",
+      "estado": "INCORRECTA",
+      "justificacion": "El documento citado está en fuentes finales (citation_match=valid), pero su chunk 0024 (10.12-10.15 cumplimiento/gestión) no contiene la lista de beneficiarios; el contenido está en el chunk 0018 del otro documento. Caso match-válido pero semánticamente incorrecta."
+    },
+    {
+      "citation_id": "Q13_CIT03",
+      "cita_texto": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "articulo": "",
+      "tipo": "B",
+      "claim_asociado": "Q13_C03",
+      "estado": "CORRECTA",
+      "justificacion": "Cita documental sin artículo; el documento está en fuentes y el chunk 0006 respalda el claim."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Lista incentivos reales (honorífico, bonificaciones, premios), información útil, pero omite los cuatro puntos RENACYT esperados del Art22.",
+  "notas": "Completitud 0 estricta. Faithfulness 3/3 SOPORTADO (el claim se juzga vs contexto, no vs cita). Q13_CIT02 demuestra match=valid pero correctness=INCORRECTA. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

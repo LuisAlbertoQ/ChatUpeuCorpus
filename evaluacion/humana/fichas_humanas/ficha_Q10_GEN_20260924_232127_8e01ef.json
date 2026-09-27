@@ -1,0 +1,80 @@
+{
+  "pregunta_id": "Q10",
+  "pregunta": "¿Quién supervisa la auditoría interna?",
+  "respuesta_congelada": "- El auditor general es nombrado por el Consejo Universitario a propuesta del Rector. (REGLAMENTO GENERAL UPeU 2023, Artículo 613°)",
+  "contexto_real": [
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0013",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTÍCULO 11",
+      "distancia": 0.1581638979911804
+    },
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0012",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTICULO 10",
+      "distancia": 0.19751959323883056
+    },
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0049",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTICULO 42",
+      "distancia": 0.2135584724262805
+    },
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0745",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 613°",
+      "distancia": 0.21389687061309814
+    }
+  ],
+  "fuentes_finales": [
+    "reglamento_deauditoria_interna.pdf · ARTÍCULO 11 · [E – Laboral, docencia y políticas]",
+    "reglamento_deauditoria_interna.pdf · ARTICULO 10 · [E – Laboral, docencia y políticas]",
+    "reglamento_deauditoria_interna.pdf · ARTICULO 42 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 613° · 2023 · [A – Gobierno y estatuto institucional]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q10_P01",
+      "descripcion": "La Oficina de Auditoría Interna tiene estructura: Auditor Interno, Asistente y Personal de Apoyo",
+      "evidencia": "ARTICULO 8: La AI tiene la siguiente estructura organizacional: a) Auditor Interno, quien dirige y coordina las acciones de la Oficina. b) Asistente de Auditoria. c) Personal de Apoyo.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q10_P02",
+      "descripcion": "El Auditor Interno es nombrado por Consejo Universitario a propuesta del Rector y depende de él",
+      "evidencia": "ARTICULO 10: El auditor interno es nombrado por el Consejo Universitario a propuesta del Rector, de quien depende orgánica y funcionalmente.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q10_P03",
+      "descripcion": "El Auditor Interno dirige, coordina, programa y ejecuta todas las acciones de auditoría interna",
+      "evidencia": "ARTÍCULO 11: Son atribuciones y prerrogativas del Auditor Interno: a) Dirigir, coordinar, programar y ejecutar todas las acciones de auditoria interna en la UPeU.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO GENERAL UPeU 2023, Artículo 613°",
+      "documento": "REGLAMENTO GENERAL UPeU 2023",
+      "articulo": "613°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

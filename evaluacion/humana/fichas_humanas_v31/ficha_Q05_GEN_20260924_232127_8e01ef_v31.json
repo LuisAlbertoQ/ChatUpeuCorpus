@@ -1,0 +1,127 @@
+{
+  "pregunta_id": "Q05",
+  "pregunta": "¿Qué requisitos hay para un proyecto de tesis?",
+  "respuesta_congelada": "- El proyecto de tesis debe tener como propósito el desarrollo de una investigación con altos estándares metodológicos y científicos, original en sus objetivos, planteamiento, desarrollo y resultados, con la finalidad de aportar nuevos conocimientos teóricos y aplicados (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°).\n\n- El proyecto de tesis debe contemplar el futuro desarrollo de por lo menos dos artículos científicos derivados de la ejecución del proyecto de la tesis doctoral (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 109°).",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0156",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 110°",
+      "distancia": 0.19549036026000977,
+      "texto_verificado": "Artículo 110°. Elaboración del proyecto de tesis. El estudiante desarrollará el proyecto de tesis en asignaturas vinculadas a la investigación. [No citado por la respuesta.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0155",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 109°",
+      "distancia": 0.23046165704727173,
+      "texto_verificado": "Artículo 109°. Estructura del proyecto de tesis. El proyecto de tesis doctoral debe contemplar el futuro desarrollo de por lo menos dos (2) artículos científicos derivados de la ejecución del proyecto de la tesis doctoral."
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0053",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 17°",
+      "distancia": 0.23245549201965332,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0153",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 107°",
+      "distancia": 0.24856781959533691,
+      "texto_verificado": "Artículo 107°. Propósito. Es el desarrollo de un proyecto de tesis de una máxima exigencia académica, siguiendo altos estándares metodológicos y científicos, original en sus objetivos, planteamiento, desarrollo y resultados, con la finalidad de aportar nuevos conocimientos teóricos y aplicados. Como resultado de la tesis doctoral deben generarse mínimamente dos (2) artículos científicos."
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 110° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 109° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 17° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 107° · v8 2025 · [C – Investigación]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q05_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q05_P01",
+        "descripcion": "El CIIEP coordina con el director de la EP la articulación curricular de actividades de investigación",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 15°",
+        "evidencia": "Artículo 15°. Coordinación de actividades y resultados. El CIIEP coordina con el director de la EP, el comité de diseño y evaluación curricular y los docentes",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta habla del propósito doctoral y dos artículos derivados; no menciona coordinación CIIEP.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q05_P02",
+        "descripcion": "La Etapa II (2do y 3er año) comprende articulación curricular de investigación formativa",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 16°",
+        "evidencia": "Artículo 16°. Alcance. La Etapa II comprende al segundo (2do) y tercer (3er) año de estudios y el CIIEP coordina con el director de la EP",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a Etapa II ni años de estudio.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q05_P03",
+        "descripcion": "Los contenidos de investigación deben comprender todas las asignaturas y determinar rol de cada uno",
+        "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+        "articulo": "Artículo 15°",
+        "evidencia": "determinadas en el currículo cuyo contenido debe comprender a todas las asignaturas y determinar el rol de cada uno.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin mención a contenidos por asignatura ni roles.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q05_C01",
+        "claim_texto": "El proyecto de tesis debe tener como propósito una investigación con altos estándares metodológicos y científicos, original, que aporte nuevos conocimientos teóricos y aplicados.",
+        "estado": "PARCIALMENTE_SOPORTADO",
+        "evidencia_contexto": "Chunk 0153 Art107: 'Es el desarrollo de un proyecto de tesis de una máxima exigencia académica, siguiendo altos estándares metodológicos y científicos, original en sus objetivos, planteamiento, desarrollo y resultados, con la finalidad de aportar nuevos conocimientos teóricos y aplicados.' Dicho artículo regula específicamente el proyecto de tesis doctoral.",
+        "justificacion": "El Artículo 107 respalda estas características para el proyecto de tesis doctoral, pero la respuesta las presenta como aplicables al proyecto de tesis en general."
+      },
+      {
+        "claim_id": "Q05_C02",
+        "claim_texto": "El proyecto de tesis debe contemplar el futuro desarrollo de por lo menos dos artículos científicos derivados de la tesis doctoral.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0155 Art109: 'El proyecto de tesis doctoral debe contemplar el futuro desarrollo de por lo menos dos (2) artículos científicos derivados de la ejecución del proyecto de la tesis doctoral.'",
+        "justificacion": "Literal en chunk 0155."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q05_CIT01",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "107°",
+      "tipo": "A",
+      "claim_asociado": "Q05_C01",
+      "estado": "PARCIAL",
+      "justificacion": "El Artículo 107 respalda la afirmación en el ámbito doctoral, pero no su generalización al proyecto de tesis en general."
+    },
+    {
+      "citation_id": "Q05_CIT02",
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 109°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "109°",
+      "tipo": "A",
+      "claim_asociado": "Q05_C02",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0155. Respalda Q05_C02."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Aporta requisitos reales del proyecto doctoral (propósito y dos artículos), información útil, pero omite los tres puntos esperados sobre coordinación formativa. Respuesta parcial.",
+  "notas": "La falta de completitud se relaciona con que la respuesta usó Arts 107/109 doctorales mientras el checklist v3.1 pide coordinación formativa Arts 15/16. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

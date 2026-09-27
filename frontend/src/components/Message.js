@@ -49,18 +49,28 @@ function Message({ mensaje }) {
         <footer className="msg__sources">
           <p className="msg__sources-title">Fuentes verificables</p>
           <ul className="msg__sources-list">
-            {mensaje.fuentes.map((f, i) => (
-              <SourceBadge
-                key={i}
-                index={i}
-                fuente={f}
-                similitud={
-                  Array.isArray(mensaje.debug_distancias)
-                    ? (1 - mensaje.debug_distancias[i]) * 100
-                    : null
+            {mensaje.fuentes.map((f, i) => {
+              let similitud = null;
+              if (
+                Array.isArray(mensaje.debug_distancias) &&
+                i < mensaje.debug_distancias.length
+              ) {
+                const d = mensaje.debug_distancias[i];
+                if (typeof d === 'number' && Number.isFinite(d)) {
+                  let v = (1 - d) * 100;
+                  v = Math.max(0, Math.min(100, v));
+                  if (Number.isFinite(v)) similitud = v;
                 }
-              />
-            ))}
+              }
+              return (
+                <SourceBadge
+                  key={i}
+                  index={i}
+                  fuente={f}
+                  similitud={similitud}
+                />
+              );
+            })}
           </ul>
         </footer>
       )}

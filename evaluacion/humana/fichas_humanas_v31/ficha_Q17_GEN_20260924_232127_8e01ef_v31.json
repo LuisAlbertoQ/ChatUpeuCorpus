@@ -1,0 +1,87 @@
+{
+  "pregunta_id": "Q17",
+  "pregunta": "¿Qué servicios ofrece la universidad a los egresados?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento Reglamento Pago Servicios Educativos o Académicos.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0022",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 7",
+      "distancia": 0.2300972270965576
+    },
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0021",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 6",
+      "distancia": 0.23017441511154174
+    },
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0023",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 8",
+      "distancia": 0.27192097187042236
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0012",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "",
+      "distancia": 0.29827451705932617
+    }
+  ],
+  "fuentes_finales": [
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 7 · [B – Académico y estudios]",
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 6 · [B – Académico y estudios]",
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 8 · [B – Académico y estudios]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · v3 · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "not_applicable",
+    "citation_presence": 0,
+    "answerable_but_abstained": 1,
+    "tipo_mensaje": "M04",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q17_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q17_P01",
+        "descripcion": "Mecanismos laborales y académicos para egresados: ofertas laborales, prácticas, CV, capacitación y actualización",
+        "documento": "Reglamento de seguimiento de egresados",
+        "articulo": "Artículo 12°",
+        "evidencia": "Artículo 12°. Mecanismos de vinculación: a) Laboral: ofertas laborales, prácticas profesionales, gestión del CV. b) Académico: capacitación, perfeccionamiento, actualización profesional, pasantías, investigación.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Respuesta M04 sin contenido sustantivo; no preasignado por ser M04 sino por ausencia literal.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q17_P02",
+        "descripcion": "Servicios e instalaciones para egresados: base de datos, CRAI, laboratorios, ambientes y redes",
+        "documento": "Reglamento de seguimiento de egresados",
+        "articulo": "Artículo 12°",
+        "evidencia": "Artículo 12°. c) Servicios: uso de base de datos, CRAI, laboratorios, instalaciones o ambientes, redes sociales oficiales. d) Programas y proyectos conjuntos.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin contenido sustantivo en la respuesta.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q17_P03",
+        "descripcion": "Vinculación efectiva: cooperación, investigación, capacitación, auspicio de eventos y alianzas",
+        "documento": "Reglamento de seguimiento de egresados",
+        "articulo": "Artículo 18°",
+        "evidencia": "Artículo 18°. La vinculación se efectiviza por: cooperación filantrópica (cátedras, intermediación laboral), investigación, capacitación, auspicio de eventos, alianzas estratégicas.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Sin contenido sustantivo en la respuesta.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": 1,
+  "relevancia_justificacion": "No responde al objetivo: abstención M04 en pregunta ANSWERABLE, sin servicios para egresados. La sugerencia de revisar el reglamento de pagos no es contenido sustantivo.",
+  "notas": "answerable_but_abstained=1 ya persistido. Sin claims → faithfulness NULL. Sin citas → citation correctness NULL. Solo Art421/422 antiguo queda fuera del GT v3.1. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

@@ -1,0 +1,210 @@
+{
+  "pregunta_id": "Q15",
+  "pregunta": "¿Cómo solicito una beca en la UPeU?",
+  "respuesta_congelada": "Para solicitar una beca en la UPeU, el estudiante debe presentar los siguientes requisitos:\n\n- Ser estudiante regular de la UPeU.\n- Haber obtenido un promedio ponderado mínimo de catorce (14) y el cien por ciento (100%) de los créditos aprobados en el semestre académico precedente.\n- No haber recibido sanción disciplinaria por la infracción de las normas de la UPeU.\n- No adeudar a la UPeU por ningún concepto.\n\nAdemás, según el artículo 53° del REGLAMENTO BECAS 2021 ACTUALIZADO.pdf, se requiere:\n\n- Solicitud dirigida al comité correspondiente.\n- Documentación actualizada según requisitos específicos.\n- Último recibo de servicios de luz, agua o teléfono.\n- En caso de recibir apoyo económico de un familiar, adjuntar declaración jurada simple indicando el monto de apoyo en soles.\n- En caso de padres separados, adjuntar algún documento que acredite dicha situación.\n- La presentación de búsqueda del índice de propiedad de inmueble de la provincia donde vive la familia a nombre del principal responsable de la economía. Este documento debe ser tramitado en SUNARP.\n- La presentación de búsqueda en el Sistema de Focalización de Hogares (SISFOH) que indique la situación familiar.\n\nEstos requisitos se aplican tanto para el otorgamiento inicial como para la renovación de la beca, aunque algunos detalles específicos pueden variar entre los artículos 49° y 61°.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0060",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 49°",
+      "distancia": 0.17501538276672363,
+      "texto_verificado": "Artículo 49°: 49.1 estudiante regular. 49.2 promedio 14 y 100% créditos. 49.3 no sancionado. 49.4 no adeudar. 49.5 documentos de identidad. 49.6 economía familiar (boletas, honorarios, pensión, negocio, alquiler, remesas, informales, desempleados). 49.10 recibo de servicios. 49.11 apoyo económico (DJ). 49.12 padres separados."
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0074",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 61°",
+      "distancia": 0.1930770206451416,
+      "texto_verificado": "Artículo 61° (renovación): 61.1 solicitud al comité de becas. 61.2 estudiante regular. 61.3 promedio 14 y 100% créditos. 61.4 no sanción. 61.5 no adeudar."
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0059",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 48°",
+      "distancia": 0.2051731276512146,
+      "texto_verificado": "Artículo 48°: solicitud con documentación actualizada; revisión de expediente por bienestar universitario."
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0065",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 53°",
+      "distancia": 0.20753406763076782,
+      "texto_verificado": "Artículo 53° (renovación): solicitud, documentación actualizada, 53.9 SUNARP, 53.10 SISFOH, y requisitos 53.1-53.8 espejo del Art49."
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 49° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 61° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 48° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 53° · 2021 · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "not_applicable",
+    "citation_presence": 0,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q15_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q15_P01",
+        "descripcion": "Tener calidad de estudiante regular de la UPeU",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.1. Tener la calidad de estudiante regular de la UPeU.",
+        "estado": "CUBIERTO",
+        "justificacion": "Expresado explícitamente.",
+        "fragmento_respuesta": "Ser estudiante regular de la UPeU."
+      },
+      {
+        "punto_id": "Q15_P02",
+        "descripcion": "Haber obtenido promedio ponderado mínimo de catorce (14)",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.2. Haber obtenido un promedio ponderado mínimo de catorce (14)",
+        "estado": "CUBIERTO",
+        "justificacion": "Expresa promedio 14 y añade el 100% de créditos del mismo numeral.",
+        "fragmento_respuesta": "Haber obtenido un promedio ponderado mínimo de catorce (14) y el cien por ciento (100%) de los créditos aprobados"
+      },
+      {
+        "punto_id": "Q15_P03",
+        "descripcion": "No haber sido ni estar sancionado en el semestre académico precedente",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.3. No haber sido ni estar sancionado en el semestre académico precedente",
+        "estado": "PARCIAL",
+        "justificacion": "Expresa el núcleo (no sanción disciplinaria) pero omite el marco temporal precedente/subsiguiente, parte necesaria del punto.",
+        "fragmento_respuesta": "No haber recibido sanción disciplinaria por la infracción de las normas de la UPeU."
+      },
+      {
+        "punto_id": "Q15_P04",
+        "descripcion": "No adeudar a la UPeU por ningún concepto (requisito)",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.4. No adeudar a la UPeU por ningún concepto.",
+        "estado": "CUBIERTO",
+        "justificacion": "Literal.",
+        "fragmento_respuesta": "No adeudar a la UPeU por ningún concepto."
+      },
+      {
+        "punto_id": "Q15_P05",
+        "descripcion": "Documentos de identidad y de economía familiar según situación (boletas, honorarios, pensión, negocio, alquiler, remesas, informales, desempleados)",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.5. Documentos de identidad del padre, madre, estudiante y hermanos. 49.6. Documentos del responsable económico: 49.6.1 dependiente (boletas), 49.6.2 independiente (honorarios), 49.6.3 pensionistas, 49.6.4 negocio (PDT/RUS), 49.6.5 alquiler, 49.6.6 remesas, 49.6.7 informales (DJ), 49.6.8 desempleados.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Menciona documentación genérica y solicitud, pero ningún documento de identidad ni de economía familiar del 49.5-49.6.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q15_P06",
+        "descripcion": "Otros documentos: SUNARP, hermanos, salud, servicios, apoyo familiar, padres separados",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 49°",
+        "evidencia": "49.7. Búsqueda SUNARP. 49.8. Hermanos (recibo/constancia). 49.9. Certificado de salud. 49.10. Recibo de servicios. 49.11. Apoyo económico familiar (DJ). 49.12. Padres separados. 49.13. Otros que solicite asistencia social.",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre explícitamente SUNARP, recibo de servicios, apoyo económico con DJ y padres separados (4 de 7 elementos); omite hermanos, salud y otros.",
+        "fragmento_respuesta": "Último recibo de servicios... declaración jurada... padres separados... SUNARP... SISFOH"
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q15_C01",
+        "claim_texto": "Para solicitar beca se necesita ser estudiante regular de la UPeU.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.1 y chunk 0074 Art61 61.2.",
+        "justificacion": "Literal en ambos chunks."
+      },
+      {
+        "claim_id": "Q15_C02",
+        "claim_texto": "Se necesita promedio mínimo de 14 y 100% de créditos aprobados en el semestre precedente.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.2 y chunk 0074 Art61 61.3.",
+        "justificacion": "Literal en ambos chunks."
+      },
+      {
+        "claim_id": "Q15_C03",
+        "claim_texto": "Se necesita no haber recibido sanción disciplinaria.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.3 y chunk 0074 Art61 61.4.",
+        "justificacion": "El claim reproduce la respuesta sin el marco temporal; lo afirmado está literal en el contexto."
+      },
+      {
+        "claim_id": "Q15_C04",
+        "claim_texto": "Se necesita no adeudar a la UPeU por ningún concepto.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.4 y chunk 0074 Art61 61.5.",
+        "justificacion": "Literal."
+      },
+      {
+        "claim_id": "Q15_C05",
+        "claim_texto": "Se requiere solicitud dirigida al comité con documentación actualizada.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0074 Art61 61.1 y chunk 0059 Art48: solicitud adjuntando documentación actualizada.",
+        "justificacion": "Literal en chunks 0074/0059."
+      },
+      {
+        "claim_id": "Q15_C06",
+        "claim_texto": "Se requiere el último recibo de servicios de luz, agua o teléfono.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.10 y chunk 0065 Art53 (renovación).",
+        "justificacion": "Literal en el artículo."
+      },
+      {
+        "claim_id": "Q15_C07",
+        "claim_texto": "Quien reciba apoyo económico familiar debe adjuntar declaración jurada con el monto.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.11.",
+        "justificacion": "Literal."
+      },
+      {
+        "claim_id": "Q15_C08",
+        "claim_texto": "Con padres separados se requiere documento que acredite la situación.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 49.12.",
+        "justificacion": "Literal."
+      },
+      {
+        "claim_id": "Q15_C09",
+        "claim_texto": "Se requiere la búsqueda SUNARP del inmueble a nombre del responsable económico.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0065 Art53 53.9 (verificado: 2957 chars, contiene 53.9 SUNARP).",
+        "justificacion": "Literal en chunk 0065."
+      },
+      {
+        "claim_id": "Q15_C10",
+        "claim_texto": "Se requiere la búsqueda SISFOH del hogar.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0065 Art53 53.10 (verificado en texto completo del chunk).",
+        "justificacion": "Literal en chunk 0065."
+      },
+      {
+        "claim_id": "Q15_C11",
+        "claim_texto": "Estos requisitos aplican a otorgamiento y renovación, con detalles que varían entre los artículos 49° y 61°.",
+        "estado": "PARCIALMENTE_SOPORTADO",
+        "evidencia_contexto": "Chunk 0060 Art49 (otorgamiento) y chunk 0074 Art61 61.1-61.5 (renovación): el núcleo (regular, 14, no sanción, no adeudar, solicitud) se replica en ambos, pero no se verificó que todo el conjunto documental detallado aplique idéntico a ambos procedimientos.",
+        "justificacion": "Solapamiento importante confirmado, pero identidad completa del conjunto no demostrada en el contexto verificado."
+      }
+  ],
+  "citas": [
+      {
+        "citation_id": "Q15_CIT01",
+        "cita_texto": "artículo 53° del REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+        "articulo": "53°",
+        "tipo": "A",
+        "claim_asociado": "Q15_C05; Q15_C06; Q15_C07; Q15_C08; Q15_C09; Q15_C10",
+        "estado": "CORRECTA",
+        "justificacion": "Referencia explícita no detectada por el parser (falso negativo de citation_presence). Introduce la lista subsiguiente; el chunk 0065 contiene solicitud, documentación y 53.1-53.10 incluidos SUNARP y SISFOH."
+      }
+  ],
+  "relevancia": 4,
+  "relevancia_justificacion": "Responde directamente con 3 puntos completos y 2 parciales de 6; solo omite por completo los documentos de identidad/economía del 49.5-49.6. Omisión menor frente al conjunto.",
+  "notas": "Falso negativo del detector: citation_presence automático=0 pero existe 1 referencia explícita al Art53 (Q15_CIT01). Total humano: 32 detectadas + 1 adicional = 33 ocurrencias. Faithfulness desde chunks 0060/0074/0059/0065 verificados. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

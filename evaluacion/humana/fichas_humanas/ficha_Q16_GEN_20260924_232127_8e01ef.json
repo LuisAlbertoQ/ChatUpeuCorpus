@@ -1,0 +1,80 @@
+{
+  "pregunta_id": "Q16",
+  "pregunta": "¿Cuál es el procedimiento para presentar una queja?",
+  "respuesta_congelada": "- El trabajador presenta la queja por escrito ante la DTH.\n- La DTH atenderá e investigará el hecho y resolverá los reclamos a fin de cesen las hostilidades y actos discriminatorios. (REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf, Artículo 171°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0206",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "Artículo 140°",
+      "distancia": 0.26864445209503174
+    },
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0244",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "Artículo 171°",
+      "distancia": 0.3118875026702881
+    },
+    {
+      "chunk_id": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0034",
+      "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf",
+      "articulo": "Artículo 22°",
+      "distancia": 0.3267291784286499
+    },
+    {
+      "chunk_id": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0042",
+      "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf",
+      "articulo": "Artículo 30°",
+      "distancia": 0.3324001431465149
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 140° · 2020 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 171° · 2020 · [E – Laboral, docencia y políticas]",
+    "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf · Artículo 22° · 2025 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf · Artículo 30° · v4 2025 · [A – Gobierno y estatuto institucional]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q16_P01",
+      "descripcion": "Reclamos se formulan por escrito ante instancia correspondiente en horario oficial y debidamente registrado",
+      "evidencia": "Artículo 140°. Modalidades, formalidad y procedimiento del reclamo. Los reclamos se formulan por escrito ante la instancia correspondiente, en el horario oficial de trabajo y debidamente registrado",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q16_P02",
+      "descripcion": "Reclamo verbal ante jefe inmediato quien resuelve en el día dejando constancia",
+      "evidencia": "3. Reclamo verbal: Es formulado ante el jefe inmediato, quien resuelve en el día, dejando constancia documentaria de la actuación.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q16_P03",
+      "descripcion": "Reclamo escrito ante DTH resuelve en cinco días hábiles y notifica en tres días hábiles",
+      "evidencia": "4. Reclamo por escrito: Es formulado, después de haber recibido la decisión sobre el reclamo verbal, e interpuesto ante la DTH, esta resuelve en el plazo de cinco (5) días hábiles",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf, Artículo 171°",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "171°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

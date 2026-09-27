@@ -59,22 +59,36 @@ mínimo de las cinco dimensiones críticas: Funcional, Recuperación
 documental, Explicabilidad y trazabilidad, Gobernanza, Preparación
 tecnológica.
 
-## Archivos
+## Estructura (reorganizada 2026-09-27)
+
+| Carpeta | Contenido |
+|---|---|
+| `banco/` | Ground truth: `preguntas_comparacion.json` (17 Q), `sincronizar_banco.py`, `CHANGELOG_GROUNDTRUTH_V31.md` |
+| `retrieval/` | `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`, métricas `EXP_*.csv` |
+| `generacion/` | `baseline_generacion_v3_oficial.py`, harnesses, JSON/CSV de experimentos |
+| `humana/` | Fichas Q01-Q17 (`fichas_humanas_v31/`, 66 puntos), `importar_ficha_humana.py`, `calcular_metricas_humanas.py`, guía |
+| `madurez_oe8/` | `calcular_madurez.py`, instrumento piloto 30 ítems, `importar_piloto.py`, reportes |
+| `legacy/` | Scripts/resultados históricos (`evaluar_modelo.ps1`, comparativas Qwen) |
+
+## Archivos principales
 
 | Archivo | Descripción | Origen |
 |---|---|---|
-| `INSTRUMENTOS.md` | 5 instrumentos del OE6 (ficha, cotejo, gobernanza, rúbrica, SUS) | Manual |
-| `calcular_madurez.py` | Lee DB, calcula puntajes, genera reportes. | Script |
-| `generar_ficha.py` | Genera `ficha_documental.md` desde DB + ChromaDB. | Script |
-| `calibrar_umbral.py` | Grid search umbral × top_k sobre el banco (evidencia del 0.40). | Script |
-| `diagnostico_banco.py` / `sondeo_top3.py` | Diagnóstico por pregunta y sondeo de retrieval. | Script |
-| `preguntas_comparacion.json` | Banco v2: 17 preguntas con documento/artículo esperado. | Manual |
-| `evaluar_modelo.ps1` | Corre el banco end-to-end contra `/consulta` en vivo → JSON. | Script |
-| `migrar_banco.py` | [YA EJECUTADO] One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
-| `migrar_esquema_vector_store.py` | [YA EJECUTADO] One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
-| `ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |
-| `reporte_madurez.md` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
-| `resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
+| `madurez_oe8/INSTRUMENTOS.md` | 5 instrumentos del OE6 (ficha, cotejo, gobernanza, rúbrica, SUS) | Manual |
+| `madurez_oe8/calcular_madurez.py` | Lee DB, calcula puntajes, genera reportes. Umbrales en `UMBRALES_OE8`; modo `--auto-only`. | Script |
+| `legacy/generar_ficha.py` | Genera `ficha_documental.md` desde DB + ChromaDB. | Script |
+| `retrieval/calibrar_umbral.py` | Grid search umbral × top_k sobre el banco (evidencia del 0.40). | Script |
+| `retrieval/diagnostico_banco.py` / `sondeo_top3.py` | Diagnóstico por pregunta y sondeo de retrieval. | Script |
+| `banco/preguntas_comparacion.json` | Banco v2: 17 preguntas con documento/artículo esperado. | Manual |
+| `banco/CHANGELOG_GROUNDTRUTH_V31.md` | Trazabilidad v3 → v3.1 (66 puntos) + banco negativo N01-N06. | Manual |
+| `legacy/evaluar_modelo.ps1` | Corre el banco end-to-end contra `/consulta` en vivo → JSON. | Script |
+| `banco/migrar_banco.py` | [YA EJECUTADO] One-shot: importa `banco_preguntas.csv` a la DB. | Script (idempotente) |
+| `retrieval/migrar_esquema_vector_store.py` | [YA EJECUTADO] One-shot: añade columnas `topic` si el vector store fue migrado a chromadb 1.x. | Script (idempotente) |
+| `humana/GUIA_EVALUACION_HUMANA_V3.md` | Guía del evaluador + reglas de completitud/faithfulness/citas. | Manual |
+| `madurez_oe8/PROCEDIMIENTO_PILOTO.md` | Procedimiento de campo del piloto OE8. | Manual |
+| `legacy/ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |
+| `madurez_oe8/reporte_madurez.md` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
+| `madurez_oe8/resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
 
 ## Flujo de trabajo
 
@@ -99,7 +113,7 @@ docker compose restart backend
 desde cero y tienes el CSV original, puedes migrarlo así:
 
 ```bash
-cd evaluacion
+cd evaluacion/banco
 python migrar_banco.py
 ```
 
@@ -124,10 +138,10 @@ VALUES
 ### 4. Generar la ficha documental (dentro del contenedor)
 
 ```bash
-docker compose run --rm backend python /data/evaluacion/generar_ficha.py
+docker compose run --rm backend python /data/evaluacion/legacy/generar_ficha.py
 ```
 
-El script escribe `evaluacion/ficha_documental.md` en el host
+El script escribe `evaluacion/legacy/ficha_documental.md` en el host
 (el volumen `./evaluacion:/data/evaluacion` propaga los cambios).
 
 ### 5. Calcular la madurez (host o contenedor)
@@ -135,14 +149,14 @@ El script escribe `evaluacion/ficha_documental.md` en el host
 En el host:
 
 ```bash
-cd evaluacion
-python calcular_madurez.py
+cd evaluacion/madurez_oe8
+python calcular_madurez.py --auto-only   # solo métricas automáticas (FASE 5)
 ```
 
 O dentro del contenedor:
 
 ```bash
-docker compose run --rm backend python /data/evaluacion/calcular_madurez.py
+docker compose run --rm backend python /data/evaluacion/madurez_oe8/calcular_madurez.py --auto-only
 ```
 
 El script:

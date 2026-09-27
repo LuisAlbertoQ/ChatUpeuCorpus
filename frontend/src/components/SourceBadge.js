@@ -7,8 +7,9 @@ import React from 'react';
  *   "{documento} · {sección} · v{ver} {año} · [Categoría – Nombre]"
  *
  * Aquí la dividimos por el separador " · " y resaltamos cada parte
- * con su propio rol visual. `similitud` (0-100, %) es la afinidad
- * del chunk con la pregunta, calculada como (1 - distancia coseno)*100.
+ * con su propio rol visual. `similitud` (0-100, %) es la relevancia
+ * del chunk para la pregunta, derivada como (1 - distancia)*100 y
+ * limitada a 0-100. No es probabilidad ni certeza.
  */
 function SourceBadge({ fuente, index, similitud }) {
   const partes = (fuente || '').split(' · ').map((p) => p.trim()).filter(Boolean);
@@ -32,15 +33,15 @@ function SourceBadge({ fuente, index, similitud }) {
             ))}
           </span>
         )}
-        {typeof similitud === 'number' && similitud >= 0 && (
+        {typeof similitud === 'number' && Number.isFinite(similitud) && (
           <span
             className="source-badge__similitud"
-            title="Afinidad semántica entre el fragmento y tu pregunta"
+            title="Indicador de relevancia basado en la distancia de recuperación. No representa probabilidad ni certeza."
           >
             <span className="source-badge__similitud-num">
-              {Math.round(similitud)}%
+              {Math.round(Math.max(0, Math.min(100, similitud)))}%
             </span>
-            <span className="source-badge__similitud-label">afinidad</span>
+            <span className="source-badge__similitud-label">Relevancia</span>
           </span>
         )}
         {categoria && (

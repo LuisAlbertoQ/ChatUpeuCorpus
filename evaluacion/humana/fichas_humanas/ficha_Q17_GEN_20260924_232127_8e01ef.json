@@ -1,0 +1,62 @@
+{
+  "pregunta_id": "Q17",
+  "pregunta": "¿Qué servicios ofrece la universidad a los egresados?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento Reglamento Pago Servicios Educativos o Académicos.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0022",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 7",
+      "distancia": 0.2300972270965576
+    },
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0021",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 6",
+      "distancia": 0.23017441511154174
+    },
+    {
+      "chunk_id": "Reglamento Pago Servicios Educativos o Académicos_0023",
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "articulo": "Artículo 8",
+      "distancia": 0.27192097187042236
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0012",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "",
+      "distancia": 0.29827451705932617
+    }
+  ],
+  "fuentes_finales": [
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 7 · [B – Académico y estudios]",
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 6 · [B – Académico y estudios]",
+    "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 8 · [B – Académico y estudios]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · v3 · [D – Bienestar estudiantil]"
+  ],
+  "tipo_mensaje": "M04",
+  "source_validity": "valid",
+  "citation_match": "not_applicable",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q17_P01",
+      "descripcion": "Centros de prestación de servicios proveen servicios de calidad vinculando formación a escenarios reales",
+      "evidencia": "Artículo 421°. Centros Universitarios de Prestación de Servicios. Función y fines. Son centros de prestación de servicios en el rubro de consultorías, asesorías, gestión de proyectos",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q17_P02",
+      "descripcion": "Escuelas y Facultades articulan currículo y desempeño estudiantil a actividades del centro",
+      "evidencia": "Artículo 422°. Centros Universitarios de Prestación de Servicios: Articulación curricular y formativo. Las escuelas profesionales y Facultades vinculadas al quehacer",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": null,
+  "notas": ""
+}

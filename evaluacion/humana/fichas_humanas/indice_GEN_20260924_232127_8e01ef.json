@@ -1,0 +1,27 @@
+{
+  "generacion_experimento_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "total_puntos": 50,
+  "total_preguntas": 17,
+  "fichas": [
+    "ficha_Q01_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q02_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q03_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q04_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q05_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q06_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q07_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q08_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q09_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q10_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q11_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q12_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q13_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q14_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q15_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q16_GEN_20260924_232127_8e01ef.json",
+    "ficha_Q17_GEN_20260924_232127_8e01ef.json"
+  ],
+  "evaluador": "investigador_manual_v1",
+  "estado": "vacía - pendiente evaluación humana"
+}

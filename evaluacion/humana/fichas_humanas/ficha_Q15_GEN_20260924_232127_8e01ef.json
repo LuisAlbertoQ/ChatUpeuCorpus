@@ -1,0 +1,78 @@
+{
+  "pregunta_id": "Q15",
+  "pregunta": "¿Cómo solicito una beca en la UPeU?",
+  "respuesta_congelada": "Para solicitar una beca en la UPeU, el estudiante debe presentar los siguientes requisitos:\n\n- Ser estudiante regular de la UPeU.\n- Haber obtenido un promedio ponderado mínimo de catorce (14) y el cien por ciento (100%) de los créditos aprobados en el semestre académico precedente.\n- No haber recibido sanción disciplinaria por la infracción de las normas de la UPeU.\n- No adeudar a la UPeU por ningún concepto.\n\nAdemás, según el artículo 53° del REGLAMENTO BECAS 2021 ACTUALIZADO.pdf, se requiere:\n\n- Solicitud dirigida al comité correspondiente.\n- Documentación actualizada según requisitos específicos.\n- Último recibo de servicios de luz, agua o teléfono.\n- En caso de recibir apoyo económico de un familiar, adjuntar declaración jurada simple indicando el monto de apoyo en soles.\n- En caso de padres separados, adjuntar algún documento que acredite dicha situación.\n- La presentación de búsqueda del índice de propiedad de inmueble de la provincia donde vive la familia a nombre del principal responsable de la economía. Este documento debe ser tramitado en SUNARP.\n- La presentación de búsqueda en el Sistema de Focalización de Hogares (SISFOH) que indique la situación familiar.\n\nEstos requisitos se aplican tanto para el otorgamiento inicial como para la renovación de la beca, aunque algunos detalles específicos pueden variar entre los artículos 49° y 61°.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0060",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 49°",
+      "distancia": 0.17501538276672363
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0074",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 61°",
+      "distancia": 0.1930770206451416
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0059",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 48°",
+      "distancia": 0.2051731276512146
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0065",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 53°",
+      "distancia": 0.20753406763076782
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 49° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 61° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 48° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 53° · 2021 · [D – Bienestar estudiantil]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "not_applicable",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q15_P01",
+      "descripcion": "Tener calidad de estudiante regular de la UPeU",
+      "evidencia": "49.1. Tener la calidad de estudiante regular de la UPeU.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q15_P02",
+      "descripcion": "Haber obtenido promedio ponderado mínimo de catorce (14)",
+      "evidencia": "49.2. Haber obtenido un promedio ponderado mínimo de catorce (14)",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q15_P03",
+      "descripcion": "No haber sido ni estar sancionado en el semestre académico precedente",
+      "evidencia": "49.3. No haber sido ni estar sancionado en el semestre académico precedente",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q15_P04",
+      "descripcion": "No adeudar a la UPeU por ningún concepto (requisito)",
+      "evidencia": "49.4. No adeudar a la UPeU por ningún concepto.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": null,
+  "notas": ""
+}

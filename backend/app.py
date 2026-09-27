@@ -31,7 +31,11 @@ from config import (
     MAX_PALABRAS_RESPUESTA,
     MENSAJES,
     MODO_PILOTO,
+    RAG_DISTANCE_THRESHOLD,
+    RAG_TOP_K_FINAL,
+    RAG_TOP_K_RAW,
     TIMEOUT_RESPUESTA,
+    # Alias por compatibilidad
     TOP_K_FRAGMENTOS,
     UMBRAL_DISTANCIA_COSENO,
 )
@@ -130,8 +134,13 @@ async def config_publica():
     return {
         "modo_piloto": MODO_PILOTO,
         "limite_preguntas_sesion": LIMITE_PREGUNTAS_SESION,
+        # Claves antiguas por compatibilidad con frontend existente
         "umbral_distancia_coseno": UMBRAL_DISTANCIA_COSENO,
         "top_k_fragmentos": TOP_K_FRAGMENTOS,
+        # Claves nuevas canónicas (Fase 4 §8/10/11)
+        "rag_distance_threshold": RAG_DISTANCE_THRESHOLD,
+        "rag_top_k_raw": RAG_TOP_K_RAW,
+        "rag_top_k_final": RAG_TOP_K_FINAL,
         "max_palabras_respuesta": MAX_PALABRAS_RESPUESTA,
         "timeout_respuesta": TIMEOUT_RESPUESTA,
         "dominios": [

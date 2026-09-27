@@ -1,15 +1,57 @@
+import logging
 import os
 import re
+
+log = logging.getLogger("config")
 
 # =============================================================================
 # OE4 v2.0 — Configuración del sistema conversacional UPeU
 # =============================================================================
 
 # -----------------------------------------------------------------------------
-# Umbrales técnicos (NO MODIFICAR por instrucción explícita del equipo)
+# Umbrales RAG — configurables por entorno (Fase 4, §8/10/11)
+# Defaults: threshold 0.40, TOP_K_RAW 15, TOP_K_FINAL 4. Variables RAG_*
+# son la fuente de verdad; los nombres antiguos se mantienen como alias
+# por compatibilidad con código y tests existentes.
 # -----------------------------------------------------------------------------
-UMBRAL_DISTANCIA_COSENO = 0.40   # Ajustado para capturar chunks relevantes en el limbo (0.30-0.34)
-TOP_K_FRAGMENTOS = 4
+def _get_float_env(nombre: str, default: float, minimo: float = 0.0, maximo: float = 1.0) -> float:
+    raw = os.getenv(nombre)
+    if raw is None or raw.strip() == "":
+        return default
+    try:
+        val = float(raw)
+        if not (minimo <= val <= maximo):
+            log.warning("%s=%r fuera de rango [%s,%s], usando default %s", nombre, raw, minimo, maximo, default)
+            return default
+        return val
+    except ValueError:
+        log.warning("%s=%r inválido (no es número), usando default %s", nombre, raw, default)
+        return default
+
+
+def _get_int_env(nombre: str, default: int, minimo: int = 1) -> int:
+    raw = os.getenv(nombre)
+    if raw is None or raw.strip() == "":
+        return default
+    try:
+        val = int(raw)
+        if val < minimo:
+            log.warning("%s=%r < %s, usando default %s", nombre, raw, minimo, default)
+            return default
+        return val
+    except ValueError:
+        log.warning("%s=%r inválido (no es entero), usando default %s", nombre, raw, default)
+        return default
+
+
+RAG_DISTANCE_THRESHOLD = _get_float_env("RAG_DISTANCE_THRESHOLD", 0.40, 0.0, 1.0)
+RAG_TOP_K_RAW = _get_int_env("RAG_TOP_K_RAW", 15, 1)
+RAG_TOP_K_FINAL = _get_int_env("RAG_TOP_K_FINAL", 4, 1)
+
+# Alias por compatibilidad — no duplicar fuente de verdad
+UMBRAL_DISTANCIA_COSENO = RAG_DISTANCE_THRESHOLD
+TOP_K_FRAGMENTOS = RAG_TOP_K_FINAL
+
 MAX_PALABRAS_RESPUESTA = 500
 TIMEOUT_RESPUESTA = 50  # segundos; holgura para qwen 2.5 en respuestas largas
 
@@ -31,7 +73,7 @@ MAPEO_CATEGORIAS = {
     },
     "B": {
         "nombre": "Académico y estudios",
-        "descripcion": "Reglamentos de estudios, admisión, grados y títulos, idiomas, movilidad académica.",
+        "descripcion": "Reglamentos de estudios, admisión, grados y títulos, idiomas, movilidad académica, publicaciones y fondo, pago servicios académicos.",
     },
     "C": {
         "nombre": "Investigación",
@@ -150,6 +192,15 @@ ALLOWED_ORIGINS = [
 
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://llm:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
+
+# -----------------------------------------------------------------------------
+# Versionado técnico (Fase 5, §20) — centralizado para trazabilidad
+# -----------------------------------------------------------------------------
+EMBEDDING_MODEL = "paraphrase-multilingual-mpnet-base-v2"  # 768 dim, mpnet
+CORPUS_VERSION = "corpus_upeu_v2"  # colección ChromaDB vigente
+PROMPT_VERSION = "v2-adaptativo"  # prompt con formato adaptativo y guardrails
+RANKING_METHOD = "heuristic_keyword_boost"
+RANKING_VERSION = "1.0"  # boost +0.07 por keyword en nombre de documento
 
 # -----------------------------------------------------------------------------
 # Mensajes de transparencia (sección 4 OE4) — M01 a M07

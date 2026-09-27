@@ -1,0 +1,124 @@
+{
+  "pregunta_id": "Q16",
+  "pregunta": "¿Cuál es el procedimiento para presentar una queja?",
+  "respuesta_congelada": "- El trabajador presenta la queja por escrito ante la DTH.\n- La DTH atenderá e investigará el hecho y resolverá los reclamos a fin de cesen las hostilidades y actos discriminatorios. (REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf, Artículo 171°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0206",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "Artículo 140°",
+      "distancia": 0.26864445209503174,
+      "texto_verificado": "Artículo 140°: reclamos por escrito ante instancia en horario oficial y registrado; verbal ante jefe inmediato (resuelve en el día); escrito ante DTH (resuelve en 5 días hábiles, notifica en 3). [Ningún claim lo cita directamente.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0244",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "Artículo 171°",
+      "distancia": 0.3118875026702881,
+      "texto_verificado": "Artículo 171°. Reclamaciones por actos discriminatorios: 1. El trabajador presentará a la DTH, por escrito, las reclamaciones. 2. La DTH atenderá e investigará el hecho y resolverá los reclamos a fin que cesen las hostilidades y actos discriminatorios."
+    },
+    {
+      "chunk_id": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0034",
+      "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf",
+      "articulo": "Artículo 22°",
+      "distancia": 0.3267291784286499,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0042",
+      "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf",
+      "articulo": "Artículo 30°",
+      "distancia": 0.3324001431465149,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 140° · 2020 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 171° · 2020 · [E – Laboral, docencia y políticas]",
+    "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf · Artículo 22° · 2025 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf · Artículo 30° · v4 2025 · [A – Gobierno y estatuto institucional]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q16_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q16_P01",
+        "descripcion": "Reclamos se formulan por escrito ante instancia correspondiente en horario oficial y debidamente registrado",
+        "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+        "articulo": "Artículo 140°",
+        "evidencia": "Artículo 140°. Modalidades, formalidad y procedimiento del reclamo. Los reclamos se formulan por escrito ante la instancia correspondiente, en el horario oficial de trabajo y debidamente registrado",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre 'por escrito ante la DTH' (instancia del Art140.4) de forma explícita; omite horario oficial y registro.",
+        "fragmento_respuesta": "El trabajador presenta la queja por escrito ante la DTH."
+      },
+      {
+        "punto_id": "Q16_P02",
+        "descripcion": "Reclamo verbal ante jefe inmediato quien resuelve en el día dejando constancia",
+        "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+        "articulo": "Artículo 140°",
+        "evidencia": "3. Reclamo verbal: Es formulado ante el jefe inmediato, quien resuelve en el día, dejando constancia documentaria de la actuación.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona reclamo verbal ni jefe inmediato.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q16_P03",
+        "descripcion": "Reclamo escrito ante DTH resuelve en cinco días hábiles y notifica en tres días hábiles",
+        "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+        "articulo": "Artículo 140°",
+        "evidencia": "4. Reclamo por escrito: Es formulado, después de haber recibido la decisión sobre el reclamo verbal, e interpuesto ante la DTH, esta resuelve en el plazo de cinco (5) días hábiles y asimismo notifica su decisión en el término de tres (3) días hábiles.",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre que la DTH resuelve el reclamo interpuesto ante ella, pero omite los plazos de 5 y 3 días.",
+        "fragmento_respuesta": "La DTH atenderá e investigará el hecho y resolverá los reclamos"
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q16_C01",
+        "claim_texto": "El trabajador presenta la queja por escrito ante la DTH.",
+        "estado": "PARCIALMENTE_SOPORTADO",
+        "evidencia_contexto": "Chunk 0244 Art171: 'El trabajador presentará a la DTH, por escrito, las reclamaciones sobre actos discriminatorios.'",
+        "justificacion": "El Art. 171 respalda la presentación escrita ante DTH para reclamaciones por actos discriminatorios, pero la respuesta lo formula como procedimiento general de queja. No se altera el texto del claim."
+      },
+      {
+        "claim_id": "Q16_C02",
+        "claim_texto": "La DTH atenderá e investigará el hecho.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0244 Art171: 'La DTH atenderá e investigará el hecho'",
+        "justificacion": "Literal en chunk 0244."
+      },
+      {
+        "claim_id": "Q16_C03",
+        "claim_texto": "La DTH resolverá los reclamos a fin de que cesen las hostilidades y actos discriminatorios.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0244 Art171: 'resolverá los reclamos a fin que cesen las hostilidades y actos discriminatorios.'",
+        "justificacion": "Literal en chunk 0244."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q16_CIT01",
+      "cita_texto": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf, Artículo 171°",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "171°",
+      "tipo": "A",
+      "claim_asociado": "Q16_C02; Q16_C03",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0244. Misma ocurrencia que respalda C02 y C03; C01 no lleva cita inline."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Describe un procedimiento real de queja (vía Art171 de discriminación), información útil, pero omite el procedimiento general de reclamo del Art140 esperado.",
+  "notas": "Completitud 0 estricta (2 PARCIAL). Faithfulness desde chunk 0244 verificado. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

@@ -1,0 +1,188 @@
+{
+  "pregunta_id": "Q08",
+  "pregunta": "¿Qué sanciones existen para los estudiantes?",
+  "respuesta_congelada": "- Sanciones reguladas en reglamentos específicos (ESTATUTO 2024. 04-09-2024, Artículo 114°).\n- No recibir credenciales o autorización para realizar prácticas preprofesionales o pasantías, internados, movilidad académica o análogos y brindar servicios remunerados a la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).\n- No recibir cartas de recomendación o de cualquier índole por parte de la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).\n- No participar en ninguna otra actividad, acción u otro tipo de participación del estudiante sancionado (REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°).",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS POSGRADO 2025_0320",
+      "documento": "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf",
+      "articulo": "Capítulo II",
+      "distancia": 0.15706634521484375,
+      "texto_verificado": "Capítulo II. DE LAS SANCIONES DISCIPLINARIAS ESPECÍFICAS EN EL QUEHACER ACADÉMICO. [Encabezado; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO DE ESTUDIOS V5_2025_0349",
+      "documento": "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+      "articulo": "Capítulo II",
+      "distancia": 0.15706634521484375,
+      "texto_verificado": "Capítulo II. DE LAS SANCIONES DISCIPLINARIAS ESPECÍFICAS EN EL QUEHACER ACADÉMICO. [Encabezado; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0166",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 114°",
+      "distancia": 0.17239344120025635,
+      "texto_verificado": "Artículo 114°. Sanciones del estudiante. Las sanciones a los estudiantes son reguladas en los respectivos reglamentos específicos."
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0083",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 55°",
+      "distancia": 0.20263290405273438,
+      "texto_verificado": "Artículo 55°. Efectos de las sanciones [...] 55.11. Recibir credenciales o autorización para realizar prácticas preprofesionales o pasantías, internados, movilidad académica o análogos y brindar servicios remunerados a la UPeU. 55.12. Recibir cartas de recomendación o de cualquier índole por parte de la UPeU. 55.13. Cualquier otra actividad, acción o participación del estudiante sancionado. [Texto completo verificado vía ChromaDB el 2026-09-25.]"
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf · Capítulo II · 2025 · [B – Académico y estudios]",
+    "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Capítulo II · v5 · [B – Académico y estudios]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 114° · 2024 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 55° · v3 · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q08_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q08_P01",
+        "descripcion": "Sancionado por falta grave/muy grave no puede acceder a matrícula ordinaria o extraordinaria",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 55°",
+        "evidencia": "55.1. Acceder a realizar la matrícula ordinaria o extraordinaria en períodos regulares, complementarios o extraordinarios.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta menciona efectos 55.11-55.13, no la restricción de matrícula 55.1.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q08_P02",
+        "descripcion": "Sancionado no puede beneficiarse de las becas que ofrece la UPeU durante la sanción y semestre siguiente",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 55°",
+        "evidencia": "55.2. Beneficiarse de las becas que ofrece la UPeU.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona becas.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q08_P03",
+        "descripcion": "Sancionado no puede encargarse de prácticas o ayudantías de cátedra",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 55°",
+        "evidencia": "55.4. Encargarse de prácticas, ayudantías de catedra",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Menciona credenciales para prácticas preprofesionales (55.11), numeral distinto de ayudantías de cátedra (55.4); no es la misma parte sustantiva.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q08_P04",
+        "descripcion": "Las faltas disciplinarias se clasifican en leves, graves y muy graves (Art45-48)",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 45°",
+        "evidencia": "Artículo 45°. Clases de faltas. Las faltas disciplinarias pueden ser leves, graves y muy graves, según su gravedad. Desarrolladas en Art46 faltas leves, Art47 faltas graves, Art48 faltas muy graves.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona clases de faltas.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q08_P05",
+        "descripcion": "Los tipos de sanciones se aplican según la gravedad de la falta (Art49-50)",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 50°",
+        "evidencia": "Artículo 49°. Sanciones. Las sanciones son medidas excepcionales para corregir las inconductas. Artículo 50°. Tipos. Los tipos de sanciones disciplinarias de acuerdo con la gravedad de las faltas son: leves, graves y muy graves.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Menciona que las sanciones están reguladas, pero no lista tipos según gravedad.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q08_C01",
+        "claim_texto": "Las sanciones a los estudiantes son reguladas en los respectivos reglamentos específicos.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0166 Art114: 'Las sanciones a los estudiantes son reguladas en los respectivos reglamentos específicos.'",
+        "justificacion": "Literal en chunk 0166, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q08_C02",
+        "claim_texto": "El sancionado no puede recibir credenciales o autorización para prácticas preprofesionales, pasantías o internados.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0083 Art55: '55.11. Recibir credenciales o autorización para realizar prácticas preprofesionales o pasantías, internados, movilidad académica o análogos'",
+        "justificacion": "Literal en chunk 0083."
+      },
+      {
+        "claim_id": "Q08_C05",
+        "claim_texto": "El estudiante sancionado no puede brindar servicios remunerados a la UPeU.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0083 Art55 55.11: '...o análogos y brindar servicios remunerados a la UPeU.' Verificado en texto completo del chunk vía ChromaDB.",
+        "justificacion": "La cláusula está literal en 55.11; la respuesta la afirma dentro de la misma viñeta."
+      },
+      {
+        "claim_id": "Q08_C03",
+        "claim_texto": "El sancionado no puede recibir cartas de recomendación de la UPeU.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0083 Art55: '55.12. Recibir cartas de recomendación o de cualquier índole por parte de la UPeU.'",
+        "justificacion": "Literal en chunk 0083."
+      },
+      {
+        "claim_id": "Q08_C04",
+        "claim_texto": "El sancionado no puede participar en ninguna otra actividad, acción o participación.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0083 Art55: '55.13. Cualquier otra actividad, acción o participación del estudiante sancionado.'",
+        "justificacion": "Literal en chunk 0083."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q08_CIT01",
+      "cita_texto": "ESTATUTO 2024. 04-09-2024, Artículo 114°",
+      "documento": "ESTATUTO 2024. 04-09-2024",
+      "articulo": "114°",
+      "tipo": "A",
+      "claim_asociado": "Q08_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0166. Respalda Q08_C01."
+    },
+    {
+      "citation_id": "Q08_CIT02",
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "Q08_C02; Q08_C05",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0083 completo (55.11). Misma ocurrencia inline que respalda ambos claims; no se crea cita nueva."
+    },
+    {
+      "citation_id": "Q08_CIT03",
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "Q08_C03",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0083 (55.12). Respalda Q08_C03."
+    },
+    {
+      "citation_id": "Q08_CIT04",
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 55°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo": "55°",
+      "tipo": "A",
+      "claim_asociado": "Q08_C04",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0083 (55.13). Respalda Q08_C04."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Lista efectos reales de sanción (55.11-55.13) más la remisión normativa, información útil, pero omite los cinco puntos esperados (matrícula, becas, ayudantías, clases, tipos).",
+  "notas": "Completitud 0 estricta. Faithfulness desde chunks 0166/0083 verificados. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

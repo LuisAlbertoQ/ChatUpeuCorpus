@@ -1,0 +1,198 @@
+{
+  "pregunta_id": "Q14",
+  "pregunta": "¿Qué derechos tiene el estudiante universitario?",
+  "respuesta_congelada": "- Derecho a recibir formación académica de calidad (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°)\n- Acceso libre al campus y sus instalaciones (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)\n- Participar en procesos académicos y presentar recursos legales (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)\n- Usar servicios académicos, de bienestar y asistencia universitarios (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0049",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 32°",
+      "distancia": 0.08296149253845214,
+      "texto_verificado": "Artículo 32°: 32.1 formación de calidad. [Chunk verificado; la respuesta solo usa 32.1 de este chunk.]"
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0164",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 112°",
+      "distancia": 0.15930825471878052,
+      "texto_verificado": "Artículo 112°: 112.1 acceso libre al campus. 112.3 participar en el gobierno y evaluación durante procesos electorales. 112.4 formación de calidad. 112.7 ser escuchado en proceso disciplinario y presentar recursos. 112.8 usar servicios académicos, de bienestar y asistencia."
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0047",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 30°",
+      "distancia": 0.16881059885025024,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0046",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "CAPÍTULO  IV",
+      "distancia": 0.2111858057975769,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 32° · v3 · [D – Bienestar estudiantil]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 112° · 2024 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 30° · v3 · [D – Bienestar estudiantil]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · CAPÍTULO  IV · v3 · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q14_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q14_P01",
+        "descripcion": "Derecho a formación académica de calidad con principios y valores cristianos",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.1. Recibir formación académica de calidad que les otorgue conocimientos generales para el desempeño profesional y herramientas de investigación",
+        "estado": "CUBIERTO",
+        "justificacion": "La respuesta lo expresa explícitamente.",
+        "fragmento_respuesta": "Derecho a recibir formación académica de calidad"
+      },
+      {
+        "punto_id": "Q14_P02",
+        "descripcion": "Derecho a orientación y consejería para formación y vida íntegra",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.2. Recibir orientación y consejería a través de los departamentos o áreas establecidos para la formación y desarrollo de una vida íntegra",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona orientación ni consejería.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q14_P03",
+        "descripcion": "Derecho a participar en proceso de evaluación a los docentes",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.3. Participar en el proceso de evaluación a los docentes por el período académico.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona evaluación a los docentes.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q14_P04",
+        "descripcion": "Derechos de participación y gobierno: evaluación universitaria, asociaciones, clubes y actividades",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.4. Participar en el gobierno y evaluación de la actividad universitaria. 32.9. Participar libremente para formar asociaciones. 32.10. Registrar clubes y grupos. 32.11. Participar en programas religiosos, culturales y sociohumanitarios.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La mención a 'procesos académicos' no equivale a gobierno universitario, asociaciones ni clubes.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q14_P05",
+        "descripcion": "Derechos de campus y servicios: ingreso, mobiliario, servicios de bienestar, tutoría",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.5. Ingresar libremente al campus. 32.6. Utilizar mobiliario y equipos. 32.7. Utilizar servicios de bienestar. 32.8. Recibir tutoría de docentes. 32.13. Recibir apoyo académico de acuerdo al diseño curricular, la pertinencia y duración de las prácticas preprofesionales.",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre acceso al campus (32.5) y uso de servicios (32.7) de forma explícita; omite mobiliario, tutoría y apoyo académico.",
+        "fragmento_respuesta": "Acceso libre al campus y sus instalaciones; Usar servicios académicos, de bienestar y asistencia"
+      },
+      {
+        "punto_id": "Q14_P06",
+        "descripcion": "Derechos de debido proceso, distinciones, gratuidad de tesis y bolsas de trabajo",
+        "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+        "articulo": "Artículo 32°",
+        "evidencia": "32.14. Debido proceso disciplinario y recursos. 32.15. Distinciones por investigación. 32.16. Gratuidad de asesoramiento y sustentación de tesis por una vez. 32.17. Bolsas de trabajo.",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre presentar recursos (parte de 32.14) de forma explícita; omite debido proceso completo, distinciones, gratuidad y bolsas.",
+        "fragmento_respuesta": "Participar en procesos académicos y presentar recursos legales"
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q14_C01",
+        "claim_texto": "Existe el derecho a recibir formación académica de calidad.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0049 Art32 32.1 y chunk 0164 Art112 112.4: formación académica de calidad.",
+        "justificacion": "Literal en ambos chunks, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q14_C02",
+        "claim_texto": "Existe el derecho de acceso libre al campus y sus instalaciones.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0164 Art112 112.1: 'Acceso libre al campus universitario, sus instalaciones, a las actividades académicas y de investigación programadas'",
+        "justificacion": "Literal en chunk 0164."
+      },
+      {
+        "claim_id": "Q14_C03",
+        "claim_texto": "Existe el derecho de participar en procesos académicos.",
+        "estado": "PARCIALMENTE_SOPORTADO",
+        "evidencia_contexto": "Chunk 0164 Art112 112.3: 'Participar en el gobierno y evaluación de la actividad académica, durante los procesos electorales'. El contexto respalda participación en procesos electorales, no en procesos académicos en general.",
+        "justificacion": "Soporte parcial: el chunk confirma participación acotada a procesos electorales, más estrecha que lo afirmado."
+      },
+      {
+        "claim_id": "Q14_C04",
+        "claim_texto": "Existe el derecho de presentar recursos legales.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0164 Art112 112.7: 'Ser escuchado en un eventual proceso disciplinario y presentar los recursos que la ley y los reglamentos establecen.'",
+        "justificacion": "Literal en chunk 0164."
+      },
+      {
+        "claim_id": "Q14_C05",
+        "claim_texto": "Existe el derecho de usar servicios académicos, de bienestar y asistencia universitarios.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0164 Art112 112.8: 'Usar los servicios académicos, de bienestar y asistencia, ofertados por la UPeU'",
+        "justificacion": "Literal en chunk 0164."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q14_CIT01",
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "32°",
+      "tipo": "A",
+      "claim_asociado": "Q14_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0049 (32.1). Respalda Q14_C01."
+    },
+    {
+      "citation_id": "Q14_CIT02",
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "Q14_C02",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0164 (112.1). Respalda Q14_C02."
+    },
+    {
+      "citation_id": "Q14_CIT03",
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "Q14_C03; Q14_C04",
+      "estado": "PARCIAL",
+      "justificacion": "El Art112 respalda Q14_C04 (112.7) pero solo parcialmente Q14_C03 (112.3 acotado a procesos electorales)."
+    },
+    {
+      "citation_id": "Q14_CIT04",
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "Q14_C05",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0164 (112.8). Respalda Q14_C05."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Aporta cuatro derechos reales (formación, acceso, recursos, servicios), pero omite orientación, evaluación docente, gobierno/asociaciones y la mayor parte de P05/P06. Respuesta parcial.",
+  "notas": "Completitud 1 CUBIERTO + 2 PARCIAL de 6. Faithfulness desde chunks 0049/0164 verificados. Observación GT (sin reabrir v3.1): Q14_P01 se describe con 'principios y valores cristianos' pero la evidencia operativa solo exige formación de calidad y herramientas; no se penalizó por esa frase. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

@@ -1,0 +1,117 @@
+{
+  "pregunta_id": "Q10",
+  "pregunta": "¿Quién supervisa la auditoría interna?",
+  "respuesta_congelada": "- El auditor general es nombrado por el Consejo Universitario a propuesta del Rector. (REGLAMENTO GENERAL UPeU 2023, Artículo 613°)",
+  "contexto_real": [
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0013",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTÍCULO 11",
+      "distancia": 0.1581638979911804,
+      "texto_verificado": "ARTÍCULO 11: Son atribuciones del Auditor Interno: a) Dirigir, coordinar, programar y ejecutar todas las acciones de auditoria interna. [No citado por la respuesta.]"
+    },
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0012",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTICULO 10",
+      "distancia": 0.19751959323883056,
+      "texto_verificado": "ARTICULO 10: El auditor interno es nombrado por el Consejo Universitario a propuesta del Rector, de quien depende orgánica y funcionalmente. [Presente en Top4 pero no citado.]"
+    },
+    {
+      "chunk_id": "reglamento_deauditoria_interna_0049",
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "articulo": "ARTICULO 42",
+      "distancia": 0.2135584724262805,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO GENERAL UPeU 2023_0745",
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "articulo": "Artículo 613°",
+      "distancia": 0.21389687061309814,
+      "texto_verificado": "Artículo 613°. Auditoría Interna: Auditor. La oficina de auditoría interna es dirigida por un auditor general, nombrado por el Consejo Universitario a propuesta del Rector."
+    }
+  ],
+  "fuentes_finales": [
+    "reglamento_deauditoria_interna.pdf · ARTÍCULO 11 · [E – Laboral, docencia y políticas]",
+    "reglamento_deauditoria_interna.pdf · ARTICULO 10 · [E – Laboral, docencia y políticas]",
+    "reglamento_deauditoria_interna.pdf · ARTICULO 42 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 613° · 2023 · [A – Gobierno y estatuto institucional]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q10_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q10_P01",
+        "descripcion": "La Oficina de Auditoría Interna tiene estructura: Auditor Interno, Asistente y Personal de Apoyo",
+        "documento": "reglamento_deauditoria_interna",
+        "articulo": "Artículo 8°",
+        "evidencia": "ARTICULO 8: La AI tiene la siguiente estructura organizacional: a) Auditor Interno, quien dirige y coordina las acciones de la Oficina. b) Asistente de Auditoria. c) Personal de Apoyo.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona la estructura de la oficina.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q10_P02",
+        "descripcion": "El Auditor Interno es nombrado por Consejo Universitario a propuesta del Rector y depende de él",
+        "documento": "reglamento_deauditoria_interna",
+        "articulo": "Artículo 10°",
+        "evidencia": "ARTICULO 10: El auditor interno es nombrado por el Consejo Universitario a propuesta del Rector, de quien depende orgánica y funcionalmente.",
+        "estado": "PARCIAL",
+        "justificacion": "Cubre nombramiento por Consejo Universitario a propuesta del Rector, parte sustantiva del punto, pero habla de 'auditor general' (Art613) en vez de 'Auditor Interno' y omite la dependencia orgánica.",
+        "fragmento_respuesta": "El auditor general es nombrado por el Consejo Universitario a propuesta del Rector."
+      },
+      {
+        "punto_id": "Q10_P03",
+        "descripcion": "El Auditor Interno dirige, coordina, programa y ejecuta todas las acciones de auditoría interna",
+        "documento": "reglamento_deauditoria_interna",
+        "articulo": "Artículo 11°",
+        "evidencia": "ARTÍCULO 11: Son atribuciones y prerrogativas del Auditor Interno: a) Dirigir, coordinar, programar y ejecutar todas las acciones de auditoria interna en la UPeU.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona dirección/coordinación de acciones de auditoría.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q10_C01",
+        "claim_texto": "El auditor general es nombrado por el Consejo Universitario.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0745 Art613: 'nombrado por el Consejo Universitario a propuesta del Rector.'",
+        "justificacion": "Literal en chunk 0745, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q10_C02",
+        "claim_texto": "El nombramiento del auditor general se realiza a propuesta del Rector.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0745 Art613: 'nombrado por el Consejo Universitario a propuesta del Rector.'",
+        "justificacion": "Literal en chunk 0745."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q10_CIT01",
+      "cita_texto": "REGLAMENTO GENERAL UPeU 2023, Artículo 613°",
+      "documento": "REGLAMENTO GENERAL UPeU 2023",
+      "articulo": "613°",
+      "tipo": "A",
+      "claim_asociado": "Q10_C01; Q10_C02",
+      "estado": "CORRECTA",
+      "justificacion": "Tras leer chunk 0745. Misma ocurrencia que respalda ambos claims."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Aporta información relacionada sobre la autoridad de auditoría interna y su nombramiento, pero no explica quién dirige/supervisa efectivamente las acciones de auditoría ni sus atribuciones, y omite la estructura esperada.",
+  "notas": "Completitud 0 estricta (1 PARCIAL). Faithfulness desde chunk 0745 verificado. La diferencia 'auditor general' vs 'Auditor Interno' se registra sin penalizar faithfulness, pues el claim reproduce el contexto. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

@@ -1,0 +1,89 @@
+{
+  "pregunta_id": "Q05",
+  "pregunta": "¿Qué requisitos hay para un proyecto de tesis?",
+  "respuesta_congelada": "- El proyecto de tesis debe tener como propósito el desarrollo de una investigación con altos estándares metodológicos y científicos, original en sus objetivos, planteamiento, desarrollo y resultados, con la finalidad de aportar nuevos conocimientos teóricos y aplicados (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°).\n\n- El proyecto de tesis debe contemplar el futuro desarrollo de por lo menos dos artículos científicos derivados de la ejecución del proyecto de la tesis doctoral (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 109°).",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0156",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 110°",
+      "distancia": 0.19549036026000977
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0155",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 109°",
+      "distancia": 0.23046165704727173
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0053",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 17°",
+      "distancia": 0.23245549201965332
+    },
+    {
+      "chunk_id": "REGLAMENTO INVESTIGACION UPeU 2025 V8_0153",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "articulo": "Artículo 107°",
+      "distancia": 0.24856781959533691
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 110° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 109° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 17° · v8 2025 · [C – Investigación]",
+    "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 107° · v8 2025 · [C – Investigación]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q05_P01",
+      "descripcion": "El CIIEP coordina con el director de la EP la articulación curricular de actividades de investigación",
+      "evidencia": "Artículo 15°. Coordinación de actividades y resultados. El CIIEP coordina con el director de la EP, el comité de diseño y evaluación curricular y los docentes",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q05_P02",
+      "descripcion": "La Etapa II (2do y 3er año) comprende articulación curricular de investigación formativa",
+      "evidencia": "Artículo 16°. Alcance. La Etapa II comprende al segundo (2do) y tercer (3er) año de estudios y el CIIEP coordina con el director de la EP",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q05_P03",
+      "descripcion": "Los contenidos de investigación deben comprender todas las asignaturas y determinar rol de cada uno",
+      "evidencia": "determinadas en el currículo cuyo contenido debe comprender a todas las asignaturas y determinar el rol de cada uno.",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 107°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "107°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 109°",
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo": "109°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

@@ -15,8 +15,20 @@
 # **/vector_store/
 
 # Runtime databases (logs and interactions only - no source data)
+# NUNCA subir .db: son archivos locales pesados y con datos de uso
 registro_interacciones.db
 /registro_interacciones.db
+*.db
+*.db-shm
+*.db-wal
+*.sqlite3-shm
+*.sqlite3-wal
+
+# Backups y forense local (respaldos pre-fase, snapshots corruptos, copias viejas)
+backups/
+backups/**
+vector_store_backup_*/
+evaluacion/vector_store/
 
 # Ollama service local data (large models, not needed in repo)
 llm_data/
@@ -37,3 +49,8 @@ Thumbs.db
 # Python bytecode
 __pycache__/
 *.pyc
+
+# Test caches y cobertura
+.pytest_cache/
+.coverage
+htmlcov/

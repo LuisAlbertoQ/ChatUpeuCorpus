@@ -1,0 +1,107 @@
+{
+  "pregunta_id": "Q14",
+  "pregunta": "¿Qué derechos tiene el estudiante universitario?",
+  "respuesta_congelada": "- Derecho a recibir formación académica de calidad (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°)\n- Acceso libre al campus y sus instalaciones (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)\n- Participar en procesos académicos y presentar recursos legales (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)\n- Usar servicios académicos, de bienestar y asistencia universitarios (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0049",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 32°",
+      "distancia": 0.08296149253845214
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0164",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 112°",
+      "distancia": 0.15930825471878052
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0047",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "Artículo 30°",
+      "distancia": 0.16881059885025024
+    },
+    {
+      "chunk_id": "REGLAMENTO ESTUDIANTE UNIONISTA V3_0046",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "CAPÍTULO  IV",
+      "distancia": 0.2111858057975769
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 32° · v3 · [D – Bienestar estudiantil]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 112° · 2024 · [A – Gobierno y estatuto institucional]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 30° · v3 · [D – Bienestar estudiantil]",
+    "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · CAPÍTULO  IV · v3 · [D – Bienestar estudiantil]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q14_P01",
+      "descripcion": "Derecho a formación académica de calidad con principios y valores cristianos",
+      "evidencia": "32.1. Recibir formación académica de calidad que les otorgue conocimientos generales para el desempeño profesional y herramientas de investigación",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q14_P02",
+      "descripcion": "Derecho a orientación y consejería para formación y vida íntegra",
+      "evidencia": "32.2. Recibir orientación y consejería a través de los departamentos o áreas establecidos para la formación y desarrollo de una vida íntegra",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q14_P03",
+      "descripcion": "Derecho a participar en proceso de evaluación a los docentes",
+      "evidencia": "32.3. Participar en el proceso de evaluación a los d",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°",
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "articulo": "32°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "112°",
+      "tipo": "A",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

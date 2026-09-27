@@ -1,0 +1,70 @@
+{
+  "pregunta_id": "Q09",
+  "pregunta": "¿Qué dice la política de trabajo digno?",
+  "respuesta_congelada": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0191",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "CAPÍTULO II",
+      "distancia": 0.20149045467376708
+    },
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0140",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "CAPÍTULO VII",
+      "distancia": 0.26450788259506225
+    },
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0235",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "TÍTULO IX",
+      "distancia": 0.2811275053024292
+    },
+    {
+      "chunk_id": "REGLAMENTO INTERNO DE TRABAJO Final 2020_0198",
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "articulo": "Artículo 133°",
+      "distancia": 0.2835240888595581
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · CAPÍTULO II · 2020 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · CAPÍTULO VII · 2020 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · TÍTULO IX · 2020 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 133° · 2020 · [E – Laboral, docencia y políticas]"
+  ],
+  "tipo_mensaje": "M04",
+  "source_validity": "valid",
+  "citation_match": "not_applicable",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q09_P01",
+      "descripcion": "La UPeU reconoce al ser humano como creación de Dios dotado de dignidad, libertad y valor intrínseco",
+      "evidencia": "Al ser humano como una creación de Dios, dotado de dignidad, libertad y valor intrínseco, cuya integridad física, mental, social y espiritual debe ser respetada",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q09_P02",
+      "descripcion": "La libertad excluye toda forma de sometimiento, coerción, explotación o abuso y orienta a justicia y equidad",
+      "evidencia": "A la libertad como un principio esencial de la vida humana, que excluye toda forma de sometimiento, coerción, explotación o abuso",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q09_P03",
+      "descripcion": "Los principios bíblico-cristianos son fundamento de las relaciones institucionales",
+      "evidencia": "Los principios bíblico-cristianos como fundamento de",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [],
+  "relevancia": null,
+  "notas": ""
+}

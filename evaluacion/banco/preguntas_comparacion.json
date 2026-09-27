@@ -1,0 +1,189 @@
+[
+  {
+    "id": "Q01",
+    "pregunta": "¿Qué dice el estatuto sobre las autoridades universitarias?",
+    "categoria_objetivo": "A",
+    "categoria": "A",
+    "tema": "Gobierno",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "ESTATUTO 2024. 04-09-2024",
+    "articulo_esperado": "Artículo 19°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q02",
+    "pregunta": "¿Cómo se eligen el rector y vicerrectores?",
+    "categoria_objetivo": "A",
+    "categoria": "A",
+    "tema": "Gobierno",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "ESTATUTO 2024. 04-09-2024",
+    "articulo_esperado": "Artículo 42°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q03",
+    "pregunta": "¿Cuáles son los requisitos para obtener el título profesional?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Académico",
+    "tipo_pregunta": "REQUISITOS",
+    "documento_esperado": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+    "articulo_esperado": "Artículo 42°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q04",
+    "pregunta": "¿Cómo me matriculo en la UPeU?",
+    "categoria_objetivo": "A",
+    "categoria": "A",
+    "tema": "Académico",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "REGLAMENTO DE ESTUDIOS V5_2025",
+    "articulo_esperado": "Artículo 70°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q05",
+    "pregunta": "¿Qué requisitos hay para un proyecto de tesis?",
+    "categoria_objetivo": "C",
+    "categoria": "C",
+    "tema": "Investigación",
+    "tipo_pregunta": "REQUISITOS",
+    "documento_esperado": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+    "articulo_esperado": "Artículo 15°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q06",
+    "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?",
+    "categoria_objetivo": "C",
+    "categoria": "C",
+    "tema": "Investigación",
+    "tipo_pregunta": "REQUISITOS",
+    "documento_esperado": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+    "articulo_esperado": "Artículo 119°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q07",
+    "pregunta": "¿Qué becas ofrece la universidad?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Bienestar",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+    "articulo_esperado": "Artículo 13°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q08",
+    "pregunta": "¿Qué sanciones existen para los estudiantes?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Bienestar",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+    "articulo_esperado": "Artículo 55°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q09",
+    "pregunta": "¿Qué dice la política de trabajo digno?",
+    "categoria_objetivo": "E",
+    "categoria": "E",
+    "tema": "Laboral",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "Politica Institucional de trabajo digno y protección de la persona v.1",
+    "articulo_esperado": "",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q10",
+    "pregunta": "¿Quién supervisa la auditoría interna?",
+    "categoria_objetivo": "E",
+    "categoria": "E",
+    "tema": "Laboral",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "reglamento_deauditoria_interna",
+    "articulo_esperado": "Artículo 8°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q11",
+    "pregunta": "¿Cómo solicito una constancia de estudios?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Académico",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "TUPA V6 2023 UPeU",
+    "articulo_esperado": "",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q12",
+    "pregunta": "¿Cuál es el procedimiento para cambiar de carrera?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Académico",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "REGLAMENTO DE ESTUDIOS V5_2025",
+    "articulo_esperado": "Artículo 283º",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q13",
+    "pregunta": "¿Qué incentivos hay para investigadores?",
+    "categoria_objetivo": "C",
+    "categoria": "C",
+    "tema": "Investigación",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+    "articulo_esperado": "Artículo 22°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q14",
+    "pregunta": "¿Qué derechos tiene el estudiante universitario?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Bienestar",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+    "articulo_esperado": "Artículo 32°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q15",
+    "pregunta": "¿Cómo solicito una beca en la UPeU?",
+    "categoria_objetivo": "B",
+    "categoria": "B",
+    "tema": "Bienestar",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+    "articulo_esperado": "Artículo 49°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q16",
+    "pregunta": "¿Cuál es el procedimiento para presentar una queja?",
+    "categoria_objetivo": "A",
+    "categoria": "A",
+    "tema": "Gobierno",
+    "tipo_pregunta": "PROCEDIMIENTO",
+    "documento_esperado": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+    "articulo_esperado": "Artículo 140°",
+    "cobertura_esperada": "ANSWERABLE"
+  },
+  {
+    "id": "Q17",
+    "pregunta": "¿Qué servicios ofrece la universidad a los egresados?",
+    "categoria_objetivo": "A",
+    "categoria": "A",
+    "tema": "Bienestar",
+    "tipo_pregunta": "DIRECTA",
+    "documento_esperado": "REGLAMENTO GENERAL UPeU 2023",
+    "articulo_esperado": "Artículo 421°",
+    "cobertura_esperada": "ANSWERABLE"
+  }
+]

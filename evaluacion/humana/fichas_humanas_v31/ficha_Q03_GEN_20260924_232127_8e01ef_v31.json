@@ -1,0 +1,174 @@
+{
+  "pregunta_id": "Q03",
+  "pregunta": "¿Cuáles son los requisitos para obtener el título profesional?",
+  "respuesta_congelada": "- Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la Universidad Peruana Unión (UPeU) (REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°).\n- Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional (REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°).\n- No tener sanción disciplinaria o medida restrictiva vigente (REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°).",
+  "contexto_real": [
+    {
+      "chunk_id": "MODIFICACIÓN DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO 2020 - 2021_0003",
+      "documento": "MODIFICACIÓN DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO 2020 - 2021.pdf",
+      "articulo": "Artículo 1°",
+      "distancia": 0.2218753695487976,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO DOCENCIA ORDINARIA v3.5_0074",
+      "documento": "REGLAMENTO DOCENCIA ORDINARIA v3.5.pdf",
+      "articulo": "Artículo 49°",
+      "distancia": 0.23119628429412842,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO GRADOS Y TITULOS.v8 2025_0065",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+      "articulo": "Artículo 41°",
+      "distancia": 0.2331724762916565,
+      "texto_verificado": "Artículo 41°. Son requisitos académicos específicos para optar el título profesional: 41.1. Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la UPeU. 41.2. Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional. 41.3. No tener sanción disciplinaria o medida restrictiva vigente. [Verificado vía ChromaDB el 2026-09-25.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO GRADOS Y TITULOS.v8 2025_0066",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+      "articulo": "Artículo 42°",
+      "distancia": 0.23566406965255737,
+      "texto_verificado": "Artículo 42°. Son requisitos administrativos específicos: 42.1. Solicitud dirigida al secretario general, conforme ley, SUNEDU y TUPA. 42.2. Haber abonado el derecho de pago del diploma. [Presente en Top4 pero no citado por la respuesta; relevante para completitud.]"
+    }
+  ],
+  "fuentes_finales": [
+    "MODIFICACIÓN DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO 2020 - 2021.pdf · Artículo 1° · 2020 · [B – Académico y estudios]",
+    "REGLAMENTO DOCENCIA ORDINARIA v3.5.pdf · Artículo 49° · v3.5 · [E – Laboral, docencia y políticas]",
+    "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · Artículo 41° · v8 2025 · [B – Académico y estudios]",
+    "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · Artículo 42° · v8 2025 · [B – Académico y estudios]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q03_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q03_P01",
+        "descripcion": "Solicitud dirigida al secretario general para otorgamiento del Título Profesional",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 42°",
+        "evidencia": "42.1. Solicitud dirigida al secretario general: Otorgamiento del Título Profesional, conforme las prescripciones de la ley",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta lista solo requisitos académicos del Art41; no menciona la solicitud al secretario general.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q03_P02",
+        "descripcion": "Haber abonado el derecho de pago del diploma de Título Profesional según tarifario UPeU",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 42°",
+        "evidencia": "42.2. Haber abonado el derecho de pago del diploma de Título Profesional, conforme al costo dispuesto por la UPeU en el tarifario respectivo.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona el pago del diploma.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q03_P03",
+        "descripcion": "Cumplir requisitos administrativos específicos según ley, SUNEDU y TUPA",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 42°",
+        "evidencia": "Son requisitos administrativos específicos para optar el título profesional los siguientes: 42.1. Solicitud dirigida al secretario general: Otorgamiento del Título Profesional, conforme las prescripciones de la ley, los reglamentos y directivas de la SUNEDU y del texto único de procedimientos académico-administrativos (TUPA) de la UPeU.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta cubre requisitos académicos, no los administrativos del Art42.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q03_P04",
+        "descripcion": "Poseer el Grado Académico de Bachiller otorgado por la UPeU",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 41°",
+        "evidencia": "41.1. Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la UPeU.",
+        "estado": "CUBIERTO",
+        "justificacion": "La respuesta lo expresa de forma suficiente.",
+        "fragmento_respuesta": "Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la UPeU"
+      },
+      {
+        "punto_id": "Q03_P05",
+        "descripcion": "Haber sustentado satisfactoriamente una tesis según modalidad vigente, o el trabajo de suficiencia profesional",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 41°",
+        "evidencia": "41.2. Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional.",
+        "estado": "CUBIERTO",
+        "justificacion": "Expresado de forma suficiente.",
+        "fragmento_respuesta": "Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional"
+      },
+      {
+        "punto_id": "Q03_P06",
+        "descripcion": "No tener sanción disciplinaria o medida restrictiva vigente",
+        "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+        "articulo": "Artículo 41°",
+        "evidencia": "41.3. No tener sanción disciplinaria o medida restrictiva vigente.",
+        "estado": "CUBIERTO",
+        "justificacion": "Expresado de forma suficiente.",
+        "fragmento_respuesta": "No tener sanción disciplinaria o medida restrictiva vigente"
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q03_C01",
+        "claim_texto": "Para el título profesional se necesita poseer el Grado Académico de Bachiller otorgado por la UPeU.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0065 Art41: '41.1. Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la UPeU.'",
+        "justificacion": "Literal en chunk 0065, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q03_C02",
+        "claim_texto": "Se necesita haber sustentado satisfactoriamente una tesis según modalidad vigente, o el trabajo de suficiencia profesional.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0065 Art41: '41.2. Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional.'",
+        "justificacion": "Literal en chunk 0065."
+      },
+      {
+        "claim_id": "Q03_C03",
+        "claim_texto": "Se necesita no tener sanción disciplinaria o medida restrictiva vigente.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0065 Art41: '41.3. No tener sanción disciplinaria o medida restrictiva vigente.'",
+        "justificacion": "Literal en chunk 0065."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q03_CIT01",
+      "cita_texto": "REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+      "articulo": "41°",
+      "tipo": "A",
+      "claim_asociado": "Q03_C01",
+      "estado": "CORRECTA",
+      "justificacion": "El Artículo 41°, numeral 41.1, respalda el requisito de poseer el grado de Bachiller."
+    },
+    {
+      "citation_id": "Q03_CIT02",
+      "cita_texto": "REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+      "articulo": "41°",
+      "tipo": "A",
+      "claim_asociado": "Q03_C02",
+      "estado": "CORRECTA",
+      "justificacion": "El Artículo 41°, numeral 41.2, respalda el requisito de tesis o trabajo de suficiencia profesional."
+    },
+    {
+      "citation_id": "Q03_CIT03",
+      "cita_texto": "REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°",
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+      "articulo": "41°",
+      "tipo": "A",
+      "claim_asociado": "Q03_C03",
+      "estado": "CORRECTA",
+      "justificacion": "El Artículo 41°, numeral 41.3, respalda el requisito de no tener sanción disciplinaria o medida restrictiva vigente."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Responde con requisitos académicos reales y útiles del Art41, pero omite los tres puntos administrativos esperados del Art42. Respuesta parcial con desviación importante.",
+  "notas": "La falta de completitud administrativa se relaciona con que la respuesta usó solo el Art41 aunque el Top4 contenía el Art42. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}

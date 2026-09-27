@@ -1,0 +1,98 @@
+{
+  "pregunta_id": "Q07",
+  "pregunta": "¿Qué becas ofrece la universidad?",
+  "respuesta_congelada": "- Beca en posgrado y sus unidades de posgrado (Artículo 69°)\n- Beca por excelencia académica (Artículo 20°)\n- Beca para primer y segundo puesto (Artículo 25°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0080",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "CAPÍTULO V",
+      "distancia": 0.1905445384979248
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0084",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 69°",
+      "distancia": 0.19177316904067992
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0031",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 20°",
+      "distancia": 0.2061934995651245
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0036",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 25°",
+      "distancia": 0.23304574966430663
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · CAPÍTULO V · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 69° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 20° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 25° · 2021 · [D – Bienestar estudiantil]"
+  ],
+  "tipo_mensaje": "M02",
+  "source_validity": "valid",
+  "citation_match": "valid",
+  "puntos_esperados": [
+    {
+      "punto_id": "Q07_P01",
+      "descripcion": "Beca por excelencia académica: ranking semestral, primer puesto admisión, egresados Colegio Unión",
+      "evidencia": "Artículo 13°. Las becas, que puede otorgar, conceder la UPeU, previo cumplimiento de los requisitos y condiciones, son las siguientes: 13.1. Beca por excelencia académica",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q07_P02",
+      "descripcion": "Beca socioeconómica y por carencia de recursos/apoyo familiar y pobreza extrema",
+      "evidencia": "Subcapítulo V DE LA BECA SOCIOECONÓMICA 5.1 De la beca por carencia de recursos y apoyo familiar",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    },
+    {
+      "punto_id": "Q07_P03",
+      "descripcion": "Prohibido otorgar simultáneamente dos clases de becas al mismo estudiante en el mismo semestre",
+      "evidencia": "4.3. Está prohibido, no procede, otorgar, conceder, simultáneamente dos (2) clases de becas al mismo estudiante en el mismo semestre académico",
+      "estado": null,
+      "justificacion": "",
+      "fragmento_respuesta": ""
+    }
+  ],
+  "claims": [],
+  "citas": [
+    {
+      "cita_texto": "Artículo 69°",
+      "documento": "",
+      "articulo": "69°",
+      "tipo": "C",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "Artículo 20°",
+      "documento": "",
+      "articulo": "20°",
+      "tipo": "C",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    },
+    {
+      "cita_texto": "Artículo 25°",
+      "documento": "",
+      "articulo": "25°",
+      "tipo": "C",
+      "claim_asociado": "",
+      "estado": null,
+      "justificacion": ""
+    }
+  ],
+  "relevancia": null,
+  "notas": ""
+}

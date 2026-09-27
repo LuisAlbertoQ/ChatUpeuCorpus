@@ -1,0 +1,141 @@
+{
+  "pregunta_id": "Q02",
+  "pregunta": "¿Cómo se eligen el rector y vicerrectores?",
+  "respuesta_congelada": "- La elección para Rector, Vicerrector Académico, Decanos y Director de la Escuela de Posgrado se realiza por voto directo, personal y a mano alzada en el mismo acto de la sesión de la Asamblea Universitaria, Consejo de Facultad respectivo o Consejo de Escuela de Posgrado (Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 18°).\n\n- La convocatoria para estas elecciones es difundida por el órgano convocante correspondiente: Rectorado, Decanato, Director de la Escuela de Posgrado o quienes hagan sus veces (Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 14°).\n\n- En la elección del Rector, Vicerrector Académico, Decano o Director de la EPG, votan todos los miembros hábiles de la Asamblea Universitaria, Consejo de Facultad o Consejo de la EPG; quien alcance mayoría simple es elegido (Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 36°).",
+  "contexto_real": [
+    {
+      "chunk_id": "Reglamento Comite Electoral Universitario 2016 OK_0031",
+      "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+      "articulo": "Artículo 18°",
+      "distancia": 0.24252218008041382,
+      "texto_verificado": "Artículo 18°. La elección para Rector, Vicerrector Académico, Decanos y Director de la Escuela de Posgrado se realiza por voto directo, personal y a mano alzada en el mismo acto de la sesión de la Asamblea Universitaria, Consejo de Facultad respectivo o Consejo de Escuela de Posgrado. [Texto completo verificado vía ChromaDB collection.get el 2026-09-25.]"
+    },
+    {
+      "chunk_id": "Reglamento Comite Electoral Universitario 2016 OK_0026",
+      "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+      "articulo": "Artículo 14°",
+      "distancia": 0.2482960820198059,
+      "texto_verificado": "Artículo 14°. La convocatoria para la elección del Rector, Vicerrector Académico, Decanos y Director de la Escuela de Posgrado sólo es difundida por el órgano convocante correspondiente: Rectorado, Decanato, Director de la Escuela de Posgrado o quienes hagan sus veces, entre los miembros hábiles y acreditados."
+    },
+    {
+      "chunk_id": "Reglamento Comite Electoral Universitario 2016 OK_0051",
+      "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+      "articulo": "Artículo 36°",
+      "distancia": 0.25948989391326904,
+      "texto_verificado": "Artículo 36°. En la elección de Rector o Vicerrector Académico o Decano o Director de la EPG, según corresponda, votan todos los miembros hábiles de la Asamblea Universitaria, o del Consejo de Facultad o del Consejo de la EPG; quien alcance mayoría simple es elegido Rector o Vicerrector Académico o Decano o Director de la EPG."
+    },
+    {
+      "chunk_id": "ESTATUTO 2024. 04-09-2024_0099",
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "articulo": "Artículo 57°",
+      "distancia": 0.2836061120033264,
+      "texto_verificado": "[No utilizado por la respuesta; ningún claim lo cita. Se deja constancia para no inferir soporte.]"
+    }
+  ],
+  "fuentes_finales": [
+    "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 18° · 2016 · [A – Gobierno y estatuto institucional]",
+    "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 14° · 2016 · [A – Gobierno y estatuto institucional]",
+    "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 36° · 2016 · [A – Gobierno y estatuto institucional]",
+    "ESTATUTO 2024. 04-09-2024.pdf · Artículo 57° · 2024 · [A – Gobierno y estatuto institucional]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Determinístico: citation_match=valid según el evaluador automático deterministic_v2."
+  },
+  "evaluacion_humana": {
+    "evaluador": "investigador_manual_v1",
+    "timestamp": null,
+    "puntos_esperados": [
+      {
+        "punto_id": "Q02_P01",
+        "descripcion": "Los vicerrectorados de apoyo son administrativo y bienestar universitario y apoyan al rector",
+        "evidencia": "Artículo 42°. Vicerrectorados de apoyo. La UPeU, tiene un vicerrector administrativo y un vicerrector de bienestar universitario. Estos apoyan al rector",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "La respuesta describe el mecanismo electoral del Comité Electoral, no menciona los vicerrectorados de apoyo ni sus funciones.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q02_P02",
+        "descripcion": "Los vicerrectores de apoyo son puestos de confianza designados por Asamblea a propuesta de la promotora",
+        "evidencia": "Los vicerrectores son puestos de confianza, cuya designación o nombramiento se realiza por Asamblea Universitaria, a propuesta de la promotora, por tiempo indeterminado.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona puestos de confianza ni designación a propuesta de la promotora.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q02_P03",
+        "descripcion": "El Vicerrector Académico es elegido por Asamblea por cinco años y puede ser reelegido",
+        "evidencia": "Es elegido por la Asamblea Universitaria, para un período de cinco (5) años y puede ser reelegido. Este cargo es de dedicación exclusiva y es incompatible con el desempeño de cualquier otra función o actividad pública o privada.",
+        "estado": "PARCIAL",
+        "justificacion": "Menciona que el Vicerrector Académico se elige en Asamblea por voto directo, pero omite el periodo de cinco años y la reelección, parte necesaria del punto.",
+        "fragmento_respuesta": "La elección para Rector, Vicerrector Académico... en el mismo acto de la sesión de la Asamblea Universitaria"
+      }
+    ],
+    "claims": [
+      {
+        "claim_id": "Q02_C01",
+        "claim_texto": "La elección para Rector, Vicerrector Académico, Decanos y Director de la EPG se realiza por voto directo, personal y a mano alzada en el mismo acto de la sesión.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0031 Art18: 'se realiza por voto directo, personal y a mano alzada en el mismo acto de la sesión de la Asamblea Universitaria, Consejo de Facultad respectivo o Consejo de Escuela de Posgrado.'",
+        "justificacion": "Literal en chunk 0031, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q02_C02",
+        "claim_texto": "La convocatoria es difundida por el órgano convocante: Rectorado, Decanato, Director de la EPG o quienes hagan sus veces.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0026 Art14: 'sólo es difundida por el órgano convocante correspondiente: Rectorado, Decanato, Director de la Escuela de Posgrado o quienes hagan sus veces'",
+        "justificacion": "Literal en chunk 0026."
+      },
+      {
+        "claim_id": "Q02_C03",
+        "claim_texto": "Votan todos los miembros hábiles de la Asamblea Universitaria, Consejo de Facultad o Consejo de la EPG.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0051 Art36: 'votan todos los miembros hábiles de la Asamblea Universitaria, o del Consejo de Facultad o del Consejo de la EPG'",
+        "justificacion": "Literal en chunk 0051."
+      },
+      {
+        "claim_id": "Q02_C04",
+        "claim_texto": "Quien alcance mayoría simple es elegido Rector o Vicerrector Académico o Decano o Director de la EPG.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0051 Art36: 'quien alcance mayoría simple es elegido Rector o Vicerrector Académico o Decano o Director de la EPG.'",
+        "justificacion": "Literal en chunk 0051."
+      }
+    ],
+    "citas": [
+      {
+        "cita_texto": "Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 18°",
+        "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "articulo": "18°",
+        "tipo": "A",
+        "claim_asociado": "Q02_C01",
+        "estado": "CORRECTA",
+        "justificacion": "Tras leer chunk 0031. Respalda Q02_C01."
+      },
+      {
+        "cita_texto": "Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 14°",
+        "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "articulo": "14°",
+        "tipo": "A",
+        "claim_asociado": "Q02_C02",
+        "estado": "CORRECTA",
+        "justificacion": "Tras leer chunk 0026. Respalda Q02_C02."
+      },
+      {
+        "cita_texto": "Reglamento Comite Electoral Universitario 2016 OK.pdf, Artículo 36°",
+        "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "articulo": "36°",
+        "tipo": "A",
+        "claim_asociado": "Q02_C03; Q02_C04",
+        "estado": "CORRECTA",
+        "justificacion": "Tras leer chunk 0051. Respalda Q02_C03 y Q02_C04."
+      }
+    ],
+    "relevancia": 3,
+    "relevancia_justificacion": "Responde parcialmente al mecanismo de elección (voto, convocatoria, mayoría), información útil, pero omite los puntos centrales esperados sobre vicerrectorados de apoyo y periodo de 5 años. Desviación importante respecto al objetivo.",
+    "notas": "La falta de completitud se relaciona con que el Top4 proviene del Reglamento del Comité Electoral y no del Estatuto Art42/38. La faithfulness debe calcularse desde los claims atómicos. Ratios los calcula calcular_metricas_humanas.py."
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "pregunta_id": "Q07",
+  "pregunta": "¿Qué becas ofrece la universidad?",
+  "respuesta_congelada": "- Beca en posgrado y sus unidades de posgrado (Artículo 69°)\n- Beca por excelencia académica (Artículo 20°)\n- Beca para primer y segundo puesto (Artículo 25°)",
+  "contexto_real": [
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0080",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "CAPÍTULO V",
+      "distancia": 0.1905445384979248,
+      "texto_verificado": "CAPÍTULO V. DE LAS BECAS EN POSGRADO, SEGUNDA ESPECIALIDAD Y OTROS PROGRAMAS ACADÉMICOS. [Encabezado temático; la respuesta lo usa como beca en posgrado.]"
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0084",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 69°",
+      "distancia": 0.19177316904067992,
+      "texto_verificado": "Artículo 69°. La escuela de posgrado y sus unidades de posgrado, pueden otorgar becas de estudios dirigidas a sus estudiantes."
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0031",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 20°",
+      "distancia": 0.2061934995651245,
+      "texto_verificado": "Artículo 20°. La beca comprende un monto de: primer, segundo y tercer puesto de hasta el 50%, 40% y 30% respectivamente, del costo neto de la pensión. ¿Cómo se otorga la beca a la excelencia académica?"
+    },
+    {
+      "chunk_id": "REGLAMENTO BECAS 2021 ACTUALIZADO_0036",
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "articulo": "Artículo 25°",
+      "distancia": 0.23304574966430663,
+      "texto_verificado": "Artículo 25°. El monto de la beca otorgada corresponde al 100% al primer puesto y 50% al segundo puesto del costo neto de la pensión durante todos los años de estudios."
+    }
+  ],
+  "fuentes_finales": [
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · CAPÍTULO V · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 69° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 20° · 2021 · [D – Bienestar estudiantil]",
+    "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 25° · 2021 · [D – Bienestar estudiantil]"
+  ],
+  "diagnosticos_automaticos": {
+    "source_validity": "valid",
+    "citation_match": "valid",
+    "citation_presence": 1,
+    "answerable_but_abstained": 0,
+    "tipo_mensaje": "M02",
+    "nota": "Automático/determinístico del baseline; no es recomendación de score humano."
+  },
+  "groundtruth_version": "v3.1_curado",
+  "generation_experiment_id": "GEN_20260924_232127_8e01ef",
+  "retrieval_experimento_id": "EXP_20260924_231553_2cd31b",
+  "borrador_pre_v31": "../fichas_humanas/ficha_Q07_GEN_20260924_232127_8e01ef.json",
+  "puntos_esperados": [
+      {
+        "punto_id": "Q07_P01",
+        "descripcion": "Beca por excelencia académica: ranking semestral, primer puesto admisión, egresados Colegio Unión",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 13°",
+        "evidencia": "Artículo 13°. Las becas, que puede otorgar, conceder la UPeU, previo cumplimiento de los requisitos y condiciones, son las siguientes: 13.1. Beca por excelencia académica",
+        "estado": "PARCIAL",
+        "justificacion": "Nombra explícitamente la beca por excelencia académica, parte sustantiva del punto, pero omite ranking, admisión y Colegio Unión.",
+        "fragmento_respuesta": "Beca por excelencia académica (Artículo 20°)"
+      },
+      {
+        "punto_id": "Q07_P02",
+        "descripcion": "Beca socioeconómica y por carencia de recursos/apoyo familiar y pobreza extrema",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 13°",
+        "evidencia": "Subcapítulo V DE LA BECA SOCIOECONÓMICA 5.1 De la beca por carencia de recursos y apoyo familiar",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "Ninguna viñeta menciona beca socioeconómica o carencia de recursos.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q07_P03",
+        "descripcion": "Prohibido otorgar simultáneamente dos clases de becas al mismo estudiante en el mismo semestre",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 4°",
+        "evidencia": "4.3. Está prohibido, no procede, otorgar, conceder, simultáneamente dos (2) clases de becas al mismo estudiante en el mismo semestre académico",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona la prohibición de simultaneidad.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q07_P04",
+        "descripcion": "Becas por convenio y beca de ley (fallecimiento/invalidez/internamiento del responsable financiero)",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 13°",
+        "evidencia": "13.2. Beca por convenio (13.2.1 egresados con excelencia de instituciones de la Promotora; 13.2.2 otros convenios). 13.3. Beca ley o por fallecimiento, invalidez permanente o internamiento del padre, tutor o responsable financiero.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona convenios ni beca de ley.",
+        "fragmento_respuesta": ""
+      },
+      {
+        "punto_id": "Q07_P05",
+        "descripcion": "Becas para deportistas destacados, etnia y discapacidad",
+        "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+        "articulo": "Artículo 13°",
+        "evidencia": "13.4. Beca al deportista destacado (13.4.1 IPD; 13.4.2 PRODAC). 13.6. Beca Etnia. 13.7. Beca de Discapacidad.",
+        "estado": "NO_CUBIERTO",
+        "justificacion": "No menciona deportistas, etnia ni discapacidad.",
+        "fragmento_respuesta": ""
+      }
+  ],
+  "claims": [
+      {
+        "claim_id": "Q07_C01",
+        "claim_texto": "La escuela de posgrado y sus unidades pueden otorgar becas de estudios a sus estudiantes.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0084 Art69: 'La escuela de posgrado y sus unidades de posgrado, pueden otorgar becas de estudios dirigidas a sus estudiantes.'",
+        "justificacion": "Literal en chunk 0084, verificado por lectura directa."
+      },
+      {
+        "claim_id": "Q07_C02",
+        "claim_texto": "Existe una beca por excelencia académica.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0031 Art20: '¿Cómo se otorga la beca a la excelencia académica?' y montos por puesto. El chunk presupone y regula dicha beca.",
+        "justificacion": "El chunk 0031 regula la beca de excelencia, lo que respalda su existencia."
+      },
+      {
+        "claim_id": "Q07_C03",
+        "claim_texto": "Existe una beca para primer y segundo puesto.",
+        "estado": "SOPORTADO",
+        "evidencia_contexto": "Chunk 0036 Art25 regula la beca otorgada al primer y segundo puesto.",
+        "justificacion": "El Artículo 25° respalda la existencia de la beca para primer y segundo puesto. No se añade el detalle de montos porque la respuesta no lo afirma."
+      }
+  ],
+  "citas": [
+    {
+      "citation_id": "Q07_CIT01",
+      "cita_texto": "Artículo 69°",
+      "documento": "",
+      "articulo": "69°",
+      "tipo": "C",
+      "claim_asociado": "Q07_C01",
+      "estado": "CORRECTA",
+      "justificacion": "Art69 aparece en una sola fuente final y su texto respalda Q07_C01."
+    },
+    {
+      "citation_id": "Q07_CIT02",
+      "cita_texto": "Artículo 20°",
+      "documento": "",
+      "articulo": "20°",
+      "tipo": "C",
+      "claim_asociado": "Q07_C02",
+      "estado": "CORRECTA",
+      "justificacion": "Art20 aparece en una sola fuente final y regula la beca de excelencia."
+    },
+    {
+      "citation_id": "Q07_CIT03",
+      "cita_texto": "Artículo 25°",
+      "documento": "",
+      "articulo": "25°",
+      "tipo": "C",
+      "claim_asociado": "Q07_C03",
+      "estado": "CORRECTA",
+      "justificacion": "Art25 aparece en una sola fuente final y fija los montos por puesto."
+    }
+  ],
+  "relevancia": 3,
+  "relevancia_justificacion": "Lista tres becas reales (posgrado, excelencia, primer/segundo puesto), información útil, pero omite la mayor parte del catálogo Art13 (socioeconómica, convenios, ley, deportistas, etnia, discapacidad).",
+  "notas": "Completitud 0 estricta (1 PARCIAL). Faithfulness desde chunks 0084/0031/0036. Ratios los calcula calcular_metricas_humanas.py.",
+  "evaluador": "investigador_manual_v1"
+}
