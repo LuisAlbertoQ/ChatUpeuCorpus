@@ -1,0 +1,294 @@
+{
+  "_comentario": "Reparto Opción 1 (espejo del corpus): base 4 preguntas/documento, refuerzos en los reglamentos mas consultados, y ajuste de factibilidad en documentos sin articulado (1-4 preguntas). Suma exacta = 200 preguntas de dominio (17 semillas curadas + 183 nuevas).",
+  "_total_dominio": 200,
+  "docs": {
+    "A01": {
+      "documento": "ESTATUTO 2024. 04-09-2024.pdf",
+      "categoria": "A",
+      "tema": "Gobierno",
+      "objetivo": 6
+    },
+    "A02": {
+      "documento": "REGLAMENTO GENERAL UPeU 2023.pdf",
+      "categoria": "A",
+      "tema": "Gobierno",
+      "objetivo": 7
+    },
+    "A03": {
+      "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf",
+      "categoria": "A",
+      "tema": "Defensoria",
+      "objetivo": 4
+    },
+    "A04": {
+      "documento": "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+      "categoria": "A",
+      "tema": "Gobierno",
+      "objetivo": 4
+    },
+    "A05": {
+      "documento": "TUPA V6 2023 UPeU.pdf",
+      "categoria": "A",
+      "tema": "Tramites",
+      "objetivo": 4
+    },
+    "B01": {
+      "documento": "Guía para la organización y orientación del legajo para la docencia ordinaria.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B02": {
+      "documento": "Modelo de índice del contenido - Legajo.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 1
+    },
+    "B03": {
+      "documento": "MODIFICACIÓN DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO 2020 - 2021.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B04": {
+      "documento": "REGLAMENTO ADMISION 2025.v7.pdf",
+      "categoria": "B",
+      "tema": "Admision",
+      "objetivo": 7
+    },
+    "B05": {
+      "documento": "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf",
+      "categoria": "B",
+      "tema": "Posgrado",
+      "objetivo": 6
+    },
+    "B06": {
+      "documento": "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 6
+    },
+    "B07": {
+      "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 7
+    },
+    "B08": {
+      "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B09": {
+      "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B10": {
+      "documento": "REGLAMENTO SERVICIO APRENDIZAJE IDIOMAS.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B11": {
+      "documento": "REQUISITOS PARA TRASLADO EXTERNO UNIVERSIDADES NO LICENCIADAS.pdf",
+      "categoria": "B",
+      "tema": "Admision",
+      "objetivo": 2
+    },
+    "B12": {
+      "documento": "Reglamento Idiomas Ingles o Nativo.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "B13": {
+      "documento": "Reglamento Pago Servicios Educativos o Académicos.pdf",
+      "categoria": "B",
+      "tema": "Tramites",
+      "objetivo": 4
+    },
+    "B14": {
+      "documento": "Reglamento de Publicaciones y Fondo Editorial.pdf",
+      "categoria": "B",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "C01": {
+      "documento": "REGLAMENTO CODIGO ETICA INVESTIGACION 2021.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "C02": {
+      "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "C03": {
+      "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 6
+    },
+    "C04": {
+      "documento": "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "C05": {
+      "documento": "REGLAMENTO PARA INVESTIGADORES UPeU V2 2025.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "C06": {
+      "documento": "REGLAMENTO PROPIEDAD INTELECTUALv3.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "C07": {
+      "documento": "TABLAS INCENTIVOS INVESTIGACION E INNOVACION 2023_para web upeu.pdf",
+      "categoria": "C",
+      "tema": "Investigacion",
+      "objetivo": 1
+    },
+    "D01": {
+      "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 7
+    },
+    "D02": {
+      "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 6
+    },
+    "D03": {
+      "documento": "REGLAMENTO PRODAC 2022(R_SG).pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 5
+    },
+    "D04": {
+      "documento": "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 4
+    },
+    "D05": {
+      "documento": "REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 5
+    },
+    "D06": {
+      "documento": "Reglamento de promocion de recreación y del deporte.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 4
+    },
+    "D07": {
+      "documento": "Reglamento del Laboratorio Multimedia del CI.pdf",
+      "categoria": "D",
+      "tema": "Bienestar",
+      "objetivo": 4
+    },
+    "E01": {
+      "documento": "DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS 2025.pdf",
+      "categoria": "E",
+      "tema": "Investigacion",
+      "objetivo": 4
+    },
+    "E02": {
+      "documento": "Politica Institucional de Inclusión y diversidad cultural v1.pdf",
+      "categoria": "E",
+      "tema": "Institucional",
+      "objetivo": 2
+    },
+    "E03": {
+      "documento": "Politica Institucional de trabajo digno y protección de la persona v.1.pdf",
+      "categoria": "E",
+      "tema": "Institucional",
+      "objetivo": 2
+    },
+    "E04": {
+      "documento": "Politica-ambiental.pdf",
+      "categoria": "E",
+      "tema": "Institucional",
+      "objetivo": 1
+    },
+    "E05": {
+      "documento": "REGLAMENTO DOCENCIA ORDINARIA v3.5.pdf",
+      "categoria": "E",
+      "tema": "Docencia",
+      "objetivo": 5
+    },
+    "E06": {
+      "documento": "REGLAMENTO IDENTIDAD VISUAL Y REDES SOCIALES.pdf",
+      "categoria": "E",
+      "tema": "Institucional",
+      "objetivo": 4
+    },
+    "E07": {
+      "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+      "categoria": "E",
+      "tema": "Laboral",
+      "objetivo": 5
+    },
+    "E08": {
+      "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf",
+      "categoria": "E",
+      "tema": "Bienestar",
+      "objetivo": 4
+    },
+    "E09": {
+      "documento": "Reglamento de Jefes de prácticas apoyo y profesional.pdf",
+      "categoria": "E",
+      "tema": "Docencia",
+      "objetivo": 4
+    },
+    "E10": {
+      "documento": "Reglamento de duplicado de diplomas.pdf",
+      "categoria": "E",
+      "tema": "Tramites",
+      "objetivo": 4
+    },
+    "E11": {
+      "documento": "Reglamento de seguimiento de egresados.pdf",
+      "categoria": "E",
+      "tema": "Academico",
+      "objetivo": 4
+    },
+    "E12": {
+      "documento": "Reglamento-capacitacion-docente.pdf",
+      "categoria": "E",
+      "tema": "Docencia",
+      "objetivo": 4
+    },
+    "E13": {
+      "documento": "Reglamento-de-docentes-unionista_mod art.23 y24 final.pdf",
+      "categoria": "E",
+      "tema": "Docencia",
+      "objetivo": 4
+    },
+    "E14": {
+      "documento": "reglamento_deauditoria_interna.pdf",
+      "categoria": "E",
+      "tema": "Gobierno",
+      "objetivo": 4
+    },
+    "E15": {
+      "documento": "Resolucion-TRANSCRIPCIÓN.pdf",
+      "categoria": "E",
+      "tema": "Institucional",
+      "objetivo": 1
+    }
+  }
+}

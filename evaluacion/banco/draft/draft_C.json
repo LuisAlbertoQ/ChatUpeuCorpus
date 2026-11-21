@@ -1,0 +1,32 @@
+[
+  {"clave": "C01", "art": "Artículo 4°", "tipo": "DIRECTA", "texto": "¿Qué principios éticos rigen al Comité de Ética en Investigación?"},
+  {"clave": "C01", "art": "Artículo 22°", "tipo": "DIRECTA", "texto": "¿Cuáles son las funciones del Comité de Ética en Investigación?"},
+  {"clave": "C01", "art": "Artículo 7°", "tipo": "DIRECTA", "texto": "¿Cómo deben proteger los investigadores los derechos y la confidencialidad de los participantes?"},
+  {"clave": "C01", "art": "Artículo 25°", "tipo": "DIRECTA", "texto": "¿Qué cuidados especiales se exigen cuando la investigación involucra a menores de edad o población vulnerable?"},
+
+  {"clave": "C02", "art": "Artículo 10°", "tipo": "DIRECTA", "texto": "¿Quiénes son beneficiarios de los incentivos económicos por investigación?"},
+  {"clave": "C02", "art": "Artículo 20°", "tipo": "DIRECTA", "texto": "¿Cómo se bonifica la publicación de un libro según el número de autores?"},
+  {"clave": "C02", "art": "Artículo 21°", "tipo": "DIRECTA", "texto": "¿Qué formas de pago existen para los incentivos por investigación?"},
+
+  {"clave": "C03", "art": "Artículo 135°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se desarrolla el protocolo para la sustentación de la tesis o trabajo de investigación?"},
+  {"clave": "C03", "art": "Artículo 124°", "tipo": "DIRECTA", "texto": "¿Qué estructura debe tener la tesis doctoral?"},
+  {"clave": "C03", "art": "Artículo 63°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se nombran los dictaminadores y qué plazos cumplen?"},
+  {"clave": "C03", "art": "Artículo 29°", "tipo": "DIRECTA", "texto": "¿En qué casos se produce el desistimiento o exclusión del estudiante en el proyecto de tesis?"},
+
+  {"clave": "C04", "art": "Artículo 5°", "tipo": "DIRECTA", "texto": "¿Qué categorías de investigadores reconoce la UPeU?"},
+  {"clave": "C04", "art": "Artículo 6°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos y modalidades existen para incorporarse como investigador de la UPeU?"},
+  {"clave": "C04", "art": "Artículo 8°", "tipo": "DIRECTA", "texto": "¿Cómo se evalúa y puntúa a un candidato a investigador?"},
+  {"clave": "C04", "art": "Artículo 27°", "tipo": "DIRECTA", "texto": "¿Cuáles son las causales de exclusión de la categoría de investigador?"},
+
+  {"clave": "C05", "art": "Artículo 13°", "tipo": "DIRECTA", "texto": "¿Cuáles son las responsabilidades y obligaciones del docente innovador?"},
+  {"clave": "C05", "art": "Artículo 14°", "tipo": "DIRECTA", "texto": "¿Cómo se evalúa el desempeño del docente innovador?"},
+  {"clave": "C05", "art": "Artículo 15°", "tipo": "DIRECTA", "texto": "¿Cómo rinde cuentas el docente innovador a la UPeU?"},
+  {"clave": "C05", "art": "Artículo 28°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se aplica una sanción a un investigador de la UPeU?"},
+
+  {"clave": "C06", "art": "Artículo 25°", "tipo": "DIRECTA", "texto": "¿Quiénes pueden ser titulares de los derechos patrimoniales de una obra o creación?"},
+  {"clave": "C06", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Quiénes son titulares de los derechos morales de una obra?"},
+  {"clave": "C06", "art": "Artículo 7°", "tipo": "DIRECTA", "texto": "¿Qué obras reconoce y protege la UPeU como creaciones?"},
+  {"clave": "C06", "art": "Artículo 41°", "tipo": "DIRECTA", "texto": "¿Qué excepciones y limitaciones al derecho de autor reconoce la UPeU?"},
+
+  {"clave": "C07", "art": "", "tipo": "DIRECTA", "texto": "¿Cuánto se paga por el dictamen final de un artículo según la tabla de incentivos de investigación?"}
+]

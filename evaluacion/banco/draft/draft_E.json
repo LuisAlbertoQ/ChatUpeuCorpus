@@ -1,0 +1,64 @@
+[
+  {"clave": "E01", "art": "", "tipo": "REQUISITOS", "texto": "¿Quiénes pueden solicitar el financiamiento del pago de APC para publicar un artículo científico?"},
+  {"clave": "E01", "art": "", "tipo": "PROCEDIMIENTO", "texto": "¿Cuál es el procedimiento para solicitar el financiamiento de una publicación científica?"},
+  {"clave": "E01", "art": "", "tipo": "DIRECTA", "texto": "¿Cuáles son los topes de financiamiento de APC según el cuartil de la revista en Scopus?"},
+  {"clave": "E01", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué condiciones debe cumplir la revista para que la UPeU financie el APC?"},
+
+  {"clave": "E02", "art": "", "tipo": "DIRECTA", "texto": "¿Qué compromisos asume la UPeU en materia de inclusión y diversidad cultural?"},
+  {"clave": "E02", "art": "", "tipo": "DIRECTA", "texto": "¿Qué ajustes razonables promueve la UPeU para las personas con discapacidad?"},
+
+  {"clave": "E03", "art": "", "tipo": "DIRECTA", "texto": "¿Qué compromisos asume la UPeU frente a la esclavitud moderna y la vulneración de derechos?"},
+
+  {"clave": "E04", "art": "", "tipo": "DIRECTA", "texto": "¿Qué compromisos asume la UPeU en seguridad, salud ocupacional y medio ambiente?"},
+
+  {"clave": "E05", "art": "Artículo 50°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos específicos se exigen para ingresar como docente auxiliar?"},
+  {"clave": "E05", "art": "Artículo 56°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para ascender a la categoría de docente asociado?"},
+  {"clave": "E05", "art": "Artículo 58°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para ascender a la categoría de docente principal?"},
+  {"clave": "E05", "art": "Artículo 85°", "tipo": "DIRECTA", "texto": "¿Con qué ocupaciones es incompatible el ejercicio de la docencia ordinaria?"},
+  {"clave": "E05", "art": "Artículo 62°", "tipo": "REQUISITOS", "texto": "¿Qué documentos debe registrar el candidato en su legajo docente?"},
+
+  {"clave": "E06", "art": "Artículo 9°", "tipo": "DIRECTA", "texto": "¿Qué elementos componen la identidad visual de la UPeU?"},
+  {"clave": "E06", "art": "Artículo 13°", "tipo": "DIRECTA", "texto": "¿Qué criterios se aplican para crear o modificar elementos de identidad visual?"},
+  {"clave": "E06", "art": "Artículo 16°", "tipo": "DIRECTA", "texto": "¿Qué condiciones se exigen a terceros para usar la marca UPeU?"},
+  {"clave": "E06", "art": "Artículo 26°", "tipo": "DIRECTA", "texto": "¿Qué criterios deben cumplir los contenidos publicados en las redes sociales de la UPeU?"},
+
+  {"clave": "E07", "art": "Artículo 71°", "tipo": "DIRECTA", "texto": "¿Qué licencias con goce de remuneraciones reconoce la UPeU?"},
+  {"clave": "E07", "art": "Artículo 94°", "tipo": "DIRECTA", "texto": "¿Cuáles son las obligaciones de los trabajadores de la UPeU?"},
+  {"clave": "E07", "art": "Artículo 95°", "tipo": "DIRECTA", "texto": "¿Qué conductas están prohibidas a los trabajadores de la UPeU?"},
+  {"clave": "E07", "art": "Artículo 66°", "tipo": "DIRECTA", "texto": "¿Qué reglas se aplican a las clases de permisos sin goce de haber?"},
+
+  {"clave": "E08", "art": "Artículo 8°", "tipo": "DIRECTA", "texto": "¿Cómo se configura el hostigamiento sexual según el reglamento?"},
+  {"clave": "E08", "art": "Artículo 16°", "tipo": "DIRECTA", "texto": "¿Qué tipos de sanciones se pueden imponer por hostigamiento sexual?"},
+  {"clave": "E08", "art": "Artículo 29°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se inicia el procedimiento de investigación y sanción por hostigamiento sexual?"},
+  {"clave": "E08", "art": "Artículo 25°", "tipo": "DIRECTA", "texto": "¿Qué es el Comité de Intervención frente al Hostigamiento Sexual y cómo se conforma?"},
+
+  {"clave": "E09", "art": "Artículo 10°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos mínimos se exigen para ser jefe de prácticas?"},
+  {"clave": "E09", "art": "Artículo 11°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos mínimos se exigen para el personal de apoyo o técnico?"},
+  {"clave": "E09", "art": "Artículo 21°", "tipo": "DIRECTA", "texto": "¿Cuáles son las funciones del jefe de prácticas o personal de apoyo?"},
+  {"clave": "E09", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Cómo se sancionan las faltas del jefe de prácticas o personal de apoyo?"},
+
+  {"clave": "E10", "art": "Artículo 5°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para solicitar un duplicado de diploma por pérdida?"},
+  {"clave": "E10", "art": "Artículo 6°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el duplicado de diploma por deterioro o mutilación?"},
+  {"clave": "E10", "art": "Artículo 4°", "tipo": "DIRECTA", "texto": "¿Qué comprende el expediente para tramitar un duplicado de diploma?"},
+  {"clave": "E10", "art": "Artículo 7°", "tipo": "DIRECTA", "texto": "¿Qué ocurre con el diploma anterior al emitirse un duplicado?"},
+
+  {"clave": "E11", "art": "Artículo 18°", "tipo": "DIRECTA", "texto": "¿A través de qué mecanismos pueden los egresados vincularse con la UPeU?"},
+  {"clave": "E11", "art": "Artículo 6°", "tipo": "DIRECTA", "texto": "¿Cuáles son las funciones de la Oficina de Seguimiento del Egresado?"},
+  {"clave": "E11", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Qué estímulos o incentivos puede otorgar la UPeU a sus egresados?"},
+
+  {"clave": "E12", "art": "Artículo 16º", "tipo": "DIRECTA", "texto": "¿Cuáles son los niveles de capacitación y perfeccionamiento docente?"},
+  {"clave": "E12", "art": "Artículo 10º", "tipo": "DIRECTA", "texto": "¿Qué información mínima contiene el Plan de Vida Docente?"},
+  {"clave": "E12", "art": "Artículo 9º", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se formula y aprueba el Plan de Vida Docente?"},
+  {"clave": "E12", "art": "Artículo 26º", "tipo": "DIRECTA", "texto": "¿Qué obligación genera la réplica de la capacitación o perfeccionamiento docente?"},
+
+  {"clave": "E13", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Cuáles son los derechos de los docentes de la UPeU?"},
+  {"clave": "E13", "art": "Artículo 23°", "tipo": "DIRECTA", "texto": "¿Cuáles son los deberes de los docentes de la UPeU?"},
+  {"clave": "E13", "art": "Artículo 19°", "tipo": "DIRECTA", "texto": "¿Qué denominaciones reciben los docentes extraordinarios?"},
+  {"clave": "E13", "art": "Artículo 29°", "tipo": "DIRECTA", "texto": "¿Cuáles son las causales de cese o extinción de la función docente?"},
+
+  {"clave": "E14", "art": "ARTÍCULO 11", "tipo": "DIRECTA", "texto": "¿Qué atribuciones y prerrogativas tiene el Auditor Interno?"},
+  {"clave": "E14", "art": "ARTICULO  15", "tipo": "DIRECTA", "texto": "¿Cuáles son los deberes y obligaciones de la Auditoría Interna?"},
+  {"clave": "E14", "art": "ARTICULO  16", "tipo": "DIRECTA", "texto": "¿Qué atribuciones tiene la Auditoría Interna ante el Consejo Universitario?"},
+
+  {"clave": "E15", "art": "", "tipo": "DIRECTA", "texto": "¿Qué aprobó el Consejo Universitario respecto a la política de seguridad, salud ocupacional y medio ambiente?"}
+]

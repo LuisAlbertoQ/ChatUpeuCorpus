@@ -63,7 +63,7 @@ tecnológica.
 
 | Carpeta | Contenido |
 |---|---|
-| `banco/` | Ground truth: `preguntas_comparacion.json` (17 Q), `sincronizar_banco.py`, `CHANGELOG_GROUNDTRUTH_V31.md` |
+| `banco/` | Ground truth: `preguntas_comparacion.json` (17 Q), `sincronizar_banco.py`, `CHANGELOG_GROUNDTRUTH_V31.md`; pool Gold Set 260 (`cuotas_pool_260.json`, `draft/`, `generar_pool_260.py`) |
 | `retrieval/` | `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`, métricas `EXP_*.csv` |
 | `generacion/` | `baseline_generacion_v3_oficial.py`, harnesses, JSON/CSV de experimentos |
 | `humana/` | Fichas Q01-Q17 (`fichas_humanas_v31/`, 66 puntos), `importar_ficha_humana.py`, `calcular_metricas_humanas.py`, guía |
@@ -89,6 +89,37 @@ tecnológica.
 | `legacy/ficha_documental.md` | Deliverable (corpus indexado). Se regenera con `generar_ficha.py`. | Auto-generado |
 | `madurez_oe8/reporte_madurez.md` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
 | `madurez_oe8/resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
+
+## Gold Set 260 (OE8, en construcción)
+
+El pool de 260 preguntas (200 dominio + 40 fuera de dominio + 20 ambiguas) se
+genera con `banco/generar_pool_260.py` a partir de tres insumos: las cuotas por
+documento (`banco/cuotas_pool_260.json`), los borradores de preguntas
+(`banco/draft/draft_*.json`) y las semillas curadas de la DB (17 dominio de
+`groundtruth_v31_preguntas` + 6 fuera de dominio de `banco_no_answer`).
+
+| Capa | Archivo | Para quién | Contenido |
+|---|---|---|---|
+| 0 | `banco/pool_260_verificacion.json` | Investigador | Borrador completo: bloque, documento/artículo candidato, puntos candidatos (`CANDIDATO_NO_VALIDADO`) y semillas curadas |
+| 1 | `banco/pool_260_preliminar.jsonl` / `.csv` | Anotadores | **Ciego**: solo `pregunta_id` y `texto`, en orden mezclado (semilla fija) |
+| 2 | `banco/banco_gold_260.json` | Resultado | Consolidado tras doble anotación y consenso (pendiente) |
+
+Regenerar y validar (dentro del contenedor):
+
+```bash
+docker compose exec backend python /data/evaluacion/banco/generar_pool_260.py --check
+docker compose exec backend python /data/evaluacion/banco/generar_pool_260.py --guardar
+```
+
+`--check` valida cuotas, semillas, existencia de cada artículo en ChromaDB y
+duplicados exactos; `--guardar` escribe las cuatro salidas (capa 0, capa 1 ×2 y
+`banco/pool_260_resumen.md`). Los IDs `GOLD_NNN` se asignan **después** de
+mezclar los bloques, para que el orden del pool ciego no revele el tipo.
+
+> Los puntos candidatos de las preguntas nuevas **no son ground truth**: se
+> extraen del texto real del artículo o, en documentos sin articulado, por
+> solapamiento léxico con la pregunta. Los anotadores los verifican leyendo el
+> documento.
 
 ## Flujo de trabajo
 

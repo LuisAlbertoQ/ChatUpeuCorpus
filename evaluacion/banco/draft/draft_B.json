@@ -1,0 +1,73 @@
+[
+  {"clave": "B01", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué documentos generales debe presentar un postulante a la docencia ordinaria en su legajo?"},
+  {"clave": "B01", "art": "", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se entrega el legajo de archivo para el ascenso o ratificación docente?"},
+  {"clave": "B01", "art": "", "tipo": "REQUISITOS", "texto": "¿Cuántos años de ejercicio como docente auxiliar se exigen para ascender a asociado?"},
+  {"clave": "B01", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué documentos acreditan la experiencia profesional dentro del legajo docente?"},
+
+  {"clave": "B02", "art": "", "tipo": "DIRECTA", "texto": "¿Qué secciones comprende el índice del legajo para la docencia ordinaria?"},
+
+  {"clave": "B03", "art": "Artículo 13°", "tipo": "DIRECTA", "texto": "¿Quiénes pueden obtener el grado académico de bachiller automático por la Ley 31183?"},
+  {"clave": "B03", "art": "Artículo 9°", "tipo": "DIRECTA", "texto": "¿A qué egresados no se aplica el grado de bachiller automático?"},
+  {"clave": "B03", "art": "Artículo 10°", "tipo": "DIRECTA", "texto": "¿Se puede exonerar el requisito de idioma inglés para obtener el bachiller automático?"},
+  {"clave": "B03", "art": "Artículo 17°", "tipo": "DIRECTA", "texto": "¿Hasta cuándo se extiende la aplicabilidad del bachiller automático por prórroga de estudios 2021?"},
+
+  {"clave": "B04", "art": "Artículo 25°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos deben cumplir los postulantes nacionales para inscribirse a la admisión de pregrado?"},
+  {"clave": "B04", "art": "Artículo 27°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos adicionales se exigen a los postulantes extranjeros en pregrado?"},
+  {"clave": "B04", "art": "Artículo 28°", "tipo": "DIRECTA", "texto": "¿Qué modalidades de admisión ofrece la UPeU?"},
+  {"clave": "B04", "art": "Artículo 55°", "tipo": "DIRECTA", "texto": "¿Cómo se pondera el examen de conocimiento según la modalidad de ingreso?"},
+  {"clave": "B04", "art": "Artículo 101°", "tipo": "DIRECTA", "texto": "¿Cuáles son las causales de anulación o descalificación en el proceso de admisión?"},
+  {"clave": "B04", "art": "Artículo 81°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos de admisión se exigen para los programas de posgrado?"},
+  {"clave": "B04", "art": "Artículo 103°", "tipo": "DIRECTA", "texto": "¿En qué casos se anula una vacante de admisión?"},
+
+  {"clave": "B05", "art": "Artículo 245°", "tipo": "REQUISITOS", "texto": "¿Cuáles son los requisitos para el traslado externo en posgrado?"},
+  {"clave": "B05", "art": "Artículo 269°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para la convalidación de asignaturas en posgrado?"},
+  {"clave": "B05", "art": "Artículo 278°", "tipo": "DIRECTA", "texto": "¿En qué casos no procede la convalidación en posgrado?"},
+  {"clave": "B05", "art": "Artículo 205°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita la revisión o corrección de calificaciones en posgrado?"},
+  {"clave": "B05", "art": "Artículo 229°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se desarrolla el procedimiento de sanción disciplinaria en posgrado?"},
+  {"clave": "B05", "art": "Artículo 80°", "tipo": "DIRECTA", "texto": "¿Qué reglas se aplican para matricularse en asignaturas equivalentes de otros programas?"},
+
+  {"clave": "B06", "art": "Artículo 265°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el traslado externo en pregrado?"},
+  {"clave": "B06", "art": "Artículo 267°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el traslado interno de carrera?"},
+  {"clave": "B06", "art": "Artículo 170°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita el retiro de asignaturas y qué efectos tiene?"},
+  {"clave": "B06", "art": "Artículo 225°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita la revisión o corrección de calificaciones en pregrado?"},
+
+  {"clave": "B07", "art": "Artículo 89°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para la revalidación de un grado o título obtenido en el extranjero?"},
+  {"clave": "B07", "art": "Artículo 90°", "tipo": "PROCEDIMIENTO", "texto": "¿Cuáles son las etapas del proceso de reválida de grado o título?"},
+  {"clave": "B07", "art": "Artículo 32°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se desarrolla la sustentación virtual u online de una tesis?"},
+  {"clave": "B07", "art": "Artículo 20°", "tipo": "DIRECTA", "texto": "¿Qué grados académicos de bachiller otorga la UPeU por facultad?"},
+  {"clave": "B07", "art": "Artículo 28°", "tipo": "DIRECTA", "texto": "¿Cuántos investigadores se requieren para la sustentación según el nivel y la modalidad?"},
+  {"clave": "B07", "art": "Artículo 99°", "tipo": "DIRECTA", "texto": "¿Quién coordina la ceremonia de colación de grados y títulos?"},
+
+  {"clave": "B08", "art": "Artículo 8°", "tipo": "REQUISITOS", "texto": "¿Qué nivel de dominio del idioma inglés se exige según el nivel de estudios?"},
+  {"clave": "B08", "art": "Artículo 19°", "tipo": "DIRECTA", "texto": "¿Qué comprende la revalidación o reconocimiento del dominio de un idioma o lengua nativa?"},
+  {"clave": "B08", "art": "Artículo 20°", "tipo": "REQUISITOS", "texto": "¿Qué documentos se requieren para la revalidación o reconocimiento del idioma?"},
+  {"clave": "B08", "art": "Artículo 11°", "tipo": "DIRECTA", "texto": "¿Qué ocurre si el estudiante no acredita el idioma de forma sucesiva y progresiva?"},
+
+  {"clave": "B09", "art": "Artículo 31°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos debe cumplir un estudiante de la UPeU para participar en movilidad académica?"},
+  {"clave": "B09", "art": "Artículo 32°", "tipo": "DIRECTA", "texto": "¿A qué obligaciones se sujeta el estudiante que participa en movilidad académica?"},
+  {"clave": "B09", "art": "Artículo 33°", "tipo": "DIRECTA", "texto": "¿En qué casos el estudiante debe devolver el apoyo económico recibido por movilidad académica?"},
+  {"clave": "B09", "art": "Artículo 2°", "tipo": "DIRECTA", "texto": "¿Cuáles son los fines de la movilidad académica estudiantil y docente?"},
+
+  {"clave": "B10", "art": "Artículo 7°", "tipo": "REQUISITOS", "texto": "¿Qué condiciones se exigen para matricularse en el servicio de aprendizaje de idiomas?"},
+  {"clave": "B10", "art": "Artículo 31°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita el retiro del programa de aprendizaje de idiomas y qué plazos se aplican?"},
+  {"clave": "B10", "art": "Artículo 23°", "tipo": "DIRECTA", "texto": "¿Cuál es el número mínimo de matriculados para abrir un nivel de idioma?"},
+  {"clave": "B10", "art": "Artículo 47°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita la acreditación excepcional de idioma para obtener un grado académico?"},
+
+  {"clave": "B11", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué documentos debe presentar un postulante por traslado externo proveniente de una universidad no licenciada?"},
+  {"clave": "B11", "art": "", "tipo": "PROCEDIMIENTO", "texto": "¿Qué plazo tienen los documentos temporales en el traslado externo de universidades no licenciadas?"},
+
+  {"clave": "B12", "art": "Artículo 23°", "tipo": "DIRECTA", "texto": "¿Qué modalidades existen para acreditar el dominio del idioma inglés o de una lengua nativa?"},
+  {"clave": "B12", "art": "Artículo 21°", "tipo": "DIRECTA", "texto": "¿De qué formas puede el estudiante acreditar el requisito de idioma o lengua nativa?"},
+  {"clave": "B12", "art": "Artículo 27°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se tramita la acreditación de suficiencia en un idioma o lengua nativa?"},
+  {"clave": "B12", "art": "Artículo 33°", "tipo": "DIRECTA", "texto": "¿A quiénes se exige el dominio del español para estudiar en la UPeU?"},
+
+  {"clave": "B13", "art": "Artículo 55", "tipo": "DIRECTA", "texto": "¿Qué tipos de retiro reconoce la UPeU y qué efectos económicos tienen?"},
+  {"clave": "B13", "art": "Artículo 40", "tipo": "DIRECTA", "texto": "¿En qué casos la UPeU reembolsa hasta media matrícula?"},
+  {"clave": "B13", "art": "Artículo 66", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se procesa la variación de asignaturas con incremento o reducción?"},
+  {"clave": "B13", "art": "Artículo 8", "tipo": "DIRECTA", "texto": "¿Qué servicios se consideran derivados del servicio educativo o académico?"},
+
+  {"clave": "B14", "art": "Artículo 8", "tipo": "DIRECTA", "texto": "¿Cuáles son los fines del Fondo Editorial de la UPeU?"},
+  {"clave": "B14", "art": "Artículo 22", "tipo": "PROCEDIMIENTO", "texto": "¿Cuál es el proceso de aprobación de publicación de libros o textos del Fondo Editorial?"},
+  {"clave": "B14", "art": "Artículo 16", "tipo": "DIRECTA", "texto": "¿Qué políticas de producción se aplican a libros, revistas y materiales educativos?"},
+  {"clave": "B14", "art": "Artículo 24", "tipo": "DIRECTA", "texto": "¿Pueden publicar bajo el sello del Fondo Editorial personas ajenas a la UPeU?"}
+]

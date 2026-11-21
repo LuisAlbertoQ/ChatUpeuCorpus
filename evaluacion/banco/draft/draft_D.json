@@ -1,0 +1,39 @@
+[
+  {"clave": "D01", "art": "Artículo 38°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos específicos debe presentar el estudiante para solicitar una beca?"},
+  {"clave": "D01", "art": "Artículo 42°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos obligatorios se exigen para el otorgamiento de la beca y sus beneficios?"},
+  {"clave": "D01", "art": "Artículo 53°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se solicita la renovación de una beca?"},
+  {"clave": "D01", "art": "Artículo 64°", "tipo": "PROCEDIMIENTO", "texto": "¿Cuál es el proceso y los plazos para el otorgamiento o renovación de la beca?"},
+  {"clave": "D01", "art": "Artículo 73°", "tipo": "DIRECTA", "texto": "¿Cuáles son las causales de pérdida definitiva de la beca?"},
+
+  {"clave": "D02", "art": "Artículo 33°", "tipo": "DIRECTA", "texto": "¿Cuáles son los deberes del estudiante unionista?"},
+  {"clave": "D02", "art": "Artículo 46°", "tipo": "DIRECTA", "texto": "¿Qué conductas se consideran faltas leves según el reglamento del estudiante?"},
+  {"clave": "D02", "art": "Artículo 85°", "tipo": "DIRECTA", "texto": "¿Quiénes son responsables de ejecutar las sanciones o medidas disciplinarias?"},
+  {"clave": "D02", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Qué valor otorga la UPeU a las actividades espirituales en la formación del estudiante?"},
+
+  {"clave": "D03", "art": "Artículo 26°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se realiza la inscripción al PRODAC y qué requisitos se adjuntan?"},
+  {"clave": "D03", "art": "Artículo 36°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se asigna una beca o beneficio deportivo en el PRODAC?"},
+  {"clave": "D03", "art": "Artículo 48°", "tipo": "DIRECTA", "texto": "¿Qué derechos tienen los estudiantes becarios del PRODAC?"},
+  {"clave": "D03", "art": "Artículo 49°", "tipo": "DIRECTA", "texto": "¿Qué deberes tienen los deportistas del PRODAC?"},
+  {"clave": "D03", "art": "Artículo 57°", "tipo": "DIRECTA", "texto": "¿Qué tipos de sanciones contempla el PRODAC?"},
+
+  {"clave": "D04", "art": "Artículo 8°", "tipo": "DIRECTA", "texto": "¿Qué tipos de reconocimiento a la excelencia otorga la UPeU?"},
+  {"clave": "D04", "art": "Artículo 18°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el reconocimiento por ranking académico semestral?"},
+  {"clave": "D04", "art": "Artículo 21°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el reconocimiento por ranking promocional?"},
+  {"clave": "D04", "art": "Artículo 13°", "tipo": "DIRECTA", "texto": "¿En qué momento se entrega cada tipo de reconocimiento a la excelencia?"},
+
+  {"clave": "D05", "art": "Artículo 24°", "tipo": "DIRECTA", "texto": "¿Qué condiciones debe cumplir un residente mayor de edad para solicitar permiso de salida?"},
+  {"clave": "D05", "art": "Artículo 25°", "tipo": "DIRECTA", "texto": "¿Qué condiciones se exigen para el permiso de salida de un residente menor de edad?"},
+  {"clave": "D05", "art": "Artículo 36°", "tipo": "DIRECTA", "texto": "¿Qué disposiciones se aplican en el servicio de alimentación de las residencias?"},
+  {"clave": "D05", "art": "Artículo 48°", "tipo": "DIRECTA", "texto": "¿Qué conductas se consideran faltas en las residencias universitarias?"},
+  {"clave": "D05", "art": "Artículo 40°", "tipo": "DIRECTA", "texto": "¿Qué obligaciones tiene el residente dentro de su habitación?"},
+
+  {"clave": "D06", "art": "Artículo 5°", "tipo": "DIRECTA", "texto": "¿Qué programas deportivos ofrece la UPeU y a quiénes están dirigidos?"},
+  {"clave": "D06", "art": "Artículo 7°", "tipo": "DIRECTA", "texto": "¿En qué niveles se organizan las actividades recreativas y deportivas?"},
+  {"clave": "D06", "art": "Artículo 27°", "tipo": "DIRECTA", "texto": "¿Qué compromisos asume la UPeU en materia de recreación y deporte?"},
+  {"clave": "D06", "art": "Artículo 25°", "tipo": "DIRECTA", "texto": "¿Cómo se reporta un accidente ocurrido en un escenario deportivo de la UPeU?"},
+
+  {"clave": "D07", "art": "Artículo 11°", "tipo": "DIRECTA", "texto": "¿Cuál es la finalidad del Laboratorio Multimedia del CI?"},
+  {"clave": "D07", "art": "Artículo 14°", "tipo": "DIRECTA", "texto": "¿Para qué usos están permitidos los equipos del Laboratorio Multimedia?"},
+  {"clave": "D07", "art": "Artículo 31°", "tipo": "DIRECTA", "texto": "¿Qué está prohibido hacer con los equipos del Laboratorio Multimedia?"},
+  {"clave": "D07", "art": "Artículo 34°", "tipo": "DIRECTA", "texto": "¿Qué consecuencias tiene incumplir el reglamento del Laboratorio Multimedia?"}
+]

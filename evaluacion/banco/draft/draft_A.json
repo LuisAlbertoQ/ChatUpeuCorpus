@@ -1,0 +1,28 @@
+[
+  {"clave": "A01", "art": "Artículo 33°", "tipo": "DIRECTA", "texto": "¿Cuáles son las atribuciones del Consejo Universitario?"},
+  {"clave": "A01", "art": "Artículo 100°", "tipo": "DIRECTA", "texto": "¿Qué tipos y categorías de docentes universitarios reconoce la UPeU?"},
+  {"clave": "A01", "art": "Artículo 53°", "tipo": "DIRECTA", "texto": "¿Qué atribuciones tiene el decano de una facultad?"},
+  {"clave": "A01", "art": "Artículo 85°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo se evalúa el aprendizaje de los estudiantes según el Estatuto?"},
+
+  {"clave": "A02", "art": "Artículo 123°", "tipo": "DIRECTA", "texto": "¿Cuáles son las funciones de la escuela profesional?"},
+  {"clave": "A02", "art": "Artículo 132°", "tipo": "DIRECTA", "texto": "¿Qué atribuciones tiene el director de la escuela profesional?"},
+  {"clave": "A02", "art": "Artículo 89°", "tipo": "DIRECTA", "texto": "¿Qué atribuciones tiene el vicerrector académico en investigación y vinculación?"},
+  {"clave": "A02", "art": "Artículo 870°", "tipo": "DIRECTA", "texto": "¿Cómo se atiende el bienestar universitario en las filiales de la UPeU?"},
+  {"clave": "A02", "art": "Artículo 295°", "tipo": "DIRECTA", "texto": "¿Qué funciones cumple el comité de investigación e innovación?"},
+  {"clave": "A02", "art": "Artículo 383°", "tipo": "DIRECTA", "texto": "¿Cuáles son las atribuciones del director general de investigación?"},
+  {"clave": "A02", "art": "Artículo 856°", "tipo": "DIRECTA", "texto": "¿Qué atribuciones tiene el coordinador de escuela profesional?"},
+
+  {"clave": "A03", "art": "Artículo 10°", "tipo": "DIRECTA", "texto": "¿Qué funciones y atribuciones tiene el Defensor Universitario?"},
+  {"clave": "A03", "art": "Artículo 22°", "tipo": "PROCEDIMIENTO", "texto": "¿Qué plazos tiene la Defensoría para atender consultas, denuncias, quejas y reclamos?"},
+  {"clave": "A03", "art": "Artículo 21°", "tipo": "DIRECTA", "texto": "¿Qué asuntos no son competencia de la Defensoría Universitaria?"},
+  {"clave": "A03", "art": "Artículo 6°", "tipo": "PROCEDIMIENTO", "texto": "¿Cómo puede un miembro de la comunidad universitaria acudir a la Defensoría?"},
+
+  {"clave": "A04", "art": "Artículo 23°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos debe cumplir un estudiante para ser candidato en representación de los estudiantes?"},
+  {"clave": "A04", "art": "Artículo 22°", "tipo": "REQUISITOS", "texto": "¿Qué requisitos debe cumplir un docente para postular a los órganos de gobierno?"},
+  {"clave": "A04", "art": "Artículo 6°", "tipo": "DIRECTA", "texto": "¿Cuáles son las atribuciones del Comité Electoral Universitario?"},
+  {"clave": "A04", "art": "Artículo 62°", "tipo": "DIRECTA", "texto": "¿Pueden ser proclamados cónyuges o parientes en el mismo órgano de gobierno?"},
+
+  {"clave": "A05", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué requisitos se exigen para el grado académico de bachiller en la modalidad automática?"},
+  {"clave": "A05", "art": "", "tipo": "PROCEDIMIENTO", "texto": "¿Cuáles son los requisitos para solicitar evaluaciones extemporáneas de pregrado?"},
+  {"clave": "A05", "art": "", "tipo": "REQUISITOS", "texto": "¿Qué documentos se requieren para el duplicado del diploma de grado o título?"}
+]
