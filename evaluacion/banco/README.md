@@ -63,3 +63,8 @@ python evaluacion/comparacion_v2_v3/completitud_auto.py --banco-json evaluacion/
 
 O con el script de ablación: `.\evaluacion\comparacion_v2_v3\ablacion.ps1 -Etiqueta X -BancoJson banco_v32.json -Negativas`.
 Línea base de la configuración vigente: `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md` §9.
+
+## Gold set 260 (2026-11-22)
+
+Fichas de anotación ciegas, plantilla de 40 preguntas fuera de dominio nuevas, κ de Cohen y consolidación en
+`gold/` (ver `gold/README.md`). El resultado será `banco_gold_260.json`, con el mismo formato que `banco_v32.json`.

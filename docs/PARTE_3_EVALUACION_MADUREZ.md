@@ -505,6 +505,18 @@ Top20 → Top5 → threshold 0.40
 > completo sin recorte de 700 caracteres (activo) y prompt `v3-completo` (activo: completitud 0.40 → 0.57
 > con 30 preguntas). Cada comparación con 2 semillas del LLM y prueba de signo pareada.
 
+> **Revisión 3 del estudio (2026-11-22):** el diseño experimental vigente es el de
+> `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (sistemas S0–S6, experimentos A/B/C, gold set de 260).
+> Avance al 22-11-2026 (detalle en `evaluacion/README_EVALUACION.md` y `README.md` raíz):
+> - Configuración congelada en el commit `c47d455a` (`evaluacion/REPRODUCIBILIDAD.md`).
+> - Estadística (bootstrap IC95, Wilson, Wilcoxon, Holm, κ): `evaluacion/estadistica/estadistica.py`.
+> - Exp. A preliminar (`evaluacion/retrieval/exp_a/`): BM25, MiniLM, mpnet y bge-m3 sobre los mismos chunks, con
+>   chunks de 150/300/350/600 tokens. R@5 con 154 preguntas: bge-m3 0.916, BM25 0.675, mpnet 0.617, MiniLM 0.526;
+>   sin tamaño de chunk óptimo significativo para los modelos semánticos.
+> - Exp. C preliminar (`evaluacion/exp_c/`): 40/40 fuera de dominio (vistas en el desarrollo) y 14/20 ambiguas.
+> - Gold set: fichas ciegas y κ listos en `evaluacion/banco/gold/`; falta la anotación del equipo.
+> - Pendiente: Exp. B (Qwen vs Llama 3), corridas oficiales sobre el gold set, evaluación humana y tablas 1–6.
+
 y, si se incorpora un reranker real:
 
 ```text

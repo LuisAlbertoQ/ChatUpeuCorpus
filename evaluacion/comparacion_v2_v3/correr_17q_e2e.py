@@ -198,7 +198,7 @@ def main():
         **{k.lower(): getattr(config, k) for k in (
             "RAG_KEYWORD_BOOST", "RAG_CONTEXT_MAX_CHARS", "RAG_RECORTE_LEGACY_700", "OLLAMA_NUM_CTX",
             "OLLAMA_NUM_PREDICT", "OLLAMA_SEED", "TIMEOUT_RESPUESTA", "RAG_RERANKER", "RAG_RERANKER_MODEL",
-            "RAG_CONTEXTO_ARTICULO", "RAG_DETECTAR_ABSTENCION") if hasattr(config, k)},
+            "RAG_CONTEXTO_ARTICULO", "RAG_DETECTAR_ABSTENCION", "RAG_SIN_RECUPERACION") if hasattr(config, k)},
     }
     out_json.write_text(json.dumps({"meta": meta, "resultados": resultados}, ensure_ascii=False, indent=2), encoding="utf-8")
     campos = [k for k in resultados[0] if k not in ("respuesta", "fuentes", "chars_chunks", "documentos_llm", "articulos_llm", "distancias_llm")]

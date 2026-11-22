@@ -25,6 +25,11 @@ function Esperar-Backend {
     throw "oe5-backend no quedó healthy en 600 s"
 }
 
+# 2026-11-22: si se corta este script desde afuera, el `docker exec` puede seguir vivo dentro del
+# contenedor. Dos corridas a la vez compiten por Ollama (atiende una consulta a la vez) y producen
+# timeouts falsos. Por eso no se empieza si ya hay una corrida activa.
+$activas = docker exec oe5-backend python -c "import os; me=str(os.getpid()); print(sum(1 for d in os.listdir('/proc') if d.isdigit() and d != me and 'correr_17q' in open('/proc/'+d+'/cmdline').read()))" 2>$null
+if ([int]$activas -gt 0) { throw "Hay $activas corrida(s) de correr_17q_e2e.py activas en oe5-backend; termínalas antes de empezar otra." }
 foreach ($k in $Vars.Keys) { Set-Item -Path "Env:$k" -Value $Vars[$k] }
 docker compose up -d backend 2>&1 | Out-Null
 Esperar-Backend

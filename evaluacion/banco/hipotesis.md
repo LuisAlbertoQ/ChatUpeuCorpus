@@ -19,3 +19,16 @@ o hipótesis del estudio.
 | H5 | El sistema RAG puede abstenerse correctamente ante consultas fuera de dominio y ambiguas, alcanzando una tasa de abstención correcta previamente definida. | C | Tabla 5: abstención correcta, falsa abstención (criterio de éxito H5: abstention_accuracy ≥ 0.90 con IC95%) |
 
 Estado: H1–H5 aprobadas (cronograma 04-09). Criterio H5 propuesto; pendiente de ratificación del equipo/asesor.
+
+## Estado preliminar (2026-11-22)
+
+Resultados con bancos de desarrollo (154 preguntas del OE1 sin revisión humana y banco v3.2 de 30). **No son
+los oficiales:** el .docx exige el gold set de 260 (`gold/`), que falta anotar.
+
+| ID | Resultado preliminar | Fuente |
+|---|---|---|
+| H1 | Solo bge-m3 supera a BM25 en R@5 (0.916 vs 0.675; +0.24 [0.16, 0.32], p Holm < 0.001, r = 0.82). mpnet (0.617) empata y MiniLM (0.526) es peor (p Holm 0.008): ambos leen solo 128 tokens | `../retrieval/exp_a/OE1_154_chunk350/h1_vs_bm25.csv` |
+| H2 | Sin tamaño óptimo significativo: bge-m3 0.903 / 0.929 / 0.909 con chunks de 150 / 300 / 600; mpnet también máximo en 300 (n.s.). BM25 mejora con chunks grandes (600 vs 150: +0.078, p Holm 0.02) | `../retrieval/exp_a/h2_OE1_154/` |
+| H3 | Sin datos: el Exp. B (Qwen vs Llama 3) está listo pero no se corrió | — |
+| H4 | Sin datos suficientes: requiere el gold set (40 preguntas por categoría) | — |
+| H5 | Fuera de dominio 40/40 (IC95 Wilson [0.91, 1.00]) pero con preguntas usadas en la calibración → no válido; ambiguas 14/20 (solo 4 piden aclaración) | `../exp_c/` |

@@ -7,6 +7,13 @@
 > leyendo el artículo se recuperan mucho mejor (documento 13/13 vs 13/17); las preguntas nuevas deben
 > redactarse en lenguaje de estudiante **antes** de mirar el documento.
 
+> **Actualización 2026-11-22 (fichas Excel y campos nuevos):** en lugar del JSONL de la sección 3 se entregan
+> las fichas `gold/ficha_anotador_A.xlsx` y `gold/ficha_anotador_B.xlsx` (el JSONL sigue aceptándose). Por
+> exigencia del .docx (§3: "cada pregunta debe incluir respuesta de referencia") se agregan dos columnas
+> obligatorias para las respondibles: `respuesta_referencia` y `puntos_clave` (separados por `;`), y dos
+> opcionales: `documento_2` / `articulos_2`. Las 40 preguntas fuera de dominio del pool ya se usaron al calibrar
+> el umbral, así que se redactan 40 nuevas en `gold/plantilla_ood_nuevas.xlsx`. Pasos y scripts: `gold/README.md`.
+
 **Versión:** 1.0 | **Fecha:** 2026-09-27 | **Proyecto:** RAG 100 % Local UPeU (OE8)
 
 ---

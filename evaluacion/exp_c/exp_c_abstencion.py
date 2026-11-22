@@ -71,7 +71,7 @@ def _proporcion(nombre, ok, n):
 
 
 def analizar(args):
-    banco = {n["id"]: n for n in json.loads(BANCO_SALIDA.read_text(encoding="utf-8"))["negativas"]}
+    banco = {n["id"]: n for n in json.loads(Path(args.banco).read_text(encoding="utf-8"))["negativas"]}
     filas_det, resumen = [], []
     for ruta in args.corridas:
         corrida = json.loads(Path(ruta).read_text(encoding="utf-8"))
@@ -95,13 +95,13 @@ def analizar(args):
                               "correcta": correcta, "pregunta": meta["pregunta"],
                               "respuesta": (r.get("respuesta") or "")[:300].replace("\n", " ")})
         ood, amb = por["ood"], por["ambigua"]
-        for nombre, xs in [("fuera de dominio (40)", ood),
+        for nombre, xs in [(f"fuera de dominio ({len(ood)})", ood),
                            ("fuera de dominio no vistas en desarrollo", [x for x in ood if not x[2]]),
-                           ("ambiguas (20)", amb)]:
+                           (f"ambiguas ({len(amb)})", amb)]:
             fila = _proporcion(nombre, sum(x[0] for x in xs), len(xs))
             fila["corrida"] = etiqueta
             fila["por_tipo"] = dict(Counter(x[1] for x in xs))
-            fila["excluidas_error"] = dict(errores) if nombre.startswith("fuera de dominio (40)") else ""
+            fila["excluidas_error"] = dict(errores) if nombre == f"fuera de dominio ({len(ood)})" else ""
             resumen.append(fila)
         amb_m05 = sum(1 for x in amb if x[1] == "M05")
         print(f"\n== {etiqueta}")
@@ -128,6 +128,8 @@ def main(argv=None):
     sub.add_parser("construir").set_defaults(fn=construir)
     p = sub.add_parser("analizar")
     p.add_argument("corridas", nargs="+")
+    p.add_argument("--banco", default=str(BANCO_SALIDA),
+                   help="banco con las negativas (por defecto el del pool; con el gold set: banco_gold_260.json)")
     p.add_argument("--salida", default=str(AQUI))
     p.set_defaults(fn=analizar)
     a = ap.parse_args(argv)

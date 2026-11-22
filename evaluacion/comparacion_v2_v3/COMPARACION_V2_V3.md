@@ -424,3 +424,13 @@ Pendientes que asume la decisión:
 - Rollback a V2: renombrar `vector_store_backup_v2_20261121` → `vector_store` y en `docker-compose.yml`
   `CORPUS_VERSION=corpus_upeu_v2`, `EMBEDDING_MODEL=paraphrase-multilingual-mpnet-base-v2`, `EMBEDDING_REVISION=""`,
   `RAG_DISTANCE_THRESHOLD=0.40`, `RAG_MARGEN_FUERA_DOMINIO=0.10`, `RAG_KEYWORD_BOOST=0.07`.
+
+
+---
+
+## Continuación: Revisión 3 del estudio (2026-11-22)
+
+Después de estas mejoras la configuración se congeló (commit `c47d455a`, `../REPRODUCIBILIDAD.md`) y empezó la
+Revisión 3: experimento A de recuperación (`../retrieval/exp_a/`), experimento C de abstención (`../exp_c/`),
+estadística (`../estadistica/`) y herramientas del gold set (`../banco/gold/`). Las corridas `E2E_C_*` de esta
+carpeta son del experimento C. Resumen y pendientes en `../README_EVALUACION.md`.

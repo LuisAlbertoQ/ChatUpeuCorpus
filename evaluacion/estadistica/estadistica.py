@@ -155,6 +155,25 @@ def cohen_dz(a, b) -> float:
     return 0.0 if de == 0 else m / de
 
 
+def cohen_kappa(a, b) -> dict:
+    """κ de Cohen entre dos anotadores (etiquetas nominales pareadas). Devuelve κ, acuerdo observado y esperado."""
+    if len(a) != len(b) or not a:
+        raise ValueError("cohen_kappa: listas pareadas y no vacías")
+    n = len(a)
+    po = sum(x == y for x, y in zip(a, b)) / n
+    from collections import Counter
+    ca, cb = Counter(a), Counter(b)
+    pe = sum(ca[k] * cb[k] for k in set(ca) | set(cb)) / (n * n)
+    kappa = 1.0 if pe == 1 else (po - pe) / (1 - pe)
+    return {"kappa": kappa, "acuerdo_observado": po, "acuerdo_esperado": pe, "n": n}
+
+
+def lectura_kappa(k: float) -> str:
+    """Escala de Landis y Koch (1977)."""
+    return ("pobre" if k < 0 else "leve" if k <= 0.20 else "aceptable" if k <= 0.40 else
+            "moderado" if k <= 0.60 else "sustancial" if k <= 0.80 else "casi perfecto")
+
+
 def magnitud_r(r: float) -> str:
     """Lectura convencional del r de rango biserial."""
     r = abs(r)

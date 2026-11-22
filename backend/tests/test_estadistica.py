@@ -110,3 +110,22 @@ class TestComparar:
 
     def test_cohen_dz(self):
         assert est.cohen_dz([0, 0, 0], [1, 2, 3]) == pytest.approx(2.0)
+
+
+class TestKappa:
+    def test_referencia(self):
+        # tabla 2x2 clásica: 20 sí-sí, 5 sí-no, 10 no-sí, 15 no-no → po 0.70, pe 0.50, κ 0.40
+        a = ["si"] * 25 + ["no"] * 25
+        b = ["si"] * 20 + ["no"] * 5 + ["si"] * 10 + ["no"] * 15
+        k = est.cohen_kappa(a, b)
+        assert k["acuerdo_observado"] == pytest.approx(0.70)
+        assert k["acuerdo_esperado"] == pytest.approx(0.50)
+        assert k["kappa"] == pytest.approx(0.40)
+        assert est.lectura_kappa(k["kappa"]) == "aceptable"
+
+    def test_acuerdo_total_una_sola_etiqueta(self):
+        assert est.cohen_kappa(["x"] * 5, ["x"] * 5)["kappa"] == 1.0
+
+    def test_no_pareadas(self):
+        with pytest.raises(ValueError):
+            est.cohen_kappa(["a"], [])

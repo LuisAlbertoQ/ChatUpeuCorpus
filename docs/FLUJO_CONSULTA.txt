@@ -32,6 +32,10 @@ USUARIO escribe y presiona Enter
 | (a) Validaciones:  |   - ambigua (M05), etica (M03), multi-intencion (M05),
 |                    |     fuera-dominio keywords (M03)
 |                    |
+| (a') S0 (solo      |   - Si RAG_SIN_RECUPERACION=1 (Revision 3, sistema S0): salta (b)-(e),
+|   experimentos)    |     el LLM responde sin documentos (prompt s0-sin-rag), sin fuentes.
+|                    |     Por defecto 0: nunca se usa en el chatbot.
+|                    |
 | (b) Embedding:     |   - SentenceTransformer encode(pregunta)  <50ms
 |                    |     modelo: BAAI/bge-m3 (1024 dim, revision 5617a9f6, sin prefijo)
 |                    |     (hasta 2026-11-20: paraphrase-multilingual-mpnet-base-v2, 768 dim)
@@ -132,6 +136,8 @@ CONFIGURACION VIGENTE (2026-11-22; todas son variables de entorno en docker-comp
   - OLLAMA_NUM_CTX 8192, OLLAMA_NUM_PREDICT 1024, OLLAMA_SEED 42, temperature 0.2
   - PROMPT_VERSION v3-completo (completitud 0.40 -> 0.57); TIMEOUT_RESPUESTA 120
   - Re-ranker cross-encoder evaluado y descartado; RAG_CONTEXTO_ARTICULO=0 (apagado)
+  - RAG_SIN_RECUPERACION=0 (1 = sistema S0) y OLLAMA_MODEL=qwen2.5:7b (llama3:latest = S5), Revision 3
+  - Configuracion congelada para la Revision 3: commit c47d455a (evaluacion/REPRODUCIBILIDAD.md)
 
 HISTORIAL (hasta 2026-11-20, corpus v2 + mpnet):
 
