@@ -43,7 +43,9 @@ services:
       MODO_PILOTO: "true"
       LIMITE_PREGUNTAS_SESION: "10"
       DEBUG_LOG: "true"
-      RAG_DISTANCE_THRESHOLD: "0.40"
+      RAG_DISTANCE_THRESHOLD: "0.41"    # bge-m3, calibrado 2026-11-21 (V2 mpnet: 0.40)
+      RAG_MARGEN_FUERA_DOMINIO: "0.09"  # corte M03 = 0.50 (V2: 0.10)
+      RAG_KEYWORD_BOOST: "0.02"         # V2: 0.07
       RAG_TOP_K_RAW: "15"
       RAG_TOP_K_FINAL: "4"
       # Corpus V3 (OE1, 2026-11-21) + bge-m3. Para volver a V2: mpnet,

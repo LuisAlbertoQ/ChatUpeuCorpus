@@ -429,14 +429,17 @@ class TestConfigSalvaguardas:
     """Asegura que constantes críticas no cambien silenciosamente."""
 
     def test_umbral_actual(self):
-        # Evidencia de calibración: ver evaluacion/calibracion_resumen.md
-        assert config.UMBRAL_DISTANCIA_COSENO == 0.40
+        # Evidencia de calibración (bge-m3, 2026-11-21): evaluacion/retrieval/calibracion_v3_bgem3/
+        assert config.UMBRAL_DISTANCIA_COSENO == 0.41
 
     def test_top_k_actual(self):
         assert config.TOP_K_FRAGMENTOS == 4
 
     def test_margen_fuera_dominio(self):
-        assert config.MARGEN_FUERA_DOMINIO == 0.10
+        assert config.MARGEN_FUERA_DOMINIO == 0.09
+
+    def test_boost_keyword(self):
+        assert config.RAG_KEYWORD_BOOST == 0.02
 
     def test_mensajes_m01_a_m08(self):
         for clave in ["M01", "M02", "M03", "M04", "M05", "M06", "M07"]:

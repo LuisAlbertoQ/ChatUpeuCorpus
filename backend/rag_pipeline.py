@@ -42,6 +42,7 @@ from config import (
     OLLAMA_MODEL,
     PROMPT_VERSION,
     RAG_DISTANCE_THRESHOLD,
+    RAG_KEYWORD_BOOST,
     RAG_TOP_K_FINAL,
     RAG_TOP_K_RAW,
     RANKING_METHOD,
@@ -111,7 +112,7 @@ _STOPWORDS_ES = frozenset({
     "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", "aquel",
     "del", "más", "mas", "menos", "sobre", "entre", "hasta", "desde", "ante",
 })
-_BOOST_KEYWORD_POR_MATCH = 0.07  # descuento de distancia por keyword match
+_BOOST_KEYWORD_POR_MATCH = RAG_KEYWORD_BOOST  # descuento por keyword match (config; 0.02 con bge-m3)
 _PALABRAS_INTERROGATIVAS = {
     "qué", "que", "cómo", "como", "cuándo", "cuando",
     "dónde", "donde", "quién", "quien", "cuál", "cual",

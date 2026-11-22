@@ -10,7 +10,7 @@ log = logging.getLogger("config")
 
 # -----------------------------------------------------------------------------
 # Umbrales RAG — configurables por entorno (Fase 4, §8/10/11)
-# Defaults: threshold 0.40, TOP_K_RAW 15, TOP_K_FINAL 4. Variables RAG_*
+# Defaults: threshold 0.41 (bge-m3), TOP_K_RAW 15, TOP_K_FINAL 4. Variables RAG_*
 # son la fuente de verdad; los nombres antiguos se mantienen como alias
 # por compatibilidad con código y tests existentes.
 # -----------------------------------------------------------------------------
@@ -44,7 +44,11 @@ def _get_int_env(nombre: str, default: int, minimo: int = 1) -> int:
         return default
 
 
-RAG_DISTANCE_THRESHOLD = _get_float_env("RAG_DISTANCE_THRESHOLD", 0.40, 0.0, 1.0)
+# 2026-11-21: recalibrado para corpus V3 + bge-m3 (antes 0.40 con mpnet).
+# Evidencia: evaluacion/retrieval/calibracion_v3_bgem3/ (325 positivas, 42 negativas):
+# Top-1 positivas p95 = 0.368, negativas min = 0.418 → 0.41 = máxima abstención OOD
+# con la menor falsa abstención (2.2 %).
+RAG_DISTANCE_THRESHOLD = _get_float_env("RAG_DISTANCE_THRESHOLD", 0.41, 0.0, 1.0)
 RAG_TOP_K_RAW = _get_int_env("RAG_TOP_K_RAW", 15, 1)
 RAG_TOP_K_FINAL = _get_int_env("RAG_TOP_K_FINAL", 4, 1)
 
@@ -57,7 +61,15 @@ TIMEOUT_RESPUESTA = 50  # segundos; holgura para qwen 2.5 en respuestas largas
 
 # Margen extra sobre UMBRAL para declarar una pregunta "fuera de dominio"
 # por embeddings (R04): si TODAS las distancias superan UMBRAL + MARGEN → M03.
-MARGEN_FUERA_DOMINIO = 0.10
+# 2026-11-21 (bge-m3): corte = 0.41 + 0.09 = 0.50, justo sobre la distancia Top-1
+# máxima de las positivas (0.492): una pregunta del dominio nunca recibe M03.
+MARGEN_FUERA_DOMINIO = _get_float_env("RAG_MARGEN_FUERA_DOMINIO", 0.09, 0.0, 1.0)
+
+# Re-ranking: descuento de distancia por cada keyword de la pregunta presente en
+# el nombre del documento. 2026-11-21 (bge-m3): 0.02 (antes 0.07 con mpnet). Con
+# bge-m3 los 4 primeros chunks distan 0.01–0.04 entre sí y 0.07 se imponía al
+# embedding: Top-4 documento 0.892 → 0.923, artículo 0.873 → 0.907.
+RAG_KEYWORD_BOOST = _get_float_env("RAG_KEYWORD_BOOST", 0.02, 0.0, 0.5)
 
 # -----------------------------------------------------------------------------
 # Dominio de consulta (sección 1 OE4)
@@ -209,7 +221,7 @@ EMBEDDING_REVISION = os.getenv(
 CORPUS_VERSION = os.getenv("CORPUS_VERSION", "corpus_upeu_v3_bgem3")  # colección ChromaDB vigente
 PROMPT_VERSION = "v2-adaptativo"  # prompt con formato adaptativo y guardrails
 RANKING_METHOD = "heuristic_keyword_boost"
-RANKING_VERSION = "1.0"  # boost +0.07 por keyword en nombre de documento
+RANKING_VERSION = "1.1"  # boost por keyword (RAG_KEYWORD_BOOST, 0.02) en nombre de documento; 1.0 = 0.07
 
 # -----------------------------------------------------------------------------
 # Mensajes de transparencia (sección 4 OE4) — M01 a M07

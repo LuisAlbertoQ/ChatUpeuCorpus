@@ -20,6 +20,21 @@ import config
 from logger import DB_PATH, _columnas_existentes, inicializar_bd, registrar_interaccion
 
 
+# Debe declararse ANTES que cualquier fixture autouse que pida monkeypatch: así se
+# monta primero y se desmonta último, cuando monkeypatch ya restauró el entorno.
+@pytest.fixture(autouse=True)
+def _restaurar_config():
+    """_mock_pipeline recarga config con env fijado; al terminar se recarga con el
+    entorno ya restaurado para no filtrar valores a otros módulos.
+    Hallazgo 2026-11-21: dejaba el umbral en 0.40 tras recalibrar a 0.41."""
+    yield
+    import importlib
+    import sys as _sys
+    importlib.reload(_sys.modules["config"])
+    if "rag_pipeline" in _sys.modules:
+        importlib.reload(_sys.modules["rag_pipeline"])
+
+
 @pytest.fixture(autouse=True)
 def _aislar_db_productiva(tmp_path, monkeypatch):
     """Evita contaminar registro_interacciones.db: todo va a DB temporal.

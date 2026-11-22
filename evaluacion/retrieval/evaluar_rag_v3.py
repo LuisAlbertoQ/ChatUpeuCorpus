@@ -161,7 +161,7 @@ _STOPWORDS_ES = __import__("rag_pipeline", fromlist=["_STOPWORDS_ES"])._STOPWORD
     "este", "esta", "estos", "estas", "ese", "esa", "esos", "esas", "aquel",
     "del", "más", "mas", "menos", "sobre", "entre", "hasta", "desde", "ante",
 })
-_BOOST = 0.07
+_BOOST = getattr(config, "RAG_KEYWORD_BOOST", 0.07)  # mismo valor que producción
 _RE_PALABRA = re.compile(r"\b[a-záéíóúñü]{4,}\b", re.IGNORECASE)
 
 def keywords_query(pregunta: str):

@@ -1,0 +1,163 @@
+id,pregunta,tipo,categoria_esperada,documento_esperado,articulo_esperado,revisado,notas
+Q001,¿Cuánto es lo máximo que paga la universidad por publicar un artículo en una revista Q1?,positiva,E,DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS,,no,Tabla 1: Q1 hasta $2800
+Q002,¿Los estudiantes pueden pedir apoyo para pagar el APC de una publicación?,positiva,E,DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS,,no,4.2.3 estudiantes con matrícula vigente
+Q003,¿Se financia el pago de publicaciones en actas de congresos o proceedings?,positiva,E,DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS,,no,5.1.2 excluidas
+Q004,¿Qué requisitos tiene un egresado 2020 para obtener el bachiller automático?,positiva,B,DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO,8,no,Art 8
+Q005,¿A los egresados 2020 se les exonera el requisito de inglés para el bachiller?,positiva,B,DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO,10,no,Art 10
+Q006,¿El bachiller automático me libra de pagar el diploma?,positiva,B,DIRECTIVA IMPLEMENTACION BACHILLER AUTOMATICO,,no,Disposición final segunda
+Q007,¿Qué documentos generales debe contener el legajo del docente?,positiva,B,legajo,,no,Modelo de índice y Guía del legajo (subcadena común)
+Q008,¿En qué parte del legajo docente van las publicaciones de investigación de los últimos 5 años?,positiva,B,Modelo de índice del contenido - Legajo,,no,"VI Investigación, ítem 22"
+Q009,¿Qué grupos reciben atención especial según la política de inclusión de la UPeU?,positiva,E,Politica Institucional de Inclusión,,no,"indígenas, afrodescendientes, discapacidad"
+Q010,¿La universidad hace ajustes razonables en la enseñanza y evaluación de estudiantes con necesidades diversas?,positiva,E,Politica Institucional de Inclusión,,no,ajustes razonables
+Q011,¿La UPeU contrata a menores de edad?,positiva,E,Politica Institucional de trabajo digno,,no,no contratación de menores
+Q012,¿Qué hace la universidad frente al trabajo forzoso o la esclavitud moderna?,positiva,E,Politica Institucional de trabajo digno,,no,entorno libre de esclavitud moderna
+Q013,¿Cuál es la política ambiental de la UPeU?,positiva,E,Politica-ambiental,,no,P13 previo
+Q014,¿Qué compromisos tiene la UPeU sobre el manejo de residuos y el uso de energía?,positiva,E,Politica-ambiental,,no,punto 8
+Q015,¿Qué documentos necesito para trasladarme desde una universidad no licenciada?,positiva,B,REQUISITOS PARA TRASLADO EXTERNO,,no,tabla
+Q016,¿Por cuánto tiempo es válida la declaración jurada temporal en un traslado externo?,positiva,B,REQUISITOS PARA TRASLADO EXTERNO,,no,60 días hábiles
+Q017,¿Qué requisitos se necesitan para ser jefe de prácticas?,positiva,E,Reglamento de Jefes de prácticas,10,no,Art 10 (NBSP: no detectado aún)
+Q018,¿Quién sanciona las faltas de un jefe de prácticas?,positiva,E,Reglamento de Jefes de prácticas,24,no,Art 24 (NBSP)
+Q019,¿Cómo se selecciona a un jefe de prácticas?,positiva,E,Reglamento de Jefes de prácticas,13,no,Art 13 invitación o concurso (NBSP)
+Q020,¿Quiénes integran el Consejo Editorial de la universidad?,positiva,B,Reglamento de Publicaciones y Fondo Editorial,11,no,Art 11
+Q021,¿Se pueden publicar tesis con el sello del Fondo Editorial?,positiva,B,Reglamento de Publicaciones y Fondo Editorial,20,no,Art 20
+Q022,¿Cuál es el proceso para que aprueben la publicación de mi libro?,positiva,B,Reglamento de Publicaciones y Fondo Editorial,22,no,Art 22
+Q023,¿Qué documentos necesito para pedir un duplicado de diploma si lo perdí?,positiva,E,Reglamento de duplicado de diplomas,5,no,Art 5 | alt: REGLAMENTO GRADOS Y TITULOS Art. 77
+Q024,¿Qué pasa con el diploma original cuando me entregan un duplicado?,positiva,E,Reglamento de duplicado de diplomas,7,no,Art 7 anula el original
+Q025,¿Qué oficina se encarga del seguimiento de los egresados?,positiva,E,Reglamento de seguimiento de egresados,5,no,Art 5 OSE
+Q026,¿Qué servicios ofrece la universidad a sus egresados?,positiva,E,Reglamento de seguimiento de egresados,12,no,Art 12
+Q027,¿Los egresados pueden formar asociaciones?,positiva,E,Reglamento de seguimiento de egresados,20,no,Art 20
+Q028,¿Cuántas veces al mes puede un grupo usar el laboratorio multimedia del Centro de Idiomas?,positiva,D,Reglamento del Laboratorio Multimedia,6,no,Art 6
+Q029,¿Puedo entrar con comida o acompañantes al laboratorio multimedia?,positiva,D,Reglamento del Laboratorio Multimedia,9,no,Art 9
+Q030,¿Qué sanción hay si uso programas no autorizados en el laboratorio multimedia?,positiva,D,Reglamento del Laboratorio Multimedia,34,no,Art 34
+Q031,¿Cuántas horas mínimas debe tener una capacitación docente?,positiva,E,Reglamento-capacitacion-docente,15,no,Art 15 (17 horas)
+Q032,¿Qué debe contener el Plan de Vida Docente?,positiva,E,Reglamento-capacitacion-docente,10,no,Art 10
+Q033,¿Cuáles son los niveles de capacitación y perfeccionamiento docente?,positiva,E,Reglamento-capacitacion-docente,16,no,Art 16
+Q034,¿Qué planes de seguridad y salud ocupacional aprobó el Consejo Universitario en 2022?,positiva,E,Resolucion-TRANSCRIPCI,,no,acuerdo CU 10-02-2022
+Q035,¿La universidad aprobó un plan de vigilancia contra el COVID-19 en el trabajo?,positiva,E,Resolucion-TRANSCRIPCI,,no,plan COVID 2022
+Q036,¿Cuánto paga la universidad como incentivo por un artículo publicado en una revista Q1?,positiva,C,TABLAS INCENTIVOS INVESTIGACION,,no,S/ 2500 docentes
+Q037,¿Cuánto se le paga al asesor de una tesis de título profesional?,positiva,C,TABLAS INCENTIVOS INVESTIGACION,,no,500/600/700
+Q038,¿Qué bonificación mensual recibe un investigador Senior UPeU?,positiva,C,TABLAS INCENTIVOS INVESTIGACION,,no,S/ 1500
+Q039,¿Cuántos campus tiene la UPeU y dónde están?,positiva,A,ESTATUTO 2024,4,no,Art 4
+Q040,¿Por cuántos años es elegido el rector y quién lo elige?,positiva,A,ESTATUTO 2024,34,no,Art 34
+Q041,¿Qué grados académicos otorga la UPeU?,positiva,A,ESTATUTO 2024,86,no,Art 86 | alt: GRADOS Y TITULOS Art. 18; REGLAMENTO GENERAL Art. 363
+Q042,¿Cuáles son las instancias de gobierno de la UPeU?,positiva,A,ESTATUTO 2024,19,no,P07 previo
+Q043,¿Cuál es la nota mínima para aprobar el examen de admisión?,positiva,B,REGLAMENTO ADMISION 2025,53,no,P01 previo
+Q044,¿Puedo postular a dos carreras en el mismo examen de admisión?,positiva,B,REGLAMENTO ADMISION 2025,39,no,Art 39
+Q045,¿Qué pasa si dos postulantes empatan en la última vacante?,positiva,B,REGLAMENTO ADMISION 2025,30,no,Art 30
+Q046,¿Puedo pedir que revisen mi examen de admisión?,positiva,B,REGLAMENTO ADMISION 2025,59,no,Art 59 inapelables
+Q047,¿Cómo se renueva una beca?,positiva,D,REGLAMENTO BECAS 2021,15,no,P09 previo
+Q048,¿Qué porcentaje cubre la beca por excelencia académica para el primer puesto?,positiva,D,REGLAMENTO BECAS 2021,20,no,Art 20
+Q049,¿Qué requisitos debo presentar para la beca por carencia de recursos?,positiva,D,REGLAMENTO BECAS 2021,49,no,Art 49
+Q050,¿Por qué motivos se pierde definitivamente una beca?,positiva,D,REGLAMENTO BECAS 2021,73,no,Art 73
+Q051,¿Cada cuánto se reúne el Comité de Ética para la Investigación?,positiva,C,REGLAMENTO CODIGO ETICA INVESTIGACION,23,no,Art 23
+Q052,¿Es obligatorio el consentimiento informado en una investigación con personas?,positiva,C,REGLAMENTO CODIGO ETICA INVESTIGACION,11,no,Art 11
+Q053,¿Qué principios éticos rigen la investigación en la UPeU?,positiva,C,REGLAMENTO CODIGO ETICA INVESTIGACION,4,no,Art 4
+Q054,¿Cuál es la nota mínima aprobatoria en los estudios de posgrado?,positiva,B,REGLAMENTO DE ESTUDIOS POSGRADO,195,no,Art 195 (ver 198: 14) | alt: REGLAMENTO GENERAL UPeU Art. 353
+Q055,¿Qué pasa si desapruebo una asignatura de maestría por cuarta vez?,positiva,B,REGLAMENTO DE ESTUDIOS POSGRADO,75,no,Art 75 separación definitiva
+Q056,¿En posgrado existen exámenes sustitutorios o de recuperación?,positiva,B,REGLAMENTO DE ESTUDIOS POSGRADO,188,no,Art 188 no existen
+Q057,¿Qué plazo tengo para reclamar una nota registrada en posgrado?,positiva,B,REGLAMENTO DE ESTUDIOS POSGRADO,201,no,Art 201
+Q058,¿Cómo puedo reservar mi matrícula?,positiva,B,REGLAMENTO DE ESTUDIOS V5,89,no,P02 previo
+Q059,¿Cuál es la nota mínima para aprobar un curso en pregrado?,positiva,B,REGLAMENTO DE ESTUDIOS V5,213,no,Art 213 (217: 13 redondeo) | alt: REGLAMENTO GENERAL UPeU Art. 353
+Q060,¿Con qué porcentaje de faltas desapruebo un curso?,positiva,B,REGLAMENTO DE ESTUDIOS V5,162,no,Art 162
+Q061,¿Qué pasa si desapruebo el mismo curso por cuarta vez?,positiva,B,REGLAMENTO DE ESTUDIOS V5,80,no,Art 80
+Q062,¿Cuántas veces puedo cambiarme de carrera dentro de la universidad?,positiva,B,REGLAMENTO DE ESTUDIOS V5,268,no,Art 268
+Q063,¿Cómo presento una queja ante la Defensoría Universitaria?,positiva,A,REGLAMENTO DEFENSORIA UNIVERSITARIA,6,no,P08 previo
+Q064,¿Qué datos debe tener una denuncia o queja ante la Defensoría Universitaria?,positiva,A,REGLAMENTO DEFENSORIA UNIVERSITARIA,17,no,Art 17
+Q065,¿Qué casos no puede ver la Defensoría Universitaria?,positiva,A,REGLAMENTO DEFENSORIA UNIVERSITARIA,21,no,Art 21 no competencias
+Q066,¿Puedo pedir reconsideración de lo que decide la Defensoría?,positiva,A,REGLAMENTO DEFENSORIA UNIVERSITARIA,38,no,Art 38
+Q067,¿Hay una edad máxima para ser docente ordinario?,positiva,E,REGLAMENTO DOCENCIA ORDINARIA,11,no,Art 11
+Q068,¿Cuáles son las categorías de docente ordinario y por cuánto tiempo se nombra cada una?,positiva,E,REGLAMENTO DOCENCIA ORDINARIA,8,no,Art 8
+Q069,¿Qué puntaje mínimo necesita un docente en la evaluación para ingresar o ascender?,positiva,E,REGLAMENTO DOCENCIA ORDINARIA,69,no,Art 69
+Q070,¿Existe la ratificación automática de los docentes ordinarios?,positiva,E,REGLAMENTO DOCENCIA ORDINARIA,74,no,Art 74
+Q071,¿Cuáles son los derechos del estudiante?,positiva,D,REGLAMENTO ESTUDIANTE UNIONISTA,32,no,P04 previo | alt: ESTATUTO 2024 Art. 112
+Q072,¿Quién resuelve las faltas cometidas por los estudiantes?,positiva,D,REGLAMENTO ESTUDIANTE UNIONISTA,40,no,P11 previo
+Q073,¿Es obligatorio tener seguro contra accidentes para estudiar en la UPeU?,positiva,D,REGLAMENTO ESTUDIANTE UNIONISTA,101,no,Art 101
+Q074,¿Qué tipo de comida sirve el comedor universitario?,positiva,D,REGLAMENTO ESTUDIANTE UNIONISTA,106,no,Art 106 lacto-ovo-vegetariana
+Q075,¿Qué condiciones pone la universidad a los estudiantes que tienen enamorado o enamorada?,positiva,D,REGLAMENTO ESTUDIANTE UNIONISTA,97,no,Art 97
+Q076,¿Qué servicios ofrece el centro de atención psicológica de la universidad?,positiva,A,REGLAMENTO GENERAL UPeU,446,no,Art 446
+Q077,¿Puedo estudiar dos carreras al mismo tiempo en la UPeU?,positiva,A,REGLAMENTO GENERAL UPeU,456,no,Art 456 | alt: REGLAMENTO DE ESTUDIOS V5 Art. 61
+Q078,¿Para qué sirve la comisión de crisis de la universidad?,positiva,A,REGLAMENTO GENERAL UPeU,192,no,Art 192
+Q079,¿Qué es el Tribunal de Honor universitario?,positiva,A,REGLAMENTO GENERAL UPeU,739,no,Art 739 | alt: ESTATUTO 2024 Art. 125
+Q080,¿Cuáles son los requisitos para obtener el grado de bachiller?,positiva,B,REGLAMENTO GRADOS Y TITULOS,39,no,P03 previo
+Q081,¿Se puede sustentar la tesis de forma virtual?,positiva,B,REGLAMENTO GRADOS Y TITULOS,32,no,Art 32
+Q082,¿Cuántos estudiantes pueden hacer juntos una tesis en pregrado?,positiva,B,REGLAMENTO GRADOS Y TITULOS,28,no,Art 28
+Q083,¿En cuánto tiempo me entregan el diploma después de aprobado el grado?,positiva,B,REGLAMENTO GRADOS Y TITULOS,57,no,Art 57 (45 días hábiles)
+Q084,¿Puedo usar el logo de la UPeU siendo estudiante o trabajador?,positiva,E,REGLAMENTO IDENTIDAD VISUAL Y REDES SOCIALES,15,no,Art 15
+Q085,¿Quién autoriza crear una cuenta oficial de redes sociales para una escuela o facultad?,positiva,E,REGLAMENTO IDENTIDAD VISUAL Y REDES SOCIALES,19,no,Art 19
+Q086,¿Qué usos de la marca UPeU están prohibidos?,positiva,E,REGLAMENTO IDENTIDAD VISUAL Y REDES SOCIALES,17,no,Art 17
+Q087,¿Qué marco de niveles usa la universidad para medir el inglés?,positiva,B,REGLAMENTO IDIOMAS INGLES O NATIVO 2023,5,no,Art 5 MCER
+Q088,¿Qué pasa si no acredito el nivel de inglés exigido para matricularme?,positiva,B,REGLAMENTO IDIOMAS INGLES O NATIVO 2023,11,no,Art 11
+Q089,¿Puedo hacer reconocer un certificado de inglés de otro instituto?,positiva,B,REGLAMENTO IDIOMAS INGLES O NATIVO 2023,18,no,Art 18
+Q090,¿Cómo le pagan el premio a un estudiante que publica un artículo científico?,positiva,C,REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025,33,no,Art 33 saldo a favor
+Q091,"Si dos estudiantes publican el mismo artículo, ¿cómo se reparte el premio?",positiva,C,REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025,31,no,Art 31
+Q092,¿En qué momento se paga el incentivo al asesor de una tesis?,positiva,C,REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025,24,no,Art 24
+Q093,¿Cuántos minutos de tolerancia tiene un trabajador para marcar su ingreso?,positiva,E,REGLAMENTO INTERNO DE TRABAJO,53,no,Art 53 (7 min)
+Q094,¿Cuál es el horario de trabajo del personal de la universidad?,positiva,E,REGLAMENTO INTERNO DE TRABAJO,41,no,Art 41
+Q095,¿Cuál es el día de descanso semanal de los trabajadores?,positiva,E,REGLAMENTO INTERNO DE TRABAJO,85,no,Art 85 sábado
+Q096,¿Cuánto dura el periodo de prueba de un trabajador nuevo?,positiva,E,REGLAMENTO INTERNO DE TRABAJO,22,no,Art 22
+Q097,¿La tesis para obtener el título profesional debe hacerse en formato artículo?,positiva,C,REGLAMENTO INVESTIGACION UPeU 2025,21,no,Art 21
+Q098,¿Cuántos estudiantes pueden desarrollar juntos el trabajo de investigación del curso?,positiva,C,REGLAMENTO INVESTIGACION UPeU 2025,26,no,Art 26 (máx 3)
+Q099,¿Qué plazo tengo para ejecutar mi proyecto de tesis después de que lo aprueban?,positiva,C,REGLAMENTO INVESTIGACION UPeU 2025,34,no,Art 34
+Q100,¿Puedo usar inteligencia artificial en mi tesis y cuánta similitud se permite?,positiva,C,REGLAMENTO INVESTIGACION UPeU 2025,182,no,Art 182
+Q101,¿Qué categorías de investigadores reconoce la UPeU?,positiva,C,INVESTIGADORES UPeU,5,no,Art 5 (V1 y V2 tienen el mismo texto: subcadena común)
+Q102,¿Qué conductas se consideran faltas graves en la investigación científica?,positiva,C,INVESTIGADORES UPeU,20,no,Art 20 (V1 y V2)
+Q103,¿Qué es un docente innovador según la universidad?,positiva,C,INVESTIGADORES UPeU,11,no,Art 11 (V1 y V2)
+Q104,¿Qué requisitos debo cumplir para hacer un intercambio o movilidad estudiantil?,positiva,B,REGLAMENTO MOVILIDAD ACADEMICA,31,no,Art 31
+Q105,¿Qué pasa si abandono el programa de movilidad sin justificación?,positiva,B,REGLAMENTO MOVILIDAD ACADEMICA,46,no,Art 46
+Q106,¿Tengo que devolver el apoyo económico si no completo mi movilidad?,positiva,B,REGLAMENTO MOVILIDAD ACADEMICA,33,no,Art 33
+Q107,¿Qué porcentaje cubre la beca parcial del programa deportivo PRODAC?,positiva,D,REGLAMENTO PRODAC,43,no,Art 43
+Q108,¿Cómo se evalúa a los postulantes a una beca deportiva?,positiva,D,REGLAMENTO PRODAC,31,no,Art 31 ponderación
+Q109,¿Cada cuánto se renueva la beca deportiva del PRODAC?,positiva,D,REGLAMENTO PRODAC,45,no,Art 45 semestral
+Q110,¿Quién es el dueño de los derechos de autor de una obra hecha por un estudiante?,positiva,C,REGLAMENTO PROPIEDAD INTELECTUAL,17,no,Art 17
+Q111,¿Las ideas están protegidas por derechos de autor?,positiva,C,REGLAMENTO PROPIEDAD INTELECTUAL,14,no,Art 14
+Q112,¿Ante qué entidad se registran los derechos de propiedad intelectual?,positiva,C,REGLAMENTO PROPIEDAD INTELECTUAL,29,no,Art 29 INDECOPI
+Q113,¿Cómo se calcula el ranking de excelencia académica?,positiva,D,REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA,19,no,P10 previo
+Q114,¿Qué tipos de reconocimiento a la excelencia otorga la universidad?,positiva,D,REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA,8,no,Art 8
+Q115,¿Qué requisitos generales debo cumplir para recibir un reconocimiento a la excelencia?,positiva,D,REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA,15,no,Art 15
+Q116,¿Cuál es el objeto del reglamento de residencias universitarias?,positiva,D,REGLAMENTO RESIDENCIAS UNIVERSITARIAS,1,no,P14 previo
+Q117,¿Qué servicios ofrece la residencia universitaria?,positiva,D,REGLAMENTO RESIDENCIAS UNIVERSITARIAS,28,no,Art 28 alimentación y lavandería
+Q118,¿Cómo piden permiso de salida los residentes menores de edad?,positiva,D,REGLAMENTO RESIDENCIAS UNIVERSITARIAS,25,no,Art 25
+Q119,¿Qué sanciones se aplican a los residentes que incumplen las normas?,positiva,D,REGLAMENTO RESIDENCIAS UNIVERSITARIAS,49,no,Art 49
+Q120,¿Con qué porcentaje de faltas me descalifican en el Centro de Idiomas?,positiva,B,REGLAMENTO SERVICIO APRENDIZAJE IDIOMAS,27,no,Art 27 (20%)
+Q121,¿Cuál es la nota aprobatoria en los cursos del Centro de Idiomas?,positiva,B,REGLAMENTO SERVICIO APRENDIZAJE IDIOMAS,35,no,Art 35
+Q122,¿Qué nota necesito para aprobar el examen de suficiencia de idiomas?,positiva,B,REGLAMENTO SERVICIO APRENDIZAJE IDIOMAS,61,no,Art 61 (80%)
+Q123,¿Puedo matricularme en el Centro de Idiomas si tengo deudas con la universidad?,positiva,B,REGLAMENTO SERVICIO APRENDIZAJE IDIOMAS,16,no,Art 16
+Q124,¿Es obligatorio votar en las elecciones universitarias?,positiva,A,Reglamento Comite Electoral Universitario,51,no,Art 51
+Q125,¿Qué requisitos debe cumplir un estudiante para ser candidato a representante estudiantil?,positiva,A,Reglamento Comite Electoral Universitario,23,no,Art 23
+Q126,¿En qué plazo se puede pedir la nulidad de una elección universitaria?,positiva,A,Reglamento Comite Electoral Universitario,59,no,Art 59 (24 h)
+Q127,¿Cuántos integrantes tiene el Comité Electoral Universitario?,positiva,A,Reglamento Comite Electoral Universitario,3,no,Art 3
+Q128,¿Cuál es la nota mínima para aprobar inglés dentro del plan de estudios?,positiva,B,Reglamento Idiomas Ingles o Nativo.pdf,11,no,Art 11 (subcadena incluye .pdf para no cruzar con 2023v.3)
+Q129,¿Qué nivel de inglés se exige en pregrado?,positiva,B,Reglamento Idiomas Ingles o Nativo.pdf,14,no,Art 14
+Q130,¿Qué deben hacer los estudiantes extranjeros que no hablan español para estudiar en la UPeU?,positiva,B,IDIOMAS INGLES O NATIVO,,no,ambos reglamentos de idiomas (Art 29-31 / 23-25)
+Q131,¿Me devuelven lo que pagué de matrícula si me retiro?,positiva,B,Reglamento Pago Servicios Educativos,39,no,Art 39 no reembolsable
+Q132,¿Las becas cubren el derecho de matrícula?,positiva,B,Reglamento Pago Servicios Educativos,45,no,Art 45
+Q133,¿Puedo pedir prórroga o fraccionar el pago de mis pensiones?,positiva,B,Reglamento Pago Servicios Educativos,48,no,Art 48
+Q134,¿Hay un cobro adicional por matricularme fuera de fecha?,positiva,B,Reglamento Pago Servicios Educativos,53,no,Art 53
+Q135,¿Qué debe hacer la universidad ante un caso de hostigamiento sexual?,positiva,E,Acoso y Hostigamiento Sexual,11,no,P12 previo
+Q136,¿Qué se considera hostigamiento sexual?,positiva,E,Acoso y Hostigamiento Sexual,7,no,Art 7
+Q137,¿Qué conductas de hostigamiento sexual son faltas muy graves?,positiva,E,Acoso y Hostigamiento Sexual,14,no,Art 14
+Q138,¿Quién investiga una denuncia de hostigamiento sexual en la universidad?,positiva,E,Acoso y Hostigamiento Sexual,19,no,Art 19 SeIn
+Q139,¿Por cuánto tiempo me prestan los implementos deportivos?,positiva,D,Reglamento de promocion de recreación y del deporte,9,no,Art 9 (1 día)
+Q140,¿Qué pasa si pierdo o daño el material deportivo que me prestaron?,positiva,D,Reglamento de promocion de recreación y del deporte,10,no,Art 10
+Q141,¿Se permiten bebidas alcohólicas o energizantes en los torneos deportivos?,positiva,D,Reglamento de promocion de recreación y del deporte,45,no,Art 45
+Q142,¿Qué tipos de dedicación pueden tener los docentes?,positiva,E,Reglamento-de-docentes-unionista,12,no,Art 12
+Q143,¿Qué sanciones se pueden aplicar a un docente?,positiva,E,Reglamento-de-docentes-unionista,26,no,Art 26
+Q144,¿Qué derechos tienen los docentes de la UPeU?,positiva,E,Reglamento-de-docentes-unionista,24,no,Art 24
+Q145,¿Quién nombra al auditor interno de la universidad?,positiva,E,reglamento_deauditoria_interna,10,no,Art 10 (NBSP: no detectado aún)
+Q146,¿Qué título profesional debe tener el auditor interno?,positiva,E,reglamento_deauditoria_interna,9,no,Art 9 (NBSP)
+Q147,¿Cuáles son los fines de la auditoría interna de la UPeU?,positiva,E,reglamento_deauditoria_interna,6,no,Art 6 (NBSP)
+Q148,¿Cuánto cuesta el pre-ingreso para colegios de la red adventista?,positiva,A,TUPA V6 2023,,no,Fila 1.3 S/. 120.00 (P05 previo)
+Q149,¿Cuánto cuesta sacar un duplicado de diploma de bachiller?,positiva,A,TUPA V6 2023,,no,Procedimiento 20.3 (P06 previo)
+Q150,¿Cuánto cuesta el certificado de estudios de pregrado?,positiva,A,TUPA V6 2023,,no,Procedimiento 6.4
+Q151,¿Qué descuento hay si tengo hermanos estudiando en la UPeU?,positiva,A,TUPA V6 2023,,no,Procedimiento 17.2
+Q152,¿Dónde se paga el derecho para participar en el concurso de docencia ordinaria?,positiva,B,Guía para la organización y orientación del legajo,,no,1.1 Caja Central
+Q153,¿Qué pasa si no me preinscribo a tiempo al concurso de docencia ordinaria?,positiva,B,Guía para la organización y orientación del legajo,,no,1.2 inhabilitación
+Q154,¿Puedo reemplazar el certificado de antecedentes judiciales por una declaración jurada en el legajo docente?,positiva,B,Guía para la organización y orientación del legajo,,no,2.5 (final)
+N01,¿Cuál es el horario de atención de la cafetería?,negativa,,,,no,cercana al dominio: no está en el corpus
+N02,¿Cuál es el horario de la biblioteca los domingos?,negativa,,,,no,cercana al dominio: no está en el corpus
+N03,¿Hay bus universitario gratuito desde el centro de Lima?,negativa,,,,no,cercana al dominio: no está en el corpus
+N04,¿Cuándo es la fiesta de promoción de los egresados?,negativa,,,,no,cercana al dominio: no está en el corpus
+N05,¿Quién ganó el último partido de la selección peruana de fútbol?,negativa,,,,no,fuera de dominio
+N06,¿Cuál es el precio del dólar hoy?,negativa,,,,no,fuera de dominio
+N07,¿Cómo se prepara un ceviche?,negativa,,,,no,fuera de dominio
+N08,¿Quién es el presidente del Perú?,negativa,,,,no,fuera de dominio

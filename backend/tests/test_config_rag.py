@@ -2,7 +2,7 @@
 """Tests para configurabilidad RAG (Fase 4, §8/10/11).
 
 Verifica:
-- defaults 0.40/15/4
+- defaults 0.41/15/4 (bge-m3, 2026-11-21)
 - overrides válidos por env
 - valores inválidos y fuera de rango usan default + warning
 - threshold fuera de [0,1] y TOP_K <=0
@@ -61,7 +61,7 @@ def reload_config_clean(monkeypatch):
 class TestDefaults:
     def test_defaults_sin_env(self, monkeypatch):
         cfg = reload_config_clean(monkeypatch)
-        assert cfg.RAG_DISTANCE_THRESHOLD == 0.40
+        assert cfg.RAG_DISTANCE_THRESHOLD == 0.41
         assert cfg.RAG_TOP_K_RAW == 15
         assert cfg.RAG_TOP_K_FINAL == 4
         # Alias por compatibilidad apuntan a mismo valor
@@ -111,16 +111,16 @@ class TestOverridesValidos:
 class TestInvalidos:
     def test_threshold_no_numerico(self, monkeypatch, caplog):
         cfg = reload_config(monkeypatch, {"RAG_DISTANCE_THRESHOLD": "nope"})
-        assert cfg.RAG_DISTANCE_THRESHOLD == 0.40
+        assert cfg.RAG_DISTANCE_THRESHOLD == 0.41
         assert "inválido" in caplog.text or "invalid" in caplog.text.lower() or "RAG_DISTANCE_THRESHOLD" in caplog.text
 
     def test_threshold_fuera_de_rango_bajo(self, monkeypatch, caplog):
         cfg = reload_config(monkeypatch, {"RAG_DISTANCE_THRESHOLD": "-0.1"})
-        assert cfg.RAG_DISTANCE_THRESHOLD == 0.40
+        assert cfg.RAG_DISTANCE_THRESHOLD == 0.41
 
     def test_threshold_fuera_de_rango_alto(self, monkeypatch, caplog):
         cfg = reload_config(monkeypatch, {"RAG_DISTANCE_THRESHOLD": "1.5"})
-        assert cfg.RAG_DISTANCE_THRESHOLD == 0.40
+        assert cfg.RAG_DISTANCE_THRESHOLD == 0.41
 
     def test_top_k_raw_no_entero(self, monkeypatch, caplog):
         cfg = reload_config(monkeypatch, {"RAG_TOP_K_RAW": "abc"})
@@ -144,7 +144,7 @@ class TestInvalidos:
 
     def test_env_vacio_usa_default(self, monkeypatch):
         cfg = reload_config(monkeypatch, {"RAG_DISTANCE_THRESHOLD": ""})
-        assert cfg.RAG_DISTANCE_THRESHOLD == 0.40
+        assert cfg.RAG_DISTANCE_THRESHOLD == 0.41
 
 
 # ===========================================================================

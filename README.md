@@ -27,12 +27,12 @@ oe5_chatbot_upeu/
 │   ├── app.py                        # Endpoints: /consulta, /bienvenida, /historial,
 │   │                                 #            /documentos, /politica-privacidad,
 │   │                                 #            /salud, /config-publica
-│   ├── config.py                     # RAG_DISTANCE_THRESHOLD=0.40, TOP_K_RAW=15/FINAL=4,
+│   ├── config.py                     # RAG_DISTANCE_THRESHOLD=0.41, margen 0.09, boost 0.02 (bge-m3), TOP_K_RAW=15/FINAL=4,
 │   │                                 # mensajes M01-M08, dominios A-E, keywords, PII, CORS
 │   ├── logger.py                     # Registro ANONIMIZADO + seudonimización (Ley 29733)
 │   │                                 # + migraciones de ~20 tablas de evaluación
 │   ├── rag_pipeline.py               # Pipeline RAG: validadores + retrieval + re-ranking
-│   │                                 # (boost keyword 0.07) + LLM (PROMPT v2-adaptativo)
+│   │                                 # (boost keyword 0.02) + LLM (PROMPT v2-adaptativo)
 │   │                                 # + truncado + retry policy + guardrails de citas
 │   ├── context_builder.py            # Construcción determinística de contexto/fuentes (Fase 2)
 │   ├── validators_evaluacion.py      # source_validity / citation_match determinísticos

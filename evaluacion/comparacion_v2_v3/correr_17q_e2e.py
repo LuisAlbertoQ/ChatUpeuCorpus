@@ -70,6 +70,8 @@ def _json(v):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--etiqueta", required=True, help="V2 / V3 / ... (va en sesion_id y en el nombre del archivo)")
+    ap.add_argument("--banco", default="v3_curado",
+                    help="banco_version: v3_curado (17 Q) o v31_no_answer (6 negativas, tabla banco_no_answer)")
     args = ap.parse_args()
 
     import chromadb
@@ -78,9 +80,10 @@ def main():
         .get_collection(config.CORPUS_VERSION)
 
     conn = sqlite3.connect(str(DB))
+    tabla = "banco_no_answer" if args.banco == "v31_no_answer" else "banco_preguntas"
     banco = conn.execute(
-        "SELECT id, pregunta, documento_esperado, articulo_esperado FROM banco_preguntas "
-        "WHERE banco_version='v3_curado' AND activa=1 ORDER BY id"
+        f"SELECT id, pregunta, documento_esperado, articulo_esperado FROM {tabla} "
+        "WHERE banco_version=? AND activa=1 ORDER BY id", (args.banco,)
     ).fetchall()
     stamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_id = f"E2E_{args.etiqueta}_{stamp}"

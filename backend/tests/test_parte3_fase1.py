@@ -232,7 +232,7 @@ class TestExperimentos:
         row = conn.execute("SELECT corpus_version, embedding_model, threshold FROM experimentos_rag WHERE experimento_id='EXP_TEST'").fetchone()
         assert row[0] == config.CORPUS_VERSION
         assert row[1] == config.EMBEDDING_MODEL
-        assert row[2] == 0.40
+        assert row[2] == config.RAG_DISTANCE_THRESHOLD
         conn.close()
 
 
