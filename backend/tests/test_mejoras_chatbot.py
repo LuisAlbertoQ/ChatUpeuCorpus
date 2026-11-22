@@ -248,3 +248,79 @@ class TestMejora4AbstencionDisfrazada:
                 "- Paso dos con detalle suficiente (DOC A, Artículo 1°)")
         res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=resp)
         assert res["tipo_mensaje"] == "M02" and "Paso dos" in res["respuesta"]
+
+
+# ---------------------------------------------------------------------------
+# Prompt v3-completo (2026-11-22) — seleccionable por PROMPT_VERSION
+# ---------------------------------------------------------------------------
+PROMPT_V2_ORIGINAL = (
+    "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
+    "Respondes basándote ESTRICTAMENTE en los fragmentos del corpus proporcionados abajo.\n\n"
+    "Da la respuesta en el formato que mejor encaje: texto directo breve, "
+    "lista con viñetas (•) o tabla markdown. Cada dato factual termina "
+    "con su cita: (Documento, Artículo X°), por ejemplo: "
+    "• Recibir formación de calidad (ESTATUTO 2024, Artículo 112°).\n\n"
+    "REGLAS OBLIGATORIAS:\n"
+    "1. USA solo las fuentes con información directamente relevante (ignora las tangenciales).\n"
+    "2. NO inventes información que no esté en los fragmentos. Si los fragmentos no "
+    "mencionan algo, di 'El corpus no contiene información sobre X'.\n"
+    "3. Copia el nombre del documento literalmente desde el fragmento; "
+    "jamás inventes ni completes nombres de documentos.\n"
+    "4. NO atribuyas un artículo al documento equivocado.\n"
+    "5. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
+    "el sistema agregará las fuentes automáticamente.\n\n"
+    "Fragmentos del corpus (usa solo estos):\n{context}\n\n"
+    "Pregunta del estudiante: {question}\n\n"
+    "Respuesta (en español):"
+)
+
+
+class TestPromptVersiones:
+    def test_v2_identico_al_prompt_original(self):
+        import rag_pipeline as rp
+        assert rp.PROMPTS["v2-adaptativo"].template == PROMPT_V2_ORIGINAL
+
+    def test_v3_conserva_reglas_y_cambia_solo_formato(self):
+        import rag_pipeline as rp
+        v3 = rp.PROMPTS["v3-completo"].template
+        assert "texto directo breve" not in v3 and "TODOS los requisitos" in v3
+        inicio_reglas = PROMPT_V2_ORIGINAL.index("REGLAS OBLIGATORIAS")
+        assert v3.endswith(PROMPT_V2_ORIGINAL[inicio_reglas:])
+
+    def test_por_defecto_v2(self, pipeline, monkeypatch):
+        monkeypatch.delenv("PROMPT_VERSION", raising=False)
+        _, cap = pipeline(["texto"], [_meta("DOC A")], [0.10])
+        assert "texto directo breve" in cap["prompts"][0]
+
+    def test_v3_por_entorno_y_registrado(self, pipeline):
+        import sqlite3
+        import logger
+        res, cap = pipeline(["texto"], [_meta("DOC A")], [0.10], env={"PROMPT_VERSION": "v3-completo"})
+        assert "TODOS los requisitos" in cap["prompts"][0]
+        fila = sqlite3.connect(logger.DB_PATH).execute(
+            "SELECT prompt_version FROM interacciones WHERE sesion_id='t-mejoras' ORDER BY id DESC LIMIT 1").fetchone()
+        assert fila[0] == "v3-completo"
+
+    def test_version_desconocida_cae_en_v2(self, monkeypatch):
+        monkeypatch.setenv("PROMPT_VERSION", "v9-inventada")
+        import config
+        importlib.reload(config)
+        assert config.PROMPT_VERSION == "v2-adaptativo"
+
+
+Q17_REAL_V3 = ("El corpus no contiene información sobre los servicios ofrecidos específicamente a los "
+               "egresados. Los fragmentos proporcionados se centran en los servicios educativos y académicos, "
+               "así como algunos servicios colaterales para estudiantes activos, pero no mencionan servicios "
+               "dirigidos a egresados de manera directa.")
+
+
+class TestAbstencionEncadenada:
+    def test_caso_real_q17_prompt_v3_es_m04(self, pipeline):
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=Q17_REAL_V3)
+        assert res["tipo_mensaje"] == "M04"
+
+    def test_los_fragmentos_sin_negacion_no_se_borra(self, pipeline):
+        resp = ("- Requisito uno del trámite (DOC A, Artículo 1°)\n"
+                "Los fragmentos indican además que el plazo es de cinco días (DOC A, Artículo 1°).")
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=resp)
+        assert res["tipo_mensaje"] == "M02" and "cinco días" in res["respuesta"]

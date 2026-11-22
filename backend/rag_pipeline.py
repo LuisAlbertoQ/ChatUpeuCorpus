@@ -75,29 +75,57 @@ _executor = ThreadPoolExecutor(max_workers=2)
 # -----------------------------------------------------------------------------
 # Prompt del sistema (alineado a T05: solo desde fragmentos)
 # -----------------------------------------------------------------------------
-PROMPT = PromptTemplate(
-    template=(
-        "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
-        "Respondes basándote ESTRICTAMENTE en los fragmentos del corpus proporcionados abajo.\n\n"
-        "Da la respuesta en el formato que mejor encaje: texto directo breve, "
-        "lista con viñetas (•) o tabla markdown. Cada dato factual termina "
-        "con su cita: (Documento, Artículo X°), por ejemplo: "
-        "• Recibir formación de calidad (ESTATUTO 2024, Artículo 112°).\n\n"
-        "REGLAS OBLIGATORIAS:\n"
-        "1. USA solo las fuentes con información directamente relevante (ignora las tangenciales).\n"
-        "2. NO inventes información que no esté en los fragmentos. Si los fragmentos no "
-        "mencionan algo, di 'El corpus no contiene información sobre X'.\n"
-        "3. Copia el nombre del documento literalmente desde el fragmento; "
-        "jamás inventes ni completes nombres de documentos.\n"
-        "4. NO atribuyas un artículo al documento equivocado.\n"
-        "5. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
-        "el sistema agregará las fuentes automáticamente.\n\n"
-        "Fragmentos del corpus (usa solo estos):\n{context}\n\n"
-        "Pregunta del estudiante: {question}\n\n"
-        "Respuesta (en español):"
-    ),
-    input_variables=["context", "question"],
+_ENCABEZADO = (
+    "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
+    "Respondes basándote ESTRICTAMENTE en los fragmentos del corpus proporcionados abajo.\n\n"
 )
+_CITA = (
+    "Cada dato factual termina "
+    "con su cita: (Documento, Artículo X°), por ejemplo: "
+    "• Recibir formación de calidad (ESTATUTO 2024, Artículo 112°).\n\n"
+)
+_REGLAS_Y_CIERRE = (
+    "REGLAS OBLIGATORIAS:\n"
+    "1. USA solo las fuentes con información directamente relevante (ignora las tangenciales).\n"
+    "2. NO inventes información que no esté en los fragmentos. Si los fragmentos no "
+    "mencionan algo, di 'El corpus no contiene información sobre X'.\n"
+    "3. Copia el nombre del documento literalmente desde el fragmento; "
+    "jamás inventes ni completes nombres de documentos.\n"
+    "4. NO atribuyas un artículo al documento equivocado.\n"
+    "5. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final; "
+    "el sistema agregará las fuentes automáticamente.\n\n"
+    "Fragmentos del corpus (usa solo estos):\n{context}\n\n"
+    "Pregunta del estudiante: {question}\n\n"
+    "Respuesta (en español):"
+)
+PROMPTS = {
+    # Texto idéntico al prompt vigente desde 2026-09 (solo se separó en partes).
+    "v2-adaptativo": PromptTemplate(
+        template=(
+            _ENCABEZADO
+            + "Da la respuesta en el formato que mejor encaje: texto directo breve, "
+            "lista con viñetas (•) o tabla markdown. "
+            + _CITA + _REGLAS_Y_CIERRE
+        ),
+        input_variables=["context", "question"],
+    ),
+    # 2026-11-22: las respuestas v2 promedian ~110 palabras y cubren ~29 % de los
+    # puntos esperados; v2 pide "texto directo breve". v3 conserva las reglas y
+    # pide incluir todo lo relevante de las fuentes, sin resumir listas.
+    "v3-completo": PromptTemplate(
+        template=(
+            _ENCABEZADO
+            + "Responde de forma COMPLETA: incluye TODOS los requisitos, pasos, condiciones, "
+            "plazos, montos, responsables y excepciones que aparezcan en las fuentes "
+            "relevantes para la pregunta. No resumas ni omitas elementos de una lista. "
+            "Usa lista con viñetas (•) para requisitos o pasos, tabla markdown para "
+            "comparar opciones y texto directo solo si la respuesta es un dato único. "
+            + _CITA + _REGLAS_Y_CIERRE
+        ),
+        input_variables=["context", "question"],
+    ),
+}
+PROMPT = PROMPTS[PROMPT_VERSION]
 
 # -----------------------------------------------------------------------------
 # Expresiones regulares auxiliares
@@ -114,8 +142,22 @@ _RE_META_NO_INFO = re.compile(
     r"El fragmento no (?:lo )?menciona|"
     r"Los documentos (?:no|tampoco) (?:incluyen|proporcionan|"
     r"contienen|abordan|cubren)|"
-    r"En los fragmentos proporcionados)[^.\n]*(?:\.\s*\)?|\))?\s*$"
+    r"En los fragmentos proporcionados|"
+    # 2026-11-22 (prompt v3, Q17): "Los fragmentos proporcionados se centran en X,
+    # pero no mencionan Y." — solo si la oración contiene una negación.
+    r"Los fragmentos(?= [^.\n]*\bno\b))[^.\n]*(?:\.\s*\)?|\))?\s*$"
 )
+
+
+def _quitar_meta_no_info(texto: str) -> str:
+    """Quita, repetidamente, las oraciones meta finales de "no hay información"
+    (el prompt v3 a veces encadena dos: "El corpus no contiene… Los fragmentos… no…")."""
+    for _ in range(5):
+        nuevo = _RE_META_NO_INFO.sub("", texto).rstrip()
+        if nuevo == texto:
+            break
+        texto = nuevo
+    return texto
 _RE_ANIO = re.compile(r"\b(20\d{2})\b")
 
 # Stopwords simples para extraer keywords de la query (re-ranking)
@@ -994,7 +1036,7 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     # Antes `[^.)]*` se detenía en "(UPeU)", la frase no se borraba y la abstención
     # salía como M02. Ahora abarca la oración completa sin cruzar saltos de línea
     # (para no borrar viñetas de una respuesta real). Patrón: _RE_META_NO_INFO.
-    respuesta_generada = _RE_META_NO_INFO.sub("", respuesta_generada).rstrip()
+    respuesta_generada = _quitar_meta_no_info(respuesta_generada)
 
     # Guardrail de encuadre: si la línea "Según el X:" cita un documento
     # que NO está entre las fuentes, se elimina (alucinación de nombre).

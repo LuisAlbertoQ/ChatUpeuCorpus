@@ -248,7 +248,14 @@ EMBEDDING_REVISION = os.getenv(
     "EMBEDDING_REVISION", "5617a9f61b028005a4858fdac845db406aefb181"
 ) or None
 CORPUS_VERSION = os.getenv("CORPUS_VERSION", "corpus_upeu_v3_bgem3")  # colección ChromaDB vigente
-PROMPT_VERSION = "v2-adaptativo"  # prompt con formato adaptativo y guardrails
+# Versión del prompt (rag_pipeline.PROMPTS). v2-adaptativo: formato adaptativo y
+# guardrails (pide "texto directo breve"). v3-completo (2026-11-22): mismas reglas,
+# pero exige incluir todos los requisitos/pasos/condiciones de las fuentes relevantes.
+PROMPT_VERSIONES = ("v2-adaptativo", "v3-completo")
+PROMPT_VERSION = os.getenv("PROMPT_VERSION", "v2-adaptativo").strip()
+if PROMPT_VERSION not in PROMPT_VERSIONES:
+    log.warning("PROMPT_VERSION=%r desconocida, usando v2-adaptativo", PROMPT_VERSION)
+    PROMPT_VERSION = "v2-adaptativo"
 RANKING_METHOD = "heuristic_keyword_boost"
 RANKING_VERSION = "1.1"  # boost por keyword (RAG_KEYWORD_BOOST, 0.02) en nombre de documento; 1.0 = 0.07
 

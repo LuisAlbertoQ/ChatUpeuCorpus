@@ -215,6 +215,80 @@ V3 calibrado con semilla 0.212 → **final 0.288**.
 `TIMEOUT_RESPUESTA`=75 · `RAG_CONTEXTO_ARTICULO`=0 · `RAG_ARTICULO_MAX_CHARS`=4000 ·
 `RAG_RECORTE_LEGACY_700`=0 (solo ablación).
 
+## 7. TOP_K_FINAL y prompt v3 (2026-11-22)
+
+Comparados contra la configuración final de §6 (K=4, prompt v2), semillas 42 y 7.
+Métrica nueva: **cita del artículo esperado en la respuesta** (atribución verificable).
+
+### TOP_K_FINAL → se queda en 4
+
+Offline (candidatos guardados): artículo correcto en el Top-K 5/15 (K=2) · 7/15 (K=4) · 7/15 (K=6) ·
+9/15 (K=8) · 11/15 (K=10).
+
+| | K=4 (vigente) | K=6 | K=8 (+ presupuesto 12000) |
+|---|---|---|---|
+| Documento / artículo correcto entre las fuentes | 13/17 · 7/15 | 14/17 · 7/15 | 14/17 · **9/15** |
+| Respuesta cita el artículo esperado | **4.5/15** | 2.5/15 | 2.5/15 |
+| Completitud (proxy) | **0.288** | 0.227 | 0.280 |
+| Falsas abstenciones | 0 | 1 (Q05) | 0 |
+| Tiempo medio | **12.7 s** | 12.6 s | 15.5 s |
+
+Más fuentes ponen más veces el artículo correcto en el contexto, pero el LLM lo cita menos (se
+diluye) y la completitud no mejora. Corridas `E2E_K6_*`, `E2E_K8_*`.
+
+### Prompt v3-completo → decisión pendiente (completitud vs. tiempo)
+
+`PROMPT_VERSION=v3-completo` conserva las 5 reglas y la cita, pero en lugar de "texto directo breve"
+pide incluir todos los requisitos, pasos, condiciones, plazos, montos, responsables y excepciones
+de las fuentes relevantes. El texto de v2 quedó idéntico (verificado por test).
+
+| | Prompt v2 (vigente) | Prompt v3-completo |
+|---|---|---|
+| Completitud (proxy), semilla 42 / 7 | 0.303 / 0.273 | **0.455 / 0.379** |
+| Completitud promedio | 0.288 | **0.417 (+45 %)** |
+| Puntos ganados / perdidos | — | **24 / 7 (p = 0.002)** |
+| Palabras por respuesta (M02) | ~115 | ~223 (máx. 463; tope 500) |
+| Respuesta cita el artículo esperado | 4.5/15 | 3/15 |
+| Citas por respuesta | ~2.75 | ~3.1 |
+| Negativas N01–N06 | 6/6 | 6/6 |
+| Tiempo p50 / p95 / máx. | 14 / 24 / 24 s | **25 / 47–68 / 68 s** (timeout 75 s) |
+
+- Es la única mejora del día **estadísticamente significativa** con 17 preguntas.
+- Costos: tiempo ×2.2 (la dimensión de usabilidad del OE8 puntúa ≤ 20 s → 4, ≤ 30 s → 3) y un
+  máximo de 68 s cerca del timeout de 75 s (riesgo de M06). Si se activa, conviene subir
+  `TIMEOUT_RESPUESTA`.
+- La completitud es un proxy de cobertura de términos: **no mide fidelidad**. Respuestas más largas
+  pueden contener más afirmaciones no sustentadas; hay que verificarlo con evaluación humana.
+- Hallazgo colateral: con v3, Q17 encadenó dos oraciones meta ("El corpus no contiene… Los
+  fragmentos… no mencionan…") y salió como M02. El filtro ahora reconoce esa forma y repite la
+  limpieza (test con el texto real); aplica a ambos prompts.
+
+Corridas `E2E_P3_s42_20261122_034649`, `E2E_P3_s7_20261122_035513` (+ `_NEG`).
+
+## 8. Revisión del banco de 17 preguntas (2026-11-22)
+
+Contrastado contra los metadatos del corpus V3 (solo lectura):
+
+- ✅ Los 17 documentos y todos los artículos esperados existen en V3; la evidencia de 63/66 puntos
+  coincide ≥ 70 % con el texto real (los 3 restantes combinan varios artículos; Q08_P05 dice
+  "Artículo 49°" pero está registrado como 50°).
+- ❌ **Q17 tiene dos respuestas esperadas**: `banco_preguntas` (usada por los scripts) dice
+  REGLAMENTO GENERAL UPeU 2023, Art. 421°; `groundtruth_v31_preguntas` (curada, 66 puntos) dice
+  **Reglamento de seguimiento de egresados, Art. 12°**, y su evidencia está en ese documento. El
+  chatbot nunca recupera el reglamento de egresados (29 chunks en el corpus).
+- ❌ **8/17 categorías desactualizadas** (taxonomía previa a la V2): Q04 A→B, Q07 B→D, Q08 B→D,
+  Q11 B→A, Q14 B→D, Q15 B→D, Q16 A→E, Q17 A→E. No afecta métricas por documento/artículo; sí
+  afectaría el análisis por categoría (H4) y los reportes de madurez por categoría.
+- ⚠️ **Q05** ("requisitos para un proyecto de tesis"): los Art. 15–16 tratan de la coordinación del
+  CIIEP en la investigación formativa, no de requisitos de tesis.
+- ⚠️ **Q16** ("procedimiento para presentar una queja"): el Art. 140 es un reclamo laboral de
+  trabajadores; para un estudiante, la vía natural es la Defensoría Universitaria (su reglamento
+  menciona "queja" en los Art. 6, 10 y 13–20).
+
+Las comparaciones de este informe siguen siendo válidas (todas usan el mismo banco), pero los
+valores absolutos están afectados en Q05, Q16 y Q17. La v3.1 está declarada "congelada": las
+correcciones deben hacerse como versión nueva (v3.2) o en la curación del gold set de 260.
+
 ## Archivos
 
 - `correr_17q_e2e.py` — corre las 17 Q (o `--banco v31_no_answer`) contra `/consulta` y clasifica cada resultado.

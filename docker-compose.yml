@@ -43,28 +43,31 @@ services:
       MODO_PILOTO: "true"
       LIMITE_PREGUNTAS_SESION: "10"
       DEBUG_LOG: "true"
-      RAG_DISTANCE_THRESHOLD: "0.41"    # bge-m3, calibrado 2026-11-21 (V2 mpnet: 0.40)
-      RAG_MARGEN_FUERA_DOMINIO: "0.09"  # corte M03 = 0.50 (V2: 0.10)
-      RAG_KEYWORD_BOOST: "0.02"         # V2: 0.07
-      RAG_TOP_K_RAW: "15"
-      RAG_TOP_K_FINAL: "4"
+      RAG_DISTANCE_THRESHOLD: "${RAG_DISTANCE_THRESHOLD:-0.41}"    # bge-m3, calibrado 2026-11-21 (V2 mpnet: 0.40)
+      RAG_MARGEN_FUERA_DOMINIO: "${RAG_MARGEN_FUERA_DOMINIO:-0.09}"  # corte M03 = 0.50 (V2: 0.10)
+      RAG_KEYWORD_BOOST: "${RAG_KEYWORD_BOOST:-0.02}"         # V2: 0.07
+      RAG_TOP_K_RAW: "${RAG_TOP_K_RAW:-15}"
+      RAG_TOP_K_FINAL: "${RAG_TOP_K_FINAL:-4}"
       # Mejora 1 (2026-11-21): contexto completo + ventana/semilla del LLM
-      RAG_CONTEXT_MAX_CHARS: "9000"
-      OLLAMA_NUM_CTX: "8192"
-      OLLAMA_NUM_PREDICT: "1024"
+      RAG_CONTEXT_MAX_CHARS: "${RAG_CONTEXT_MAX_CHARS:-9000}"
+      OLLAMA_NUM_CTX: "${OLLAMA_NUM_CTX:-8192}"
+      OLLAMA_NUM_PREDICT: "${OLLAMA_NUM_PREDICT:-1024}"
       OLLAMA_SEED: ${OLLAMA_SEED:-42}
-      TIMEOUT_RESPUESTA: "75"
+      TIMEOUT_RESPUESTA: "${TIMEOUT_RESPUESTA:-75}"
       # Mejora 3: una fuente por artículo + partes vecinas. Apagada: sin efecto medible
       # con 17 Q (ver COMPARACION_V2_V3.md §6); evaluar con el gold set de 260.
       RAG_CONTEXTO_ARTICULO: ${RAG_CONTEXTO_ARTICULO:-0}
-      RAG_ARTICULO_MAX_CHARS: "4000"
+      RAG_ARTICULO_MAX_CHARS: "${RAG_ARTICULO_MAX_CHARS:-4000}"
+      # Prompt: v2-adaptativo (vigente) | v3-completo (pide incluir todos los requisitos/pasos)
+      PROMPT_VERSION: ${PROMPT_VERSION:-v2-adaptativo}
       # Solo ablación (experimentos): 1 = recorte antiguo de 700 chars
       RAG_RECORTE_LEGACY_700: ${RAG_RECORTE_LEGACY_700:-0}
       # Corpus V3 (OE1, 2026-11-21) + bge-m3. Para volver a V2: mpnet,
       # EMBEDDING_REVISION "" y corpus_upeu_v2 con vector_store_backup_v2_20261121.
-      CORPUS_VERSION: corpus_upeu_v3_bgem3
-      EMBEDDING_MODEL: BAAI/bge-m3
-      EMBEDDING_REVISION: 5617a9f61b028005a4858fdac845db406aefb181
+      CORPUS_VERSION: ${CORPUS_VERSION:-corpus_upeu_v3_bgem3}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-m3}
+      # "-" (sin ":") a propósito: permite EMBEDDING_REVISION="" (vacía) para mpnet/V2
+      EMBEDDING_REVISION: ${EMBEDDING_REVISION-5617a9f61b028005a4858fdac845db406aefb181}
     depends_on:
       llm:
         condition: service_healthy

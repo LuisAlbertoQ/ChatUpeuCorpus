@@ -1,0 +1,900 @@
+{
+  "meta": {
+    "run_id": "E2E_P3_s7_20261122_035513",
+    "fecha": "2026-11-22T04:03:27.438688",
+    "corpus_version": "corpus_upeu_v3_bgem3",
+    "embedding_model": "BAAI/bge-m3",
+    "embedding_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "llm_model": "qwen2.5:7b",
+    "prompt_version": "v3-completo",
+    "umbral": 0.41,
+    "margen_fuera_dominio": 0.09,
+    "top_k_raw": 15,
+    "top_k_final": 4,
+    "max_palabras": 500,
+    "rag_keyword_boost": 0.02,
+    "rag_context_max_chars": 9000,
+    "rag_recorte_legacy_700": false,
+    "ollama_num_ctx": 8192,
+    "ollama_num_predict": 1024,
+    "ollama_seed": 7,
+    "timeout_respuesta": 75,
+    "rag_contexto_articulo": false
+  },
+  "resultados": [
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q01",
+      "pregunta": "¿Qué dice el estatuto sobre las autoridades universitarias?",
+      "documento_esperado": "ESTATUTO 2024. 04-09-2024",
+      "articulo_esperado": "Artículo 19°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1435,
+        1299,
+        1270,
+        1329
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 284,
+      "tiempo_s": 45.535,
+      "llm_ms": 44436.33,
+      "dist_min_pool": 0.3241,
+      "documentos_llm": [
+        "ESTATUTO 2024. 04-09-2024.pdf",
+        "ESTATUTO 2024. 04-09-2024.pdf",
+        "ESTATUTO 2024. 04-09-2024.pdf",
+        "ESTATUTO 2024. 04-09-2024.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 31°",
+        "Artículo 30°",
+        "Artículo 28°",
+        "Artículo 32°"
+      ],
+      "distancias_llm": [
+        0.3241,
+        0.3276,
+        0.3297,
+        0.3305
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 31° · 2024 · [A – Gobierno y estatuto institucional]",
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 30° · 2024 · [A – Gobierno y estatuto institucional]",
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 28° · 2024 · [A – Gobierno y estatuto institucional]",
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 32° · 2024 · [A – Gobierno y estatuto institucional]"
+      ],
+      "respuesta": "El estatuto establece que las autoridades universitarias son:\n\n- **Rector**: Es la máxima autoridad de la UPeU y tiene funciones generales de dirección, gestión, administración y ejecución. Puede ser sustituido por el vicerrector académico en caso de licencia, impedimento o ausencia; si este último no está disponible, se sucederán los decanos o directores de la escuela de posgrado según su antigüedad en la docencia y categoría (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Vicerrector académico**: Sustituye al rector en caso de licencia, impedimento o ausencia; si este no está disponible, se sucederán los decanos o directores de la escuela de posgrado según su antigüedad (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Vicerrector administrativo**: Sustituye al vicerrector académico en caso de licencia, impedimento o ausencia; el sustituto es el director financiero (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Vicerrector de bienestar universitario**: Sustituye al vicerrector administrativo en caso de licencia, impedimento o ausencia; el sustituto es el capellán de la facultad más antiguo (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Decano**: Sustituye al vicerrector de bienestar universitario en caso de licencia, impedimento o ausencia; el sustituto es el docente principal más antiguo (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Director de la escuela de posgrado**: Sustituye al decano en caso de licencia, impedimento o ausencia; el sustituto es el director de la unidad de posgrado más antiguo (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\n- **Director general de campus universitario**: Sustituye al director de la escuela de posgrado en caso de licencia, impedimento o ausencia; el sustituto es designado por el rector (ESTATUTO 2024. 04-09-2024, Artículo 28°).\n\nEstos artículos detallan la estructura jerárquica y los mecanismos de sucesión en caso de ausencia o incapacidad temporal de las autoridades principales de la UPeU.",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q02",
+      "pregunta": "¿Cómo se eligen el rector y vicerrectores?",
+      "documento_esperado": "ESTATUTO 2024. 04-09-2024",
+      "articulo_esperado": "Artículo 42°",
+      "tipo_mensaje": "M02",
+      "clase": "OTRO_DOCUMENTO",
+      "hit_documento_top4": false,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        720,
+        343,
+        533,
+        410
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 173,
+      "tiempo_s": 21.264,
+      "llm_ms": 21135.87,
+      "dist_min_pool": 0.3049,
+      "documentos_llm": [
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 18°",
+        "Artículo 36°",
+        "Artículo 57°",
+        "Artículo 14°"
+      ],
+      "distancias_llm": [
+        0.3049,
+        0.3055,
+        0.3057,
+        0.3464
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 18° · 2016 · [A – Gobierno y estatuto institucional]",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 36° · 2016 · [A – Gobierno y estatuto institucional]",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 57° · 2016 · [A – Gobierno y estatuto institucional]",
+        "Reglamento Comite Electoral Universitario 2016 OK.pdf · Artículo 14° · 2016 · [A – Gobierno y estatuto institucional]"
+      ],
+      "respuesta": "Para elegir al Rector y Vicerrector Académico, los pasos a seguir son:\n\n- La convocatoria para la elección es difundida por el órgano convocante correspondiente: Rectorado, Decanato, Director de la Escuela de Posgrado o quienes hagan sus veces (Artículo 14°).\n\n- La elección se realiza por voto directo, personal y a mano alzada en el mismo acto de la sesión de la Asamblea Universitaria, Consejo de Facultad respectivo o Consejo de Escuela de Posgrado (Artículo 18°).\n\n- Todos los miembros hábiles de la Asamblea Universitaria, del Consejo de Facultad o del Consejo de la EPG pueden votar. El candidato que alcance la mayoría simple es elegido Rector o Vicerrector Académico (Artículo 36°).\n\n- Si no se obtiene la votación requerida o si hay empate, debe efectuarse una segunda votación. En caso de persistir el empate, se procede a una tercera votación por mayoría simple entre los candidatos más votados. Si aún así no se alcanza un acuerdo, la sesión respectiva se suspende por 24 horas para proceder a una nueva votación (Artículo 57°).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q03",
+      "pregunta": "¿Cuáles son los requisitos para obtener el título profesional?",
+      "documento_esperado": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+      "articulo_esperado": "Artículo 42°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 2,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        513,
+        495,
+        756,
+        458
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 133,
+      "tiempo_s": 16.754,
+      "llm_ms": 16592.09,
+      "dist_min_pool": 0.2541,
+      "documentos_llm": [
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf",
+        "Reglamento de Jefes de prácticas apoyo y profesional.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 41°",
+        "Artículo 42°",
+        "Artículo 47°",
+        "Artículo 11°"
+      ],
+      "distancias_llm": [
+        0.2541,
+        0.2859,
+        0.3257,
+        0.3265
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · Artículo 41° · v8 2025 · [B – Académico y estudios]",
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · Artículo 42° · v8 2025 · [B – Académico y estudios]",
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025.pdf · Artículo 47° · v8 2025 · [B – Académico y estudios]",
+        "Reglamento de Jefes de prácticas apoyo y profesional.pdf · Artículo 11° · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "Los requisitos académicos específicos para optar el título profesional con la denominación genérica de Licenciado o su equivalente con denominación propia son:\n\n- Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la (REGLAMENTO GRADOS Y TITULOS.v8 2025, Artículo 41°).\n- Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional.\n- No tener sanción disciplinaria o medida restrictiva vigente.\n\nLos requisitos administrativos específicos para optar el título profesional son:\n\n- Solicitud dirigida al secretario general: Otorgamiento del Título Profesional, conforme las prescripciones de la ley, los reglamentos y directivas de la SUNEDU y del texto único de procedimientos académico-administrativos (TUPA) de la UPeU.\n- Haber abonado el derecho de pago del diploma de Título Profesional, conforme al costo dispuesto por la UPeU en el tarifario respectivo.",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q04",
+      "pregunta": "¿Cómo me matriculo en la UPeU?",
+      "documento_esperado": "REGLAMENTO DE ESTUDIOS V5_2025",
+      "articulo_esperado": "Artículo 70°",
+      "tipo_mensaje": "M02",
+      "clase": "OTRO_DOCUMENTO",
+      "hit_documento_top4": false,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1457,
+        1158,
+        1346,
+        1140
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 124,
+      "tiempo_s": 15.595,
+      "llm_ms": 15479.33,
+      "dist_min_pool": 0.3047,
+      "documentos_llm": [
+        "TUPA V6 2023 UPeU.pdf",
+        "TUPA V6 2023 UPeU.pdf",
+        "TUPA V6 2023 UPeU.pdf",
+        "TUPA V6 2023 UPeU.pdf"
+      ],
+      "articulos_llm": [
+        "",
+        "",
+        "",
+        ""
+      ],
+      "distancias_llm": [
+        0.3047,
+        0.3051,
+        0.3087,
+        0.3092
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]"
+      ],
+      "respuesta": "Para matricularse en la Universidad Peruana Unión (UPeU), los pasos a seguir son:\n\n- Se entrevista con el director o coordinador de la Unidad de Posgrado, y según corresponda, rinde la evaluación del Programa de estudios.\n- Abona los derechos de traslado interno en efectivo en caja UPeU o en cuenta Banco BBVA o BCP.\n- Solicita a través de Lamb, señalando su número de boleta de pago.\n- La Secretaría General procesa y habilita la matrícula del estudiante.\n\n1ra Instancia: Comisión de Convalidación y Validación de la Escuela Profesional.  \n2da Instancia: Director de Unidad de Posgrado | 1 Semana | Secretaría General\n\nEstos pasos se aplican específicamente para el traslado interno en la UPeU, según el documento TUPA V6 2023 UPeU.pdf (página 52).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q05",
+      "pregunta": "¿Qué requisitos hay para un proyecto de tesis?",
+      "documento_esperado": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo_esperado": "Artículo 15°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        516,
+        604,
+        773,
+        480
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 268,
+      "tiempo_s": 28.693,
+      "llm_ms": 28572.67,
+      "dist_min_pool": 0.3446,
+      "documentos_llm": [
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 107°",
+        "Artículo 109°",
+        "Artículo 34°",
+        "Artículo 30°"
+      ],
+      "distancias_llm": [
+        0.3446,
+        0.354,
+        0.369,
+        0.3804
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 107° · v8 2025 · [C – Investigación]",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 109° · v8 2025 · [C – Investigación]",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 34° · v8 2025 · [C – Investigación]",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 30° · v8 2025 · [C – Investigación]"
+      ],
+      "respuesta": "Para un proyecto de tesis, los requisitos son:\n\n- **Propósito**: El desarrollo de un proyecto de tesis con una máxima exigencia académica, siguiendo altos estándares metodológicos y científicos. Debe ser original en sus objetivos, planteamiento, desarrollo y resultados, con la finalidad de aportar nuevos conocimientos teóricos y aplicados (Artículo 107°).\n\n- **Estructura del proyecto**: El proyecto debe contemplar el futuro desarrollo de por lo menos dos (2) artículos científicos derivados de la ejecución del proyecto. Debe incluir los siguientes elementos:\n  - Título tentativo de la tesis\n  - Introducción\n  - Planteamiento del problema\n    - Justificación y objetivos\n    - Hipótesis y variables\n  - Marco teórico o conceptual\n  - Aspectos metodológicos\n  - Administración del proyecto (cronograma y presupuesto)\n  - Referencias bibliográficas\n  - Anexos (Artículo 109°).\n\n- **Plazo de ejecución**: El estudiante tiene un plazo general máximo de doce (12) meses para desarrollar el proyecto. En caso de no cumplir con este plazo, puede solicitar una extensión excepcional máxima de seis (6) meses a criterio de la CIIEP / CIIUPG. Si vence el plazo, se debe realizar el pago correspondiente a la solicitud de inscripción de perfil de proyecto. El asesor debe dar el visto bueno a la tesis en formato artículo en la plataforma tecnológica adjuntando el reporte de coincidencias y el reporte de uso de herramientas de IA (Artículo 34°).\n\n- **Elaboración del perfil de proyecto**: Los estudiantes desarrollarán el perfil de proyecto de tesis en formato artículo, preferiblemente en asignaturas vinculadas a la investigación formativa. Una vez aprobada por el docente del curso de investigación, se puede solicitar la inscripción a través de la plataforma tecnológica oficial (Artículo 30°).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q06",
+      "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?",
+      "documento_esperado": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+      "articulo_esperado": "Artículo 119°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 2,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1641,
+        1292,
+        1645,
+        1334
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 239,
+      "tiempo_s": 33.209,
+      "llm_ms": 33097.65,
+      "dist_min_pool": 0.3448,
+      "documentos_llm": [
+        "REGLAMENTO PARA INVESTIGADORES UPeU V2 2025.pdf",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf",
+        "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf",
+        "DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS 2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 10°",
+        "Artículo 119°",
+        "Artículo 10°",
+        ""
+      ],
+      "distancias_llm": [
+        0.3448,
+        0.3511,
+        0.3539,
+        0.3624
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO PARA INVESTIGADORES UPeU V2 2025.pdf · Artículo 10° · v2 2025 · [C – Investigación]",
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8.pdf · Artículo 119° · v8 2025 · [C – Investigación]",
+        "REGLAMENTO INVESTIGADORES UPeU V1 2025.pdf · Artículo 10° · v1 2025 · [C – Investigación]",
+        "DIRECTIVA SOBRE PUBLICACIONES CIENTÍFICAS 2025.pdf · 2025 · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "Los requisitos para publicar un artículo científico según la información proporcionada en el corpus son:\n\n- En caso de duda sobre la legitimidad de la revista o la editorial, consultar con la DII antes de someter su artículo. (REGLAMENTO PARA INVESTIGADORES UPeU V2 2025, Artículo 10°)\n\n- Solo se considerarán artículos que correspondan a investigaciones originales o revisiones sometidas a un proceso riguroso de revisión por pares. Quedan excluidas las cartas al editor, notas editoriales y actas de congresos (Conference Proceedings). (REGLAMENTO PARA INVESTIGADORES UPeU V2 2025, Artículo 10°; REGLAMENTO INVESTIGADORES UPeU V1 2025, Artículo 10°)\n\n- Al menos el setenta por ciento (70%) de los artículos publicados deben contar con el investigador como autor corresponsal o último autor. (REGLAMENTO PARA INVESTIGADORES UPeU V2 2025, Artículo 10°; REGLAMENTO INVESTIGADORES UPeU V1 2025, Artículo 10°)\n\n- Promover la colaboración con autores de instituciones nacionales e internacionales de prestigio para incrementar el impacto de las publicaciones y fomentar redes de cooperación científica. (REGLAMENTO PARA INVESTIGADORES UPeU V2 2025, Artículo 10°)\n\n- Los artículos deben ser sometidos a revistas indexadas en Scopus, Wiley, IEEE Xplore, Mathematical Reviews, Medline, SPIE Digital Library, McGraw-Hill, Springer, Taylor & Francis Group, EconLit, ProQuest, Bentham Science, JSTOR o Web of Science. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°)\n\n- El primer artículo debe ser publicado o aceptado para publicación. El segundo artículo debe estar en proceso de revisión por pares. (REGLAMENTO INVESTIGACION UPeU 2025 V8, Artículo 119°)",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q07",
+      "pregunta": "¿Qué becas ofrece la universidad?",
+      "documento_esperado": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+      "articulo_esperado": "Artículo 13°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 1,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1042,
+        387,
+        686,
+        493
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 288,
+      "tiempo_s": 35.073,
+      "llm_ms": 34962.85,
+      "dist_min_pool": 0.3331,
+      "documentos_llm": [
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 13°",
+        "Artículo 45°",
+        "Artículo 44",
+        "Artículo 11°"
+      ],
+      "distancias_llm": [
+        0.3331,
+        0.3497,
+        0.3584,
+        0.36
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 13° · 2021 · [D – Bienestar estudiantil]",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 45° · 2021 · [D – Bienestar estudiantil]",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 44 · [B – Académico y estudios]",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 11° · 2021 · [D – Bienestar estudiantil]"
+      ],
+      "respuesta": "La Universidad Peruana Unión (UPeU) ofrece diversas becas, cada una con sus propios requisitos y beneficios. Las principales becas son:\n\n- **Beca por excelencia académica**: \n  - Para los tres primeros puestos del ranking académico semestral.\n  - Primer puesto en el examen de admisión.\n  - Primero y segundo puesto de egresados del Colegio Unión y Colegio Titicaca.\n\n- **Beca por convenio**:\n  - Beca a estudiantes egresados con excelencia académica de instituciones educativas de la Promotora.\n  - Otras becas otorgadas según convenios.\n\n- **Beca ley o por fallecimiento, invalidez permanente o internamiento del padre, tutor o responsable financiero**:\n  - Para casos específicos como fallecimiento, invalidez permanente o internamiento del padre, tutor o responsable financiero del estudiante.\n\n- **Beca al deportista destacado**:\n  - Para deportistas calificados (IPD).\n  - Programa de deportistas de alta calificación (PRODAC).\n\n- **Beca socioeconómica**:\n  - Para estudiantes que demuestren carencia de recursos económicos y falta de soporte familiar.\n\n- **Beca Etnia**: \n  - Para estudiantes pertenecientes a etnías indígenas.\n\n- **Beca de Discapacidad**:\n  - Para estudiantes con discapacidades.\n\nLas becas son una liberalidad económica unilateral, no negociable y no reembolsable en dinero. El monto varía según la beca y se aplica directamente a los servicios educativos o académicos proporcionados por la UPeU (REGLAMENTO BECAS 2021 ACTUALIZADO, Artículo 45°).\n\nLa solicitud de las becas debe ser expresa y por escrito ante el vicerrectorado de bienestar universitario o su análogo en las filiales. Algunas becas pueden otorgarse por excepción de oficio (REGLAMENTO BECAS 2021 ACTUALIZADO, Artículo 11°).\n\nEl monto y los beneficios específicos de cada beca no se detallan en el fragmento proporcionado, por lo que se recomienda consultar directamente con la UPeU para obtener información más precisa sobre los montos y condiciones particulares (REGLAMENTO BECAS 2021 ACTUALIZADO, Artículo 45°).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q08",
+      "pregunta": "¿Qué sanciones existen para los estudiantes?",
+      "documento_esperado": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo_esperado": "Artículo 55°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 2,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        130,
+        1379,
+        1272,
+        1241
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 426,
+      "tiempo_s": 52.801,
+      "llm_ms": 52687.94,
+      "dist_min_pool": 0.2917,
+      "documentos_llm": [
+        "ESTATUTO 2024. 04-09-2024.pdf",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf",
+        "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 114°",
+        "Artículo 55°",
+        "Artículo 221º",
+        "Artículo 16°"
+      ],
+      "distancias_llm": [
+        0.2917,
+        0.2919,
+        0.3006,
+        0.3108
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 114° · 2024 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 55° · v3 · [D – Bienestar estudiantil]",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf · Artículo 221º · 2025 · [B – Académico y estudios]",
+        "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf · Artículo 16° · 2025 · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "Las sanciones a los estudiantes en la Universidad Peruana Unión (UPeU) son reguladas según los respectivos reglamentos específicos. En particular, el Reglamento Estudiante de la UPeU y el Reglamento de Estudios Posgrado 2025 proporcionan detalles sobre las consecuencias de cometer una falta grave o muy grave.\n\n### Sanciones para estudiantes (Artículo 55° del REGLAMENTO ESTUDIANTE UNIONISTA V3, Artículo 221º del REGLAMENTO DE ESTUDIOS POSGRADO 2025)\n\n- **Acceso a matrícula y becas:**\n  - No podrá acceder a realizar la matrícula ordinaria o extraordinaria en períodos regulares, complementarios o extraordinarios.\n  - No podrá beneficiarse de las becas que ofrece la UPeU.\n\n- **Cumplimiento académico:**\n  - No podrá cumplir con tareas u obligaciones o requisitos académicos para proseguir o finalizar sus estudios, dentro o fuera de facultad, escuela profesional o escuela de posgrado.\n  - No podrá encargarse de prácticas, ayudantías de catedra y similares en sus diversas clases y regímenes de dedicación.\n\n- **Participación académica:**\n  - No podrá participar del programa de intercambio, movilidad o pasantía estudiantil o similares.\n  - No podrá participar en actos académicos de graduación o colación de grados y títulos, en delegaciones académicas de cualquier índole.\n  - No podrá pertenecer ni ser reconocido como excelencia académica o una nómina de honor, aunque materialmente ostente ser parte del ranking respectivo.\n\n- **Evaluaciones académicas:**\n  - No podrá proseguir con el proceso de evaluaciones de grado, sustentación de tesis u otro proceso análogo, conforme al Reglamento de Investigación.\n  \n- **Cancelación de matrícula (sólo para posgrado):**\n  - La matrícula puede ser cancelada en el semestre académico que cursa a la fecha de la sanción o el(los) siguiente(s), conforme lo prescribe el presente Reglamento.\n\n- **Limitaciones, restricciones y prohibiciones (sólo para posgrado):**\n  - No podrá obtener, efectuar, realizar o acceder a beneficios de las becas, ayudas, subvenciones, préstamos y otras de carácter financiero que ofrece la UPeU o fondos dispuestos por benefactores destinados a estudiantes o egresados de la misma.\n  - No podrá cumplir con tareas u obligaciones o requisitos académicos para proseguir o finalizar sus estudios.\n  - No podrá participar en actos académicos de graduación o colación de grados y títulos, en delegaciones académicas de cualquier índole.\n  - No podrá participar del programa de intercambio estudiantil, movilidad, stage y pasantías académicas nacionales o internacionales.\n  - No podrá participar como classmate, ayudante de cátedra y similar.\n  - No podrá pertenecer al cuadro de honor o en una la Lista de Honor de la cohorte, promoción de egreso.\n\nEstas sanciones se aplican según el tipo de falta cometida (grave o muy grave) y pueden variar dependiendo del nivel académico del estudiante.",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q09",
+      "pregunta": "¿Qué dice la política de trabajo digno?",
+      "documento_esperado": "Politica Institucional de trabajo digno y protección de la persona v.1",
+      "articulo_esperado": "",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 2,
+      "recorte_700": false,
+      "chars_chunks": [
+        1545,
+        1506
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 152,
+      "tiempo_s": 17.822,
+      "llm_ms": 17708.04,
+      "dist_min_pool": 0.3867,
+      "documentos_llm": [
+        "Politica Institucional de trabajo digno y protección de la persona v.1.pdf",
+        "Politica Institucional de trabajo digno y protección de la persona v.1.pdf"
+      ],
+      "articulos_llm": [
+        "",
+        ""
+      ],
+      "distancias_llm": [
+        0.3867,
+        0.3893
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "Politica Institucional de trabajo digno y protección de la persona v.1.pdf · v1 · [E – Laboral, docencia y políticas]",
+        "Politica Institucional de trabajo digno y protección de la persona v.1.pdf · v1 · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "La Política Institucional de Trabajo Digno y Protección de la Persona de la Universidad Peruana Unión (UPeU) establece varios aspectos importantes:\n\n- Reconoce al ser humano como una creación de Dios, dotado de dignidad, libertad y valor intrínseco.\n- Promueve relaciones laborales justas, transparentes y respetuosas, evitando el abuso de poder y la subordinación indebida.\n- No contrata a menores de edad en actividades que contravengan la legislación peruana.\n- Protege a personas en situación de vulnerabilidad, evitando explotación, coerción o trato indigno.\n- Cumple estrictamente con la normativa laboral vigente y respeta los derechos fundamentales del trabajador.\n- Implementa mecanismos para prevenir, identificar y atender situaciones relacionadas con la esclavitud moderna o vulneración de derechos laborales.\n- Fortalece una cultura institucional basada en el respeto, la justicia y la responsabilidad social.\n\nEstos puntos se encuentran en el Documento: Política Institucional de Trabajo Digno y Protección de la Persona v.1.pdf (Documento 1).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q10",
+      "pregunta": "¿Quién supervisa la auditoría interna?",
+      "documento_esperado": "reglamento_deauditoria_interna",
+      "articulo_esperado": "Artículo 8°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        208,
+        1214,
+        334,
+        604
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 47,
+      "tiempo_s": 6.921,
+      "llm_ms": 6806.83,
+      "dist_min_pool": 0.3086,
+      "documentos_llm": [
+        "reglamento_deauditoria_interna.pdf",
+        "reglamento_deauditoria_interna.pdf",
+        "REGLAMENTO GENERAL UPeU 2023.pdf",
+        "reglamento_deauditoria_interna.pdf"
+      ],
+      "articulos_llm": [
+        "ARTICULO 10",
+        "ARTÍCULO 11",
+        "Artículo 613°",
+        "ARTICULO 42"
+      ],
+      "distancias_llm": [
+        0.3086,
+        0.3371,
+        0.344,
+        0.3469
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "reglamento_deauditoria_interna.pdf · ARTICULO 10 · [E – Laboral, docencia y políticas]",
+        "reglamento_deauditoria_interna.pdf · ARTÍCULO 11 · [E – Laboral, docencia y políticas]",
+        "REGLAMENTO GENERAL UPeU 2023.pdf · Artículo 613° · 2023 · [A – Gobierno y estatuto institucional]",
+        "reglamento_deauditoria_interna.pdf · ARTICULO 42 · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "- El Auditor Interno de la Universidad Peruana Unión (UPeU) supervisa las acciones de auditoría interna. (reglamento_deauditoria_interna.pdf, Artículo 10°)\n\n- En el caso de servicios profesionales de auditores externos, estos quedan bajo la dirección, coordinación y disposición operativa del Auditor Interno de la UPeU. (reglamento_deauditoria_interna.pdf, Artículo 42°)",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q11",
+      "pregunta": "¿Cómo solicito una constancia de estudios?",
+      "documento_esperado": "TUPA V6 2023 UPeU",
+      "articulo_esperado": "",
+      "tipo_mensaje": "M02",
+      "clase": "OTRO_DOCUMENTO",
+      "hit_documento_top4": false,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        596,
+        326,
+        326,
+        291
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 153,
+      "tiempo_s": 18.339,
+      "llm_ms": 18230.68,
+      "dist_min_pool": 0.3106,
+      "documentos_llm": [
+        "REGLAMENTO ADMISION 2025.v7.pdf",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 69°",
+        "Artículo 361º",
+        "Artículo 401º",
+        "Artículo 362º"
+      ],
+      "distancias_llm": [
+        0.3106,
+        0.3106,
+        0.3135,
+        0.319
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 69° · v7 2025 · [B – Académico y estudios]",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf · Artículo 361º · 2025 · [B – Académico y estudios]",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Artículo 401º · v5 · [B – Académico y estudios]",
+        "REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf · Artículo 362º · 2025 · [B – Académico y estudios]"
+      ],
+      "respuesta": "Para solicitar una constancia de estudios en la Universidad Peruana Unión (UPeU), es necesario cumplir con los siguientes pasos y requisitos:\n\n- Presentar el documento nacional de identidad (DNI), el carné de postulante, pasaporte o carné de extranjería. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 69°)\n\nEl corpus no contiene información sobre otros requisitos específicos para solicitar una constancia de estudios, como plazos, montos u otras condiciones adicionales.\n\nEs importante destacar que la obtención de la constancia se realiza al finalizar el proceso de admisión por modalidad de ingreso. La emisión de la constancia o certificación presupone la preexistencia del documento, data, información; acto, hecho, condición o requisito del cual se requiere que la UPeU declare que existe o cumple. (REGLAMENTO DE ESTUDIOS POSGRADO 2025.pdf, Artículo 362°)\n\nPara posgrado, la constancia se emite electrónicamente una vez cumplidos los documentos de admisión y conforme las disposiciones establecidas por su comisión de admisión. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 69°)",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q12",
+      "pregunta": "¿Cuál es el procedimiento para cambiar de carrera?",
+      "documento_esperado": "REGLAMENTO DE ESTUDIOS V5_2025",
+      "articulo_esperado": "Artículo 283º",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 4,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        403,
+        423,
+        1219,
+        583
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 185,
+      "tiempo_s": 23.675,
+      "llm_ms": 23577.29,
+      "dist_min_pool": 0.3292,
+      "documentos_llm": [
+        "REGLAMENTO ADMISION 2025.v7.pdf",
+        "REGLAMENTO ADMISION 2025.v7.pdf",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 40°",
+        "Artículo 41°",
+        "Artículo 282º",
+        "Artículo 283º"
+      ],
+      "distancias_llm": [
+        0.3292,
+        0.3623,
+        0.3693,
+        0.3866
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 40° · v7 2025 · [B – Académico y estudios]",
+        "REGLAMENTO ADMISION 2025.v7.pdf · Artículo 41° · v7 2025 · [B – Académico y estudios]",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Artículo 282º · v5 · [B – Académico y estudios]",
+        "REGLAMENTO DE ESTUDIOS V5_2025.pdf · Artículo 283º · v5 · [B – Académico y estudios]"
+      ],
+      "respuesta": "Para cambiar de carrera, se debe seguir el siguiente procedimiento según el Reglamento de Admisión 2025.v7:\n\n- Es posible realizar solo un cambio de carrera profesional y modalidad de estudios durante el proceso de admisión. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°)\n\n- Debe realizarse setenta y dos (72) horas antes del examen de admisión. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°)\n\n- Se requiere el pago de costos administrativos equivalentes al veinte por ciento (20%) del costo de inscripción. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 40°)\n\nEs importante notar que después del examen de admisión y la declaración de ingresante, no se permite traslado a otra carrera ni modalidad de estudios. Para cambiar de carrera posteriormente, el estudiante deberá participar en otro proceso de admisión y cumplir con los requisitos establecidos por la UPeU. (REGLAMENTO ADMISION 2025.v7.pdf, Artículo 41°)\n\nAdemás, según el Reglamento de Estudios V5_2025, se pueden considerar causas para trasladar a un ingresante a otra carrera profesional o programa académico, pero estos cambios suelen ser excepcionales y no son parte del procedimiento normal de cambio de carrera durante la etapa de admisión. (REGLAMENTO DE ESTUDIOS V5_2025.pdf, Artículo 282º)",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q13",
+      "pregunta": "¿Qué incentivos hay para investigadores?",
+      "documento_esperado": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+      "articulo_esperado": "Artículo 22°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1474,
+        727,
+        1392,
+        581
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 295,
+      "tiempo_s": 35.46,
+      "llm_ms": 35354.69,
+      "dist_min_pool": 0.273,
+      "documentos_llm": [
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 10°",
+        "Artículo 13°",
+        "Artículo 15°",
+        "Artículo 37°"
+      ],
+      "distancias_llm": [
+        0.273,
+        0.2786,
+        0.2806,
+        0.2988
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 10° · 2025 · [C – Investigación]",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 13° · 2025 · [C – Investigación]",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 15° · 2025 · [C – Investigación]",
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025.pdf · Artículo 37° · 2025 · [C – Investigación]"
+      ],
+      "respuesta": "Los incentivos para investigadores en la Universidad Peruana Unión (UPeU) según el Reglamento de Incentivos a Investigación e Innovación 2025, incluyen:\n\n- **Incentivos económicos**: Estos se otorgan a los siguientes beneficiarios:\n  - Coordinador / Jefe de grupo de Investigación\n  - Docente investigador (DI)\n  - Investigador\n  - Docentes Cesantes\n  - Terceros\n  - Estudiantes y egresados en su calidad de investigadores\n\n- **Incentivos por publicaciones**: Se asignan a docentes y personal no docente que cumplan con ciertas condiciones:\n  - No tienen obligaciones con horas laborales para actividades de investigación en su carga laboral.\n  - Han superado el requisito de publicaciones según su categoría si están asignados horas laborales para investigaciones.\n\n- **Incentivo por número de beneficiarios (investigadores)**: Considera la participación de investigadores de la UPeU y otros institutos:\n  - **Dos o más de la UPeU**: Cada investigador debe firmar el formulario FI-02 donde definen el porcentaje correspondiente al monto según categoría de indexación.\n  - **Uno de la UPeU con doble afiliación**: Recibe el cincuenta por ciento (50%) según la categoría e impacto de la publicación.\n  - **Uno con externo(s) a la UPeU**: Recibe el cien por ciento (100%) de la bonificación según la categoría o impacto de la indexación o impacto de la publicación.\n  - **Dos o más de la UPeU con externo(s)**: Cada investigador de la UPeU debe firmar el formulario FI-02 donde definen el porcentaje correspondiente al monto según categoría de indexación.\n\n- **Incentivo honorífico**: Reconocimiento académico público para destacados participantes en investigación, difusión de resultados o premios otorgados por entidades nacionales o extranjeras. Este incentivo se otorga a propuesta de la Facultad o EPG y aprobado por el Consejo Universitario.\n\nEstos incentivos están diseñados para reconocer y motivar la actividad investigativa en la UPeU, abarcando diferentes aspectos como publicaciones, colaboraciones interinstitucionales y reconocimientos honoríficos.",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q14",
+      "pregunta": "¿Qué derechos tiene el estudiante universitario?",
+      "documento_esperado": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+      "articulo_esperado": "Artículo 32°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 1,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1555,
+        1372,
+        1537,
+        345
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 463,
+      "tiempo_s": 68.083,
+      "llm_ms": 67978.39,
+      "dist_min_pool": 0.1915,
+      "documentos_llm": [
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+        "ESTATUTO 2024. 04-09-2024.pdf",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 32°",
+        "Artículo 112°",
+        "Artículo 33°",
+        "Artículo 30°"
+      ],
+      "distancias_llm": [
+        0.1915,
+        0.2443,
+        0.2929,
+        0.3024
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 32° · v3 · [D – Bienestar estudiantil]",
+        "ESTATUTO 2024. 04-09-2024.pdf · Artículo 112° · 2024 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 33° · v3 · [D – Bienestar estudiantil]",
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf · Artículo 30° · v3 · [D – Bienestar estudiantil]"
+      ],
+      "respuesta": "El estudiante universitario en la Universidad Peruana Unión (UPeU) tiene los siguientes derechos, según los documentos proporcionados:\n\n- Recibir formación académica de calidad que les otorgue conocimientos generales para el desempeño profesional y herramientas de investigación, cultural y de servicio social en el área elegida libremente, sobre la base de una formación con principios y valores cristianos (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Recibir orientación y consejería a través de los departamentos o áreas establecidos para la formación y desarrollo de una vida íntegra, teniendo como base principios compatibles con los valores religiosos, éticos, sociales y de servicio (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Participar en el proceso de evaluación a los docentes por el período académico (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Participar en el gobierno y evaluación de la actividad universitaria, a través de los procesos electorales internos, de acuerdo con el Estatuto, el Reglamento General y los Reglamentos correspondientes de la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Ingresar libremente al campus, ambientes universitarios, las actividades académicas, de investigación y otras programadas, sin infringir los derechos y bienes de la comunidad universitaria y siempre que no tenga vigente sanción disciplinaria o restrictiva de acceso a los mismos, conforme al Estatuto y reglamentos de la UPeU (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Utilizar el mobiliario y equipos del campus para fines académicos previa coordinación con los responsables de área y respeto de normas y horarios disponibles (REGLAMENTO ESTUDIANTE UNIONISTA V3.pdf, Artículo 32°).\n\n- Acceso libre al campus universitario, sus instalaciones, a las actividades académicas y de investigación programadas; excepto, durante los tiempos, a los lugares y las situaciones restringidos por la UPeU (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Participar, durante cada semestre, en la evaluación a los docentes (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Participar en el gobierno y evaluación de la actividad académica, durante los procesos electorales universitarios según el reglamento respectivo (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Recibir formación académica de calidad, conocimientos generales, herramientas de investigación, cultura y de servicio social, y una formación de valores cristianos (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Recibir distinciones y estímulos por meritorios trabajos de investigación y creación, así como por aprovechamiento, mientras duren sus estudios (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Recibir la visita de sus docentes, personal administrativo y otros en su residencia (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Ser escuchado en un eventual proceso disciplinario y presentar los recursos que la ley y los reglamentos establecen (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Usar los servicios académicos, de bienestar y asistencia, ofertados por la UPeU, previo cumplimiento de los requisitos académicos, financieros y administrativos (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).\n\n- Otros dispuestos por la ley, el Estatuto y normas correspondientes (ESTATUTO 2024. 04-09-2024.pdf, Artículo 112°).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q15",
+      "pregunta": "¿Cómo solicito una beca en la UPeU?",
+      "documento_esperado": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+      "articulo_esperado": "Artículo 49°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_DOCUMENTO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1395,
+        675,
+        1267,
+        1042
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 342,
+      "tiempo_s": 47.521,
+      "llm_ms": 47428.13,
+      "dist_min_pool": 0.2336,
+      "documentos_llm": [
+        "TUPA V6 2023 UPeU.pdf",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf",
+        "TUPA V6 2023 UPeU.pdf",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf"
+      ],
+      "articulos_llm": [
+        "",
+        "Artículo 47°",
+        "",
+        "Artículo 13°"
+      ],
+      "distancias_llm": [
+        0.2336,
+        0.2628,
+        0.2651,
+        0.268
+      ],
+      "failure_reason": null,
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 47° · 2021 · [D – Bienestar estudiantil]",
+        "TUPA V6 2023 UPeU.pdf · v6 2023 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO BECAS 2021 ACTUALIZADO.pdf · Artículo 13° · 2021 · [D – Bienestar estudiantil]"
+      ],
+      "respuesta": "Para solicitar una beca en la Universidad Peruana Unión (UPeU), el estudiante debe seguir los siguientes pasos:\n\n1. **Solicitud de Beca**:\n   - El estudiante presenta una solicitud escrita a través de la Oficina de Admisión correspondiente al campus Lima, Juliaca o Tarapoto.\n   - La solicitud debe adjuntar los requisitos documentarios y sustentos requeridos según el tipo de beca.\n\n2. **Evaluación Documental**:\n   - La Oficina de Admisión respectiva evalúa la documentación presentada.\n   - Activa la propuesta de beca en el sistema.\n\n3. **Aprobación por Comisión de Becas**:\n   - La Comisión de Becas aprueba la propuesta de beca.\n\n4. **Ratificación por Consejo Universitario**:\n   - El Consejo Universitario ratifica la propuesta aprobada por la Comisión de Becas.\n\n5. **Procesamiento Administrativo y Financiero**:\n   - La Secretaria General: Registro Administrativo procesa la resolución respectiva.\n   - Finanzas aplica el porcentaje de descuento al estudiante, 7 días después de la aprobación del Consejo Universitario.\n\n6. **Requisitos Comunes para Todas las Becas**:\n   - No tener deuda pendiente con la UPeU por ningún concepto.\n   - No haber sido sancionado por la infracción de las normas de la UPeU.\n\n7. **Específicos según Tipo de Beca**:\n\n   - **Beca por Rendimiento Académico (Artículo 47°, REGLAMENTO BECAS 2021 ACTUALIZADO.pdf)**:\n     - Haber cursado por lo menos 3 años de la secundaria sucesivos o no en una Institución Educativa Adventista.\n     - Obtener un promedio no menor de catorce (14) y sin asignaturas desaprobadas en el semestre precedente que acredite ser un estudiante regular.\n\n   - **Beca por Carencia de Recursos Económicos**:\n     - Estar matriculado como estudiante regular y cursando el V semestre en adelante.\n     - Llenar la Ficha socioeconómica emitida y certificada por el asistente social del Vicerrectorado de Bienestar Universitario o DG de Bienestar Universitario.\n\n   - **Becas Reservadas**:\n     - Beca por excelencia académica (Artículo 13°, REGLAMENTO BECAS 2021 ACTUALIZADO.pdf).\n     - Beca por convenio.\n     - Beca ley o por fallecimiento, invalidez permanente o internamiento del padre, tutor o responsable financiero de los estudios del estudiante.\n     - Beca al deportista destacado.\n     - Beca socioeconómica (Beca por carencia de recursos y apoyo familiar).\n     - Beca Etnia.\n     - Beca de Discapacidad.",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q16",
+      "pregunta": "¿Cuál es el procedimiento para presentar una queja?",
+      "documento_esperado": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+      "articulo_esperado": "Artículo 140°",
+      "tipo_mensaje": "M02",
+      "clase": "OK_ARTICULO",
+      "hit_documento_top4": true,
+      "pos_articulo_top4": 3,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        1339,
+        746,
+        972,
+        1393
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 128,
+      "tiempo_s": 18.649,
+      "llm_ms": 18462.57,
+      "dist_min_pool": 0.3616,
+      "documentos_llm": [
+        "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf",
+        "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf",
+        "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf",
+        "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 22°",
+        "Artículo 16°",
+        "Artículo 140°",
+        "Artículo 22°"
+      ],
+      "distancias_llm": [
+        0.3616,
+        0.367,
+        0.3677,
+        0.3693
+      ],
+      "failure_reason": null,
+      "citation_validation": "valid",
+      "fuentes": [
+        "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf · Artículo 22° · v4 2025 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4.pdf · Artículo 16° · v4 2025 · [A – Gobierno y estatuto institucional]",
+        "REGLAMENTO INTERNO DE TRABAJO Final 2020.pdf · Artículo 140° · 2020 · [E – Laboral, docencia y políticas]",
+        "Reglamento Prevención Acoso y Hostigamiento Sexual 2025.pdf · Artículo 22° · 2025 · [E – Laboral, docencia y políticas]"
+      ],
+      "respuesta": "Para presentar una queja en la Universidad Peruana Unión (UPeU), se debe seguir el siguiente procedimiento:\n\n- **Registro**: La queja debe registrarse en la Defensoría Universitaria (DU) (REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4, Artículo 16°).\n- **Derivación**: La DU derivará la queja al órgano, área, órgano o instancia correspondiente dentro de los dos días hábiles siguientes a su recepción (REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4, Artículo 22.2).\n- **Monitoreo y cierre**: La DU monitorea el avance de la queja y registra su estado o conclusión hasta que se resuelva (REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4, Artículo 22.3).\n\nAdemás, es importante notar que desde la fecha de recepción de la queja, el denunciado, reclamado o quejado debe ser notificado en los dos días hábiles siguientes (REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4, Artículo 22.4).",
+      "error": ""
+    },
+    {
+      "run_id": "E2E_P3_s7_20261122_035513",
+      "id": "Q17",
+      "pregunta": "¿Qué servicios ofrece la universidad a los egresados?",
+      "documento_esperado": "REGLAMENTO GENERAL UPeU 2023",
+      "articulo_esperado": "Artículo 421°",
+      "tipo_mensaje": "M04",
+      "clase": "LLM_NO_RESPONDIO",
+      "hit_documento_top4": false,
+      "pos_articulo_top4": null,
+      "num_chunks_llm": 4,
+      "recorte_700": false,
+      "chars_chunks": [
+        179,
+        1423,
+        715,
+        741
+      ],
+      "respuesta_truncada": false,
+      "palabras_respuesta": 34,
+      "tiempo_s": 1.82,
+      "llm_ms": 1711.89,
+      "dist_min_pool": 0.3848,
+      "documentos_llm": [
+        "REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf"
+      ],
+      "articulos_llm": [
+        "Artículo 28°",
+        "Artículo 8",
+        "Artículo 7",
+        "Artículo 6"
+      ],
+      "distancias_llm": [
+        0.3848,
+        0.3983,
+        0.3999,
+        0.403
+      ],
+      "failure_reason": "generation_empty",
+      "citation_validation": "not_applicable",
+      "fuentes": [
+        "REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf · Artículo 28° · [D – Bienestar estudiantil]",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 8 · [B – Académico y estudios]",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 7 · [B – Académico y estudios]",
+        "Reglamento Pago Servicios Educativos o Académicos.pdf · Artículo 6 · [B – Académico y estudios]"
+      ],
+      "respuesta": "No encontré información suficiente en los documentos institucionales disponibles para responder tu pregunta con confianza. Te sugiero revisar directamente el documento REGLAMENTO RESIDENCIAS UNIVERSITARIAS.pdf o contactar con la oficina correspondiente para una respuesta precisa.",
+      "error": ""
+    }
+  ]
+}
