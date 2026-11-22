@@ -1,0 +1,10 @@
+metrica,comparacion,n,media_a,media_b,diferencia,ic95_lo,ic95_hi,p,metodo,r_rango_biserial,magnitud,d_z,p_holm,significativo
+recall@5,minilm vs bm25,154,0.6623,0.5130,-0.1494,-0.2403,-0.0519,0.0028,normal,-0.3898,mediano,-0.2478,0.0055,True
+recall@5,mpnet vs bm25,154,0.6623,0.6169,-0.0455,-0.1364,0.0455,0.3363,normal,-0.1321,pequeño,-0.0775,0.3363,False
+recall@5,bgem3 vs bm25,154,0.6623,0.9286,0.2662,0.1948,0.3442,0.0000,normal,0.9111,grande,0.5641,0.0000,True
+mrr@10,minilm vs bm25,154,0.5221,0.3594,-0.1627,-0.2442,-0.0800,0.0002,normal,-0.4116,mediano,-0.3106,0.0003,True
+mrr@10,mpnet vs bm25,154,0.5221,0.4499,-0.0722,-0.1586,0.0152,0.1034,normal,-0.1762,pequeño,-0.1308,0.1034,False
+mrr@10,bgem3 vs bm25,154,0.5221,0.7642,0.2421,0.1747,0.3121,0.0000,normal,0.7108,grande,0.5559,0.0000,True
+ndcg@5,minilm vs bm25,154,0.5493,0.3918,-0.1575,-0.2402,-0.0742,0.0005,normal,-0.4061,mediano,-0.2979,0.0010,True
+ndcg@5,mpnet vs bm25,154,0.5493,0.4841,-0.0652,-0.1522,0.0221,0.1543,normal,-0.1649,pequeño,-0.1184,0.1543,False
+ndcg@5,bgem3 vs bm25,154,0.5493,0.8046,0.2552,0.1878,0.3253,0.0000,normal,0.7755,grande,0.5949,0.0000,True

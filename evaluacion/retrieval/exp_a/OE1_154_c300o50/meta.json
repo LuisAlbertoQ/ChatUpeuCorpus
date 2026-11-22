@@ -1,0 +1,54 @@
+{
+  "etiqueta": "OE1_154_c300o50",
+  "fecha": "2026-11-22T21:58:17",
+  "banco": "/data/evaluacion/banco/banco_oe1_162.csv",
+  "n_preguntas": 154,
+  "excluidas_sin_documento": [],
+  "chunks": "/oe1/chunks_v3_bgem3_c300o50.csv",
+  "n_chunks": 5421,
+  "sha256_chunks": "436fdca3bcac00183602203afaea67cf7eb9ec13db4d580a131ca9be7393467d",
+  "tokens_chunk": {
+    "max": 299,
+    "mediana": 138.0
+  },
+  "busqueda": "exacta (producto punto, vectores normalizados)",
+  "dispositivo": "cuda",
+  "recuperadores": {
+    "bm25": {
+      "k1": 1.5,
+      "b": 0.75,
+      "tokenizador": "minúsculas, sin tildes, sin stopwords",
+      "segundos": 0.9
+    },
+    "minilm": {
+      "modelo": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+      "max_seq": 128,
+      "tokens_chunk_mas_largo": 384,
+      "pct_chunks_truncados": 72.35,
+      "pct_tokens_embebidos": 57.76,
+      "origen_embeddings": "calculado en 8 s (cuda) → minilm_5421_9ffa39f8e5.npy",
+      "segundos": 16.0
+    },
+    "mpnet": {
+      "modelo": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+      "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+      "max_seq": 128,
+      "tokens_chunk_mas_largo": 384,
+      "pct_chunks_truncados": 72.35,
+      "pct_tokens_embebidos": 57.76,
+      "origen_embeddings": "calculado en 24 s (cuda) → mpnet_5421_9ffa39f8e5.npy",
+      "segundos": 37.0
+    },
+    "bgem3": {
+      "modelo": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "max_seq": 384,
+      "tokens_chunk_mas_largo": 384,
+      "pct_chunks_truncados": 0.0,
+      "pct_tokens_embebidos": 100.0,
+      "origen_embeddings": "calculado en 176 s (cuda) → bgem3_5421_239c55fe97.npy",
+      "segundos": 181.5
+    }
+  }
+}

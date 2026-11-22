@@ -46,13 +46,18 @@ KS = (1, 3, 5, 10)
 PROFUNDIDAD = 50  # posiciones guardadas por pregunta
 
 MODELOS = {
-    "minilm": dict(nombre="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2", revision=None,
-                   max_seq=128, prefijo=""),
+    "minilm": dict(nombre="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+                   revision="e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+                   max_seq=128, max_seq_entrenado=128, prefijo=""),
     "mpnet": dict(nombre="sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
-                  revision="4328cf26390c98c5e3c738b4460a05b95f4911f5", max_seq=128, prefijo=""),
+                  revision="4328cf26390c98c5e3c738b4460a05b95f4911f5", max_seq=128,
+                  max_seq_entrenado=128, prefijo=""),
     "bgem3": dict(nombre="BAAI/bge-m3", revision="5617a9f61b028005a4858fdac845db406aefb181",
-                  max_seq=384, prefijo=""),
+                  max_seq=384, max_seq_entrenado=8192, prefijo=""),
 }
+# max_seq efectivo = min(max_seq_entrenado, max(max_seq, tokens del chunk más largo)): bge-m3 sube a lo
+# que pida el chunk más largo (664 con los chunks de 600, recomendación del OE1) y nunca trunca;
+# MiniLM y mpnet se quedan en 128 porque es su límite de entrenamiento (ese truncamiento es parte de H2).
 SISTEMA = {"bm25": "S1", "minilm": "S2", "mpnet": "S3", "bgem3": "S4"}
 
 _STOP = set("""a al algo algun alguna algunas alguno algunos ante antes como con contra cual cuales cuando
@@ -178,13 +183,14 @@ def embeddings_modelo(clave: str, textos: list[str], cache: Path, emb_bgem3: Pat
     from sentence_transformers import SentenceTransformer
     cfg = MODELOS[clave]
     modelo = SentenceTransformer(cfg["nombre"], revision=cfg["revision"], device=dispositivo)
-    modelo.max_seq_length = cfg["max_seq"]
-    info = {"modelo": cfg["nombre"], "revision": cfg["revision"] or "última disponible (registrar)",
-            "max_seq": cfg["max_seq"]}
     # tokens que se pierden por truncamiento (relevante para H2 con chunks grandes)
     n_tok = [len(modelo.tokenizer(t, add_special_tokens=True)["input_ids"]) for t in textos]
-    info["pct_chunks_truncados"] = round(100 * sum(n > cfg["max_seq"] for n in n_tok) / len(n_tok), 2)
-    info["pct_tokens_embebidos"] = round(100 * sum(min(n, cfg["max_seq"]) for n in n_tok) / sum(n_tok), 2)
+    max_seq = min(cfg["max_seq_entrenado"], max(cfg["max_seq"], max(n_tok)))
+    modelo.max_seq_length = max_seq
+    info = {"modelo": cfg["nombre"], "revision": cfg["revision"] or "última disponible (registrar)",
+            "max_seq": max_seq, "tokens_chunk_mas_largo": max(n_tok)}
+    info["pct_chunks_truncados"] = round(100 * sum(n > max_seq for n in n_tok) / len(n_tok), 2)
+    info["pct_tokens_embebidos"] = round(100 * sum(min(n, max_seq) for n in n_tok) / sum(n_tok), 2)
 
     if clave == "bgem3" and emb_bgem3 and emb_bgem3.exists():
         ids_npy = emb_bgem3.with_name(emb_bgem3.name.replace("embeddings_", "chunk_ids_"))
@@ -193,7 +199,9 @@ def embeddings_modelo(clave: str, textos: list[str], cache: Path, emb_bgem3: Pat
             info["origen_embeddings"] = f"{emb_bgem3.name} (índice de producción, sha256 {sha256(emb_bgem3)[:12]})"
             return e / np.linalg.norm(e, axis=1, keepdims=True), modelo, info
         print("  aviso: los chunk_ids del .npy no coinciden con el CSV; se recalcula bge-m3", flush=True)
-    archivo = cache / f"{clave}_{hashlib.sha1(''.join(ids).encode()).hexdigest()[:10]}.npy"
+    # la clave de caché incluye ids, textos y max_seq: cada versión de chunks tiene su propio archivo
+    huella = hashlib.sha1(("".join(ids) + "" + "".join(textos) + f"{max_seq}").encode())
+    archivo = cache / f"{clave}_{len(ids)}_{huella.hexdigest()[:10]}.npy"
     if archivo.exists():
         e = np.load(archivo)
         info["origen_embeddings"] = f"caché {archivo.name}"

@@ -1,0 +1,13 @@
+recuperador,metrica,comparacion,n,media_a,media_b,diferencia,ic95_lo,ic95_hi,p,metodo,r_rango_biserial,magnitud,d_z,p_holm,significativo
+bm25,recall@5,c300o50 vs c150o50,30,0.4333,0.4000,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+bm25,recall@5,c600o50 vs c150o50,30,0.4333,0.3667,-0.0667,-0.1667,0.0000,0.1573,normal,-1.0000,grande,-0.2628,0.4719,False
+bm25,recall@5,c600o50 vs c300o50,30,0.4000,0.3667,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+minilm,recall@5,c300o50 vs c150o50,30,0.3000,0.3000,0.0000,-0.1000,0.1000,1.0000,normal,0.0000,despreciable,0.0000,1.0000,False
+minilm,recall@5,c600o50 vs c150o50,30,0.3000,0.3000,0.0000,-0.1000,0.1000,1.0000,normal,0.0000,despreciable,0.0000,1.0000,False
+minilm,recall@5,c600o50 vs c300o50,30,0.3000,0.3000,0.0000,0.0000,0.0000,1.0000,sin diferencias,0.0000,despreciable,0.0000,1.0000,False
+mpnet,recall@5,c300o50 vs c150o50,30,0.4000,0.4000,0.0000,-0.1333,0.1333,1.0000,normal,0.0000,despreciable,0.0000,1.0000,False
+mpnet,recall@5,c600o50 vs c150o50,30,0.4000,0.4000,0.0000,-0.1333,0.1333,1.0000,normal,0.0000,despreciable,0.0000,1.0000,False
+mpnet,recall@5,c600o50 vs c300o50,30,0.4000,0.4000,0.0000,-0.1000,0.1000,1.0000,normal,0.0000,despreciable,0.0000,1.0000,False
+bgem3,recall@5,c300o50 vs c150o50,30,0.7333,0.6667,-0.0667,-0.1667,0.0000,0.1573,normal,-1.0000,grande,-0.2628,0.4719,False
+bgem3,recall@5,c600o50 vs c150o50,30,0.7333,0.6667,-0.0667,-0.1667,0.0000,0.1573,normal,-1.0000,grande,-0.2628,0.4719,False
+bgem3,recall@5,c600o50 vs c300o50,30,0.6667,0.6667,0.0000,0.0000,0.0000,1.0000,sin diferencias,0.0000,despreciable,0.0000,1.0000,False

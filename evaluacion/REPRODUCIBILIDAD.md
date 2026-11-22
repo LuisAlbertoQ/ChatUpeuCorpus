@@ -21,6 +21,7 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | Chunking | estructural por artículo, máx. 350 tokens, solape 40 (OE1 `CHUNK_MODE=articulo`) |
 | Respaldo V2 | `vector_store_backup_v2_20261121/` (5,126 chunks, mpnet) |
 | BM25 | `oe1_arquitectura_corpus/corpus_upeu/metadatos/v3/bm25_corpus_v3.json` |
+| Variantes de chunk (H2) | `chunks_v3_bgem3_c150o50.csv`, `_c300o50.csv`, `_c600o50.csv` (OE1, 2026-11-22; solape 50; tokens con el tokenizer de bge-m3). Solo para el Exp. A |
 
 ## Modelos
 
@@ -28,7 +29,7 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 |---|---|---|
 | Embeddings (S4, vigente) | `BAAI/bge-m3`, 1024 dim | revisión `5617a9f61b028005a4858fdac845db406aefb181` |
 | Embeddings (S3) | `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`, 768 dim | revisión `4328cf26390c98c5e3c738b4460a05b95f4911f5` |
-| Embeddings (S2) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, 384 dim | revisión registrada por `exp_a_recuperacion.py` en cada corrida |
+| Embeddings (S2) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, 384 dim | revisión `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` (descargada 2026-11-22) |
 | Generador (S0–S4, S6) | Ollama `qwen2.5:7b` | ID `845dbda0ea48` (Q4_K_M, 4.7 GB) |
 | Generador (S5) | Ollama `llama3:latest` (Llama 3 8B Instruct) | ID `365c0bd3c000` (4.7 GB) |
 
@@ -83,7 +84,7 @@ estas variables leídas del backend, así que el valor exacto de cada experiment
 |---|---|---|
 | Banco 17Q (v3.1, congelado) y banco v3.2 (30 + 6) | **Desarrollo**: se usaron para ajustar umbral, K y prompt | En el gold set se reportan también los resultados sin estas preguntas |
 | Calibración del umbral (325 positivas / 42 negativas) | Desarrollo | 34 de las 42 negativas son preguntas fuera de dominio del pool de 260, y las otras 6 del pool son N01–N06 (ablaciones) → **las 40 fuera de dominio del pool ya se vieron**; la decisión oficial de H5 necesita 40 nuevas |
-| Pool 260 → `banco_gold_260.json` | **Evaluación** | Pendiente de doble anotación |
+| Pool 260 → `banco_gold_260.json` | **Evaluación** | Pendiente de doble anotación. Declarar: la calibración del umbral usó como positivas 183 preguntas de dominio del pool (sin las semillas); solo se ajustó un valor (el umbral, por el percentil 95), así que el riesgo de sobreajuste es bajo, pero debe mencionarse |
 
 ## Cambios después de congelar
 

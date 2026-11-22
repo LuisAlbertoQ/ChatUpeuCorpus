@@ -1,0 +1,54 @@
+{
+  "etiqueta": "B32_c600o50",
+  "fecha": "2026-11-22T22:07:53",
+  "banco": "/data/evaluacion/banco/banco_v32.json",
+  "n_preguntas": 30,
+  "excluidas_sin_documento": [],
+  "chunks": "/oe1/chunks_v3_bgem3_c600o50.csv",
+  "n_chunks": 4335,
+  "sha256_chunks": "4e47e03746da78e02e5a12006bccb6eb4b49eca7af2bed8c2508967b84c8d5d5",
+  "tokens_chunk": {
+    "max": 599,
+    "mediana": 116.0
+  },
+  "busqueda": "exacta (producto punto, vectores normalizados)",
+  "dispositivo": "cuda",
+  "recuperadores": {
+    "bm25": {
+      "k1": 1.5,
+      "b": 0.75,
+      "tokenizador": "minúsculas, sin tildes, sin stopwords",
+      "segundos": 0.7
+    },
+    "minilm": {
+      "modelo": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+      "max_seq": 128,
+      "tokens_chunk_mas_largo": 664,
+      "pct_chunks_truncados": 67.87,
+      "pct_tokens_embebidos": 49.44,
+      "origen_embeddings": "caché minilm_4335_56e4a8508e.npy",
+      "segundos": 8.6
+    },
+    "mpnet": {
+      "modelo": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+      "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+      "max_seq": 128,
+      "tokens_chunk_mas_largo": 664,
+      "pct_chunks_truncados": 67.87,
+      "pct_tokens_embebidos": 49.44,
+      "origen_embeddings": "caché mpnet_4335_56e4a8508e.npy",
+      "segundos": 10.5
+    },
+    "bgem3": {
+      "modelo": "BAAI/bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "max_seq": 664,
+      "tokens_chunk_mas_largo": 664,
+      "pct_chunks_truncados": 0.0,
+      "pct_tokens_embebidos": 100.0,
+      "origen_embeddings": "caché bgem3_4335_5f1fffc181.npy",
+      "segundos": 10.2
+    }
+  }
+}

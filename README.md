@@ -41,6 +41,41 @@ Detalle completo (método, ablaciones, corridas y decisiones): [`evaluacion/comp
 artículo correcto 16/27, completitud ~0.57, 6/6 negativas abstenidas, tiempo típico ~23 s.
 Todos los parámetros son variables de entorno (`docker-compose.yml`), así que cada cambio se puede revertir sin tocar código.
 
+## Revisión 3 (.docx): avance al 22 de noviembre de 2026
+
+El documento `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (03-09-2026) define el estudio experimental:
+H1–H5, gold set de 260 preguntas, sistemas S0–S6, experimentos A (recuperación), B (generación) y C
+(abstención), evaluación humana, estadística y tablas 1–6. El 22 de noviembre se auditó contra el sistema y se
+avanzó todo lo que no depende de la anotación humana. La configuración del chatbot quedó **congelada** en el
+commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDAD.md)).
+
+| § del .docx | Estado | Dónde |
+|---|---|---|
+| 0 Hipótesis H1–H5 | ✅ aprobadas; criterio H5 ratificado (≥ 0.90 con IC95) | `evaluacion/banco/hipotesis.md`, `evaluacion/retrieval/criterio_h5.md` |
+| 2 Corpus | ✅ V3, 48 documentos, 5,117 chunks; variantes de 150/300/600 tokens generadas por el OE1 | `REPRODUCIBILIDAD.md` |
+| 3 Gold set 260 | 🟡 pool listo + fichas ciegas, κ y consolidación listas; **falta que el equipo anote** y redacte 40 preguntas fuera de dominio nuevas | `evaluacion/banco/gold/` |
+| 4 Sistemas S0–S6 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S5 Llama 3 (`OLLAMA_MODEL=llama3:latest`) | `evaluacion/retrieval/matriz_sistemas.md` |
+| 5A Recuperación (H1, H2, H4) | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk con bancos de desarrollo | `evaluacion/retrieval/exp_a/` |
+| 5B Qwen vs Llama (H3) | ❌ listo para correr, no corrido | — |
+| 5C Abstención (H5) | 🟡 preliminar: 40/40 fuera de dominio (ya vistas en el desarrollo), 14/20 ambiguas | `evaluacion/exp_c/` |
+| 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, abstención, latencia; ❌ falta medir la fidelidad | — |
+| 8 Evaluación humana | ❌ la existente es del sistema V2 (septiembre); hay que repetirla | `evaluacion/humana/` |
+| 9 Estadística | ✅ bootstrap IC95, Wilson, Wilcoxon, Holm, tamaño de efecto, κ de Cohen | `evaluacion/estadistica/` |
+| 10 Reproducibilidad | ✅ ficha con commit, versiones, revisiones, hardware y semillas | `evaluacion/REPRODUCIBILIDAD.md` |
+| 11 Tablas 1–6 y figuras | ❌ hay datos preliminares para la Tabla 2 y la Figura 1 | `evaluacion/retrieval/exp_a/h2_*` |
+
+**Resultados preliminares** (bancos de desarrollo: 154 preguntas del OE1 y banco v3.2; no son los oficiales):
+
+- **H1** (R@5, 154 Q): bge-m3 0.916 > BM25 0.675 (+0.24 [0.16, 0.32], p Holm < 0.001); mpnet 0.617 empata con
+  BM25 y MiniLM 0.526 es peor (p Holm 0.008). Solo bge-m3 supera a BM25: mpnet y MiniLM leen 128 tokens.
+- **H2** (R@5, 154 Q, chunks 150 / 300 / 600): bge-m3 0.903 / 0.929 / 0.909, sin diferencias significativas;
+  BM25 mejora con chunks grandes (600 vs 150: +0.078, p Holm 0.02).
+- **H5**: 40/40 fuera de dominio (IC95 [0.91, 1.00]), pero esas 40 se usaron al calibrar el umbral; ambiguas
+  14/20, solo 4 reciben pregunta de aclaración (6 reciben una respuesta inventando el contexto).
+
+**Lo que falta:** anotación del gold set (equipo) → experimentos A, B y C oficiales sobre las 260 →
+evaluación humana ciega de la fidelidad → tablas 1–6.
+
 ## Estructura del proyecto
 
 ```
@@ -62,7 +97,7 @@ oe5_chatbot_upeu/
 │   │                                 # + contexto completo (sin recorte 700) + retry policy + guardrails de citas
 │   ├── context_builder.py            # Construcción determinística de contexto/fuentes (Fase 2)
 │   ├── validators_evaluacion.py      # source_validity / citation_match determinísticos
-│   ├── tests/                        # Suite pytest (342 tests en verde; test_mejoras_chatbot.py = mejoras 2026-11)
+│   ├── tests/                        # Suite pytest (388 tests en verde; test_mejoras_chatbot.py = mejoras 2026-11; test_estadistica, test_exp_a_recuperacion, test_gold_acuerdo = Revisión 3)
 │   ├── POLITICA_PRIVACIDAD.md        # Política de privacidad (Ley 29733)
 │   ├── requirements.txt
 │   ├── Dockerfile                    # Con HEALTHCHECK
@@ -85,9 +120,14 @@ oe5_chatbot_upeu/
 │   └── .gitignore
 ├── evaluacion/                       # Evaluación técnica + madurez (ver README_EVALUACION.md)
 │   ├── README_EVALUACION.md          # Flujo de trabajo de evaluación
+│   ├── REPRODUCIBILIDAD.md           # Configuración congelada para la Revisión 3 (commit c47d455a)
 │   ├── banco/                        # banco_v32.json (30 Q + 6 negativas, VIGENTE) + construir_banco_v32.py,
-│   │                                 # auditoría del banco 17 Q, v3.1 (congelada), CHANGELOG_GROUNDTRUTH_V31.md
-│   ├── retrieval/                    # evaluar_rag_v3.py, calibrar_v3_bgem3.py, evaluar_reranker.py, métricas EXP_*.csv
+│   │   │                             # auditoría del banco 17 Q, v3.1 (congelada), pool 260, banco_exp_c_pool.json
+│   │   └── gold/                     # Gold set 260: fichas ciegas A/B (.xlsx), plantilla OOD nuevas, acuerdo_gold.py (κ)
+│   ├── retrieval/                    # evaluar_rag_v3.py, calibrar_v3_bgem3.py, evaluar_reranker.py, métricas EXP_*.csv,
+│   │                                 # exp_a_recuperacion.py + exp_a/ (Exp. A), analisis_h2.py
+│   ├── estadistica/                  # estadistica.py: bootstrap, Wilson, Wilcoxon, Holm, κ (Revisión 3 §9)
+│   ├── exp_c/                        # Experimento C (abstención): exp_c_abstencion.py + resultados
 │   ├── comparacion_v2_v3/            # COMPARACION_V2_V3.md (informe 2026-11-21/22), correr_17q_e2e.py,
 │   │                                 # ablacion.ps1, completitud_auto.py, corridas E2E_*
 │   ├── generacion/                   # baseline_generacion_v3_oficial.py, harnesses, JSON/CSV
@@ -147,7 +187,7 @@ se montan en un path padre distinto al del código:
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
 | **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
 | **Registro de datos** | SQLite 3 | ~20 tablas (ver `evaluacion/README_EVALUACION.md`) |
-| **Suite de tests** | pytest (Docker) | 342 passed (2026-11-22) |
+| **Suite de tests** | pytest (Docker) | 388 passed (2026-11-22) |
 | **Frontend build tool** | Node.js + npm | 18-alpine en contenedor |
 
 ## Requisitos previos
@@ -218,7 +258,7 @@ Para volver a la configuración V2: renombrar `vector_store_backup_v2_20261121` 
 | Variable | Default | Descripción |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
-| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar (ver comparativa en `evaluacion/madurez_oe8/COMPARACION_LLMS.md`) |
+| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar; `llama3:latest` = sistema S5 de la Revisión 3 (ver `evaluacion/madurez_oe8/COMPARACION_LLMS.md`) |
 | `CORPUS_VERSION` / `EMBEDDING_MODEL` / `EMBEDDING_REVISION` | `corpus_upeu_v3_bgem3` / `BAAI/bge-m3` / `5617a9f6…` | Colección y modelo de embeddings (al arrancar se verifica que las dimensiones coincidan) |
 | `RAG_DISTANCE_THRESHOLD` / `RAG_MARGEN_FUERA_DOMINIO` / `RAG_KEYWORD_BOOST` | `0.41` / `0.09` / `0.02` | Calibrados para bge-m3 (2026-11-21) |
 | `RAG_TOP_K_RAW` / `RAG_TOP_K_FINAL` | `15` / `4` | Candidatos y fuentes al LLM |
@@ -228,6 +268,7 @@ Para volver a la configuración V2: renombrar `vector_store_backup_v2_20261121` 
 | `TIMEOUT_RESPUESTA` | `120` | T04 en segundos |
 | `RAG_CONTEXTO_ARTICULO` / `RAG_ARTICULO_MAX_CHARS` | `0` / `4000` | Mejora 3 (contexto por artículo), apagada |
 | `RAG_RECORTE_LEGACY_700` | `0` | Solo para ablación: `1` reproduce el recorte antiguo |
+| `RAG_SIN_RECUPERACION` | `0` | Solo experimentos: `1` = sistema S0 (responde sin documentos; prompt `s0-sin-rag`). Nunca en producción |
 | `ALLOWED_ORIGINS` | `http://localhost:3000` | CORS (lista separada por comas) |
 | `MODO_PILOTO` | `true` | Activa límite T07 (10 preguntas/sesión) |
 | `DEBUG_LOG` | `false` | Expone `debug_distancias` en `/consulta` (el chip de afinidad % del frontend usa esos datos). En el piloto va `true`; en producción se apaga y el frontend degrada sin el porcentaje |
@@ -393,7 +434,7 @@ docker compose run --rm backend python /data/evaluacion/legacy/generar_ficha.py
 docker compose run --rm backend python /data/evaluacion/madurez_oe8/calcular_madurez.py --auto-only
 
 # Suite completa de tests
-docker compose exec backend pytest tests -q   # 342 passed
+docker compose exec backend pytest tests -q   # 388 passed
 ```
 
 ### 6. Ver logs
@@ -524,6 +565,6 @@ Proyecto académico y educativo. Contacta con los autores para cualquier uso com
 
 ---
 
-**Última actualización:** 22 de noviembre de 2026 (migración a corpus V3 + bge-m3, calibración, mejoras del chatbot, prompt v3-completo y banco v3.2)
+**Última actualización:** 22 de noviembre de 2026 (migración a corpus V3 + bge-m3, calibración, mejoras del chatbot, prompt v3-completo, banco v3.2 y avance de la Revisión 3: estadística, S0, experimentos A y C preliminares, herramientas del gold set)
 **Estado:** OE4-5-6 completados · PARTE_3 FASE 1-5 cerradas (retrieval/generación/humana/negativo/auto) · OE7 pendiente · OE8 FASE 6 pendiente de datos
 **Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8, instrumento v1 listo)
