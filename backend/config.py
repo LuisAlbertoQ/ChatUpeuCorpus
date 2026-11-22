@@ -71,7 +71,10 @@ RAG_CONTEXT_MAX_CHARS = _get_int_env("RAG_CONTEXT_MAX_CHARS", 9000, 500)
 # artículo (grupo_articulo_id) cuentan como UNA fuente, liberando lugar para otra;
 # (b) a cada fuente se le agregan las partes vecinas del artículo hasta
 # RAG_ARTICULO_MAX_CHARS (mediana de un artículo completo: 2,558 chars; p90: 6,201).
-RAG_CONTEXTO_ARTICULO = os.getenv("RAG_CONTEXTO_ARTICULO", "1").strip() == "1"
+# APAGADA por defecto: en la ablación con 17 Q (2 semillas) no mostró efecto
+# (completitud 0.281 vs 0.281; 10 puntos ganados / 10 perdidos) y solo 3 de los 17
+# artículos esperados están partidos → evaluar con el gold set de 260 antes de activarla.
+RAG_CONTEXTO_ARTICULO = os.getenv("RAG_CONTEXTO_ARTICULO", "0").strip() == "1"
 RAG_ARTICULO_MAX_CHARS = _get_int_env("RAG_ARTICULO_MAX_CHARS", 4000, 500)
 # Solo para ablación/experimentos: "1" reproduce el recorte antiguo (700 chars).
 RAG_RECORTE_LEGACY_700 = os.getenv("RAG_RECORTE_LEGACY_700", "0").strip() == "1"

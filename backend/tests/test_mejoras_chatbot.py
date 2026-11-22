@@ -148,10 +148,13 @@ def _partes(grupo, textos, doc="DOC A", art="Artículo 5°"):
     return textos, metas
 
 
+ON = {"RAG_CONTEXTO_ARTICULO": "1"}
+
+
 class TestMejora3Articulo:
     def test_expande_partes_vecinas_contiguas(self, pipeline):
         textos, metas = _partes("g1", ["P1 " * 100, "P2 " * 100, "P3 " * 100, "P4 " * 100])
-        _, cap = pipeline([textos[1]], [metas[1]], [0.10], grupos={"g1": (textos, metas)})
+        _, cap = pipeline([textos[1]], [metas[1]], [0.10], grupos={"g1": (textos, metas)}, env=ON)
         f = cap["frags"][0]
         assert f["partes"] == [1, 2, 3, 4]
         assert all(f"P{i}" in f["text"] for i in range(1, 5)) and "[…]" not in f["text"]
@@ -160,7 +163,7 @@ class TestMejora3Articulo:
     def test_respeta_tope_por_articulo(self, pipeline):
         textos, metas = _partes("g1", ["A" * 900, "B" * 900, "C" * 900, "D" * 900, "E" * 900])
         _, cap = pipeline([textos[2]], [metas[2]], [0.10], grupos={"g1": (textos, metas)},
-                          env={"RAG_ARTICULO_MAX_CHARS": 2000})
+                          env={**ON, "RAG_ARTICULO_MAX_CHARS": 2000})
         f = cap["frags"][0]
         assert f["partes"] in ([2, 3], [3, 4])
         assert f["text"].startswith("[…]") and f["text"].endswith("[…]")
@@ -169,7 +172,7 @@ class TestMejora3Articulo:
     def test_respeta_presupuesto_total(self, pipeline):
         textos, metas = _partes("g1", ["A" * 900, "B" * 900, "C" * 900])
         _, cap = pipeline([textos[0]], [metas[0]], [0.10], grupos={"g1": (textos, metas)},
-                          env={"RAG_CONTEXT_MAX_CHARS": 1900})
+                          env={**ON, "RAG_CONTEXT_MAX_CHARS": 1900})
         assert cap["frags"][0]["partes"] == [1, 2]
 
     def test_partes_del_mismo_articulo_ocupan_un_solo_lugar(self, pipeline):
@@ -177,13 +180,19 @@ class TestMejora3Articulo:
         docs = [textos[0], textos[1], "otro documento"]
         ms = [metas[0], metas[1], _meta("DOC B", cid="b1")]
         _, cap = pipeline(docs, ms, [0.10, 0.11, 0.12], grupos={"g1": (textos, metas)},
-                          env={"RAG_TOP_K_FINAL": 2})
+                          env={**ON, "RAG_TOP_K_FINAL": 2})
         assert [f["chunk_id"] for f in cap["frags"]] == ["g1_1", "b1"]
         assert cap["frags"][0]["partes"] == [1, 2]
 
     def test_sin_metadatos_de_grupo_no_expande(self, pipeline):
-        _, cap = pipeline(["texto suelto"], [_meta("DOC A")], [0.10])
+        _, cap = pipeline(["texto suelto"], [_meta("DOC A")], [0.10], env=ON)
         assert "partes" not in cap["frags"][0] and cap["frags"][0]["text"] == "texto suelto"
+
+    def test_apagada_por_defecto(self, pipeline, monkeypatch):
+        monkeypatch.delenv("RAG_CONTEXTO_ARTICULO", raising=False)  # independiente del entorno del contenedor
+        textos, metas = _partes("g1", ["uno " * 50, "dos " * 50])
+        _, cap = pipeline(textos, metas, [0.10, 0.11], grupos={"g1": (textos, metas)})
+        assert [f["chunk_id"] for f in cap["frags"]] == ["g1_1", "g1_2"]
 
     def test_desactivable_por_entorno(self, pipeline):
         textos, metas = _partes("g1", ["uno " * 50, "dos " * 50])
@@ -191,3 +200,51 @@ class TestMejora3Articulo:
                           env={"RAG_CONTEXTO_ARTICULO": "0"})
         assert [f["chunk_id"] for f in cap["frags"]] == ["g1_1", "g1_2"]
         assert all("partes" not in f for f in cap["frags"])
+
+    def test_conserva_partes_recuperadas_no_contiguas(self, pipeline):
+        """Caso Q15 (TUPA): dos partes recuperadas del mismo grupo, lejos entre sí;
+        ninguna debe perderse aunque no quepan las vecinas."""
+        textos, metas = _partes("g1", [f"FILA{i} " * 60 for i in range(1, 11)])  # 10 partes de ~420 chars
+        _, cap = pipeline([textos[1], textos[7], "otro"], [metas[1], metas[7], _meta("DOC B", cid="b1")],
+                          [0.10, 0.11, 0.12], grupos={"g1": (textos, metas)},
+                          env={**ON, "RAG_ARTICULO_MAX_CHARS": 1000, "RAG_TOP_K_FINAL": 2})
+        f = cap["frags"][0]
+        assert "FILA2" in f["text"] and "FILA8" in f["text"]
+        assert 2 in f["partes"] and 8 in f["partes"]
+        assert "[…]" in f["text"]  # hueco entre tramos
+        assert [x["chunk_id"] for x in cap["frags"]] == ["g1_2", "b1"]
+
+
+# ---------------------------------------------------------------------------
+# Mejora 4 — abstención disfrazada (oración meta con paréntesis)
+# ---------------------------------------------------------------------------
+Q17_REAL = ("El corpus no contiene información sobre servicios específicos que la Universidad "
+            "Peruana Unión (UPeU) ofrece a los egresados.")
+
+
+class TestMejora4AbstencionDisfrazada:
+    def test_caso_real_q17_se_convierte_en_m04(self, pipeline):
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=Q17_REAL)
+        assert res["tipo_mensaje"] == "M04"
+
+    @pytest.mark.parametrize("meta", [
+        "(El corpus no contiene información sobre X.)",
+        "No hay información específica sobre X en los fragmentos proporcionados.",
+        "Los documentos no incluyen información sobre la UPeU (Lima) ni sus sedes",
+    ])
+    def test_variantes_solas_son_abstencion(self, pipeline, meta):
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=meta)
+        assert res["tipo_mensaje"] == "M04"
+
+    def test_respuesta_real_con_nota_final_sigue_siendo_m02(self, pipeline):
+        resp = ("- Requisito uno del trámite (DOC A, Artículo 1°)\n- Requisito dos (DOC A, Artículo 1°)\n"
+                "El corpus no contiene información sobre los plazos (UPeU).")
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=resp)
+        assert res["tipo_mensaje"] == "M02"
+        assert "Requisito dos" in res["respuesta"] and "no contiene" not in res["respuesta"]
+
+    def test_no_borra_vinetas_si_la_meta_va_primero(self, pipeline):
+        resp = ("No hay información sobre el costo\n- Paso uno (DOC A, Artículo 1°)\n"
+                "- Paso dos con detalle suficiente (DOC A, Artículo 1°)")
+        res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=resp)
+        assert res["tipo_mensaje"] == "M02" and "Paso dos" in res["respuesta"]

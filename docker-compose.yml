@@ -54,8 +54,9 @@ services:
       OLLAMA_NUM_PREDICT: "1024"
       OLLAMA_SEED: ${OLLAMA_SEED:-42}
       TIMEOUT_RESPUESTA: "75"
-      # Mejora 3: una fuente por artículo + partes vecinas (tope por fuente)
-      RAG_CONTEXTO_ARTICULO: ${RAG_CONTEXTO_ARTICULO:-1}
+      # Mejora 3: una fuente por artículo + partes vecinas. Apagada: sin efecto medible
+      # con 17 Q (ver COMPARACION_V2_V3.md §6); evaluar con el gold set de 260.
+      RAG_CONTEXTO_ARTICULO: ${RAG_CONTEXTO_ARTICULO:-0}
       RAG_ARTICULO_MAX_CHARS: "4000"
       # Solo ablación (experimentos): 1 = recorte antiguo de 700 chars
       RAG_RECORTE_LEGACY_700: ${RAG_RECORTE_LEGACY_700:-0}

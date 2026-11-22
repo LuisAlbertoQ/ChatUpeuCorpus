@@ -160,9 +160,69 @@ restantes (Q02, Q04, Q11 con otro documento; artículo correcto solo en 7/15) so
 contexto**, no de umbrales. Siguientes mejoras: re-ranker `bge-reranker-v2-m3`, quitar el recorte
 de 700 caracteres y pasar el artículo completo al LLM.
 
+## 6. Mejoras del chatbot sobre V3 calibrado (2026-11-21/22)
+
+### Método de medición
+
+- **Semilla fija del LLM** (`OLLAMA_SEED`): sin ella, dos corridas con la misma recuperación
+  variaron la completitud de 0.24 a 0.14. Con semilla el ruido baja pero no desaparece (Ollama en
+  GPU no es 100 % determinista: la misma configuración dio 0.242 y 0.258), por eso cada comparación
+  usa **2 semillas (42 y 7)** y una prueba de signo pareada por punto.
+- **Ablación**: cada mejora tiene un interruptor por variable de entorno y se compara encendida vs
+  apagada con todo lo demás fijo (`ablacion.ps1`).
+- **Completitud automática** (`completitud_auto.py`): un punto del ground truth v3.1 (66 puntos) cuenta
+  como cubierto si la respuesta contiene ≥ 60 % de los términos de su descripción. Validada contra
+  los 66 juicios humanos de septiembre: 89 % de acuerdo en cubierto sí/no (kappa 0.53), sobreestima
+  algo (0.152 vs 0.106 humano). Sirve para **comparar corridas**, no como valor absoluto.
+
+### Resultado de cada mejora
+
+| # | Mejora | Decisión | Evidencia |
+|---|---|---|---|
+| 1 | **Contexto completo**: sin recorte de 700 chars; chunks completos hasta `RAG_CONTEXT_MAX_CHARS`=9000; `num_ctx` 8192 explícito; `num_predict` 1024; timeout 75 s; semilla 42 | ✅ **Activa** | Completitud 0.212 → 0.280 (2 semillas; 23 puntos ganados / 14 perdidos, p = 0.09). `num_ctx` 8192 cuesta +0.2 GB de VRAM sin perder velocidad (medido: prompt real 2,512 tokens, ~17 tokens/s) |
+| 2 | **Re-ranker** `BAAI/bge-reranker-v2-m3` (rev. `953dc6f6`) sobre los candidatos semánticos | ❌ **Descartada** | Con el texto solo: peor en ambos bancos (17 Q artículo top-4 0.467 → 0.333). Con encabezado `[documento \| artículo]`: mejor en calibración (MRR artículo 0.761 → 0.803) pero peor en 17 Q (0.467 → 0.400). En CPU tarda ~16 s/consulta con 30 candidatos; en GPU 0.2–0.3 s pero le quitaría VRAM a Qwen. `retrieval/evaluar_reranker.py`, `retrieval/reranker_v3_bgem3.json` |
+| 3 | **Contexto por artículo**: partes del mismo artículo (`grupo_articulo_id`) = una fuente + partes vecinas hasta 4000 chars, conservando partes recuperadas no contiguas | ⏸️ **Implementada, apagada** (`RAG_CONTEXTO_ARTICULO=0`) | Sin efecto medible: completitud 0.281 apagada vs 0.281 encendida (10 puntos ganados / 10 perdidos). Solo 3 de los 17 artículos esperados están partidos (Q08, Q14, Q15), así que el banco tiene poco poder; evaluar con el gold set de 260 (35 % del corpus está partido). La primera versión perdía partes no contiguas (TUPA en Q15); corregido y con test |
+| 4a | **Abstención disfrazada**: el filtro de la oración "el corpus no contiene…" se cortaba en un paréntesis interno ("(UPeU)") y Q17 salía como M02 | ✅ **Activa** | Corrección del patrón con test sobre el texto real de Q17 y casos que no deben borrarse (respuesta con nota final, viñetas) |
+| 4b | **Reintento** si había buenas fuentes y el LLM dijo "no hay información" | ❌ **Descartada** | En todas las corridas hubo 11 abstenciones del LLM y en **ninguna** el documento correcto estaba entre las fuentes: el reintento solo forzaría respuestas con el documento equivocado |
+
+### Configuración final vs antes de las mejoras (mismas semillas)
+
+| | Antes (V3 calibrado, M0) | **Final** |
+|---|---|---|
+| Corridas | `E2E_M0_s42_*`, `E2E_M0_s7_*` | `E2E_FINAL_s42_20261122_030726`, `E2E_FINAL_s7_20261122_031125` |
+| Completitud (proxy), semilla 42 / 7 | 0.197 / 0.227 | **0.303 / 0.273** |
+| Completitud promedio | 0.212 | **0.288 (+36 %)** |
+| Puntos ganados / perdidos | — | 21 / 11 (prueba de signo p = 0.055) |
+| Documento / artículo correcto en Top-4 del LLM | 13/17 · 7/15 | 13/17 · 7/15 (sin cambio, esperado) |
+| Negativas N01–N06 abstenidas | 6/6 | **6/6** con ambas semillas |
+| Tiempo medio | 12.8 / 13.3 s | 12.8 / 12.6 s |
+
+Evolución de la completitud (proxy) a lo largo del día: V2 0.121 → V3 0.136–0.242 (sin semilla) →
+V3 calibrado con semilla 0.212 → **final 0.288**.
+
+### Lo que no resolvieron las mejoras
+
+- **Recuperación**: Q02, Q04 y Q11 siguen respondiendo con otro documento y el artículo correcto
+  llega al LLM solo en 7/15. Ninguna mejora de contexto lo cambia; el re-ranker tampoco ayudó.
+- **Respuestas cortas** (~105–115 palabras): el prompt pide "texto directo breve", lo que limita la
+  completitud. Cambiarlo es una decisión de prompt (versión `v2-adaptativo`) que no se tomó aquí.
+- Con 17 preguntas ninguna diferencia es estadísticamente concluyente (mejor p = 0.055): la
+  confirmación debe hacerse con el gold set de 260.
+
+### Variables nuevas (backend, `config.py` / `docker-compose.yml`)
+
+`RAG_CONTEXT_MAX_CHARS`=9000 · `OLLAMA_NUM_CTX`=8192 · `OLLAMA_NUM_PREDICT`=1024 · `OLLAMA_SEED`=42 ·
+`TIMEOUT_RESPUESTA`=75 · `RAG_CONTEXTO_ARTICULO`=0 · `RAG_ARTICULO_MAX_CHARS`=4000 ·
+`RAG_RECORTE_LEGACY_700`=0 (solo ablación).
+
 ## Archivos
 
 - `correr_17q_e2e.py` — corre las 17 Q (o `--banco v31_no_answer`) contra `/consulta` y clasifica cada resultado.
+- `ablacion.ps1` — corre el banco con un conjunto de variables de entorno del backend y lo restaura.
+- `completitud_auto.py` — completitud automática contra el ground truth v3.1 (`--validar` la compara con el juicio humano).
+- `E2E_M0_*`, `E2E_M1_*`, `E2E_M3off_*`, `E2E_M3on_*`, `E2E_M3b_*`, `E2E_FINAL_*` — corridas de las mejoras (con `meta` de configuración).
+- `../retrieval/evaluar_reranker.py`, `../retrieval/reranker_v3_bgem3.json` — evaluación del re-ranker.
+- `../../backend/tests/test_mejoras_chatbot.py` — 20 tests de las mejoras 1, 3 y 4.
 - `E2E_V3cal_20261122_002723.*`, `E2E_V3cal_NEG_20261122_003115.*` — validación con valores calibrados.
 - `../retrieval/calibrar_v3_bgem3.py`, `../retrieval/calibracion_v3_bgem3/` — calibración.
 - `../banco/banco_oe1_162.csv` — copia del banco del OE1 usada para calibrar.

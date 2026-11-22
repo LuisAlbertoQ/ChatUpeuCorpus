@@ -107,6 +107,15 @@ _RE_ARTICULO = re.compile(
     re.IGNORECASE,
 )
 _RE_VERSION = re.compile(r"v\.?\s*(\d+(?:\.\d+)?)", re.IGNORECASE)
+# Oración meta final de "no hay información" (ver post-proceso en generar_respuesta).
+_RE_META_NO_INFO = re.compile(
+    r"(?i)\s*(?:\(\s*)?(?:El corpus no contiene|N[oó] hay informaci[oó]n"
+    r"|No se encontr[oó] informaci[oó]n|"
+    r"El fragmento no (?:lo )?menciona|"
+    r"Los documentos (?:no|tampoco) (?:incluyen|proporcionan|"
+    r"contienen|abordan|cubren)|"
+    r"En los fragmentos proporcionados)[^.\n]*(?:\.\s*\)?|\))?\s*$"
+)
 _RE_ANIO = re.compile(r"\b(20\d{2})\b")
 
 # Stopwords simples para extraer keywords de la query (re-ranking)
@@ -368,55 +377,74 @@ def _expandir_articulos(frags: list[dict]) -> None:
     parte recuperada, sin pasar de RAG_ARTICULO_MAX_CHARS por fuente ni de
     RAG_CONTEXT_MAX_CHARS en total. Las fuentes se procesan en orden de relevancia.
     Si faltan metadatos (p. ej. corpus V2) no hace nada. Modifica `frags` in situ."""
-    usados = sum(len(f["text"]) for f in frags)
-    for f in frags:
+    def _num(p):
         try:
-            total = int(f.get("_total") or 1)
-            parte = int(f.get("_parte") or 0)
+            return int(p)
         except (TypeError, ValueError):
-            continue
-        if total <= 1 or not f.get("_grupo") or f["text"] != f.get("_original"):
-            continue  # artículo de una sola parte, o fragmento ya recortado
+            return None
+
+    def _unir(partes_sel: list[tuple[int, str]], total_partes: int | None) -> str:
+        """Une partes ordenadas marcando con […] los huecos y los extremos omitidos."""
+        out, prev = [], None
+        for n, t in partes_sel:
+            if (prev is None and n is not None and n > 1) or (prev is not None and n is not None and n != prev + 1):
+                out.append("[…]")
+            out.append(t)
+            prev = n
+        if total_partes and prev is not None and prev < total_partes:
+            out.append("[…]")
+        return "\n".join(out)
+
+    usados = sum(len(t) for f in frags for _, t in f.get("_hits", [(None, f["text"])]))
+    for f in frags:
+        hits = [(_num(p), t) for p, t in f.get("_hits", [])]
+        total = _num(f.get("_total")) or 1
+        if total <= 1 or not f.get("_grupo") or f["text"] != f.get("_original") or not hits:
+            continue  # artículo de una sola parte, sin metadatos, o fragmento ya recortado
+        largo_hits = sum(len(t) for _, t in hits) + len(hits) - 1
         try:
             got = collection.get(where={"grupo_articulo_id": f["_grupo"]}, include=["documents", "metadatas"])
-        except Exception:  # pragma: no cover - la expansión nunca debe romper la consulta
+            partes = sorted((_num(m.get("parte_num")) or 0, d or "") for d, m in zip(got["documents"], got["metadatas"]))
+        except Exception:  # la expansión nunca debe romper la consulta
             log.exception("No se pudo expandir el artículo %s", f["_grupo"])
-            continue
-        partes = sorted(
-            (int(m.get("parte_num") or 0), d or "") for d, m in zip(got["documents"], got["metadatas"])
-        )
+            partes = []
         nums = [n for n, _ in partes]
-        if parte not in nums:
+        incl = {nums.index(n) for n, _ in hits if n in nums}
+        if not incl:  # sin acceso a las partes: al menos unir las recuperadas
+            if len(hits) > 1:
+                texto = _unir(sorted(hits, key=lambda x: x[0] or 0), None)
+                f["text"] = f["texto"] = texto
+                f["num_chars"] = len(texto)
             continue
-        idx = nums.index(parte)
-        cap = min(RAG_ARTICULO_MAX_CHARS, len(f["text"]) + max(0, RAG_CONTEXT_MAX_CHARS - usados))
+        idx = nums.index(hits[0][0]) if hits[0][0] in nums else min(incl)
+        cap = min(max(RAG_ARTICULO_MAX_CHARS, largo_hits), largo_hits + max(0, RAG_CONTEXT_MAX_CHARS - usados))
+        largo = largo_hits
         ini = fin = idx
-        largo = len(partes[idx][1])
-        der, izq = True, True
-        while der or izq:
+        der = izq = True
+        while der or izq:  # crecer de forma contigua alrededor de la parte principal
             if der:
-                if fin + 1 < len(partes) and largo + len(partes[fin + 1][1]) + 1 <= cap:
-                    fin += 1
-                    largo += len(partes[fin][1]) + 1
+                j = fin + 1
+                if j < len(partes) and (j in incl or largo + len(partes[j][1]) + 1 <= cap):
+                    largo += 0 if j in incl else len(partes[j][1]) + 1
+                    fin = j
                 else:
                     der = False
             if izq:
-                if ini - 1 >= 0 and largo + len(partes[ini - 1][1]) + 1 <= cap:
-                    ini -= 1
-                    largo += len(partes[ini][1]) + 1
+                j = ini - 1
+                if j >= 0 and (j in incl or largo + len(partes[j][1]) + 1 <= cap):
+                    largo += 0 if j in incl else len(partes[j][1]) + 1
+                    ini = j
                 else:
                     izq = False
-        if ini == fin == idx:
+        incl |= set(range(ini, fin + 1))
+        if len(incl) == 1:
             continue
-        texto = "\n".join(d for _, d in partes[ini:fin + 1])
-        if ini > 0:
-            texto = "[…]\n" + texto
-        if fin < len(partes) - 1:
-            texto += "\n[…]"
-        usados += len(texto) - len(f["text"])
+        sel = [partes[i] for i in sorted(incl)]
+        texto = _unir(sel, len(partes))
+        usados += len(texto) - largo_hits
         f["text"] = f["texto"] = texto
         f["num_chars"] = len(texto)
-        f["partes"] = nums[ini:fin + 1]
+        f["partes"] = [n for n, _ in sel]
 
 
 def _formatear_fuente(documento: str, categoria: str, texto_chunk: str) -> str:
@@ -717,7 +745,7 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     fragmentos_struct: list[dict] = []
     doc_sugerido = None
     chars_usados = 0
-    grupos_vistos: set[str] = set()
+    grupos_vistos: dict[str, dict] = {}
     for doc, meta, dist in zip(docs, metas, distancias):
         if len(fragmentos_struct) >= RAG_TOP_K_FINAL:
             break
@@ -726,6 +754,11 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             # la expansión posterior trae las partes vecinas.
             grupo = (meta.get("grupo_articulo_id") or "") if RAG_CONTEXTO_ARTICULO else ""
             if grupo and grupo in grupos_vistos:
+                # Se conserva como parte recuperada de esa fuente (no se descarta: puede
+                # no ser contigua a la primera, p. ej. filas distintas del TUPA).
+                if chars_usados + len(doc or "") <= RAG_CONTEXT_MAX_CHARS:
+                    grupos_vistos[grupo]["_hits"].append((meta.get("parte_num"), doc or ""))
+                    chars_usados += len(doc or "")
                 continue
             texto = doc or ""
             if RAG_RECORTE_LEGACY_700:  # ablación: comportamiento previo a la mejora 1
@@ -751,9 +784,10 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
                 "_parte": meta.get("parte_num"),
                 "_total": meta.get("total_partes"),
                 "_original": doc or "",
+                "_hits": [(meta.get("parte_num"), texto)],
             }
             if grupo:
-                grupos_vistos.add(grupo)
+                grupos_vistos[grupo] = frag
             if not frag["articulo"]:
                 m_art = _RE_ARTICULO.search(doc or "")
                 if m_art:
@@ -954,16 +988,13 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     #   "El corpus no contiene información sobre este tema."
     #   "Los documentos no incluyen/proporcionan información sobre X."
     #   "(El corpus no contiene información sobre X.)"
-    respuesta_generada = re.sub(
-        r"(?i)\s*(?:\(\s*)?(?:El corpus no contiene|N[o\u00f3] hay informaci[o\u00f3]n"
-        r"|No se encontr[o\u00f3] informaci[o\u00f3]n|"
-        r"El fragmento no (?:lo )?menciona|"
-        r"Los documentos (?:no|tampoco) (?:incluyen|proporcionan|"
-        r"contienen|abordan|cubren)|"
-        r"En los fragmentos proporcionados)[^.)]*(?:\.|\)?\s*\.?)\s*$",
-        "",
-        respuesta_generada,
-    ).rstrip()
+    # Mejora 4 (2026-11-21): la oración meta puede contener paréntesis, p. ej.
+    #   "El corpus no contiene información sobre ... la Universidad Peruana Unión
+    #    (UPeU) ofrece a los egresados."  (Q17)
+    # Antes `[^.)]*` se detenía en "(UPeU)", la frase no se borraba y la abstención
+    # salía como M02. Ahora abarca la oración completa sin cruzar saltos de línea
+    # (para no borrar viñetas de una respuesta real). Patrón: _RE_META_NO_INFO.
+    respuesta_generada = _RE_META_NO_INFO.sub("", respuesta_generada).rstrip()
 
     # Guardrail de encuadre: si la línea "Según el X:" cita un documento
     # que NO está entre las fuentes, se elimina (alucinación de nombre).

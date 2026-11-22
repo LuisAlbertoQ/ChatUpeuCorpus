@@ -112,7 +112,7 @@ se montan en un path padre distinto al del código:
 | **Orquestación RAG** | LangChain | 0.1.0 + community 0.0.10 |
 | **Modelo de embeddings** | Sentence-Transformers | `BAAI/bge-m3` rev. `5617a9f6` (1024 dims, ganador OE1 V3, 2026-11-21). Antes: mpnet 768 (V2) |
 | **Base vectorial** | ChromaDB | 0.4.22, colección `corpus_upeu_v3_bgem3` (configurable: `CORPUS_VERSION`), distancia coseno. Respaldo V2: `vector_store_backup_v2_20261121/` · comparación: `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md` |
-| **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
+| **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_ctx=8192`, `num_predict=1024`, `temperature=0.2`, `seed=42`. Contexto: chunks completos hasta 9000 caracteres (sin recorte de 700 desde 2026-11-21; ver `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md` §6) |
 | **Contenedor LLM** | Ollama | latest con CUDA v13. Modelo por defecto: Qwen2.5-7B |
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
 | **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
