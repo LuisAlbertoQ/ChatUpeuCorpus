@@ -11,7 +11,7 @@
 
 # ===== PROJECT-SPECIFIC =====
 # Chroma vector store (MUST be included in repo - contains corpus for RAG)
-# /vector_store/
+vector_store/
 # **/vector_store/
 
 # Runtime databases (logs and interactions only - no source data)
