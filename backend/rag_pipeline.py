@@ -40,7 +40,14 @@ from config import (
     MENSAJES,
     OLLAMA_BASE_URL,
     OLLAMA_MODEL,
+    OLLAMA_NUM_CTX,
+    OLLAMA_NUM_PREDICT,
+    OLLAMA_SEED,
     PROMPT_VERSION,
+    RAG_ARTICULO_MAX_CHARS,
+    RAG_CONTEXT_MAX_CHARS,
+    RAG_CONTEXTO_ARTICULO,
+    RAG_RECORTE_LEGACY_700,
     RAG_DISTANCE_THRESHOLD,
     RAG_KEYWORD_BOOST,
     RAG_TOP_K_FINAL,
@@ -343,6 +350,75 @@ def _truncar_palabras(texto: str, maximo: int) -> tuple[str, bool]:
     return cortado, True
 
 
+def _recortar_en_oracion(texto: str, maximo: int) -> str:
+    """Recorta a <= maximo caracteres en el último fin de oración o salto de línea
+    (nunca a mitad de palabra). Solo se usa si un único fragmento excede el presupuesto."""
+    if len(texto) <= maximo:
+        return texto
+    corte = texto[:maximo]
+    pos = max(corte.rfind(". "), corte.rfind(".\n"), corte.rfind("\n"))
+    if pos < maximo // 2:
+        pos = corte.rfind(" ")
+    return corte[: pos + 1].rstrip() if pos > 0 else corte
+
+
+def _expandir_articulos(frags: list[dict]) -> None:
+    """Mejora 3 (E, small-to-big): agrega a cada fragmento las partes vecinas de su
+    artículo (mismo grupo_articulo_id), creciendo de forma contigua alrededor de la
+    parte recuperada, sin pasar de RAG_ARTICULO_MAX_CHARS por fuente ni de
+    RAG_CONTEXT_MAX_CHARS en total. Las fuentes se procesan en orden de relevancia.
+    Si faltan metadatos (p. ej. corpus V2) no hace nada. Modifica `frags` in situ."""
+    usados = sum(len(f["text"]) for f in frags)
+    for f in frags:
+        try:
+            total = int(f.get("_total") or 1)
+            parte = int(f.get("_parte") or 0)
+        except (TypeError, ValueError):
+            continue
+        if total <= 1 or not f.get("_grupo") or f["text"] != f.get("_original"):
+            continue  # artículo de una sola parte, o fragmento ya recortado
+        try:
+            got = collection.get(where={"grupo_articulo_id": f["_grupo"]}, include=["documents", "metadatas"])
+        except Exception:  # pragma: no cover - la expansión nunca debe romper la consulta
+            log.exception("No se pudo expandir el artículo %s", f["_grupo"])
+            continue
+        partes = sorted(
+            (int(m.get("parte_num") or 0), d or "") for d, m in zip(got["documents"], got["metadatas"])
+        )
+        nums = [n for n, _ in partes]
+        if parte not in nums:
+            continue
+        idx = nums.index(parte)
+        cap = min(RAG_ARTICULO_MAX_CHARS, len(f["text"]) + max(0, RAG_CONTEXT_MAX_CHARS - usados))
+        ini = fin = idx
+        largo = len(partes[idx][1])
+        der, izq = True, True
+        while der or izq:
+            if der:
+                if fin + 1 < len(partes) and largo + len(partes[fin + 1][1]) + 1 <= cap:
+                    fin += 1
+                    largo += len(partes[fin][1]) + 1
+                else:
+                    der = False
+            if izq:
+                if ini - 1 >= 0 and largo + len(partes[ini - 1][1]) + 1 <= cap:
+                    ini -= 1
+                    largo += len(partes[ini][1]) + 1
+                else:
+                    izq = False
+        if ini == fin == idx:
+            continue
+        texto = "\n".join(d for _, d in partes[ini:fin + 1])
+        if ini > 0:
+            texto = "[…]\n" + texto
+        if fin < len(partes) - 1:
+            texto += "\n[…]"
+        usados += len(texto) - len(f["text"])
+        f["text"] = f["texto"] = texto
+        f["num_chars"] = len(texto)
+        f["partes"] = nums[ini:fin + 1]
+
+
 def _formatear_fuente(documento: str, categoria: str, texto_chunk: str) -> str:
     """T08: nombre + sección/artículo + versión/año + categoría."""
     partes = [documento]
@@ -399,8 +475,10 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
         "prompt": prompt,
         "stream": False,
         "options": {
-            "num_predict": 1024,
+            "num_ctx": OLLAMA_NUM_CTX,
+            "num_predict": OLLAMA_NUM_PREDICT,
             "temperature": 0.2,
+            **({"seed": OLLAMA_SEED} if OLLAMA_SEED else {}),
         },
     }).encode("utf-8")
 
@@ -632,19 +710,32 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
     # Fase 2 §12 y §15: el contexto y las fuentes se construyen vía
     # funciones puras construir_contexto() / construir_fuentes() a partir
     # de metadatos recuperados, nunca del texto generado por el LLM.
-    # Cada fragmento conserva cabecera+cola si excede 700 chars.
-    MAX_CHARS_POR_FRAGMENTO = 700
+    # Mejora 1 (2026-11-21): fragmentos COMPLETOS hasta RAG_CONTEXT_MAX_CHARS en
+    # total (antes: recorte a 700 chars = inicio + "[…]" + final). Un chunk que no
+    # cabe se salta y se prueba el siguiente; el primero siempre entra (recortado
+    # en fin de oración solo si él solo supera el presupuesto).
     fragmentos_struct: list[dict] = []
     doc_sugerido = None
+    chars_usados = 0
+    grupos_vistos: set[str] = set()
     for doc, meta, dist in zip(docs, metas, distancias):
         if len(fragmentos_struct) >= RAG_TOP_K_FINAL:
             break
         if dist < RAG_DISTANCE_THRESHOLD:
-            texto = doc if len(doc) <= MAX_CHARS_POR_FRAGMENTO else (
-                doc[: MAX_CHARS_POR_FRAGMENTO // 2]
-                + "\n[…]\n"
-                + doc[-MAX_CHARS_POR_FRAGMENTO // 2 :]
-            )
+            # Mejora 3 (D): otra parte de un artículo ya elegido no ocupa otro lugar;
+            # la expansión posterior trae las partes vecinas.
+            grupo = (meta.get("grupo_articulo_id") or "") if RAG_CONTEXTO_ARTICULO else ""
+            if grupo and grupo in grupos_vistos:
+                continue
+            texto = doc or ""
+            if RAG_RECORTE_LEGACY_700:  # ablación: comportamiento previo a la mejora 1
+                if len(texto) > 700:
+                    texto = texto[:350] + "\n[…]\n" + texto[-350:]
+            elif not fragmentos_struct and len(texto) > RAG_CONTEXT_MAX_CHARS:
+                texto = _recortar_en_oracion(texto, RAG_CONTEXT_MAX_CHARS)
+            elif chars_usados + len(texto) > RAG_CONTEXT_MAX_CHARS:
+                continue
+            chars_usados += len(texto)
             frag = {
                 "documento": meta.get("documento", "Documento sin nombre"),
                 "categoria": meta.get("categoria", "") or meta.get("categoria_tematica", ""),
@@ -656,7 +747,13 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
                 "distance": dist,
                 "num_chars": len(texto),
                 "page": meta.get("page", "") or meta.get("pagina", ""),
+                "_grupo": grupo,
+                "_parte": meta.get("parte_num"),
+                "_total": meta.get("total_partes"),
+                "_original": doc or "",
             }
+            if grupo:
+                grupos_vistos.add(grupo)
             if not frag["articulo"]:
                 m_art = _RE_ARTICULO.search(doc or "")
                 if m_art:
@@ -665,6 +762,9 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             fragmentos_struct.append(frag)
             if doc_sugerido is None:
                 doc_sugerido = frag["documento"]
+
+    if RAG_CONTEXTO_ARTICULO and fragmentos_struct and not RAG_RECORTE_LEGACY_700:
+        _expandir_articulos(fragmentos_struct)
 
     # --- Sin fragmentos válidos → M04 ----------------------------------------
     if not fragmentos_struct:

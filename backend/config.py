@@ -57,7 +57,33 @@ UMBRAL_DISTANCIA_COSENO = RAG_DISTANCE_THRESHOLD
 TOP_K_FRAGMENTOS = RAG_TOP_K_FINAL
 
 MAX_PALABRAS_RESPUESTA = 500
-TIMEOUT_RESPUESTA = 50  # segundos; holgura para qwen 2.5 en respuestas largas
+# 2026-11-21 (mejora 1): 50 → 75 s. Medido en RTX 4050: ~17 tokens/s, así que
+# num_predict 1024 puede tardar ~60 s + evaluación del prompt.
+TIMEOUT_RESPUESTA = _get_int_env("TIMEOUT_RESPUESTA", 75, 10)
+
+# Contexto para el LLM (mejora 1, 2026-11-21). Antes cada fragmento se recortaba
+# a 700 caracteres (inicio + "[…]" + final) y el LLM no veía el medio del artículo.
+# Ahora entran chunks completos hasta este presupuesto total de caracteres
+# (~2.8 caracteres/token medido con Qwen2.5 → 9000 ≈ 3,200 tokens).
+RAG_CONTEXT_MAX_CHARS = _get_int_env("RAG_CONTEXT_MAX_CHARS", 9000, 500)
+# Mejora 3 (2026-11-21): contexto por artículo. En la V3, 514 artículos están
+# partidos en varios chunks (35 % del corpus). Con "1": (a) los chunks del mismo
+# artículo (grupo_articulo_id) cuentan como UNA fuente, liberando lugar para otra;
+# (b) a cada fuente se le agregan las partes vecinas del artículo hasta
+# RAG_ARTICULO_MAX_CHARS (mediana de un artículo completo: 2,558 chars; p90: 6,201).
+RAG_CONTEXTO_ARTICULO = os.getenv("RAG_CONTEXTO_ARTICULO", "1").strip() == "1"
+RAG_ARTICULO_MAX_CHARS = _get_int_env("RAG_ARTICULO_MAX_CHARS", 4000, 500)
+# Solo para ablación/experimentos: "1" reproduce el recorte antiguo (700 chars).
+RAG_RECORTE_LEGACY_700 = os.getenv("RAG_RECORTE_LEGACY_700", "0").strip() == "1"
+# Ventana de Ollama: explícita para que el prompt nunca se recorte en silencio.
+# 8192 cuesta +0.2 GB de VRAM frente a 4096, sin pérdida de velocidad (medido).
+OLLAMA_NUM_CTX = _get_int_env("OLLAMA_NUM_CTX", 8192, 2048)
+# Las respuestas reales usan 300–500 tokens; 500 palabras ≈ 750 tokens.
+OLLAMA_NUM_PREDICT = _get_int_env("OLLAMA_NUM_PREDICT", 1024, 64)
+# Semilla fija del LLM (2026-11-21): sin ella dos corridas con la misma recuperación
+# variaron la completitud de 0.24 a 0.14 (temperatura 0.2). Reproducibilidad
+# exigida por la Revisión 3 §10. 0 = sin semilla.
+OLLAMA_SEED = _get_int_env("OLLAMA_SEED", 42, 0)
 
 # Margen extra sobre UMBRAL para declarar una pregunta "fuera de dominio"
 # por embeddings (R04): si TODAS las distancias superan UMBRAL + MARGEN → M03.

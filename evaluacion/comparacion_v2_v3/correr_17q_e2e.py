@@ -138,7 +138,11 @@ def main():
             "tipo_mensaje": tipo, "clase": clase,
             "hit_documento_top4": hit_doc, "pos_articulo_top4": pos_art,
             "num_chunks_llm": len(chunk_ids),
-            "recorte_700": any(l > MAX_CHARS_LLM for l in largos),
+            # Desde la mejora 1 el LLM recibe chunks completos (salvo un primer chunk
+            # mayor que RAG_CONTEXT_MAX_CHARS); antes se recortaba todo chunk > 700.
+            "recorte_700": (any(l > MAX_CHARS_LLM for l in largos)
+                            if not hasattr(config, "RAG_CONTEXT_MAX_CHARS") or getattr(config, "RAG_RECORTE_LEGACY_700", False)
+                            else bool(largos) and largos[0] > config.RAG_CONTEXT_MAX_CHARS),
             "chars_chunks": largos,
             "respuesta_truncada": respuesta.rstrip().endswith("(…)"),
             "palabras_respuesta": len(respuesta.split()),
@@ -164,6 +168,10 @@ def main():
         "umbral": config.RAG_DISTANCE_THRESHOLD, "margen_fuera_dominio": config.MARGEN_FUERA_DOMINIO,
         "top_k_raw": config.RAG_TOP_K_RAW, "top_k_final": config.RAG_TOP_K_FINAL,
         "max_palabras": config.MAX_PALABRAS_RESPUESTA,
+        **{k.lower(): getattr(config, k) for k in (
+            "RAG_KEYWORD_BOOST", "RAG_CONTEXT_MAX_CHARS", "RAG_RECORTE_LEGACY_700", "OLLAMA_NUM_CTX",
+            "OLLAMA_NUM_PREDICT", "OLLAMA_SEED", "TIMEOUT_RESPUESTA", "RAG_RERANKER", "RAG_RERANKER_MODEL",
+            "RAG_CONTEXTO_ARTICULO", "RAG_DETECTAR_ABSTENCION") if hasattr(config, k)},
     }
     out_json.write_text(json.dumps({"meta": meta, "resultados": resultados}, ensure_ascii=False, indent=2), encoding="utf-8")
     campos = [k for k in resultados[0] if k not in ("respuesta", "fuentes", "chars_chunks", "documentos_llm", "articulos_llm", "distancias_llm")]

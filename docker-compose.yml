@@ -48,6 +48,17 @@ services:
       RAG_KEYWORD_BOOST: "0.02"         # V2: 0.07
       RAG_TOP_K_RAW: "15"
       RAG_TOP_K_FINAL: "4"
+      # Mejora 1 (2026-11-21): contexto completo + ventana/semilla del LLM
+      RAG_CONTEXT_MAX_CHARS: "9000"
+      OLLAMA_NUM_CTX: "8192"
+      OLLAMA_NUM_PREDICT: "1024"
+      OLLAMA_SEED: ${OLLAMA_SEED:-42}
+      TIMEOUT_RESPUESTA: "75"
+      # Mejora 3: una fuente por artículo + partes vecinas (tope por fuente)
+      RAG_CONTEXTO_ARTICULO: ${RAG_CONTEXTO_ARTICULO:-1}
+      RAG_ARTICULO_MAX_CHARS: "4000"
+      # Solo ablación (experimentos): 1 = recorte antiguo de 700 chars
+      RAG_RECORTE_LEGACY_700: ${RAG_RECORTE_LEGACY_700:-0}
       # Corpus V3 (OE1, 2026-11-21) + bge-m3. Para volver a V2: mpnet,
       # EMBEDDING_REVISION "" y corpus_upeu_v2 con vector_store_backup_v2_20261121.
       CORPUS_VERSION: corpus_upeu_v3_bgem3
