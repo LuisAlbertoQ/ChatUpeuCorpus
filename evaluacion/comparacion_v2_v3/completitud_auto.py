@@ -93,25 +93,33 @@ def validar(conn):
     print(f"  completitud micro: humano={a.count('CUBIERTO') / 66:.3f} proxy={b.count('CUBIERTO') / 66:.3f}")
 
 
-def evaluar(conn, archivos):
-    pts = puntos(conn)
-    print(f"{'corrida':42} cubiertos parciales  micro  (micro con parcial=0.5)")
+def puntos_json(ruta: str):
+    """Puntos de un banco en archivo (p. ej. banco_v32.json): [(pregunta_id, punto_id, descripcion)]."""
+    data = json.loads(Path(ruta).read_text(encoding="utf-8"))
+    return [(q["id"], p["punto_id"], p["descripcion"]) for q in data["preguntas"] for p in q["puntos"]]
+
+
+def evaluar(conn, archivos, pts=None):
+    pts = pts or puntos(conn)
+    n = len(pts)
+    print(f"{'corrida':42} cubiertos parciales  micro  (micro con parcial=0.5)   [{n} puntos]")
     for f in archivos:
         path = Path(f) if Path(f).exists() else AQUI / f
         res = {r["id"]: r["respuesta"] for r in json.loads(path.read_text(encoding="utf-8"))["resultados"]}
         est = [juzgar(desc, res.get(qid, ""))[0] for qid, _, desc in pts]
         c, p = est.count("CUBIERTO"), est.count("PARCIAL")
-        print(f"{path.stem:42} {c:9} {p:9}  {c / 66:.3f}  ({(c + 0.5 * p) / 66:.3f})")
+        print(f"{path.stem:42} {c:9} {p:9}  {c / n:.3f}  ({(c + 0.5 * p) / n:.3f})")
 
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     ap = argparse.ArgumentParser()
     ap.add_argument("--validar", action="store_true")
+    ap.add_argument("--banco-json", default="", help="tomar los puntos de un banco en archivo (banco_v32.json)")
     ap.add_argument("archivos", nargs="*")
     args = ap.parse_args()
     conn = sqlite3.connect(str(DB))
     if args.validar:
         validar(conn)
     if args.archivos:
-        evaluar(conn, args.archivos)
+        evaluar(conn, args.archivos, puntos_json(args.banco_json) if args.banco_json else None)

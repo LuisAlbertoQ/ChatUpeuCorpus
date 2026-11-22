@@ -24,6 +24,7 @@ import argparse
 import csv
 import datetime
 import json
+import re
 import sqlite3
 import sys
 import time
@@ -72,6 +73,10 @@ def main():
     ap.add_argument("--etiqueta", required=True, help="V2 / V3 / ... (va en sesion_id y en el nombre del archivo)")
     ap.add_argument("--banco", default="v3_curado",
                     help="banco_version: v3_curado (17 Q) o v31_no_answer (6 negativas, tabla banco_no_answer)")
+    ap.add_argument("--banco-json", default="",
+                    help="banco en archivo (p. ej. /data/evaluacion/banco/banco_v32.json): acepta varios documentos "
+                         "y artículos por pregunta. Con --negativas usa la lista de negativas del archivo.")
+    ap.add_argument("--negativas", action="store_true", help="con --banco-json: correr las negativas")
     args = ap.parse_args()
 
     import chromadb
@@ -80,11 +85,23 @@ def main():
         .get_collection(config.CORPUS_VERSION)
 
     conn = sqlite3.connect(str(DB))
-    tabla = "banco_no_answer" if args.banco == "v31_no_answer" else "banco_preguntas"
-    banco = conn.execute(
-        f"SELECT id, pregunta, documento_esperado, articulo_esperado FROM {tabla} "
-        "WHERE banco_version=? AND activa=1 ORDER BY id", (args.banco,)
-    ).fetchall()
+    # Cada pregunta: id, texto, documentos aceptados y pares (documento, artículo) aceptados.
+    if args.banco_json:
+        data = json.loads(Path(args.banco_json).read_text(encoding="utf-8"))
+        fuente_banco = f"{data['version']} ({Path(args.banco_json).name})"
+        if args.negativas:
+            banco = [{"id": n["id"], "pregunta": n["pregunta"], "docs": [], "arts": []} for n in data["negativas"]]
+        else:
+            banco = [{"id": q["id"], "pregunta": q["pregunta"], "docs": q["documentos_esperados"],
+                      "arts": [(a["documento"], a["articulo"]) for a in q["articulos_esperados"]]}
+                     for q in data["preguntas"]]
+    else:
+        tabla = "banco_no_answer" if args.banco == "v31_no_answer" else "banco_preguntas"
+        fuente_banco = f"{tabla}:{args.banco}"
+        banco = [{"id": i, "pregunta": p, "docs": [d] if d else [], "arts": [(d, a)] if a else []}
+                 for i, p, d, a in conn.execute(
+                     f"SELECT id, pregunta, documento_esperado, articulo_esperado FROM {tabla} "
+                     "WHERE banco_version=? AND activa=1 ORDER BY id", (args.banco,)).fetchall()]
     stamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     run_id = f"E2E_{args.etiqueta}_{stamp}"
     print(f"{run_id} | corpus={config.CORPUS_VERSION} emb={config.EMBEDDING_MODEL} "
@@ -92,7 +109,10 @@ def main():
           f"max_palabras={config.MAX_PALABRAS_RESPUESTA} | {len(banco)} preguntas", flush=True)
 
     resultados = []
-    for qid, pregunta, doc_esp, art_esp in banco:
+    for item in banco:
+        qid, pregunta = item["id"], item["pregunta"]
+        doc_esp = item["docs"][0] if item["docs"] else ""
+        art_esp = item["arts"][0][1] if item["arts"] else ""
         sesion_id = f"eval-{run_id}-{qid}"
         t0 = time.time()
         try:
@@ -116,11 +136,11 @@ def main():
             por_id = {m.get("chunk_id"): len(d or "") for d, m in zip(got["documents"], got["metadatas"])}
             largos = [por_id.get(c, 0) for c in chunk_ids]
 
-        k_doc = clave_documento(doc_esp)
-        k_art = clave_articulo(doc_esp, art_esp) if art_esp else None
-        hit_doc = any(clave_documento(d) == k_doc for d in docs)
+        k_docs = {clave_documento(d) for d in item["docs"]}
+        k_arts = {clave_articulo(d, a) for d, a in item["arts"]}
+        hit_doc = any(clave_documento(d) in k_docs for d in docs)
         pos_art = next((i + 1 for i, (d, a) in enumerate(zip(docs, arts))
-                        if k_art and clave_articulo(d, a) == k_art), None)
+                        if k_arts and clave_articulo(d, a) in k_arts), None)
 
         if tipo == "M02":
             clase = "OK_ARTICULO" if pos_art else ("OK_DOCUMENTO" if hit_doc else "OTRO_DOCUMENTO")
@@ -132,9 +152,15 @@ def main():
             clase = "OTRO"
 
         respuesta = resp.get("respuesta", "")
+        # Atribución: la respuesta cita alguno de los artículos esperados ("Artículo 42")
+        nums_esp = {re.sub(r"\D", "", a) for _, a in item["arts"]} - {""}
+        cita_art = tipo == "M02" and any(
+            re.search(r"(?i)art[íi]culo\s*" + n + r"\b", respuesta) for n in nums_esp)
         r = {
             "run_id": run_id, "id": qid, "pregunta": pregunta,
             "documento_esperado": doc_esp, "articulo_esperado": art_esp,
+            "documentos_aceptados": item["docs"], "articulos_aceptados": [a for _, a in item["arts"]],
+            "cita_articulo_esperado": cita_art,
             "tipo_mensaje": tipo, "clase": clase,
             "hit_documento_top4": hit_doc, "pos_articulo_top4": pos_art,
             "num_chunks_llm": len(chunk_ids),
@@ -162,6 +188,7 @@ def main():
     out_csv = EVAL_DIR / f"{run_id}.csv"
     meta = {
         "run_id": run_id, "fecha": datetime.datetime.now().isoformat(),
+        "banco": fuente_banco,
         "corpus_version": config.CORPUS_VERSION, "embedding_model": config.EMBEDDING_MODEL,
         "embedding_revision": getattr(config, "EMBEDDING_REVISION", None),
         "llm_model": config.OLLAMA_MODEL, "prompt_version": config.PROMPT_VERSION,
@@ -189,6 +216,7 @@ def main():
     print("clase:", dict(c_clase))
     print(f"documento correcto en top4: {sum(r['hit_documento_top4'] for r in resultados)}/{n}")
     print(f"artículo correcto en top4: {sum(1 for r in resultados if r['pos_articulo_top4'])}/{sum(1 for r in resultados if r['articulo_esperado'])}")
+    print(f"respuesta cita un artículo esperado: {sum(r['cita_articulo_esperado'] for r in resultados)}/{sum(1 for r in resultados if r['articulo_esperado'])}")
     print(f"con recorte_700: {sum(r['recorte_700'] for r in resultados)}/{n} | truncadas: {sum(r['respuesta_truncada'] for r in resultados)}")
     print(f"tiempo promedio: {sum(r['tiempo_s'] for r in resultados) / n:.1f}s")
     print("JSON:", out_json)

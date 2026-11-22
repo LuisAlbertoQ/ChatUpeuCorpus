@@ -251,7 +251,7 @@ class TestMejora4AbstencionDisfrazada:
 
 
 # ---------------------------------------------------------------------------
-# Prompt v3-completo (2026-11-22) — seleccionable por PROMPT_VERSION
+# Prompt v3-completo (2026-11-21) — seleccionable por PROMPT_VERSION
 # ---------------------------------------------------------------------------
 PROMPT_V2_ORIGINAL = (
     "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"

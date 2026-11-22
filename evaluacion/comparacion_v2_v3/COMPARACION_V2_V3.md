@@ -215,7 +215,7 @@ V3 calibrado con semilla 0.212 → **final 0.288**.
 `TIMEOUT_RESPUESTA`=75 · `RAG_CONTEXTO_ARTICULO`=0 · `RAG_ARTICULO_MAX_CHARS`=4000 ·
 `RAG_RECORTE_LEGACY_700`=0 (solo ablación).
 
-## 7. TOP_K_FINAL y prompt v3 (2026-11-22)
+## 7. TOP_K_FINAL y prompt v3 (2026-11-21; los ID de corrida usan hora UTC del contenedor)
 
 Comparados contra la configuración final de §6 (K=4, prompt v2), semillas 42 y 7.
 Métrica nueva: **cita del artículo esperado en la respuesta** (atribución verificable).
@@ -265,7 +265,7 @@ de las fuentes relevantes. El texto de v2 quedó idéntico (verificado por test)
 
 Corridas `E2E_P3_s42_20261122_034649`, `E2E_P3_s7_20261122_035513` (+ `_NEG`).
 
-## 8. Revisión del banco de 17 preguntas (2026-11-22)
+## 8. Revisión del banco de 17 preguntas (2026-11-21)
 
 Contrastado contra los metadatos del corpus V3 (solo lectura):
 
@@ -285,13 +285,78 @@ Contrastado contra los metadatos del corpus V3 (solo lectura):
   trabajadores; para un estudiante, la vía natural es la Defensoría Universitaria (su reglamento
   menciona "queja" en los Art. 6, 10 y 13–20).
 
+### Auditoría completa (`evaluacion/banco/auditar_banco_17q.py` → `auditoria_banco_17q_2026-11-21.md`)
+
+Compara campo por campo `preguntas_comparacion.json`, `banco_preguntas` v3_curado (lo que leen los
+scripts) y `groundtruth_v31_*` (curado) contra la colección `corpus_upeu_v3_bgem3`:
+
+- **La corrección de Q17 ya existía en la v3.1** (nota: "DESALINEACION_CONFIRMADA: Art421/422
+  reemplazados por Reglamento de seguimiento de egresados Art12/18") pero **nunca se propagó** al JSON
+  ni a `banco_preguntas`.
+- **Artículos múltiples**: la v3.1 acepta varios artículos en 9 preguntas (p. ej. Q01: 19°, 32°, 34°;
+  Q08: 45°, 50°, 55°), pero los scripts comparan solo contra `articulo_esperado` (uno).
+- **Columna plural vieja**: en `banco_preguntas`, `articulos_esperados` contradice a la singular en
+  Q01 (132° vs 19°), Q04 (319° vs 70°), Q07 (4° vs 13°) y Q09 (1° vs sin artículo). Ningún script de
+  hoy usa la plural, pero es una trampa para scripts futuros.
+- **Tema vs categoría**: además de las 8 categorías viejas, el tema libre contradice al documento en
+  Q11 (Académico → TUPA es A), Q16 (Gobierno → E) y Q17 (Bienestar → E).
+- **Sin hallazgos**: Q06, Q12, Q13.
+
+### Impacto en los resultados (recalculado sobre las corridas existentes, sin correr nada)
+
+| Corrida | Documento correcto (scripts → v3.1) | Artículo correcto en Top-4 (scripts → v3.1) |
+|---|---|---|
+| V2 | 12 → 12 /17 | 6 → **7** /15 |
+| V3 calibrado | 13 → 13 /17 | 7 → **9** /15 |
+| Final (s42 / s7) | 13 → 13 /17 | 7 → **9** /15 |
+| Prompt v3 (s42 / s7) | 13 → 13 /17 | 7 → **9** /15 |
+
+Con el ground truth curado la V3 rinde algo mejor de lo reportado y la ventaja sobre V2 crece
+(7 → 9 vs 6 → 7). Las comparaciones entre configuraciones no cambian (todas tenían el mismo sesgo).
+La completitud automática ya usaba los 66 puntos de la v3.1, así que no se ve afectada.
+
 Las comparaciones de este informe siguen siendo válidas (todas usan el mismo banco), pero los
 valores absolutos están afectados en Q05, Q16 y Q17. La v3.1 está declarada "congelada": las
 correcciones deben hacerse como versión nueva (v3.2) o en la curación del gold set de 260.
 
+## 9. Banco técnico v3.2 (30 preguntas) y nueva línea base (2026-11-21)
+
+`evaluacion/banco/banco_v32.json`, generado y validado por `construir_banco_v32.py` (detalle en
+`evaluacion/banco/README.md` y `validacion_banco_v32.md`). La v3.1 de la base de datos no se modificó.
+
+- 17 originales: Q17 propagado, categorías y temas recalculados desde los metadatos, todos los
+  artículos aceptados de la v3.1; **Q05** (→ Art. 17–18, perfil de proyecto de tesis) y **Q16**
+  (→ Defensoría Universitaria, Art. 15, 17 y 22) corregidas contra el texto real.
+- 13 nuevas (Q18–Q30) en documentos sin cobertura; Q28 conserva el contenido del antiguo Q16
+  (reclamo laboral de un trabajador) con la pregunta bien formulada.
+- 114 puntos; las 49 evidencias de preguntas nuevas/corregidas son literales del corpus.
+- Categorías: A 6 · B 7 · C 4 · D 6 · E 7. 15 preguntas `CURADO_V31`, 15 pendientes de revisión humana.
+
+Configuración vigente (prompt v2, K=4), semillas 42 / 7 — corridas `E2E_B32_s42_20261122_041913`,
+`E2E_B32_s7_20261122_042630` (+ `_NEG`):
+
+| | 30 preguntas | 17 originales | 13 nuevas |
+|---|---|---|---|
+| Documento correcto entre las fuentes | 26/30 | 13/17 | 13/13 |
+| Artículo correcto entre las fuentes | 16/27 | 9/15 | 7/12 |
+| La respuesta cita un artículo esperado | 12–13/27 | 5–7/15 | 6–7/12 |
+| Completitud (proxy, 114 puntos) | 0.386 / 0.421 | 0.279 / 0.324 | 0.543 / 0.565 |
+| Negativas N01–N06 | 6/6 | — | — |
+| Tiempo medio | 13.3 / 11.7 s | — | — |
+
+- **Q16 corregida**: el chatbot recupera la Defensoría en primer lugar (OK_ARTICULO); con la
+  respuesta esperada vieja se contaba como fallo de recuperación.
+- **Q05 corregida**: encuentra el documento pero no los Art. 17–18 entre los 4 primeros.
+- **Siguen fallando**: Q02, Q04 y Q11 (otro documento) y Q17 (no recupera el reglamento de egresados).
+- ⚠️ **Sesgo de facilidad de las preguntas nuevas**: se redactaron leyendo el artículo, comparten su
+  vocabulario y se recuperan mejor (documento 13/13, completitud ~0.55 vs ~0.30). Reportar los dos
+  subconjuntos por separado; en el gold set, las preguntas deben redactarlas anotadores en lenguaje
+  de estudiante y sin mirar el documento.
+
 ## Archivos
 
-- `correr_17q_e2e.py` — corre las 17 Q (o `--banco v31_no_answer`) contra `/consulta` y clasifica cada resultado.
+- `correr_17q_e2e.py` — corre el banco contra `/consulta`: 17 Q de la base (`--banco`), o un banco en archivo
+  (`--banco-json …/banco_v32.json`, con `--negativas`), aceptando varios documentos/artículos por pregunta.
 - `ablacion.ps1` — corre el banco con un conjunto de variables de entorno del backend y lo restaura.
 - `completitud_auto.py` — completitud automática contra el ground truth v3.1 (`--validar` la compara con el juicio humano).
 - `E2E_M0_*`, `E2E_M1_*`, `E2E_M3off_*`, `E2E_M3on_*`, `E2E_M3b_*`, `E2E_FINAL_*` — corridas de las mejoras (con `meta` de configuración).

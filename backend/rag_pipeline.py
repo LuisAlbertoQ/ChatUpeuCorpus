@@ -109,7 +109,7 @@ PROMPTS = {
         ),
         input_variables=["context", "question"],
     ),
-    # 2026-11-22: las respuestas v2 promedian ~110 palabras y cubren ~29 % de los
+    # 2026-11-21: las respuestas v2 promedian ~110 palabras y cubren ~29 % de los
     # puntos esperados; v2 pide "texto directo breve". v3 conserva las reglas y
     # pide incluir todo lo relevante de las fuentes, sin resumir listas.
     "v3-completo": PromptTemplate(
@@ -143,7 +143,7 @@ _RE_META_NO_INFO = re.compile(
     r"Los documentos (?:no|tampoco) (?:incluyen|proporcionan|"
     r"contienen|abordan|cubren)|"
     r"En los fragmentos proporcionados|"
-    # 2026-11-22 (prompt v3, Q17): "Los fragmentos proporcionados se centran en X,
+    # 2026-11-21 (prompt v3, Q17): "Los fragmentos proporcionados se centran en X,
     # pero no mencionan Y." — solo si la oración contiene una negación.
     r"Los fragmentos(?= [^.\n]*\bno\b))[^.\n]*(?:\.\s*\)?|\))?\s*$"
 )

@@ -1,0 +1,1899 @@
+{
+  "version": "v3.2",
+  "fecha": "2026-11-21",
+  "corpus": "corpus_upeu_v3_bgem3",
+  "descripcion": "Banco técnico: 17 preguntas de la v3.1 (Q05 y Q16 corregidas, Q17 propagada, categorías recalculadas) + 13 nuevas (Q18–Q30) + 6 negativas. La v3.1 de la base de datos no se modificó.",
+  "nota_revision": "Las preguntas con estado PROPUESTA_V32_PENDIENTE_REVISION_HUMANA requieren validación por un segundo anotador antes de usarse como ground truth definitivo (Revisión 3 §3).",
+  "categorias": {
+    "A": "Gobierno y estatuto institucional",
+    "B": "Académico y estudios",
+    "C": "Investigación",
+    "D": "Bienestar estudiantil",
+    "E": "Laboral, docencia y políticas"
+  },
+  "preguntas": [
+    {
+      "id": "Q01",
+      "pregunta": "¿Qué dice el estatuto sobre las autoridades universitarias?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "ESTATUTO 2024. 04-09-2024"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 19°",
+          "paginas": [
+            "8"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0021"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 32°",
+          "paginas": [
+            "12"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0036"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 34°",
+          "paginas": [
+            "14"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0041"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q01_P01",
+          "descripcion": "Las instancias de gobierno de la UPeU incluyen la Asamblea Universitaria como máximo órgano",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 19°",
+          "evidencia": "Artículo 19°. Instancias de Gobierno. Las instancias de gobierno de la UPeU, son los órganos de gobierno y autoridades que se indican a continuación: 19.1. La Asamblea Universitaria."
+        },
+        {
+          "punto_id": "Q01_P02",
+          "descripcion": "El Consejo Universitario es órgano de gestión, dirección y ejecución académica y administrativa",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 32°",
+          "evidencia": "Artículo 32°. Consejo Universitario. Es el órgano de gestión, dirección y ejecución académica, administrativa, económica y financiera de la UPeU"
+        },
+        {
+          "punto_id": "Q01_P03",
+          "descripcion": "El Rector es elegido por la Asamblea Universitaria por cinco años y puede ser reelegido",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 34°",
+          "evidencia": "Artículo 34°. Rector. El rector de la UPeU es elegido por la Asamblea Universitaria, por un período de cinco (5) años, y puede ser reelegido."
+        },
+        {
+          "punto_id": "Q01_P04",
+          "descripcion": "Otras autoridades: Consejo de Facultad y Decano, Consejo de EPG y su Director, Vicerrector Académico y vicerrectores de apoyo",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 19°",
+          "evidencia": "Artículo 19°. 19.4. El Consejo de Facultad. 19.5. El Decano. 19.6. El Consejo de la Escuela de Posgrado. 19.7. El Director de la Escuela de Posgrado. En relación: Vicerrector Académico (Art38, elegido por Asamblea 5 años) y vicerrectores de apoyo administrativo y de bienestar (Art42)."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q02",
+      "pregunta": "¿Cómo se eligen el rector y vicerrectores?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "ESTATUTO 2024. 04-09-2024"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 42°",
+          "paginas": [
+            "16"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0050"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 38°",
+          "paginas": [
+            "15"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0045"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 34°",
+          "paginas": [
+            "14"
+          ],
+          "chunk_ids": [
+            "ESTATUTO 2024. 04-09-2024_0041"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q02_P01",
+          "descripcion": "Los vicerrectorados de apoyo son administrativo y bienestar universitario y apoyan al rector",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 42°",
+          "evidencia": "Artículo 42°. Vicerrectorados de apoyo. La UPeU, tiene un vicerrector administrativo y un vicerrector de bienestar universitario. Estos apoyan al rector"
+        },
+        {
+          "punto_id": "Q02_P02",
+          "descripcion": "Los vicerrectores de apoyo son puestos de confianza designados por Asamblea a propuesta de la promotora",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 42°",
+          "evidencia": "Los vicerrectores son puestos de confianza, cuya designación o nombramiento se realiza por Asamblea Universitaria, a propuesta de la promotora, por tiempo indeterminado."
+        },
+        {
+          "punto_id": "Q02_P03",
+          "descripcion": "El Vicerrector Académico es elegido por Asamblea por cinco años y puede ser reelegido",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 38°",
+          "evidencia": "Es elegido por la Asamblea Universitaria, para un período de cinco (5) años y puede ser reelegido. Este cargo es de dedicación exclusiva y es incompatible con el desempeño de cualquier otra función o actividad pública o privada."
+        },
+        {
+          "punto_id": "Q02_P04",
+          "descripcion": "El Rector es elegido por la Asamblea Universitaria por un período de cinco años y puede ser reelegido",
+          "documento": "ESTATUTO 2024. 04-09-2024",
+          "articulo": "Artículo 34°",
+          "evidencia": "Artículo 34°. Rector. El rector de la UPeU es elegido por la Asamblea Universitaria, por un período de cinco (5) años, y puede ser reelegido."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q03",
+      "pregunta": "¿Cuáles son los requisitos para obtener el título profesional?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO GRADOS Y TITULOS.v8 2025"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 42°",
+          "paginas": [
+            "23"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO GRADOS Y TITULOS.v8 2025_0068"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 41°",
+          "paginas": [
+            "23"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO GRADOS Y TITULOS.v8 2025_0067"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q03_P01",
+          "descripcion": "Solicitud dirigida al secretario general para otorgamiento del Título Profesional",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 42°",
+          "evidencia": "42.1. Solicitud dirigida al secretario general: Otorgamiento del Título Profesional, conforme las prescripciones de la ley"
+        },
+        {
+          "punto_id": "Q03_P02",
+          "descripcion": "Haber abonado el derecho de pago del diploma de Título Profesional según tarifario UPeU",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 42°",
+          "evidencia": "42.2. Haber abonado el derecho de pago del diploma de Título Profesional, conforme al costo dispuesto por la UPeU en el tarifario respectivo."
+        },
+        {
+          "punto_id": "Q03_P03",
+          "descripcion": "Cumplir requisitos administrativos específicos según ley, SUNEDU y TUPA",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 42°",
+          "evidencia": "Son requisitos administrativos específicos para optar el título profesional los siguientes: 42.1. Solicitud dirigida al secretario general: Otorgamiento del Título Profesional, conforme las prescripciones de la ley, los reglamentos y directivas de la SUNEDU y del texto único de procedimientos académico-administrativos (TUPA) de la UPeU."
+        },
+        {
+          "punto_id": "Q03_P04",
+          "descripcion": "Poseer el Grado Académico de Bachiller otorgado por la UPeU",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 41°",
+          "evidencia": "41.1. Poseer, tener expedido, el Grado Académico de Bachiller otorgado por la UPeU."
+        },
+        {
+          "punto_id": "Q03_P05",
+          "descripcion": "Haber sustentado satisfactoriamente una tesis según modalidad vigente, o el trabajo de suficiencia profesional",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 41°",
+          "evidencia": "41.2. Haber sustentado satisfactoriamente una tesis, según la modalidad vigente, o el trabajo de suficiencia profesional."
+        },
+        {
+          "punto_id": "Q03_P06",
+          "descripcion": "No tener sanción disciplinaria o medida restrictiva vigente",
+          "documento": "REGLAMENTO GRADOS Y TITULOS.v8 2025",
+          "articulo": "Artículo 41°",
+          "evidencia": "41.3. No tener sanción disciplinaria o medida restrictiva vigente."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q04",
+      "pregunta": "¿Cómo me matriculo en la UPeU?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO DE ESTUDIOS V5_2025"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 70°",
+          "paginas": [
+            "21"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DE ESTUDIOS V5_2025_0079"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 71°",
+          "paginas": [
+            "21"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DE ESTUDIOS V5_2025_0080"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 72°",
+          "paginas": [
+            "21"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DE ESTUDIOS V5_2025_0081"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q04_P01",
+          "descripcion": "La matrícula es acto formal, voluntario, personal y obligatorio que otorga derechos y obligaciones",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 70°",
+          "evidencia": "Artículo 70° Definición de matrícula: Alcance y consecuencias. La matrícula es un acto formal, voluntario, personal y obligatorio por medio del cual el estudiante adquiere los derechos y obligaciones"
+        },
+        {
+          "punto_id": "Q04_P02",
+          "descripcion": "Modalidades de matrícula: presencial como regla y excepcionalmente por tercera persona con carta poder",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 71°",
+          "evidencia": "Artículo 71º. Modalidades de matrícula. Son modalidades de matrícula las siguientes: 71.1. Presencial. En general, la matrícula es de carácter presencial. Excepcionalmente, la matrícula presencial, por causas de enfermedad grave o impedimento físico acreditado del estudiante, puede ser efectuada por una tercera persona con carta poder, bajo la responsabilidad absoluta del estudiante."
+        },
+        {
+          "punto_id": "Q04_P03",
+          "descripcion": "Cronograma de matrícula es propuesto por vicerrectorado académico y aprobado por Consejo Universitario",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 72°",
+          "evidencia": "Artículo 72° Cronograma de matrícula. La fecha de inicio y finalización del proceso de matrícula para cualquier nivel y modalidad de estudios es de carácter institucional, propuesta por el vicerrectorado académico y aprobado por el Consejo Universitario."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q05",
+      "pregunta": "¿Qué requisitos hay para un proyecto de tesis?",
+      "categoria": "C",
+      "tema": "Investigación",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 17°",
+          "paginas": [
+            "10"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO INVESTIGACION UPeU 2025 V8_0032"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 18°",
+          "paginas": [
+            "10"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO INVESTIGACION UPeU 2025 V8_0033"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q05_P01",
+          "descripcion": "El perfil de proyecto de investigación se escribe entre el III y VI semestre, con apoyo de un docente, en equipos de máximo tres estudiantes",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 17°",
+          "evidencia": "Entre el III y VI semestre, con el apoyo de un docente, cada equipo de investigación de estudiantes, máximo de tres (3), escribe un perfil de proyecto de investigación"
+        },
+        {
+          "punto_id": "Q05_P02",
+          "descripcion": "El perfil se ejecuta para la tesis en formato artículo que conduce al título profesional",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 17°",
+          "evidencia": "deberá ser ejecutado para la tesis en formato artículo que conduce a la obtención del título profesional"
+        },
+        {
+          "punto_id": "Q05_P03",
+          "descripcion": "Su estructura incluye título, planteamiento del problema y metodología",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 18°",
+          "evidencia": "18.1. Título 18.2. Planteamiento del problema 18.3. Metodología, según unidad académica y tema de investigación"
+        },
+        {
+          "punto_id": "Q05_P04",
+          "descripcion": "También incluye administración del proyecto, referencias bibliográficas y anexos",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 18°",
+          "evidencia": "18.4. Administración del proyecto 18.5. Referencias bibliográficas 18.6. Anexos"
+        }
+      ],
+      "origen": "v3.1_corregida",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "v3.1 esperaba Art. 15–16 (coordinación del CIIEP en la investigación formativa), que no trata requisitos de un proyecto de tesis. Art. 17–18 definen el perfil de proyecto para la tesis y su estructura obligatoria."
+    },
+    {
+      "id": "Q06",
+      "pregunta": "¿Cuáles son los requisitos para publicar un artículo científico?",
+      "categoria": "C",
+      "tema": "Investigación",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO INVESTIGACION UPeU 2025 V8"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 119°",
+          "paginas": [
+            "28"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO INVESTIGACION UPeU 2025 V8_0141"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q06_P01",
+          "descripcion": "Artículos derivados de tesis doctoral pueden someterse con acompañamiento y coautoría del asesor",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 119°",
+          "evidencia": "Artículo 119°. Sumisión y publicación de los artículos. Los artículos científicos derivados de la ejecución del proyecto de tesis doctoral podrán ser sometidos a evaluación y publicación con el acompañamiento y la coautoría del asesor"
+        },
+        {
+          "punto_id": "Q06_P02",
+          "descripcion": "La contribución del asesor debe cumplir criterios éticos y académicos de autoría científica",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 119°",
+          "evidencia": "siempre que dicha contribución cumpla con los criterios éticos y académicos establecidos para la autoría científica."
+        },
+        {
+          "punto_id": "Q06_P03",
+          "descripcion": "La sumisión puede realizarse posterior a la inscripción del proyecto de tesis doctoral",
+          "documento": "REGLAMENTO INVESTIGACION UPeU 2025 V8",
+          "articulo": "Artículo 119°",
+          "evidencia": "La submisión y eventual publicación de los artículos podrá realizarse posterior a la inscripción del Proyecto de tesis doctoral."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q07",
+      "pregunta": "¿Qué becas ofrece la universidad?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO BECAS 2021 ACTUALIZADO"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 13°",
+          "paginas": [
+            "9"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0022"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 4°",
+          "paginas": [
+            "6",
+            "7"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0009",
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0010",
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0011"
+          ],
+          "total_partes": 3
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q07_P01",
+          "descripcion": "Beca por excelencia académica: ranking semestral, primer puesto admisión, egresados Colegio Unión",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 13°",
+          "evidencia": "Artículo 13°. Las becas, que puede otorgar, conceder la UPeU, previo cumplimiento de los requisitos y condiciones, son las siguientes: 13.1. Beca por excelencia académica"
+        },
+        {
+          "punto_id": "Q07_P02",
+          "descripcion": "Beca socioeconómica y por carencia de recursos/apoyo familiar y pobreza extrema",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 13°",
+          "evidencia": "Subcapítulo V DE LA BECA SOCIOECONÓMICA 5.1 De la beca por carencia de recursos y apoyo familiar"
+        },
+        {
+          "punto_id": "Q07_P03",
+          "descripcion": "Prohibido otorgar simultáneamente dos clases de becas al mismo estudiante en el mismo semestre",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 4°",
+          "evidencia": "4.3. Está prohibido, no procede, otorgar, conceder, simultáneamente dos (2) clases de becas al mismo estudiante en el mismo semestre académico"
+        },
+        {
+          "punto_id": "Q07_P04",
+          "descripcion": "Becas por convenio y beca de ley (fallecimiento/invalidez/internamiento del responsable financiero)",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 13°",
+          "evidencia": "13.2. Beca por convenio (13.2.1 egresados con excelencia de instituciones de la Promotora; 13.2.2 otros convenios). 13.3. Beca ley o por fallecimiento, invalidez permanente o internamiento del padre, tutor o responsable financiero."
+        },
+        {
+          "punto_id": "Q07_P05",
+          "descripcion": "Becas para deportistas destacados, etnia y discapacidad",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 13°",
+          "evidencia": "13.4. Beca al deportista destacado (13.4.1 IPD; 13.4.2 PRODAC). 13.6. Beca Etnia. 13.7. Beca de Discapacidad."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q08",
+      "pregunta": "¿Qué sanciones existen para los estudiantes?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 55°",
+          "paginas": [
+            "28"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0096",
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0097"
+          ],
+          "total_partes": 2
+        },
+        {
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 45°",
+          "paginas": [
+            "20"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0066"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 50°",
+          "paginas": [
+            "27"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0090"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q08_P01",
+          "descripcion": "Sancionado por falta grave/muy grave no puede acceder a matrícula ordinaria o extraordinaria",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 55°",
+          "evidencia": "55.1. Acceder a realizar la matrícula ordinaria o extraordinaria en períodos regulares, complementarios o extraordinarios."
+        },
+        {
+          "punto_id": "Q08_P02",
+          "descripcion": "Sancionado no puede beneficiarse de las becas que ofrece la UPeU durante la sanción y semestre siguiente",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 55°",
+          "evidencia": "55.2. Beneficiarse de las becas que ofrece la UPeU."
+        },
+        {
+          "punto_id": "Q08_P03",
+          "descripcion": "Sancionado no puede encargarse de prácticas o ayudantías de cátedra",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 55°",
+          "evidencia": "55.4. Encargarse de prácticas, ayudantías de catedra"
+        },
+        {
+          "punto_id": "Q08_P04",
+          "descripcion": "Las faltas disciplinarias se clasifican en leves, graves y muy graves (Art45-48)",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 45°",
+          "evidencia": "Artículo 45°. Clases de faltas. Las faltas disciplinarias pueden ser leves, graves y muy graves, según su gravedad. Desarrolladas en Art46 faltas leves, Art47 faltas graves, Art48 faltas muy graves."
+        },
+        {
+          "punto_id": "Q08_P05",
+          "descripcion": "Los tipos de sanciones se aplican según la gravedad de la falta (Art49-50)",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 50°",
+          "evidencia": "Artículo 49°. Sanciones. Las sanciones son medidas excepcionales para corregir las inconductas. Artículo 50°. Tipos. Los tipos de sanciones disciplinarias de acuerdo con la gravedad de las faltas son: leves, graves y muy graves."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q09",
+      "pregunta": "¿Qué dice la política de trabajo digno?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Politica Institucional de trabajo digno y protección de la persona v.1"
+      ],
+      "articulos_esperados": [],
+      "puntos": [
+        {
+          "punto_id": "Q09_P01",
+          "descripcion": "La UPeU reconoce al ser humano como creación de Dios dotado de dignidad, libertad y valor intrínseco",
+          "documento": "Politica Institucional de trabajo digno y protección de la persona v.1",
+          "articulo": "",
+          "evidencia": "Al ser humano como una creación de Dios, dotado de dignidad, libertad y valor intrínseco, cuya integridad física, mental, social y espiritual debe ser respetada"
+        },
+        {
+          "punto_id": "Q09_P02",
+          "descripcion": "La libertad excluye toda forma de sometimiento, coerción, explotación o abuso y orienta a justicia y equidad",
+          "documento": "Politica Institucional de trabajo digno y protección de la persona v.1",
+          "articulo": "",
+          "evidencia": "A la libertad como un principio esencial de la vida humana, que excluye toda forma de sometimiento, coerción, explotación o abuso"
+        },
+        {
+          "punto_id": "Q09_P03",
+          "descripcion": "Los principios bíblico-cristianos son fundamento de las relaciones institucionales",
+          "documento": "Politica Institucional de trabajo digno y protección de la persona v.1",
+          "articulo": "",
+          "evidencia": "Los principios bíblico-cristianos como fundamento de"
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q10",
+      "pregunta": "¿Quién supervisa la auditoría interna?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "reglamento_deauditoria_interna"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 8°",
+          "paginas": [
+            "2"
+          ],
+          "chunk_ids": [
+            "reglamento_deauditoria_interna_0008"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 10°",
+          "paginas": [
+            "2"
+          ],
+          "chunk_ids": [
+            "reglamento_deauditoria_interna_0010"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 11°",
+          "paginas": [
+            "2"
+          ],
+          "chunk_ids": [
+            "reglamento_deauditoria_interna_0011",
+            "reglamento_deauditoria_interna_0012",
+            "reglamento_deauditoria_interna_0013"
+          ],
+          "total_partes": 3
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q10_P01",
+          "descripcion": "La Oficina de Auditoría Interna tiene estructura: Auditor Interno, Asistente y Personal de Apoyo",
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 8°",
+          "evidencia": "ARTICULO 8: La AI tiene la siguiente estructura organizacional: a) Auditor Interno, quien dirige y coordina las acciones de la Oficina. b) Asistente de Auditoria. c) Personal de Apoyo."
+        },
+        {
+          "punto_id": "Q10_P02",
+          "descripcion": "El Auditor Interno es nombrado por Consejo Universitario a propuesta del Rector y depende de él",
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 10°",
+          "evidencia": "ARTICULO 10: El auditor interno es nombrado por el Consejo Universitario a propuesta del Rector, de quien depende orgánica y funcionalmente."
+        },
+        {
+          "punto_id": "Q10_P03",
+          "descripcion": "El Auditor Interno dirige, coordina, programa y ejecuta todas las acciones de auditoría interna",
+          "documento": "reglamento_deauditoria_interna",
+          "articulo": "Artículo 11°",
+          "evidencia": "ARTÍCULO 11: Son atribuciones y prerrogativas del Auditor Interno: a) Dirigir, coordinar, programar y ejecutar todas las acciones de auditoria interna en la UPeU."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q11",
+      "pregunta": "¿Cómo solicito una constancia de estudios?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "TUPA V6 2023 UPeU"
+      ],
+      "articulos_esperados": [],
+      "puntos": [
+        {
+          "punto_id": "Q11_P01",
+          "descripcion": "La constancia de estudios se solicita ante Secretaría General según TUPA vigente (Res. 2432-2023)",
+          "documento": "TUPA V6 2023 UPeU",
+          "articulo": "",
+          "evidencia": "TEXTO ÚNICO DE PROCEDIMIENTOS ACADÉMICO - ADMINISTRATIVOS (TUPA) RESOLUCIÓN N° 2432-2023/UPeU-CU del 25-05-2023 (v.6 2023"
+        },
+        {
+          "punto_id": "Q11_P02",
+          "descripcion": "El TUPA regula procedimientos académico-administrativos con vigencia por plazo indeterminado",
+          "documento": "TUPA V6 2023 UPeU",
+          "articulo": "",
+          "evidencia": "RESOLUCIÓN N° 2838-2017/UPeU-CU del 28-12-2017 (v.3 2018, vigencia por plazo indeterminado)"
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q12",
+      "pregunta": "¿Cuál es el procedimiento para cambiar de carrera?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO DE ESTUDIOS V5_2025"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 283º",
+          "paginas": [
+            "84"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DE ESTUDIOS V5_2025_0359"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q12_P01",
+          "descripcion": "Traslado procede automáticamente si existen vacantes no cubiertas en admisión",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 283º",
+          "evidencia": "283.1. Automáticamente si existen vacantes no cubiertas en admisión en la carrera profesional o programa académico."
+        },
+        {
+          "punto_id": "Q12_P02",
+          "descripcion": "Traslado procede si hay renuncia a vacante obtenida en nómina de ingresantes",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 283º",
+          "evidencia": "283.2. Automáticamente si en la nómina de ingresantes se produjo renuncia a la vacante obtenida."
+        },
+        {
+          "punto_id": "Q12_P03",
+          "descripcion": "Traslado procede al final de matrícula extemporánea si hay reserva de matrícula",
+          "documento": "REGLAMENTO DE ESTUDIOS V5_2025",
+          "articulo": "Artículo 283º",
+          "evidencia": "283.3. Al final de la matrícula extemporánea, si de los ingresantes a la carrera profesional o programa académico uno o más solicitaron reserva de matrícula."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q13",
+      "pregunta": "¿Qué incentivos hay para investigadores?",
+      "categoria": "C",
+      "tema": "Investigación",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+          "articulo": "Artículo 22°",
+          "paginas": [
+            "10"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025_0029"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q13_P01",
+          "descripcion": "Bonificación otorgada mientras mantenga vínculo laboral vigente con la UPeU",
+          "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "22.1 Es otorgado mientras mantengan el vínculo laboral vigente con la UPeU."
+        },
+        {
+          "punto_id": "Q13_P02",
+          "descripcion": "Beneficiario debe tener al menos 20 horas de dedicación y UPeU como afiliación principal en CTI Vitae",
+          "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "22.2 El beneficiario debe tener al menos veinte (20) horas (media carga) lectivas o no lectivas de dedicación laboral a la UPeU evidenciado por vínculo laboral (contrato) vigente. 22.3 El beneficiario debe tener en su CTi Vitae a la UPeU como afiliación principal."
+        },
+        {
+          "punto_id": "Q13_P03",
+          "descripcion": "Bono mensual según nivel Renacyt a partir de informe de DGI",
+          "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "22.4 El beneficiario recibirá el bono mensual correspondiente según el nivel Renacyt (ver tablas de Incentivos) a partir de la fecha del informe enviado por la DGI"
+        },
+        {
+          "punto_id": "Q13_P04",
+          "descripcion": "Mantenimiento de la bonificación: actualización DGI/DTH, publicación Scopus/WoS y boleta de pago",
+          "documento": "REGLAMENTO INCENTIVOS INVESTIGACION E INNOVACIÓN 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "22.5 La DGI actualiza el monto ante la DTH dos veces al año. 22.6 Para mantenerla el docente debe publicar al menos 1 artículo en Scopus/Web of Science. 22.7 La bonificación es consignada en la boleta de pago, de libre disposición y remunerativa."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q14",
+      "pregunta": "¿Qué derechos tiene el estudiante universitario?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO ESTUDIANTE UNIONISTA V3"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "paginas": [
+            "15",
+            "16"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0049",
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0050",
+            "REGLAMENTO ESTUDIANTE UNIONISTA V3_0051"
+          ],
+          "total_partes": 3
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q14_P01",
+          "descripcion": "Derecho a formación académica de calidad con principios y valores cristianos",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.1. Recibir formación académica de calidad que les otorgue conocimientos generales para el desempeño profesional y herramientas de investigación"
+        },
+        {
+          "punto_id": "Q14_P02",
+          "descripcion": "Derecho a orientación y consejería para formación y vida íntegra",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.2. Recibir orientación y consejería a través de los departamentos o áreas establecidos para la formación y desarrollo de una vida íntegra"
+        },
+        {
+          "punto_id": "Q14_P03",
+          "descripcion": "Derecho a participar en proceso de evaluación a los docentes",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.3. Participar en el proceso de evaluación a los docentes por el período académico."
+        },
+        {
+          "punto_id": "Q14_P04",
+          "descripcion": "Derechos de participación y gobierno: evaluación universitaria, asociaciones, clubes y actividades",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.4. Participar en el gobierno y evaluación de la actividad universitaria. 32.9. Participar libremente para formar asociaciones. 32.10. Registrar clubes y grupos. 32.11. Participar en programas religiosos, culturales y sociohumanitarios."
+        },
+        {
+          "punto_id": "Q14_P05",
+          "descripcion": "Derechos de campus y servicios: ingreso, mobiliario, servicios de bienestar, tutoría",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.5. Ingresar libremente al campus. 32.6. Utilizar mobiliario y equipos. 32.7. Utilizar servicios de bienestar. 32.8. Recibir tutoría de docentes. 32.13. Recibir apoyo académico de acuerdo al diseño curricular, la pertinencia y duración de las prácticas preprofesionales."
+        },
+        {
+          "punto_id": "Q14_P06",
+          "descripcion": "Derechos de debido proceso, distinciones, gratuidad de tesis y bolsas de trabajo",
+          "documento": "REGLAMENTO ESTUDIANTE UNIONISTA V3",
+          "articulo": "Artículo 32°",
+          "evidencia": "32.14. Debido proceso disciplinario y recursos. 32.15. Distinciones por investigación. 32.16. Gratuidad de asesoramiento y sustentación de tesis por una vez. 32.17. Bolsas de trabajo."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q15",
+      "pregunta": "¿Cómo solicito una beca en la UPeU?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO BECAS 2021 ACTUALIZADO"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "paginas": [
+            "18",
+            "19"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0065",
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0066",
+            "REGLAMENTO BECAS 2021 ACTUALIZADO_0067"
+          ],
+          "total_partes": 3
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q15_P01",
+          "descripcion": "Tener calidad de estudiante regular de la UPeU",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.1. Tener la calidad de estudiante regular de la UPeU."
+        },
+        {
+          "punto_id": "Q15_P02",
+          "descripcion": "Haber obtenido promedio ponderado mínimo de catorce (14)",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.2. Haber obtenido un promedio ponderado mínimo de catorce (14)"
+        },
+        {
+          "punto_id": "Q15_P03",
+          "descripcion": "No haber sido ni estar sancionado en el semestre académico precedente",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.3. No haber sido ni estar sancionado en el semestre académico precedente"
+        },
+        {
+          "punto_id": "Q15_P04",
+          "descripcion": "No adeudar a la UPeU por ningún concepto (requisito)",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.4. No adeudar a la UPeU por ningún concepto."
+        },
+        {
+          "punto_id": "Q15_P05",
+          "descripcion": "Documentos de identidad y de economía familiar según situación (boletas, honorarios, pensión, negocio, alquiler, remesas, informales, desempleados)",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.5. Documentos de identidad del padre, madre, estudiante y hermanos. 49.6. Documentos del responsable económico: 49.6.1 dependiente (boletas), 49.6.2 independiente (honorarios), 49.6.3 pensionistas, 49.6.4 negocio (PDT/RUS), 49.6.5 alquiler, 49.6.6 remesas, 49.6.7 informales (DJ), 49.6.8 desempleados."
+        },
+        {
+          "punto_id": "Q15_P06",
+          "descripcion": "Otros documentos: SUNARP, hermanos, salud, servicios, apoyo familiar, padres separados",
+          "documento": "REGLAMENTO BECAS 2021 ACTUALIZADO",
+          "articulo": "Artículo 49°",
+          "evidencia": "49.7. Búsqueda SUNARP. 49.8. Hermanos (recibo/constancia). 49.9. Certificado de salud. 49.10. Recibo de servicios. 49.11. Apoyo económico familiar (DJ). 49.12. Padres separados. 49.13. Otros que solicite asistencia social."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q16",
+      "pregunta": "¿Cuál es el procedimiento para presentar una queja?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 15°",
+          "paginas": [
+            "9"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0021"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 17°",
+          "paginas": [
+            "9"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0023"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 22°",
+          "paginas": [
+            "10",
+            "11"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0029",
+            "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0030",
+            "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4_0031"
+          ],
+          "total_partes": 3
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q16_P01",
+          "descripcion": "La queja puede presentarse de forma presencial, por escrito en la oficina del campus o verbalmente",
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 15°",
+          "evidencia": "15.1. Presencial: 15.1.1. Escrita, en formato físico presentada en la oficina dispuesta en el campus 15.1.2. Verbal, sin formato o presentación de escrito alguno."
+        },
+        {
+          "punto_id": "Q16_P02",
+          "descripcion": "También de forma no presencial, por teléfono o por el correo electrónico de la Defensoría",
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 15°",
+          "evidencia": "15.2. No presencial: 15.2.1. Verbalmente a través de línea telefónica"
+        },
+        {
+          "punto_id": "Q16_P03",
+          "descripcion": "Debe contener los hechos que vulneran el derecho, la petición concreta y, si los hay, los medios probatorios",
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 17°",
+          "evidencia": "17.1. Los actos, hechos, situaciones, actuaciones o conductas materializadas que considere que violan su derecho fundamental individual. 17.2. La petición concreta, individualizada o específica."
+        },
+        {
+          "punto_id": "Q16_P04",
+          "descripcion": "La admisión toma hasta un día hábil y la resolución diez días hábiles, ampliables hasta treinta",
+          "documento": "REGLAMENTO DEFENSORIA UNIVERSITARIA 2025 v4",
+          "articulo": "Artículo 22°",
+          "evidencia": "Serán resueltas en un plazo de diez (10) días hábiles"
+        }
+      ],
+      "origen": "v3.1_corregida",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "v3.1 esperaba el Art. 140° del Reglamento Interno de Trabajo (reclamo laboral de trabajadores). Para un estudiante, la vía es la Defensoría Universitaria: Art. 15 (vías), 17 (contenido) y 22 (plazos). El contenido antiguo pasa a Q28 con la pregunta bien formulada."
+    },
+    {
+      "id": "Q17",
+      "pregunta": "¿Qué servicios ofrece la universidad a los egresados?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento de seguimiento de egresados"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento de seguimiento de egresados",
+          "articulo": "Artículo 12°",
+          "paginas": [
+            "6"
+          ],
+          "chunk_ids": [
+            "Reglamento de seguimiento de egresados_0015"
+          ],
+          "total_partes": 1
+        },
+        {
+          "documento": "Reglamento de seguimiento de egresados",
+          "articulo": "Artículo 18°",
+          "paginas": [
+            "8"
+          ],
+          "chunk_ids": [
+            "Reglamento de seguimiento de egresados_0021",
+            "Reglamento de seguimiento de egresados_0022"
+          ],
+          "total_partes": 2
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q17_P01",
+          "descripcion": "Mecanismos laborales y académicos para egresados: ofertas laborales, prácticas, CV, capacitación y actualización",
+          "documento": "Reglamento de seguimiento de egresados",
+          "articulo": "Artículo 12°",
+          "evidencia": "Artículo 12°. Mecanismos de vinculación: a) Laboral: ofertas laborales, prácticas profesionales, gestión del CV. b) Académico: capacitación, perfeccionamiento, actualización profesional, pasantías, investigación."
+        },
+        {
+          "punto_id": "Q17_P02",
+          "descripcion": "Servicios e instalaciones para egresados: base de datos, CRAI, laboratorios, ambientes y redes",
+          "documento": "Reglamento de seguimiento de egresados",
+          "articulo": "Artículo 12°",
+          "evidencia": "Artículo 12°. c) Servicios: uso de base de datos, CRAI, laboratorios, instalaciones o ambientes, redes sociales oficiales. d) Programas y proyectos conjuntos."
+        },
+        {
+          "punto_id": "Q17_P03",
+          "descripcion": "Vinculación efectiva: cooperación, investigación, capacitación, auspicio de eventos y alianzas",
+          "documento": "Reglamento de seguimiento de egresados",
+          "articulo": "Artículo 18°",
+          "evidencia": "Artículo 18°. La vinculación se efectiviza por: cooperación filantrópica (cátedras, intermediación laboral), investigación, capacitación, auspicio de eventos, alianzas estratégicas."
+        }
+      ],
+      "origen": "v3.1",
+      "estado": "CURADO_V31",
+      "cambios": "Se propaga la corrección de la v3.1 (Reglamento de seguimiento de egresados, Art. 12° y 18°) que no había llegado a banco_preguntas. Categoría y tema recalculados desde los metadatos del corpus V3."
+    },
+    {
+      "id": "Q18",
+      "pregunta": "¿Qué modalidades de admisión ofrece la UPeU?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO ADMISION 2025.v7"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO ADMISION 2025.v7",
+          "articulo": "Artículo 28°",
+          "paginas": [
+            "12",
+            "13",
+            "14",
+            "15"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO ADMISION 2025.v7_0044",
+            "REGLAMENTO ADMISION 2025.v7_0045",
+            "REGLAMENTO ADMISION 2025.v7_0046",
+            "REGLAMENTO ADMISION 2025.v7_0047",
+            "REGLAMENTO ADMISION 2025.v7_0048",
+            "REGLAMENTO ADMISION 2025.v7_0049",
+            "REGLAMENTO ADMISION 2025.v7_0050",
+            "REGLAMENTO ADMISION 2025.v7_0051"
+          ],
+          "total_partes": 8
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q18_P01",
+          "descripcion": "En el concurso ordinario el postulante rinde la evaluación de aptitudes y actitudes (entrevista) y el examen de conocimiento",
+          "documento": "REGLAMENTO ADMISION 2025.v7",
+          "articulo": "Artículo 28°",
+          "evidencia": "están obligados a pasar por el proceso de evaluación de aptitudes y actitudes (entrevista) y el examen de conocimiento"
+        },
+        {
+          "punto_id": "Q18_P02",
+          "descripcion": "Modalidades ordinarias: examen general, examen preferencial (preingreso), centro preuniversitario, personas con discapacidad y deportista calificado",
+          "documento": "REGLAMENTO ADMISION 2025.v7",
+          "articulo": "Artículo 28°",
+          "evidencia": "28.1.1. Examen General"
+        },
+        {
+          "punto_id": "Q18_P03",
+          "descripcion": "En el concurso extraordinario el postulante está exonerado del examen de conocimiento y solo pasa la evaluación de aptitudes y actitudes",
+          "documento": "REGLAMENTO ADMISION 2025.v7",
+          "articulo": "Artículo 28°",
+          "evidencia": "Son aquellos postulantes que están exonerado del examen de conocimiento y deben pasar por una evaluación de aptitudes y actitudes"
+        },
+        {
+          "punto_id": "Q18_P04",
+          "descripcion": "Modalidades extraordinarias: primeros puestos, internacionales, convenios, tercio superior, traslado externo, grado y título, titulado de instituto, traslado interno y egresados de colegios de la UPeU",
+          "documento": "REGLAMENTO ADMISION 2025.v7",
+          "articulo": "Artículo 28°",
+          "evidencia": "28.2.1. Primeros Puestos"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q19",
+      "pregunta": "¿A quiénes se aplica el requisito de idioma inglés o lengua nativa en pregrado?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3",
+          "articulo": "Artículo 8°",
+          "paginas": [
+            "6"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3_0010"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q19_P01",
+          "descripcion": "Se aplica a todas las carreras profesionales, en modalidad presencial, semipresencial y a distancia",
+          "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3",
+          "articulo": "Artículo 8°",
+          "evidencia": "se aplica a todas las carreras profesionales, modalidad presencial, semipresencial y a distancia"
+        },
+        {
+          "punto_id": "Q19_P02",
+          "descripcion": "Alcanza a postulantes e ingresantes",
+          "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3",
+          "articulo": "Artículo 8°",
+          "evidencia": "8.1. Postulantes: En el proceso de admisión a los postulantes a una carrera profesional en cualquiera de las modalidades. 8.2. Ingresantes"
+        },
+        {
+          "punto_id": "Q19_P03",
+          "descripcion": "Alcanza a todo estudiante antes de su matrícula, según el nivel exigido al momento de su ingreso",
+          "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3",
+          "articulo": "Artículo 8°",
+          "evidencia": "a todo estudiante antes de su matrícula para iniciar o seguir estudios en una carrera profesional, según el nivel exigido al momento de su ingreso"
+        },
+        {
+          "punto_id": "Q19_P04",
+          "descripcion": "A los egresados solo por excepción, cuando a la fecha de egreso es requisito para el bachiller",
+          "documento": "REGLAMENTO IDIOMAS INGLES O NATIVO 2023v.3",
+          "articulo": "Artículo 8°",
+          "evidencia": "Egresados: En excepción, al culminar los estudios, solo cuando a la fecha de egreso es un requisito de obtención de grado académico de bachiller"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q20",
+      "pregunta": "¿Qué requisitos debo cumplir para participar en la movilidad académica estudiantil?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1",
+          "articulo": "Artículo 31°",
+          "paginas": [
+            "15"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1_0046",
+            "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1_0047"
+          ],
+          "total_partes": 2
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q20_P01",
+          "descripcion": "Estar en el tercio superior, con matrícula regular y al menos 50 créditos aprobados",
+          "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1",
+          "articulo": "Artículo 31°",
+          "evidencia": "Estar ubicado en el tercio superior de evaluación. 31.1.2. Ser estudiante con matrícula regular en la UPeU, y haber aprobado como mínimo 50 créditos"
+        },
+        {
+          "punto_id": "Q20_P02",
+          "descripcion": "Acreditar el dominio del idioma que exija la institución receptora",
+          "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1",
+          "articulo": "Artículo 31°",
+          "evidencia": "Acreditar el dominio del idioma que corresponda, según el nivel requerido por la institución receptora"
+        },
+        {
+          "punto_id": "Q20_P03",
+          "descripcion": "No adeudar a la UPeU, no tener sanciones disciplinarias y participar por primera vez",
+          "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1",
+          "articulo": "Artículo 31°",
+          "evidencia": "No adeudar a la UPeU, por ningún concepto. 31.1.5. Participar por primera vez de un programa de movilidad estudiantil en la UPeU. 31.1.6. No tener o haber tenido sanciones disciplinarias."
+        },
+        {
+          "punto_id": "Q20_P04",
+          "descripcion": "Gozar de buena salud, contar con apoyo financiero acreditado y aprobar el curso de Identidad Educativa",
+          "documento": "REGLAMENTO MOVILIDAD ACADEMICA ESTUDIANTIL Y DOCENTEv1",
+          "articulo": "Artículo 31°",
+          "evidencia": "Gozar de buena salud. 31.1.8. Contar con el apoyo financiero acreditado de sus progenitores o apoderado."
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q21",
+      "pregunta": "¿Qué pasa si no pago una cuota de la pensión en la fecha de vencimiento?",
+      "categoria": "B",
+      "tema": "Académico y estudios",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento Pago Servicios Educativos o Académicos"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento Pago Servicios Educativos o Académicos",
+          "articulo": "Artículo 50",
+          "paginas": [
+            "21"
+          ],
+          "chunk_ids": [
+            "Reglamento Pago Servicios Educativos o Académicos_0064"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q21_P01",
+          "descripcion": "La falta de pago total o parcial en la fecha de vencimiento genera mora automática",
+          "documento": "Reglamento Pago Servicios Educativos o Académicos",
+          "articulo": "Artículo 50",
+          "evidencia": "La falta de pago total o parcial de la fracción o cuota en la fecha de su vencimiento determinada en el contrato de servicio educativo universitario de pregrado / posgrado genera la mora automática"
+        },
+        {
+          "punto_id": "Q21_P02",
+          "descripcion": "La UPeU puede no entregar ni certificar documentos académicos por ese incumplimiento",
+          "documento": "Reglamento Pago Servicios Educativos o Académicos",
+          "articulo": "Artículo 50",
+          "evidencia": "La UPeU puede no entregar, certificar, acreditar, evidenciar los documentos académicos"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q22",
+      "pregunta": "¿Qué principios éticos rigen la investigación en la UPeU?",
+      "categoria": "C",
+      "tema": "Investigación",
+      "tipo_pregunta": "DIRECTA",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO CODIGO ETICA INVESTIGACION 2021"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO CODIGO ETICA INVESTIGACION 2021",
+          "articulo": "Artículo 4°",
+          "paginas": [
+            "4"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO CODIGO ETICA INVESTIGACION 2021_0007"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q22_P01",
+          "descripcion": "Autonomía: protege la dignidad, libertad y derechos de la persona",
+          "documento": "REGLAMENTO CODIGO ETICA INVESTIGACION 2021",
+          "articulo": "Artículo 4°",
+          "evidencia": "protege la dignidad, libertad y derechos de la persona"
+        },
+        {
+          "punto_id": "Q22_P02",
+          "descripcion": "Beneficencia y no maleficencia: prevenir el daño y minimizar riesgos",
+          "documento": "REGLAMENTO CODIGO ETICA INVESTIGACION 2021",
+          "articulo": "Artículo 4°",
+          "evidencia": "Beneficencia/ No maleficencia"
+        },
+        {
+          "punto_id": "Q22_P03",
+          "descripcion": "Justicia: los resultados benefician a la persona y la comunidad sin discriminación",
+          "documento": "REGLAMENTO CODIGO ETICA INVESTIGACION 2021",
+          "articulo": "Artículo 4°",
+          "evidencia": "sirve a la persona y a la comunidad sin discriminación alguna"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q23",
+      "pregunta": "¿Qué requisitos generales hay para el reconocimiento a la excelencia académica?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020",
+          "articulo": "Artículo 15°",
+          "paginas": [
+            "7"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020_0017"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q23_P01",
+          "descripcion": "Tener la calidad de estudiante sin limitación ni restricción vigente",
+          "documento": "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020",
+          "articulo": "Artículo 15°",
+          "evidencia": "Tener la calidad de estudiante sin limitación o restricción vigente alguna"
+        },
+        {
+          "punto_id": "Q23_P02",
+          "descripcion": "Representar la identidad de la formación integral de la educación cristiana adventista",
+          "documento": "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020",
+          "articulo": "Artículo 15°",
+          "evidencia": "Representar la identidad de la formación integral de la educación cristiana adventista"
+        },
+        {
+          "punto_id": "Q23_P03",
+          "descripcion": "No tener sanción disciplinaria vigente",
+          "documento": "REGLAMENTO RECONOCIMIENTO EXCELENCIA ACADEMICA 2020",
+          "articulo": "Artículo 15°",
+          "evidencia": "No tener vigente sanción disciplinaria"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q24",
+      "pregunta": "¿Qué requisitos debo cumplir para postular a la beca deportiva PRODAC?",
+      "categoria": "D",
+      "tema": "Bienestar estudiantil",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO PRODAC 2022(R_SG)"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO PRODAC 2022(R_SG)",
+          "articulo": "Artículo 22°",
+          "paginas": [
+            "12"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO PRODAC 2022(R_SG)_0031"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q24_P01",
+          "descripcion": "Inscribirse en el sitio web de la UPeU y adjuntar todos los documentos solicitados",
+          "documento": "REGLAMENTO PRODAC 2022(R_SG)",
+          "articulo": "Artículo 22°",
+          "evidencia": "Inscribirse en el sitio web de la UPeU"
+        },
+        {
+          "punto_id": "Q24_P02",
+          "descripcion": "Haber concluido el ciclo anterior con carga regular y aprobado todo con promedio mínimo de 14",
+          "documento": "REGLAMENTO PRODAC 2022(R_SG)",
+          "articulo": "Artículo 22°",
+          "evidencia": "Haber aprobado todas las asignaturas matriculadas, alcanzando o superando el promedio ponderado mínimo de 14"
+        },
+        {
+          "punto_id": "Q24_P03",
+          "descripcion": "No tener sanciones ni deudas con la UPeU",
+          "documento": "REGLAMENTO PRODAC 2022(R_SG)",
+          "articulo": "Artículo 22°",
+          "evidencia": "No contar con ninguna sanción. 22.3.4 No tener deuda alguna con la UPeU"
+        },
+        {
+          "punto_id": "Q24_P04",
+          "descripcion": "Tener como máximo 25 años y participar en todas las etapas del proceso de selección",
+          "documento": "REGLAMENTO PRODAC 2022(R_SG)",
+          "articulo": "Artículo 22°",
+          "evidencia": "El postulante debe tener, como máximo, una edad igual o menor a 25 años"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q25",
+      "pregunta": "¿Qué requisitos debe cumplir un estudiante para ser candidato a representante estudiantil?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento Comite Electoral Universitario 2016 OK"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento Comite Electoral Universitario 2016 OK",
+          "articulo": "Artículo 23°",
+          "paginas": [
+            "6"
+          ],
+          "chunk_ids": [
+            "Reglamento Comite Electoral Universitario 2016 OK_0023"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q25_P01",
+          "descripcion": "Estar en los tres primeros puestos del tercio superior sin haber desaprobado asignaturas",
+          "documento": "Reglamento Comite Electoral Universitario 2016 OK",
+          "articulo": "Artículo 23°",
+          "evidencia": "Estar comprendido en los tres primeros puestos del tercio superior de notas"
+        },
+        {
+          "punto_id": "Q25_P02",
+          "descripcion": "Estar matriculado y cursando al menos el V semestre",
+          "documento": "Reglamento Comite Electoral Universitario 2016 OK",
+          "articulo": "Artículo 23°",
+          "evidencia": "Estar matriculado y estudiando como mínimo el V semestre académico de su carrera profesional"
+        },
+        {
+          "punto_id": "Q25_P03",
+          "descripcion": "No tener sanciones disciplinarias ni procesos por indisciplina",
+          "documento": "Reglamento Comite Electoral Universitario 2016 OK",
+          "articulo": "Artículo 23°",
+          "evidencia": "No haber sido sancionado, o tener vigente sanción disciplinaria"
+        },
+        {
+          "punto_id": "Q25_P04",
+          "descripcion": "No adeudar a la UPeU ni ser miembro del Comité Electoral Universitario",
+          "documento": "Reglamento Comite Electoral Universitario 2016 OK",
+          "articulo": "Artículo 23°",
+          "evidencia": "No adeudar a la UPeU por ningún concepto"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q26",
+      "pregunta": "¿Qué documentos necesito para pedir el duplicado de mi diploma si lo perdí?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento de duplicado de diplomas"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento de duplicado de diplomas",
+          "articulo": "Artículo 5°",
+          "paginas": [
+            "3"
+          ],
+          "chunk_ids": [
+            "Reglamento de duplicado de diplomas_0006"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q26_P01",
+          "descripcion": "Solicitud dirigida al rector, cuatro fotografías tamaño pasaporte y copia simple del DNI",
+          "documento": "Reglamento de duplicado de diplomas",
+          "articulo": "Artículo 5°",
+          "evidencia": "Solicitud dirigida al rector de la Universidad"
+        },
+        {
+          "punto_id": "Q26_P02",
+          "descripcion": "Recibo de pago de los derechos de duplicado y constancia de la denuncia policial",
+          "documento": "Reglamento de duplicado de diplomas",
+          "articulo": "Artículo 5°",
+          "evidencia": "Constancia de la Denuncia Policial"
+        },
+        {
+          "punto_id": "Q26_P03",
+          "descripcion": "Constancia del Registro Nacional de Grados y Títulos y copia certificada de la resolución que otorga el grado o título",
+          "documento": "Reglamento de duplicado de diplomas",
+          "articulo": "Artículo 5°",
+          "evidencia": "Constancia expedida por el Registro Nacional de Grados y Títulos"
+        },
+        {
+          "punto_id": "Q26_P04",
+          "descripcion": "Publicación del aviso de pérdida en un diario de mayor circulación",
+          "documento": "Reglamento de duplicado de diplomas",
+          "articulo": "Artículo 5°",
+          "evidencia": "Publicación por única vez, en un diario de mayor circulación del lugar"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q27",
+      "pregunta": "¿Cómo presento una denuncia por hostigamiento sexual en la UPeU?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento Prevención Acoso y Hostigamiento Sexual 2025"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025",
+          "articulo": "Artículo 22°",
+          "paginas": [
+            "11",
+            "12",
+            "13",
+            "14"
+          ],
+          "chunk_ids": [
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0032",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0033",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0034",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0035",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0036",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0037",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0038",
+            "Reglamento Prevención Acoso y Hostigamiento Sexual 2025_0039"
+          ],
+          "total_partes": 8
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q27_P01",
+          "descripcion": "La denuncia la puede presentar la persona hostigada, un tercero o iniciarse de oficio",
+          "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "La denuncia puede ser presentada por la persona hostigada, un tercero o interpuesta de oficio"
+        },
+        {
+          "punto_id": "Q27_P02",
+          "descripcion": "Puede ser verbal o escrita, presencial o electrónica, ante la Secretaría de Instrucción (SeIn)",
+          "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "de forma verbal o escrita, presencial o electrónica a la SeIn"
+        },
+        {
+          "punto_id": "Q27_P03",
+          "descripcion": "Debe narrar los hechos y adjuntar las pruebas disponibles e identificar al presunto hostigador",
+          "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "La denuncia contendrá una breve narración y listado de los hechos a investigar"
+        },
+        {
+          "punto_id": "Q27_P04",
+          "descripcion": "En un día hábil la SeIn pone a disposición de la víctima atención médica o psicológica",
+          "documento": "Reglamento Prevención Acoso y Hostigamiento Sexual 2025",
+          "articulo": "Artículo 22°",
+          "evidencia": "La SeIn, en un plazo no mayor a un (1) día hábil luego de recibida la denuncia, pone a disposición de la persona hostigada los canales de atención médica"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q28",
+      "pregunta": "¿Cuál es el procedimiento para que un trabajador de la UPeU presente un reclamo laboral?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "PROCEDIMIENTO",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "REGLAMENTO INTERNO DE TRABAJO Final 2020"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+          "articulo": "Artículo 140°",
+          "paginas": [
+            "82"
+          ],
+          "chunk_ids": [
+            "REGLAMENTO INTERNO DE TRABAJO Final 2020_0199"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q28_P01",
+          "descripcion": "Reclamos se formulan por escrito ante instancia correspondiente en horario oficial y debidamente registrado",
+          "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+          "articulo": "Artículo 140°",
+          "evidencia": "Artículo 140°. Modalidades, formalidad y procedimiento del reclamo. Los reclamos se formulan por escrito ante la instancia correspondiente, en el horario oficial de trabajo y debidamente registrado"
+        },
+        {
+          "punto_id": "Q28_P02",
+          "descripcion": "Reclamo verbal ante jefe inmediato quien resuelve en el día dejando constancia",
+          "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+          "articulo": "Artículo 140°",
+          "evidencia": "3. Reclamo verbal: Es formulado ante el jefe inmediato, quien resuelve en el día, dejando constancia documentaria de la actuación."
+        },
+        {
+          "punto_id": "Q28_P03",
+          "descripcion": "Reclamo escrito ante DTH resuelve en cinco días hábiles y notifica en tres días hábiles",
+          "documento": "REGLAMENTO INTERNO DE TRABAJO Final 2020",
+          "articulo": "Artículo 140°",
+          "evidencia": "4. Reclamo por escrito: Es formulado, después de haber recibido la decisión sobre el reclamo verbal, e interpuesto ante la DTH, esta resuelve en el plazo de cinco (5) días hábiles y asimismo notifica su decisión en el término de tres (3) días hábiles."
+        }
+      ],
+      "origen": "nueva_v3.2 (puntos curados del Q16 v3.1)",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Reformulación del antiguo Q16: la respuesta esperada (reclamo laboral, Art. 140°) es correcta para un trabajador, no para un estudiante."
+    },
+    {
+      "id": "Q29",
+      "pregunta": "¿Qué requisitos y costo tiene el carné universitario al matricularse?",
+      "categoria": "A",
+      "tema": "Gobierno y estatuto institucional",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "TUPA V6 2023 UPeU"
+      ],
+      "articulos_esperados": [],
+      "puntos": [
+        {
+          "punto_id": "Q29_P01",
+          "descripcion": "Estar matriculado en el semestre académico",
+          "documento": "TUPA V6 2023 UPeU",
+          "articulo": "",
+          "evidencia": "CARNÉ UNIVERSITARIO | 1. Estar matriculado en el semestre académico"
+        },
+        {
+          "punto_id": "Q29_P02",
+          "descripcion": "Tomarse la foto digital de frente, con fondo blanco, ropa formal oscura y sin lentes ni alhajas",
+          "documento": "TUPA V6 2023 UPeU",
+          "articulo": "",
+          "evidencia": "Tomarse la foto digital en el período determinado y según especificaciones y normativa vigente"
+        },
+        {
+          "punto_id": "Q29_P03",
+          "descripcion": "El derecho de trámite es S/. 20.00",
+          "documento": "TUPA V6 2023 UPeU",
+          "articulo": "",
+          "evidencia": "Sin lentes, ni alhajas | S/. 20.00"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    },
+    {
+      "id": "Q30",
+      "pregunta": "¿Qué requisitos se necesitan para ser jefe de prácticas en la UPeU?",
+      "categoria": "E",
+      "tema": "Laboral, docencia y políticas",
+      "tipo_pregunta": "REQUISITOS",
+      "cobertura_esperada": "ANSWERABLE",
+      "documentos_esperados": [
+        "Reglamento de Jefes de prácticas apoyo y profesional"
+      ],
+      "articulos_esperados": [
+        {
+          "documento": "Reglamento de Jefes de prácticas apoyo y profesional",
+          "articulo": "Artículo 10°",
+          "paginas": [
+            "5"
+          ],
+          "chunk_ids": [
+            "Reglamento de Jefes de prácticas apoyo y profesional_0014"
+          ],
+          "total_partes": 1
+        }
+      ],
+      "puntos": [
+        {
+          "punto_id": "Q30_P01",
+          "descripcion": "Título profesional universitario de la especialidad o afín",
+          "documento": "Reglamento de Jefes de prácticas apoyo y profesional",
+          "articulo": "Artículo 10°",
+          "evidencia": "Título profesional universitario de la formación profesional o especialidad"
+        },
+        {
+          "punto_id": "Q30_P02",
+          "descripcion": "Experiencia profesional no menor de un año y conocimientos básicos de TI",
+          "documento": "Reglamento de Jefes de prácticas apoyo y profesional",
+          "articulo": "Artículo 10°",
+          "evidencia": "Experiencia profesional no menor de un (1) año"
+        },
+        {
+          "punto_id": "Q30_P03",
+          "descripcion": "Habilitación profesional o colegiatura cuando se requiera",
+          "documento": "Reglamento de Jefes de prácticas apoyo y profesional",
+          "articulo": "Artículo 10°",
+          "evidencia": "Tener la habilitación profesional o colegiatura"
+        },
+        {
+          "punto_id": "Q30_P04",
+          "descripcion": "No tener antecedentes judiciales o penales ni sentencia por delito doloso",
+          "documento": "Reglamento de Jefes de prácticas apoyo y profesional",
+          "articulo": "Artículo 10°",
+          "evidencia": "No tener antecedentes judiciales o penales"
+        }
+      ],
+      "origen": "nueva_v3.2",
+      "estado": "PROPUESTA_V32_PENDIENTE_REVISION_HUMANA",
+      "cambios": "Pregunta nueva redactada desde el texto literal del artículo."
+    }
+  ],
+  "negativas": [
+    {
+      "id": "N01",
+      "pregunta": "¿Cuál es el precio actual de una laptop en Lima?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Precios comerciales de productos no relacionados con la UPeU; el corpus solo contiene normativa institucional."
+    },
+    {
+      "id": "N02",
+      "pregunta": "¿Qué clima hará mañana en Juliaca?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Información meteorológica; fuera de normativas y documentos institucionales."
+    },
+    {
+      "id": "N03",
+      "pregunta": "¿Cuáles son los requisitos para obtener una licencia de conducir en Perú?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Trámite estatal externo (MTC); ningún reglamento UPeU lo regula."
+    },
+    {
+      "id": "N04",
+      "pregunta": "¿Cómo se prepara el ceviche peruano?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Receta de cocina; fuera del dominio normativo universitario."
+    },
+    {
+      "id": "N05",
+      "pregunta": "¿Cuál es el tipo de cambio del dólar hoy?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Dato financiero coyuntural externo; no existe en documentos institucionales."
+    },
+    {
+      "id": "N06",
+      "pregunta": "¿Qué resultados hubo en la última fecha del campeonato de fútbol peruano?",
+      "cobertura_esperada": "NO_ANSWER",
+      "motivo": "Resultados deportivos externos; fuera de normativas institucionales."
+    }
+  ]
+}

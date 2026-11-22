@@ -249,7 +249,7 @@ EMBEDDING_REVISION = os.getenv(
 ) or None
 CORPUS_VERSION = os.getenv("CORPUS_VERSION", "corpus_upeu_v3_bgem3")  # colección ChromaDB vigente
 # Versión del prompt (rag_pipeline.PROMPTS). v2-adaptativo: formato adaptativo y
-# guardrails (pide "texto directo breve"). v3-completo (2026-11-22): mismas reglas,
+# guardrails (pide "texto directo breve"). v3-completo (2026-11-21): mismas reglas,
 # pero exige incluir todos los requisitos/pasos/condiciones de las fuentes relevantes.
 PROMPT_VERSIONES = ("v2-adaptativo", "v3-completo")
 PROMPT_VERSION = os.getenv("PROMPT_VERSION", "v2-adaptativo").strip()

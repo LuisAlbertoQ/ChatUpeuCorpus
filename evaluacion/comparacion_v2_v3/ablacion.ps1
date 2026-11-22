@@ -4,11 +4,14 @@
 # Uso (desde la raíz de oe5_chatbot_upeu):
 #   .\evaluacion\comparacion_v2_v3\ablacion.ps1 -Etiqueta M0_s42 -Vars @{RAG_RECORTE_LEGACY_700="1"; OLLAMA_SEED="42"}
 #   .\evaluacion\comparacion_v2_v3\ablacion.ps1 -Etiqueta M1_s42 -Vars @{OLLAMA_SEED="42"} -Negativas
+#   .\evaluacion\comparacion_v2_v3\ablacion.ps1 -Etiqueta B32_s42 -BancoJson banco_v32.json -Negativas
+#   (-BancoJson: banco en evaluacion/banco/; acepta varios documentos/artículos por pregunta)
 # Al terminar restaura el backend con los valores por defecto del docker-compose.yml.
 param(
     [Parameter(Mandatory)] [string]$Etiqueta,
     [hashtable]$Vars = @{},
     [switch]$Negativas,
+    [string]$BancoJson = "",
     [switch]$NoRestaurar
 )
 
@@ -35,10 +38,12 @@ foreach ($k in $Vars.Keys) {
     }
 }
 Write-Host "== $Etiqueta  vars: $(($Vars.GetEnumerator() | ForEach-Object { "$($_.Key)=$($_.Value)" }) -join ', ')"
-docker exec oe5-backend python /data/evaluacion/comparacion_v2_v3/correr_17q_e2e.py --etiqueta $Etiqueta 2>&1 |
+$extra = @(); if ($BancoJson) { $extra = @("--banco-json", "/data/evaluacion/banco/$BancoJson") }
+docker exec oe5-backend python /data/evaluacion/comparacion_v2_v3/correr_17q_e2e.py --etiqueta $Etiqueta @extra 2>&1 |
     Select-String -NotMatch -Pattern "warn|deprecat|telemetry|Loading|^\s*$"
 if ($Negativas) {
-    docker exec oe5-backend python /data/evaluacion/comparacion_v2_v3/correr_17q_e2e.py --etiqueta "${Etiqueta}_NEG" --banco v31_no_answer 2>&1 |
+    $neg = if ($BancoJson) { @("--banco-json", "/data/evaluacion/banco/$BancoJson", "--negativas") } else { @("--banco", "v31_no_answer") }
+    docker exec oe5-backend python /data/evaluacion/comparacion_v2_v3/correr_17q_e2e.py --etiqueta "${Etiqueta}_NEG" @neg 2>&1 |
         Select-String -Pattern "RESUMEN|tipo_mensaje"
 }
 foreach ($k in $Vars.Keys) { Remove-Item -Path "Env:$k" -ErrorAction SilentlyContinue }
