@@ -287,9 +287,14 @@ class TestPromptVersiones:
         inicio_reglas = PROMPT_V2_ORIGINAL.index("REGLAS OBLIGATORIAS")
         assert v3.endswith(PROMPT_V2_ORIGINAL[inicio_reglas:])
 
-    def test_por_defecto_v2(self, pipeline, monkeypatch):
+    def test_por_defecto_v3(self, pipeline, monkeypatch):
+        """Vigente desde 2026-11-22."""
         monkeypatch.delenv("PROMPT_VERSION", raising=False)
         _, cap = pipeline(["texto"], [_meta("DOC A")], [0.10])
+        assert "TODOS los requisitos" in cap["prompts"][0]
+
+    def test_v2_seleccionable_por_entorno(self, pipeline):
+        _, cap = pipeline(["texto"], [_meta("DOC A")], [0.10], env={"PROMPT_VERSION": "v2-adaptativo"})
         assert "texto directo breve" in cap["prompts"][0]
 
     def test_v3_por_entorno_y_registrado(self, pipeline):
@@ -301,11 +306,17 @@ class TestPromptVersiones:
             "SELECT prompt_version FROM interacciones WHERE sesion_id='t-mejoras' ORDER BY id DESC LIMIT 1").fetchone()
         assert fila[0] == "v3-completo"
 
-    def test_version_desconocida_cae_en_v2(self, monkeypatch):
+    def test_version_desconocida_cae_en_la_vigente(self, monkeypatch):
         monkeypatch.setenv("PROMPT_VERSION", "v9-inventada")
         import config
         importlib.reload(config)
-        assert config.PROMPT_VERSION == "v2-adaptativo"
+        assert config.PROMPT_VERSION == config.PROMPT_VERSION_DEFECTO == "v3-completo"
+
+    def test_timeout_por_defecto_120(self, monkeypatch):
+        monkeypatch.delenv("TIMEOUT_RESPUESTA", raising=False)
+        import config
+        importlib.reload(config)
+        assert config.TIMEOUT_RESPUESTA == 120
 
 
 Q17_REAL_V3 = ("El corpus no contiene información sobre los servicios ofrecidos específicamente a los "

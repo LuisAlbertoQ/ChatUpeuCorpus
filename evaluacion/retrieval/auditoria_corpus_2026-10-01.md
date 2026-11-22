@@ -1,5 +1,7 @@
 # Auditoría del corpus — 2026-10-01
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** auditoría del corpus V2 (`corpus_upeu_v2`, 5126 chunks). El chatbot usa desde el 2026-11-21 el corpus V3 (`corpus_upeu_v3_bgem3`, 5117 chunks); su auditoría y validación están en el proyecto OE1.
+
 - colección: `corpus_upeu_v2`
 - documentos: **48**
 - fragmentos: **5126**

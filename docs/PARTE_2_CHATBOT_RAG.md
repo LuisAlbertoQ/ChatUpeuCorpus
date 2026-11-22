@@ -53,6 +53,12 @@ NO reemplazar ChromaDB.
 
 NO reemplazar MPNet.
 
+> **Actualización 2026-11-21:** esta restricción quedó superada. El OE1 reconstruyó el corpus (V3) y
+> comparó 5 modelos de embeddings; ganó **bge-m3** (MRR semántico 0.756 frente a 0.358 de mpnet). El
+> chatbot migró a `corpus_upeu_v3_bgem3` + `BAAI/bge-m3` con evaluación antes/después
+> (`evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md`). La V2 con mpnet se conserva en
+> `vector_store_backup_v2_20261121/` y se puede restaurar por variables de entorno.
+
 NO cambiar el modelo LLM salvo indicación explícita.
 
 ---
@@ -81,6 +87,29 @@ La implementación actual utiliza aproximadamente:
 Estos valores son configuraciones iniciales y deben permanecer configurables.
 
 NO tratarlos como valores universalmente óptimos.
+
+## 2.1 Estado vigente (actualizado 2026-11-22)
+
+Los valores anteriores describen la implementación cuando se escribió esta especificación. Tras la
+migración al corpus V3 y las mejoras medidas del 21–22 de noviembre de 2026, los valores vigentes son
+(todos configurables por variable de entorno en `docker-compose.yml`):
+
+| Parámetro | Valor inicial (arriba) | Vigente | Motivo / evidencia |
+|---|---|---|---|
+| Embeddings | MPNet, 768 dim | **`BAAI/bge-m3`**, 1024 dim, revisión fijada `5617a9f6` | Ganador del OE1; artículo correcto en Top-15 53 % → 80 % |
+| Colección | `corpus_upeu_mpnet` / `corpus_upeu_v2` | **`corpus_upeu_v3_bgem3`** (5,117 chunks) | Corpus V3 del OE1 |
+| `TOP_K_RAW` / `TOP_K_FRAGMENTOS` | 15 / 4 | 15 / 4 (sin cambio) | Probados K=6 y K=8: el LLM cita menos el artículo correcto |
+| Threshold (`RAG_DISTANCE_THRESHOLD`) | `distance < 0.40` | **0.41** | Calibrado para bge-m3 con 325 positivas y 42 negativas (§11) |
+| Margen fuera de dominio | 0.10 | **0.09** (corte M03 = 0.50) | Justo sobre la peor positiva (0.492) |
+| Keyword boost | +0.07 | **+0.02** (`RAG_KEYWORD_BOOST`) | Con bge-m3, 0.07 se imponía al embedding |
+| Contexto al LLM | cada chunk recortado a 700 chars | **chunks completos** hasta 9,000 chars (`RAG_CONTEXT_MAX_CHARS`) | Completitud 0.212 → 0.280 |
+| `num_ctx` de Ollama | por defecto | **8192** | Evita recortes silenciosos del prompt |
+| Temperatura / `num_predict` | 0.2 / 1024 | 0.2 / 1024 (sin cambio) | — |
+| Semilla | — | **42** (`OLLAMA_SEED`) | Reproducibilidad |
+| Prompt | `prompt_v1` / `v2-adaptativo` | **`v3-completo`** | Completitud 0.40 → 0.57 con 30 preguntas (p < 0.0001) |
+| Timeout | 50 s | **120 s** | Respuestas de v3 ~2× más largas (p95 58 s) |
+| Re-ranking | keyword boost | keyword boost (`ranking_version` 1.1) | Cross-encoder `bge-reranker-v2-m3` evaluado y descartado |
+| Contexto por artículo | — | implementado, apagado (`RAG_CONTEXTO_ARTICULO=0`) | Sin efecto medible con 17 preguntas |
 
 ---
 
@@ -404,6 +433,11 @@ Debe poder probarse posteriormente:
 
 La evaluación de estas configuraciones corresponde a la Parte 3.
 
+> **Resultado (2026-11-21, corpus V3 + bge-m3):** grid 0.25–0.55 con 325 positivas y 42 negativas
+> (`evaluacion/retrieval/calibrar_v3_bgem3.py`). La distancia Top-1 de las positivas tiene p95 0.368 y
+> máximo 0.492; la de las negativas, mínimo 0.418. Se fijó **0.41**: 100 % de abstención en negativas
+> con la menor falsa abstención (2.2 %). Con 0.42 ya se responde una pregunta fuera de dominio.
+
 Registrar siempre:
 
 ```text
@@ -716,6 +750,9 @@ threshold=0.40
 ```
 
 debe poder distinguirse de otra evaluación posterior.
+
+Por ejemplo, la configuración vigente desde 2026-11-22 se registra como `corpus_upeu_v3_bgem3`,
+`BAAI/bge-m3`, `qwen2.5:7b`, `v3-completo`, `threshold=0.41`, `ranking_version=1.1`.
 
 ---
 

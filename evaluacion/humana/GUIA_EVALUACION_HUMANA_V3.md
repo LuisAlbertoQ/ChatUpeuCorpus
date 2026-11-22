@@ -1,5 +1,7 @@
 # Guía de Evaluación Humana — Baseline Generación V3
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** guía del baseline de septiembre (corpus V2, prompt v2-adaptativo). Para la próxima evaluación humana (fidelidad del prompt v3-completo, banco v3.2 / gold set) se reutilizan las reglas, pero con `pregunta_id` Q01–Q30 y los puntos de `banco/banco_v32.json`.
+
 **Baseline oficial:** `GEN_20260924_232127_8e01ef` ligado a `EXP_20260924_231553_2cd31b` (corpus `corpus_upeu_v2`, `mpnet`, `top 15→4`, `thr 0.40`, `prompt v2-adaptativo`, `temp 0.2`, `qwen2.5:7b`). 17 respuestas congeladas. **No regenerar. No LLM-as-judge.**
 
 **Evaluador:** `investigador_manual_v1` (solo al completar/importar, no en fichas vacías).

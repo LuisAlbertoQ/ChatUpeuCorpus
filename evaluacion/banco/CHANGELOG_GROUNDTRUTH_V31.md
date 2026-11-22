@@ -1,5 +1,7 @@
 # Changelog Ground Truth — v3 → v3.1
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** la v3.1 sigue congelada. Su evolución es el banco v3.2 (`banco_v32.json`, 2026-11-21): propaga la corrección de Q17 que la v3.1 tenía y nunca llegó a `banco_preguntas`, recalcula 8 categorías, corrige Q05 y Q16 y agrega Q18–Q30. Ver `README.md` y `auditoria_banco_17q_2026-11-21.md`.
+
 ## Congelación v3 histórico
 - `v3_original_baseline`: 50 puntos, `banco_preguntas.banco_version='v3_curado'`, `preguntas_comparacion.json` 17 Q.
 - Correcciones pre-auditoría (antes de congelación): Q02_P03 (evidencia Art38 elección 5 años), Q03_P03 (texto completo ley/SUNEDU/TUPA), Q04_P02 (carta poder), Q13_P02 (contrato + CTI Vitae), Q14_P03 (docentes por período), Q16_P03 (notifica 3 días). Aplicadas en `banco_preguntas` y snapshots `GEN_20260924_232127_8e01ef`; respuestas/contexto/métricas intactos.

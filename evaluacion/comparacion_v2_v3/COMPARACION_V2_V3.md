@@ -1,4 +1,30 @@
-# Comparación V2 (mpnet) vs V3 (bge-m3) — banco técnico 17 Q
+# Migración a V3 y mejoras del chatbot — informe de evaluación
+
+**Fechas:** 2026-11-21 y 2026-11-22 (los ID de corrida usan la hora UTC del contenedor) ·
+**Alcance:** migración del chatbot al corpus V3 del OE1 (bge-m3), calibración de variables, mejoras del
+chatbot medidas una por una, auditoría del banco de preguntas y banco v3.2.
+
+## Resumen ejecutivo
+
+| Etapa | Qué se hizo | Resultado / decisión | § |
+|---|---|---|---|
+| 1. Migración | `corpus_upeu_v2` + mpnet → `corpus_upeu_v3_bgem3` + bge-m3, mismas variables | Recupera mejor (artículo en Top-15 53 % → 80 %); V2 respaldada | 1–4 |
+| 2. Calibración | Umbral, margen, boost y Top-K con 325 positivas / 42 negativas | Umbral 0.40 → **0.41**, margen 0.10 → **0.09**, boost 0.07 → **0.02**, Top-K 15/4 igual | 5 |
+| 3. Contexto completo | Sin recorte de 700 chars; `num_ctx` 8192; semilla 42; timeout 75 s | ✅ Activa: completitud 0.212 → 0.280 | 6 |
+| 4. Re-ranker | `bge-reranker-v2-m3` con y sin encabezado | ❌ Descartado: peor en 17 Q; ~16 s en CPU | 6 |
+| 5. Contexto por artículo | Partes del mismo artículo = una fuente + vecinas | ⏸️ Implementado, apagado: sin efecto medible | 6 |
+| 6. Abstención disfrazada | Filtro de oraciones meta con paréntesis o encadenadas | ✅ Activa (casos reales de Q17); reintento descartado | 6, 7 |
+| 7. TOP_K_FINAL | 4 vs 6 vs 8 | Se queda **4**: con más fuentes el LLM cita menos el artículo correcto | 7 |
+| 8. Banco | Auditoría de las 17 Q; banco **v3.2** (30 Q + 6 negativas) | Q17, 8 categorías, Q05 y Q16 corregidas; 13 preguntas nuevas | 8, 9 |
+| 9. Prompt | `v2-adaptativo` → **`v3-completo`**; timeout → 120 s | ✅ Activo: completitud 0.40 → 0.57 (p < 0.0001); tiempo 11 → 23 s | 7, 10 |
+
+**Estado final (2026-11-22), banco v3.2, 2 semillas:** documento correcto entre las fuentes 26/30, artículo
+correcto 16/27, completitud ~0.57, 6/6 negativas abstenidas, tiempo típico ~23 s. Pendiente: fidelidad con
+evaluación humana; Q02, Q04, Q11 y Q17 siguen recuperando otro documento.
+
+---
+
+## 1–4. Comparación V2 (mpnet) vs V3 (bge-m3) — banco técnico 17 Q
 
 **Fecha:** 2026-11-21 · **Objetivo:** medir el efecto de cambiar **solo la base vectorial y el modelo de
 embeddings** (corpus V3 del OE1), con todas las demás variables del chatbot iguales.
@@ -212,7 +238,7 @@ V3 calibrado con semilla 0.212 → **final 0.288**.
 ### Variables nuevas (backend, `config.py` / `docker-compose.yml`)
 
 `RAG_CONTEXT_MAX_CHARS`=9000 · `OLLAMA_NUM_CTX`=8192 · `OLLAMA_NUM_PREDICT`=1024 · `OLLAMA_SEED`=42 ·
-`TIMEOUT_RESPUESTA`=75 · `RAG_CONTEXTO_ARTICULO`=0 · `RAG_ARTICULO_MAX_CHARS`=4000 ·
+`TIMEOUT_RESPUESTA`=75 (120 desde §10) · `RAG_CONTEXTO_ARTICULO`=0 · `RAG_ARTICULO_MAX_CHARS`=4000 ·
 `RAG_RECORTE_LEGACY_700`=0 (solo ablación).
 
 ## 7. TOP_K_FINAL y prompt v3 (2026-11-21; los ID de corrida usan hora UTC del contenedor)
@@ -352,6 +378,34 @@ Configuración vigente (prompt v2, K=4), semillas 42 / 7 — corridas `E2E_B32_s
   vocabulario y se recuperan mejor (documento 13/13, completitud ~0.55 vs ~0.30). Reportar los dos
   subconjuntos por separado; en el gold set, las preguntas deben redactarlas anotadores en lenguaje
   de estudiante y sin mirar el documento.
+
+## 10. Decisión: prompt v3-completo vigente (2026-11-22)
+
+Medido sobre el banco v3.2 (30 preguntas), semillas 42 y 7; v3 con `TIMEOUT_RESPUESTA=120` para no
+cortar respuestas. Corridas `E2E_B32P3_s42_20261122_044006`, `E2E_B32P3_s7_20261122_045246` (+ `_NEG`),
+contra la línea base v2 de §9.
+
+| | Prompt v2-adaptativo | **Prompt v3-completo** |
+|---|---|---|
+| Completitud, 30 preguntas (s42 / s7) | 0.386 / 0.421 | **0.561 / 0.579** (+42 %) |
+| — 17 originales | 0.279 / 0.324 | **0.515 / 0.529** (+74 %) |
+| — 13 nuevas | 0.543 / 0.565 | **0.630 / 0.652** |
+| Puntos ganados / perdidos (pareado, 2 semillas) | — | **43 / 5** (prueba de signo p < 0.0001) |
+| Respuesta cita un artículo esperado | 12 / 13 de 27 | 13 / 12 de 27 (igual) |
+| Documento / artículo correcto entre las fuentes | 26/30 · 16/27 | 26/30 · 16/27 (igual) |
+| Negativas N01–N06 abstenidas | 6/6 | 6/6 |
+| Palabras por respuesta (M02) | ~104 | ~211 |
+| Tiempo p50 / p95 / máximo | 11 / 27 / 45 s | **23 / 58 / 65 s** |
+| Respuestas > 75 s · M06 | — | 0 · 0 |
+
+**Decisión del usuario: activar v3-completo** como prompt por defecto y subir `TIMEOUT_RESPUESTA`
+de 75 a 120 s (`config.py` y `docker-compose.yml`). v2 sigue disponible con `PROMPT_VERSION=v2-adaptativo`.
+Verificado en vivo por `/consulta`: la interacción queda registrada con `prompt_version='v3-completo'`.
+
+Pendientes que asume la decisión:
+- **Usabilidad**: con ~23 s de tiempo típico, la dimensión de usabilidad del OE8 (≤ 20 s → 4, ≤ 30 s → 3) baja un nivel.
+- **Fidelidad no medida**: la completitud es cobertura de términos; respuestas el doble de largas
+  pueden incluir más afirmaciones no sustentadas. Verificar con evaluación humana (Revisión 3 §8).
 
 ## Archivos
 

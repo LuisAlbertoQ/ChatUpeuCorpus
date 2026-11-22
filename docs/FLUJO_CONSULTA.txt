@@ -1,6 +1,7 @@
 FLUJO COMPLETO DE UNA CONSULTA - OE5 Chatbot UPeU
 ====================================================
-Actualizado: 2026-08-14 (refleja config.py y rag_pipeline.py vigentes)
+Actualizado: 2026-11-22 (corpus V3 + bge-m3, calibracion, contexto completo, prompt v3-completo)
+Anterior: 2026-08-14 (corpus v2 + mpnet). Detalle: evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md
 
 
 USUARIO escribe y presiona Enter
@@ -19,9 +20,9 @@ USUARIO escribe y presiona Enter
 | BACKEND (8000)  |   - Valida Pydantic (pregunta 1-1000 chars, sesion_id <=64)
 |                 |   - Cuenta preguntas de la sesion (T07 modo piloto)
 |                 |   - Llama generar_respuesta()
-|                 |   - BLOQUEO REAL: el handler espera sync hasta ~40s
+|                 |   - BLOQUEO REAL: el handler espera sync hasta TIMEOUT_RESPUESTA=120s
 |                 |     (1 intento sin reintento en timeout, 3 reintentos en HTTP 5xx
-|                 |     con backoff 0/0/2s = ~124s maximo teorico, pero tipicamente <40s)
+|                 |     con backoff 0/0/2s). Tipico ~23s, p95 ~58s con el prompt v3
 +--------+--------+
          |
          v
@@ -32,50 +33,49 @@ USUARIO escribe y presiona Enter
 |                    |     fuera-dominio keywords (M03)
 |                    |
 | (b) Embedding:     |   - SentenceTransformer encode(pregunta)  <50ms
-|                    |     modelo: paraphrase-multilingual-mpnet-base-v2 (768 dim)
-|                    |     MULTILINGUE: ES/EN/PT/FR/... (no usa all-MiniLM-L6-v2)
+|                    |     modelo: BAAI/bge-m3 (1024 dim, revision 5617a9f6, sin prefijo)
+|                    |     (hasta 2026-11-20: paraphrase-multilingual-mpnet-base-v2, 768 dim)
 |                    |
 | (c) Retrieval:     |   - ChromaDB query top_k_raw=15 (3x top_k final)
-|                    |   - Lee /data/vector_store/chroma.sqlite3
+|                    |   - Lee /data/vector_store (coleccion corpus_upeu_v3_bgem3, 5117 chunks)
 |                    |   - Calcula similitud coseno  <50ms
-|                    |   - Distancias tipicas: [0.25, 0.30, 0.35, 0.38, 0.42, ...]
+|                    |   - Distancias tipicas bge-m3: top-1 0.14-0.37, comprimidas (0.01-0.04 entre top-4)
 |                    |
 | (d) Re-ranking:    |   - Si la query tiene keywords (>=4 letras, no stopword):
 |                    |     * Para cada chunk: cuenta matches de keywords en
 |                    |       `meta["documento"]` (case-insensitive, substring)
-|                    |     * boost = matches * 0.07 (descuento de distancia)
+|                    |     * boost = matches * 0.02 (RAG_KEYWORD_BOOST; antes 0.07)
 |                    |     * d_boosted = max(0.0, d_orig - boost)
-|                    |   - Ordena por d_boosted ascendente, top_k_final=3
-|                    |   - Si la query NO tiene keywords: top-3 por d_orig
+|                    |   - Ordena TODO el pool (15) por d_boosted, sin recortar antes del umbral
+|                    |   - M03 si la mejor d_boosted > 0.41 + 0.09 = 0.50 (y keywords indeterminadas)
 |                    |
-| (e) Filtro UMBRAL: |   - Mantiene los que pasan UMBRAL_DISTANCIA_COSENO=0.40
+| (e) Filtro UMBRAL: |   - Mantiene los que pasan RAG_DISTANCE_THRESHOLD=0.41 (antes 0.40)
 |                    |   - USA d_boosted (no d_orig) para consistencia con re-ranking
-|                    |     Si el sistema cree que el chunk es relevante por
-|                    |     keywords, no debe descartarlo por su distancia coseno.
-|                    |   - Tipicamente 2-3 de 3 chunks pasan
-|                    |   - Recorta cada chunk a MAX_CHARS_POR_FRAGMENTO=700
-|                    |     (conserva cabecera+final, descarta el medio si >700)
+|                    |   - Hasta RAG_TOP_K_FINAL=4 chunks; si ninguno pasa -> M04
+|                    |   - Chunks COMPLETOS hasta RAG_CONTEXT_MAX_CHARS=9000 en total
+|                    |     (hasta 2026-11-20: cada chunk recortado a 700 = inicio+[...]+final)
+|                    |   - (Opcional, apagado) RAG_CONTEXTO_ARTICULO: una fuente por articulo
+|                    |     + partes vecinas
 |                    |
 | (f) Generacion:    |   - Llama a Ollama HTTP POST /api/generate
-|                    |   - num_predict=1024, temperature=0.2
-|                    |   - PROMPT v2 con 8 reglas obligatorias:
-|                    |     1) USA TODAS las fuentes relevantes
-|                    |     2) NO inventes informacion
-|                    |     3) CADA bullet con cita (Documento, Articulo X°)
-|                    |     4) Lista vertical, un elemento por linea
-|                    |     5) Si enumera derechos/deberes, TODOS uno por uno
-|                    |     6) NO "Introduccion breve" ni prologos
-|                    |     7) NO atribuir articulos al documento equivocado
-|                    |     8) NO incluir "Fuentes:" al final (lo agrega el frontend)
-|                    |   - TIMEOUT: 50s por intento (TIMEOUT_RESPUESTA=50)
+|                    |   - num_ctx=8192, num_predict=1024, temperature=0.2, seed=42
+|                    |   - PROMPT v3-completo (PROMPT_VERSION; v2-adaptativo seleccionable):
+|                    |     responder de forma COMPLETA (todos los requisitos, pasos,
+|                    |     condiciones, plazos, montos) + 5 reglas: solo fuentes
+|                    |     relevantes, no inventar, nombre literal del documento,
+|                    |     no atribuir articulos al documento equivocado, sin "Fuentes"
+|                    |     al final. Cada dato con cita (Documento, Articulo X°)
+|                    |   - TIMEOUT: 120s por intento (TIMEOUT_RESPUESTA=120; antes 50 -> 75)
 |                    |   - Retry policy: 3 intentos solo en HTTP 5xx
 |                    |     (backoff 0/0/2s). FutTimeout NO se reintenta.
 |                    |
 | (g) Post-proceso:  |   - Bullet `•` (U+2022) -> `- ` (markdown estandar)
 |                    |   - Elimina meta-frases del LLM:
 |                    |     "(El corpus no contiene...", "No hay informacion...",
-|                    |      "No se encontro informacion...", "El fragmento
-|                    |      no menciona..."
+|                    |      "No se encontro informacion...", "Los fragmentos ... no ..."
+|                    |     (aunque tengan parentesis o vengan dos seguidas, 2026-11-21)
+|                    |   - Reparacion de citas y guardrail de encuadre
+|                    |   - Si no queda contenido util -> M04 (abstencion)
 |                    |
 +---+-------+--------+
     |       |
@@ -86,10 +86,9 @@ USUARIO escribe y presiona Enter
 |  OLLAMA :11434 |
 |                |
 |  Qwen2.5-7B (o Llama 3 8B legacy) |
-|  - GPU (3.5GB) |   AQUI SE BLOQUEABA CON ANTERIORES CONFIGURACIONES
-|  - CPU (4.4GB) |   (3 capas offloaded a CPU con n_ctx=4096)
-|  - n_ctx=4096  |   Si prompt > 4096 tokens -> loop o HTTP 500
-|  - warm-up     |   Si > 40s -> timeout del backend -> M06
+|  - RTX 4050 6GB: ~3.9 GB en GPU de 5.1 GB (num_ctx 8192), ~17 tokens/s
+|  - n_ctx=8192  |   prompt tipico ~2500 tokens + respuesta 300-700 tokens
+|  - warm-up     |   Si > 120s -> timeout del backend -> M06
 |                |   Si HTTP 500 -> retry con backoff (max 3 intentos)
 +----------------+
 
@@ -123,7 +122,18 @@ POR QUE SE BLOQUEABA ANTES (M06 con 30s o 47s):
      768 dim, cobertura 10/10 vs 0/10 inicial)
 
 
-CONFIGURACION ACTUAL (ver config.py y rag_pipeline.py):
+CONFIGURACION VIGENTE (2026-11-22; todas son variables de entorno en docker-compose.yml):
+
+  - Corpus V3 (corpus_upeu_v3_bgem3, 5117 chunks) + BAAI/bge-m3 1024 dim (antes v2 + mpnet)
+  - RAG_DISTANCE_THRESHOLD 0.41, RAG_MARGEN_FUERA_DOMINIO 0.09, RAG_KEYWORD_BOOST 0.02
+    (calibrados con 325 positivas / 42 negativas; antes 0.40 / 0.10 / 0.07)
+  - RAG_TOP_K_RAW 15, RAG_TOP_K_FINAL 4 (probados 6 y 8: no mejoran)
+  - RAG_CONTEXT_MAX_CHARS 9000: chunks completos (antes recorte a 700 chars)
+  - OLLAMA_NUM_CTX 8192, OLLAMA_NUM_PREDICT 1024, OLLAMA_SEED 42, temperature 0.2
+  - PROMPT_VERSION v3-completo (completitud 0.40 -> 0.57); TIMEOUT_RESPUESTA 120
+  - Re-ranker cross-encoder evaluado y descartado; RAG_CONTEXTO_ARTICULO=0 (apagado)
+
+HISTORIAL (hasta 2026-11-20, corpus v2 + mpnet):
 
   - UMBRAL 0.32 -> 0.35 -> 0.40 -> 0.50(prueba) -> 0.40 (final evaluado 08-2026):
     captura chunks relevantes en el limbo (0.30-0.39) que UMBRAL=0.35 descartaba,

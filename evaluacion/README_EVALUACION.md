@@ -59,12 +59,35 @@ mínimo de las cinco dimensiones críticas: Funcional, Recuperación
 documental, Explicabilidad y trazabilidad, Gobernanza, Preparación
 tecnológica.
 
-## Estructura (reorganizada 2026-09-27)
+## Evaluación del 2026-11-21/22: corpus V3, calibración, mejoras y banco v3.2
+
+El chatbot migró al corpus V3 del OE1 (`corpus_upeu_v3_bgem3`, bge-m3) y se evaluaron, una por una y con
+2 semillas del LLM, la calibración de umbrales y las mejoras del chatbot. Todo está en
+[`comparacion_v2_v3/COMPARACION_V2_V3.md`](comparacion_v2_v3/COMPARACION_V2_V3.md):
+
+| Sección | Contenido |
+|---|---|
+| §1–4 | V2 (mpnet) vs V3 (bge-m3) con las mismas variables |
+| §5 | Calibración para bge-m3: umbral 0.41, margen 0.09, boost 0.02 |
+| §6 | Mejoras: contexto completo (activa), re-ranker (descartado), contexto por artículo (apagada), abstención disfrazada (activa) |
+| §7 | TOP_K_FINAL 4/6/8 (se queda 4) y prompt v3-completo |
+| §8 | Auditoría del banco de 17 preguntas |
+| §9 | Banco técnico v3.2 (30 preguntas) y nueva línea base |
+| §10 | Decisión: prompt v3-completo vigente (completitud 0.40 → 0.57) |
+
+Herramientas nuevas: `comparacion_v2_v3/correr_17q_e2e.py` (banco end-to-end contra `/consulta`, acepta
+`--banco-json`), `ablacion.ps1` (corre con un conjunto de variables y verifica que lleguen al contenedor),
+`completitud_auto.py` (completitud automática validada contra el juicio humano, kappa 0.53),
+`retrieval/calibrar_v3_bgem3.py`, `retrieval/evaluar_reranker.py`, `banco/construir_banco_v32.py` y
+`banco/auditar_banco_17q.py`.
+
+## Estructura (reorganizada 2026-09-27; actualizada 2026-11-22)
 
 | Carpeta | Contenido |
 |---|---|
-| `banco/` | Ground truth: `preguntas_comparacion.json` (17 Q), `sincronizar_banco.py`, `CHANGELOG_GROUNDTRUTH_V31.md`; pool Gold Set 260 (`cuotas_pool_260.json`, `draft/`, `generar_pool_260.py`) |
-| `retrieval/` | `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`, métricas `EXP_*.csv` |
+| `banco/` | **`banco_v32.json` (30 Q + 6 negativas, vigente)** y `construir_banco_v32.py`; auditoría del banco de 17 Q; v3.1 congelada (`preguntas_comparacion.json`, `CHANGELOG_GROUNDTRUTH_V31.md`); pool Gold Set 260 (`cuotas_pool_260.json`, `draft/`, `generar_pool_260.py`); `banco_oe1_162.csv` (calibración) |
+| `retrieval/` | `evaluar_rag_v3.py` (colección desde config), `calibrar_v3_bgem3.py` + `calibracion_v3_bgem3/`, `evaluar_reranker.py` + `reranker_v3_bgem3.json`; históricos `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`; métricas `EXP_*.csv` |
+| `comparacion_v2_v3/` | `COMPARACION_V2_V3.md` (informe 2026-11-21/22), `correr_17q_e2e.py`, `ablacion.ps1`, `completitud_auto.py`, corridas `E2E_*.json/.csv` |
 | `generacion/` | `baseline_generacion_v3_oficial.py`, harnesses, JSON/CSV de experimentos |
 | `humana/` | Fichas Q01-Q17 (`fichas_humanas_v31/`, 66 puntos), `importar_ficha_humana.py`, `calcular_metricas_humanas.py`, guía |
 | `madurez_oe8/` | `calcular_madurez.py`, instrumento piloto 30 ítems, `importar_piloto.py`, reportes |
@@ -91,6 +114,10 @@ tecnológica.
 | `madurez_oe8/resultados_madurez.csv` | Deliverable. Se regenera con `calcular_madurez.py`. | Auto-generado |
 
 ## Gold Set 260 (OE8, en construcción)
+
+> **Actualización 2026-11-22:** el pool se generó y verificó contra el corpus V2; hay que repetir `--check`
+> contra `corpus_upeu_v3_bgem3`. Las 23 semillas curadas deberían reemplazarse por las del banco v3.2
+> (Q05, Q16 y Q17 corregidas, categorías actualizadas). Ver `banco/README.md`.
 
 El pool de 260 preguntas (200 dominio + 40 fuera de dominio + 20 ambiguas) se
 genera con `banco/generar_pool_260.py` a partir de tres insumos: las cuotas por

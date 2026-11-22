@@ -53,13 +53,13 @@ services:
       OLLAMA_NUM_CTX: "${OLLAMA_NUM_CTX:-8192}"
       OLLAMA_NUM_PREDICT: "${OLLAMA_NUM_PREDICT:-1024}"
       OLLAMA_SEED: ${OLLAMA_SEED:-42}
-      TIMEOUT_RESPUESTA: "${TIMEOUT_RESPUESTA:-75}"
+      TIMEOUT_RESPUESTA: "${TIMEOUT_RESPUESTA:-120}"  # 120 s desde que el prompt v3 es el vigente
       # Mejora 3: una fuente por artículo + partes vecinas. Apagada: sin efecto medible
       # con 17 Q (ver COMPARACION_V2_V3.md §6); evaluar con el gold set de 260.
       RAG_CONTEXTO_ARTICULO: ${RAG_CONTEXTO_ARTICULO:-0}
       RAG_ARTICULO_MAX_CHARS: "${RAG_ARTICULO_MAX_CHARS:-4000}"
-      # Prompt: v2-adaptativo (vigente) | v3-completo (pide incluir todos los requisitos/pasos)
-      PROMPT_VERSION: ${PROMPT_VERSION:-v2-adaptativo}
+      # Prompt: v3-completo (VIGENTE desde 2026-11-22: respuestas completas) | v2-adaptativo (anterior, "breve")
+      PROMPT_VERSION: ${PROMPT_VERSION:-v3-completo}
       # Solo ablación (experimentos): 1 = recorte antiguo de 700 chars
       RAG_RECORTE_LEGACY_700: ${RAG_RECORTE_LEGACY_700:-0}
       # Corpus V3 (OE1, 2026-11-21) + bge-m3. Para volver a V2: mpnet,

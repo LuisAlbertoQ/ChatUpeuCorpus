@@ -59,7 +59,9 @@ TOP_K_FRAGMENTOS = RAG_TOP_K_FINAL
 MAX_PALABRAS_RESPUESTA = 500
 # 2026-11-21 (mejora 1): 50 → 75 s. Medido en RTX 4050: ~17 tokens/s, así que
 # num_predict 1024 puede tardar ~60 s + evaluación del prompt.
-TIMEOUT_RESPUESTA = _get_int_env("TIMEOUT_RESPUESTA", 75, 10)
+# 2026-11-22: 75 → 120 s al activar el prompt v3-completo (respuestas ~2× más largas;
+# con 30 preguntas: p50 23 s, p95 58 s, máximo 65 s).
+TIMEOUT_RESPUESTA = _get_int_env("TIMEOUT_RESPUESTA", 120, 10)
 
 # Contexto para el LLM (mejora 1, 2026-11-21). Antes cada fragmento se recortaba
 # a 700 caracteres (inicio + "[…]" + final) y el LLM no veía el medio del artículo.
@@ -251,11 +253,15 @@ CORPUS_VERSION = os.getenv("CORPUS_VERSION", "corpus_upeu_v3_bgem3")  # colecci�
 # Versión del prompt (rag_pipeline.PROMPTS). v2-adaptativo: formato adaptativo y
 # guardrails (pide "texto directo breve"). v3-completo (2026-11-21): mismas reglas,
 # pero exige incluir todos los requisitos/pasos/condiciones de las fuentes relevantes.
+# VIGENTE desde 2026-11-22: v3-completo. Banco v3.2 (30 Q, 2 semillas): completitud
+# 0.40 → 0.57 (43 puntos ganados / 5 perdidos, p < 0.0001), sin cambios en citas,
+# recuperación ni abstención; costo: tiempo ~2× (ver COMPARACION_V2_V3.md §10).
 PROMPT_VERSIONES = ("v2-adaptativo", "v3-completo")
-PROMPT_VERSION = os.getenv("PROMPT_VERSION", "v2-adaptativo").strip()
+PROMPT_VERSION_DEFECTO = "v3-completo"
+PROMPT_VERSION = os.getenv("PROMPT_VERSION", PROMPT_VERSION_DEFECTO).strip()
 if PROMPT_VERSION not in PROMPT_VERSIONES:
-    log.warning("PROMPT_VERSION=%r desconocida, usando v2-adaptativo", PROMPT_VERSION)
-    PROMPT_VERSION = "v2-adaptativo"
+    log.warning("PROMPT_VERSION=%r desconocida, usando %s", PROMPT_VERSION, PROMPT_VERSION_DEFECTO)
+    PROMPT_VERSION = PROMPT_VERSION_DEFECTO
 RANKING_METHOD = "heuristic_keyword_boost"
 RANKING_VERSION = "1.1"  # boost por keyword (RAG_KEYWORD_BOOST, 0.02) en nombre de documento; 1.0 = 0.07
 

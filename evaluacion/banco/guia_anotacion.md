@@ -1,5 +1,12 @@
 # Guía de Anotación — Gold Set 260 (v3.1)
 
+> **Actualización 2026-11-22:** (1) el corpus del chatbot es ahora `corpus_upeu_v3_bgem3` (OE1 V3): verificar
+> documento y artículo contra él (`generar_pool_260.py --check` se validó contra la V2 y debe repetirse).
+> (2) Las semillas curadas deben tomarse del **banco v3.2** (`banco_v32.json`): Q17 corregida (egresados),
+> Q05 y Q16 con nueva respuesta esperada, categorías recalculadas. (3) Sesgo detectado: las preguntas redactadas
+> leyendo el artículo se recuperan mucho mejor (documento 13/13 vs 13/17); las preguntas nuevas deben
+> redactarse en lenguaje de estudiante **antes** de mirar el documento.
+
 **Versión:** 1.0 | **Fecha:** 2026-09-27 | **Proyecto:** RAG 100 % Local UPeU (OE8)
 
 ---

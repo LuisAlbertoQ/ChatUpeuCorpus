@@ -1,5 +1,7 @@
 # Ground Truth Múltiple — Decisión de Representación
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** decisión de agosto. En el banco v3.2 (`banco_v32.json`) los artículos múltiples se representan como lista `articulos_esperados` con documento, artículo, páginas y chunk_ids. En `banco_preguntas`, la columna plural `articulos_esperados` quedó desactualizada en Q01, Q04, Q07 y Q09: no usarla.
+
 **Fecha:** 2026-08-14 (Fase 1, Parte 3)
 **Contexto:** Preguntas `MULTI_CHUNK` y `MULTI_DOCUMENTO` requieren múltiples elementos relevantes.
 

@@ -100,6 +100,15 @@ Actualmente existe un banco aproximado de 17 preguntas.
 
 Debe convertirse en un dataset de evaluación con ground truth.
 
+> **Actualización 2026-11-21:** una auditoría contra el corpus V3 (`evaluacion/banco/auditoria_banco_17q_2026-11-21.md`)
+> encontró que `banco_preguntas` no tenía la corrección de Q17 que sí estaba en la v3.1, que 8 de 17
+> categorías venían de la taxonomía previa a la V2, que los scripts aceptaban un solo artículo cuando la
+> v3.1 acepta varios, y que Q05 y Q16 tenían una respuesta esperada que no responde la pregunta.
+> Se creó el **banco técnico v3.2** (`evaluacion/banco/banco_v32.json`): 30 preguntas (17 corregidas +
+> 13 nuevas), 114 puntos y 6 negativas, validado automáticamente contra el corpus
+> (`construir_banco_v32.py`). La v3.1 de la base de datos sigue congelada. 15 preguntas quedan
+> pendientes de revisión por un segundo anotador.
+
 Tabla:
 
 ```text
@@ -489,6 +498,12 @@ Posteriormente:
 EXP04
 Top20 → Top5 → threshold 0.40
 ```
+
+> **Realizado 2026-11-21/22 (corpus V3 + bge-m3)** — `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md`:
+> umbral calibrado a 0.41 (grid 0.25–0.55), Top-K raw 15/30/50 (sin cambio), Top-K final 4/6/8
+> (se mantiene 4), re-ranker `bge-reranker-v2-m3` (descartado: peor en el banco de 17 Q), contexto
+> completo sin recorte de 700 caracteres (activo) y prompt `v3-completo` (activo: completitud 0.40 → 0.57
+> con 30 preguntas). Cada comparación con 2 semillas del LLM y prueba de signo pareada.
 
 y, si se incorpora un reranker real:
 

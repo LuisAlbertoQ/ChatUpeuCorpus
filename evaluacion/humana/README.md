@@ -8,3 +8,5 @@
 - `ficha_documental.md`: ficha del corpus (generada por `legacy/generar_ficha.py`).
 
 Resultados FASE 4: completitud micro 0.106 · faithfulness micro 0.918 · citation micro 0.879 · relevancia 2.53.
+
+> **2026-11-21/22:** estos resultados corresponden al corpus V2 con el prompt `v2-adaptativo` y el recorte de 700 caracteres. Los 66 juicios de completitud se usaron para validar la medida automática `../comparacion_v2_v3/completitud_auto.py` (89 % de acuerdo cubierto sí/no, kappa 0.53). Con el corpus V3 y las mejoras, la completitud automática subió a ~0.57 (banco v3.2). **Pendiente**: evaluar con personas la fidelidad de las respuestas del prompt `v3-completo` (~2× más largas), que la medida automática no mide.

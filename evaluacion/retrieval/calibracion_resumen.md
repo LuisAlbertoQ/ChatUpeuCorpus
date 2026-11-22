@@ -1,5 +1,7 @@
 # Calibración RAG — Resultados
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** calibración de septiembre con mpnet y corpus v2. La calibración vigente (bge-m3, corpus V3: umbral 0.41, margen 0.09, boost 0.02) está en `calibracion_v3_bgem3/` y en `../comparacion_v2_v3/COMPARACION_V2_V3.md` §5.
+
 - Banco: **17 preguntas** (`preguntas_comparacion.json` v2)
 - Corpus: **6259 chunks** | Modelo: `paraphrase-multilingual-mpnet-base-v2`
 - Grid: umbral ∈ [0.35–0.45] × top_k ∈ [3, 4, 5]

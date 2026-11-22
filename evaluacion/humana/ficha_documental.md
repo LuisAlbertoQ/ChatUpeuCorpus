@@ -1,5 +1,7 @@
 # Ficha documental del corpus UPeU
 
+> **Nota 2026-11-22 (documento histórico, no se reescribe):** ficha generada sobre el corpus V2. El corpus vigente es `corpus_upeu_v3_bgem3`; regenerar con `legacy/generar_ficha.py` si se necesita la ficha actualizada.
+
 **Fecha de generación:** 2026-09-10
 
 ## 1. Datos generales

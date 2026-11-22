@@ -29,6 +29,11 @@ previamente definida.*
 | B (conservadora) | ≥ 0.85 | Margen para errores de borde en TUPA/admisión |
 | C (estricta) | ≥ 0.95 | Solo si el dominio exige casi cero alucinaciones |
 
+> **Actualización 2026-11-21/22 (corpus V3 + bge-m3, umbral 0.41):** las 6 negativas N01–N06 se abstienen
+> con todas las configuraciones probadas (2 semillas cada una); en la calibración, 42 negativas simuladas
+> (8 del OE1 cercanas al dominio + 34 OOD del pool) dan 100 % de abstención. Sigue siendo una muestra
+> pequeña: la decisión oficial requiere las 40 OOD + 20 ambiguas del gold set con IC95 %.
+
 **Recomendación:** opción A (≥ 0.90). Nuestro baseline actual (6/6) la
 cumple en muestra pequeña, pero el propio documento prohíbe declarar
 superioridad con bancos pequeños: la decisión oficial se toma con las

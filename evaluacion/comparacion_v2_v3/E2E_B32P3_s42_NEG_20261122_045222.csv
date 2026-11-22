@@ -1,0 +1,7 @@
+run_id,id,pregunta,documento_esperado,articulo_esperado,documentos_aceptados,articulos_aceptados,cita_articulo_esperado,tipo_mensaje,clase,hit_documento_top4,pos_articulo_top4,num_chunks_llm,recorte_700,respuesta_truncada,palabras_respuesta,tiempo_s,llm_ms,dist_min_pool,failure_reason,citation_validation,error
+E2E_B32P3_s42_NEG_20261122_045222,N01,¿Cuál es el precio actual de una laptop en Lima?,,,[],[],False,M04,NO_RECUPERO,False,,0,False,False,35,0.124,,0.4788,retrieval_no_coverage,,
+E2E_B32P3_s42_NEG_20261122_045222,N02,¿Qué clima hará mañana en Juliaca?,,,[],[],False,M04,NO_RECUPERO,False,,0,False,False,35,0.121,,0.5993,retrieval_no_coverage,,
+E2E_B32P3_s42_NEG_20261122_045222,N03,¿Cuáles son los requisitos para obtener una licencia de conducir en Perú?,,,[],[],False,M04,NO_RECUPERO,False,,0,False,False,34,0.124,,0.4158,retrieval_no_coverage,,
+E2E_B32P3_s42_NEG_20261122_045222,N04,¿Cómo se prepara el ceviche peruano?,,,[],[],False,M03,OTRO,False,,0,False,False,43,0.109,,0.6035,out_of_domain,,
+E2E_B32P3_s42_NEG_20261122_045222,N05,¿Cuál es el tipo de cambio del dólar hoy?,,,[],[],False,M04,NO_RECUPERO,False,,0,False,False,35,0.107,,0.4965,retrieval_no_coverage,,
+E2E_B32P3_s42_NEG_20261122_045222,N06,¿Qué resultados hubo en la última fecha del campeonato de fútbol peruano?,,,[],[],False,M04,NO_RECUPERO,False,,0,False,False,37,0.115,,0.6122,retrieval_no_coverage,,
