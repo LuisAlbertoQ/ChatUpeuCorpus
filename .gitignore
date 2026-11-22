@@ -29,6 +29,8 @@ backups/
 backups/**
 vector_store_backup_*/
 evaluacion/vector_store/
+# Caché de embeddings del experimento A (se regenera; ~15 MB por modelo)
+evaluacion/retrieval/exp_a/_cache_embeddings/
 
 # Ollama service local data (large models, not needed in repo)
 llm_data/

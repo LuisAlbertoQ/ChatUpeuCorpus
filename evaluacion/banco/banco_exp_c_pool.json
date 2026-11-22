@@ -1,0 +1,428 @@
+{
+  "version": "exp_c_pool_v1",
+  "fecha": "2026-11-22",
+  "descripcion": "Experimento C (Revisión 3): 40 fuera de dominio + 20 ambiguas del pool de 260",
+  "preguntas": [],
+  "negativas": [
+    {
+      "id": "GOLD_001",
+      "pregunta": "¿Quién escribió la novela Cien años de soledad?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_006",
+      "pregunta": "¿Cuánto cuesta el SOAT anual para un automóvil particular?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_011",
+      "pregunta": "¿Cómo obtengo el RUC como persona natural ante SUNAT?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_015",
+      "pregunta": "¿Cómo se configura una VPN en un teléfono Android?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_030",
+      "pregunta": "¿Cuáles son los requisitos para renovar el DNI en RENIEC?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_036",
+      "pregunta": "¿Qué significa la palabra alemana Guten Tag en español?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_038",
+      "pregunta": "¿Qué documentos necesito?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_043",
+      "pregunta": "¿Qué significa el término blockchain y para qué sirve?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_044",
+      "pregunta": "¿Quién lo aprueba?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_055",
+      "pregunta": "¿Cómo se enuncia el teorema de Pitágoras?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_057",
+      "pregunta": "¿Cuál es el precio actual de una laptop en Lima?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_065",
+      "pregunta": "¿Cuál es la tarifa actual del Metropolitano de Lima?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_070",
+      "pregunta": "¿Qué película ganó el Óscar a mejor película en 2025?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_075",
+      "pregunta": "¿Cómo apelo?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_077",
+      "pregunta": "¿Qué tasa de interés ofrecen los depósitos a plazo fijo en los bancos peruanos?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_078",
+      "pregunta": "¿Qué ministros juraron en el último gabinete del Poder Ejecutivo?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_079",
+      "pregunta": "¿Cuáles son los síntomas de la gripe aviar en humanos?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_080",
+      "pregunta": "¿Cómo se prepara el ceviche peruano?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_082",
+      "pregunta": "¿Cuál es el plazo?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_085",
+      "pregunta": "¿A cuánto cotiza la onza de oro en el mercado internacional?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_090",
+      "pregunta": "¿Cómo funciona el algoritmo de Dijkstra para rutas mínimas?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_091",
+      "pregunta": "¿Cuántos créditos son?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_104",
+      "pregunta": "¿Cómo se solicita el pasaporte peruano por primera vez?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_106",
+      "pregunta": "¿Cuántos gramos de proteína debe consumir una persona adulta al día?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_107",
+      "pregunta": "¿Cómo se solicita?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_109",
+      "pregunta": "¿Cómo se tramita la visa Schengen para viajar a Europa?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_111",
+      "pregunta": "¿Qué beneficios tengo?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_115",
+      "pregunta": "¿Cuál es la raíz cuadrada de 144 y cómo se calcula?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_122",
+      "pregunta": "¿Qué resultados hubo en la última fecha del campeonato de fútbol peruano?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_133",
+      "pregunta": "¿A quién le corresponde?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_135",
+      "pregunta": "¿Cuál es la diferencia entre una lista y una tupla en Python?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_136",
+      "pregunta": "¿Cuál fue la tasa de inflación anual del Perú en 2025?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_140",
+      "pregunta": "¿Qué pasa si no cumplo?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_141",
+      "pregunta": "¿Qué selección ganó la última Copa América de fútbol?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_147",
+      "pregunta": "¿Cuál es el tipo de cambio del dólar hoy?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_148",
+      "pregunta": "¿Cómo se instala Python en Windows paso a paso?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_150",
+      "pregunta": "¿Qué dosis de paracetamol debe tomar un adulto con fiebre?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_152",
+      "pregunta": "¿En qué año se proclamó la independencia del Perú?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_153",
+      "pregunta": "¿Cuánto cuesta?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_160",
+      "pregunta": "¿Qué dice sobre eso?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_164",
+      "pregunta": "¿Cuánto cuesta la entrada a Machu Picchu para visitantes extranjeros?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_165",
+      "pregunta": "¿Cuáles son los requisitos para obtener una licencia de conducir en Perú?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_168",
+      "pregunta": "¿Está permitido?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_175",
+      "pregunta": "¿Cada cuánto tiempo se debe realizar una mamografía de control?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_180",
+      "pregunta": "¿Dónde se presenta?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_183",
+      "pregunta": "¿Cuál es el récord mundial de los 100 metros planos masculino?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_190",
+      "pregunta": "¿Qué es la fotosíntesis y en qué organelo ocurre?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_192",
+      "pregunta": "¿Quién ganó las elecciones presidenciales del Perú en 2026?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_197",
+      "pregunta": "¿Qué sanciones hay?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_202",
+      "pregunta": "¿Qué artículo lo regula?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_209",
+      "pregunta": "¿Cómo se solicita la legalización de un documento en el Ministerio de Relaciones Exteriores?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_210",
+      "pregunta": "¿Cuál es el procedimiento?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_226",
+      "pregunta": "¿Cuál es el horario?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_228",
+      "pregunta": "¿Cuál es la velocidad de la luz en el vacío?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_233",
+      "pregunta": "¿Qué pasa si llego tarde?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_234",
+      "pregunta": "¿Cuál es la capital de Australia?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_237",
+      "pregunta": "¿Cuál es el horario de atención del consulado de Chile en Lima?",
+      "bloque": "ood",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_245",
+      "pregunta": "¿Qué clima hará mañana en Juliaca?",
+      "bloque": "ood",
+      "estado_pool": "SEMILLA_CURADA",
+      "vista_en_desarrollo": true
+    },
+    {
+      "id": "GOLD_252",
+      "pregunta": "¿Cuál es el requisito?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    },
+    {
+      "id": "GOLD_259",
+      "pregunta": "¿Cuándo vence?",
+      "bloque": "ambigua",
+      "estado_pool": "CANDIDATO_NO_VALIDADO",
+      "vista_en_desarrollo": false
+    }
+  ]
+}

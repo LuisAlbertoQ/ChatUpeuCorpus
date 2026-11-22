@@ -48,6 +48,7 @@ from config import (
     RAG_CONTEXT_MAX_CHARS,
     RAG_CONTEXTO_ARTICULO,
     RAG_RECORTE_LEGACY_700,
+    RAG_SIN_RECUPERACION,
     RAG_DISTANCE_THRESHOLD,
     RAG_KEYWORD_BOOST,
     RAG_TOP_K_FINAL,
@@ -126,6 +127,27 @@ PROMPTS = {
     ),
 }
 PROMPT = PROMPTS[PROMPT_VERSION]
+
+# Sistema S0 de la Revisión 3 (control sin recuperación): mismo formato y misma
+# exigencia de completitud y cita que v3-completo, pero sin fragmentos.
+PROMPT_VERSION_SIN_RAG = "s0-sin-rag"
+PROMPT_SIN_RAG = PromptTemplate(
+    template=(
+        "Eres un asistente académico de la Universidad Peruana Unión (UPeU).\n"
+        "Responde con lo que sabes sobre los reglamentos y normas de la UPeU.\n\n"
+        "Responde de forma COMPLETA: incluye los requisitos, pasos, condiciones, plazos, "
+        "montos, responsables y excepciones que conozcas. Usa lista con viñetas (•) para "
+        "requisitos o pasos. Si conoces el documento y el artículo, cítalos así: "
+        "(Documento, Artículo X°).\n\n"
+        "REGLAS OBLIGATORIAS:\n"
+        "1. NO inventes información. Si no sabes la respuesta, di 'No hay información "
+        "sobre X'.\n"
+        "2. No incluyas 'Fuentes', 'Referencias', 'Notas' ni 'Bibliografía' al final.\n\n"
+        "Pregunta del estudiante: {question}\n\n"
+        "Respuesta (en español):"
+    ),
+    input_variables=["question"],
+)
 
 # -----------------------------------------------------------------------------
 # Expresiones regulares auxiliares
@@ -595,6 +617,94 @@ def _invocar_llm_con_timeout(prompt: str) -> str:
     raise last_err  # type: ignore[misc]
 
 
+def _sanear_basico(texto: str) -> str:
+    """Limpieza común a toda respuesta del LLM (con o sin recuperación)."""
+    # Corta cualquier bloque final del tipo "Fuentes:", "**Fuentes**",
+    # "Fuentes consultadas:", "Referencias:", "Bibliografía:", "Notas:".
+    # Captura markdown (**), saltos de línea y cualquier cosa después.
+    texto = re.split(
+        r"(?im)^[\s>\-]*\*?\*?(?:fuentes?|referencias?|bibliograf[íi]a|notas?)"
+        r"(?:\s+consultadas?|\s+verificables?|\s+utilizadas?)?\*?\*?\s*[:—\-]\s*.*$",
+        texto,
+    )[0].rstrip()
+
+    # Convertir viñetas Unicode (•) a markdown estándar (- ). El LLM
+    # emite U+2022 BULLET que NO es markdown, así que ReactMarkdown
+    # no lo renderiza como lista. Reemplazamos `•` por `- ` solo al
+    # inicio de cada viñeta (después de \n o al inicio del texto).
+    texto = re.sub(
+        r"(?m)^(\s*)•\s+",
+        r"\1- ",
+        texto,
+    )
+    # También capturar `•` que aparezca precedido de \n sin espacio
+    texto = re.sub(r"\n•\s+", "\n- ", texto)
+    # Y al inicio absoluto del texto (por si el LLM no pone \n antes)
+    if texto.lstrip().startswith("•"):
+        texto = texto.replace("•", "- ", 1)
+
+    # Eliminar frases meta que el LLM agrega cuando encuentra info parcial
+    # o cree que no tiene datos. Son jerga tecnica que confunde al usuario
+    # ("corpus", "fragmentos proporcionados", "los documentos no contienen").
+    # Variantes observadas:
+    #   "No hay información específica sobre X en los fragmentos proporcionados."
+    #   "El corpus no contiene información sobre este tema."
+    #   "Los documentos no incluyen/proporcionan información sobre X."
+    #   "(El corpus no contiene información sobre X.)"
+    # Mejora 4 (2026-11-21): la oración meta puede contener paréntesis, p. ej.
+    #   "El corpus no contiene información sobre ... la Universidad Peruana Unión
+    #    (UPeU) ofrece a los egresados."  (Q17)
+    # Antes `[^.)]*` se detenía en "(UPeU)", la frase no se borraba y la abstención
+    # salía como M02. Ahora abarca la oración completa sin cruzar saltos de línea
+    # (para no borrar viñetas de una respuesta real). Patrón: _RE_META_NO_INFO.
+    texto = _quitar_meta_no_info(texto)
+    return texto
+
+
+def _generar_sin_recuperacion(pregunta_limpia: str, inicio: float, inicio_perf: float,
+                              sesion_id: str) -> dict:
+    """Sistema S0 (Revisión 3): el LLM responde sin fragmentos ni fuentes.
+
+    Se aplica la limpieza común (_sanear_basico) pero NO la reparación de citas ni el
+    guardrail de encuadre: sin fuentes borrarían toda cita y ocultarían las citas
+    inventadas, que son justamente lo que el control S0 debe dejar ver.
+    """
+    comunes = dict(
+        pregunta_normalizada=pregunta_limpia,
+        top_k_raw=0, top_k_final=0, threshold_used=RAG_DISTANCE_THRESHOLD,
+        num_valid_chunks=0, embedding_model="ninguno", llm_model=OLLAMA_MODEL,
+        prompt_version=PROMPT_VERSION_SIN_RAG, corpus_version="ninguno",
+        ranking_method="ninguno", ranking_version=RANKING_VERSION,
+    )
+    t0_llm = time.perf_counter()
+    try:
+        respuesta = _invocar_llm_con_timeout(PROMPT_SIN_RAG.format(question=pregunta_limpia))
+    except Exception as exc:
+        llm_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
+        log.warning("S0: fallo del LLM (%s)", type(exc).__name__)
+        return _responder_simple(
+            pregunta_limpia, MENSAJES["M06"], "M06", inicio, sesion_id,
+            latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+            llm_latency_ms=llm_ms, error=str(exc) or type(exc).__name__,
+            error_type="timeout" if isinstance(exc, FutTimeout) else "exception", **comunes,
+        )
+    llm_ms = round((time.perf_counter() - t0_llm) * 1000, 2)
+    respuesta = _sanear_basico(respuesta)
+    respuesta, fue_truncada = _truncar_palabras(respuesta, MAX_PALABRAS_RESPUESTA)
+    tipo, motivo = "M02", None
+    if len(respuesta.strip()) < 30:
+        tipo, motivo = "M04", "generation_empty"
+        respuesta = MENSAJES["M04"].replace(
+            "[nombre del documento relacionado más cercano]", "documentos generales de la UPeU")
+    return _empaquetar(
+        pregunta_limpia, respuesta, [], tipo, inicio, sesion_id, [],
+        latency_total_ms=round((time.perf_counter() - inicio_perf) * 1000, 2),
+        llm_latency_ms=llm_ms, http_status=200, failure_reason=motivo,
+        citation_validation="valid" if _RE_CITA.search(respuesta) else "not_applicable",
+        citation_repairs=0, **comunes,
+    )
+
+
 # =============================================================================
 # Pipeline principal
 # =============================================================================
@@ -673,6 +783,10 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
             ranking_method=RANKING_METHOD, ranking_version=RANKING_VERSION,
             failure_reason="out_of_domain",
         )
+
+    # --- Sistema S0 (solo experimentos): sin recuperación ---------------------
+    if RAG_SIN_RECUPERACION:
+        return _generar_sin_recuperacion(pregunta_limpia, inicio, inicio_perf, sesion_id)
 
     # --- Recuperación RAG -----------------------------------------------------
     # Recuperamos más chunks (RAG_TOP_K_RAW) que los que mostraremos al LLM
@@ -998,45 +1112,7 @@ def generar_respuesta(pregunta: str, sesion_id: str = "") -> dict:
         )
 
     # --- Sanear respuesta del LLM --------------------------------------------
-    # Corta cualquier bloque final del tipo "Fuentes:", "**Fuentes**",
-    # "Fuentes consultadas:", "Referencias:", "Bibliografía:", "Notas:".
-    # Captura markdown (**), saltos de línea y cualquier cosa después.
-    respuesta_generada = re.split(
-        r"(?im)^[\s>\-]*\*?\*?(?:fuentes?|referencias?|bibliograf[íi]a|notas?)"
-        r"(?:\s+consultadas?|\s+verificables?|\s+utilizadas?)?\*?\*?\s*[:—\-]\s*.*$",
-        respuesta_generada,
-    )[0].rstrip()
-
-    # Convertir viñetas Unicode (•) a markdown estándar (- ). El LLM
-    # emite U+2022 BULLET que NO es markdown, así que ReactMarkdown
-    # no lo renderiza como lista. Reemplazamos `•` por `- ` solo al
-    # inicio de cada viñeta (después de \n o al inicio del texto).
-    respuesta_generada = re.sub(
-        r"(?m)^(\s*)•\s+",
-        r"\1- ",
-        respuesta_generada,
-    )
-    # También capturar `•` que aparezca precedido de \n sin espacio
-    respuesta_generada = re.sub(r"\n•\s+", "\n- ", respuesta_generada)
-    # Y al inicio absoluto del texto (por si el LLM no pone \n antes)
-    if respuesta_generada.lstrip().startswith("•"):
-        respuesta_generada = respuesta_generada.replace("•", "- ", 1)
-
-    # Eliminar frases meta que el LLM agrega cuando encuentra info parcial
-    # o cree que no tiene datos. Son jerga tecnica que confunde al usuario
-    # ("corpus", "fragmentos proporcionados", "los documentos no contienen").
-    # Variantes observadas:
-    #   "No hay información específica sobre X en los fragmentos proporcionados."
-    #   "El corpus no contiene información sobre este tema."
-    #   "Los documentos no incluyen/proporcionan información sobre X."
-    #   "(El corpus no contiene información sobre X.)"
-    # Mejora 4 (2026-11-21): la oración meta puede contener paréntesis, p. ej.
-    #   "El corpus no contiene información sobre ... la Universidad Peruana Unión
-    #    (UPeU) ofrece a los egresados."  (Q17)
-    # Antes `[^.)]*` se detenía en "(UPeU)", la frase no se borraba y la abstención
-    # salía como M02. Ahora abarca la oración completa sin cruzar saltos de línea
-    # (para no borrar viñetas de una respuesta real). Patrón: _RE_META_NO_INFO.
-    respuesta_generada = _quitar_meta_no_info(respuesta_generada)
+    respuesta_generada = _sanear_basico(respuesta_generada)
 
     # Guardrail de encuadre: si la línea "Según el X:" cita un documento
     # que NO está entre las fuentes, se elimina (alucinación de nombre).

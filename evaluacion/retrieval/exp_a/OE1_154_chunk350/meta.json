@@ -1,0 +1,44 @@
+{
+  "etiqueta": "OE1_154_chunk350",
+  "fecha": "2026-11-22T21:09:59",
+  "banco": "/data/evaluacion/banco/banco_oe1_162.csv",
+  "n_preguntas": 154,
+  "excluidas_sin_documento": [],
+  "chunks": "/oe1/chunks_v3_bgem3.csv",
+  "n_chunks": 5117,
+  "sha256_chunks": "845a93675fa589465251e5c42b6e2c2f77747310ad3db00212ddeb8bebc138f0",
+  "tokens_chunk": {
+    "max": 350,
+    "mediana": 131.0
+  },
+  "busqueda": "exacta (producto punto, vectores normalizados)",
+  "dispositivo": "cuda",
+  "recuperadores": {
+    "bm25": {
+      "k1": 1.5,
+      "b": 0.75,
+      "tokenizador": "minúsculas, sin tildes, sin stopwords",
+      "segundos": 0.8
+    },
+    "mpnet": {
+      "modelo": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+      "revision_pedida": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+      "max_seq": 128,
+      "revision_cargada": "paraphrase-multilingual-mpnet-base-v2",
+      "pct_chunks_truncados": 71.27,
+      "pct_tokens_embebidos": 56.32,
+      "origen_embeddings": "caché mpnet_82a1b73a47.npy",
+      "segundos": 18.7
+    },
+    "bgem3": {
+      "modelo": "BAAI/bge-m3",
+      "revision_pedida": "5617a9f61b028005a4858fdac845db406aefb181",
+      "max_seq": 384,
+      "revision_cargada": "bge-m3",
+      "pct_chunks_truncados": 0.0,
+      "pct_tokens_embebidos": 100.0,
+      "origen_embeddings": "embeddings_v3_bgem3.npy (índice de producción, sha256 585eda3b5382)",
+      "segundos": 6.1
+    }
+  }
+}

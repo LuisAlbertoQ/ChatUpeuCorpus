@@ -1,0 +1,7 @@
+grupo,correctas,n,tasa,ic95_lo,ic95_hi,decision_h5,corrida,por_tipo,excluidas_error
+fuera de dominio (40),40,40,1.0,0.9124,1.0,confirmada,E2E_C_s42_NEG_20261122_211302,"{'M03': 26, 'M04': 14}",{}
+fuera de dominio no vistas en desarrollo,0,0,,,,,E2E_C_s42_NEG_20261122_211302,{},
+ambiguas (20),14,20,0.7,0.481,0.8545,no confirmada,E2E_C_s42_NEG_20261122_211302,"{'M02': 6, 'M04': 7, 'M05': 4, 'M03': 3}",
+fuera de dominio (40),40,40,1.0,0.9124,1.0,confirmada,E2E_C_s7_NEG_20261122_211646,"{'M03': 26, 'M04': 14}",{}
+fuera de dominio no vistas en desarrollo,0,0,,,,,E2E_C_s7_NEG_20261122_211646,{},
+ambiguas (20),14,20,0.7,0.481,0.8545,no confirmada,E2E_C_s7_NEG_20261122_211646,"{'M02': 6, 'M04': 7, 'M05': 4, 'M03': 3}",

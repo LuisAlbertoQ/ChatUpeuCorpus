@@ -34,6 +34,10 @@ previamente definida.*
 > (8 del OE1 cercanas al dominio + 34 OOD del pool) dan 100 % de abstención. Sigue siendo una muestra
 > pequeña: la decisión oficial requiere las 40 OOD + 20 ambiguas del gold set con IC95 %.
 
+> **Experimento C preliminar (2026-11-22, `../exp_c/`):** 40/40 fuera de dominio (IC95 Wilson [0.912, 1.00]) y
+> 14/20 ambiguas (solo 4 piden aclaración, 6 reciben respuesta). Las 40 del pool ya se vieron en el desarrollo
+> (calibración + N01–N06), así que no sirven para la decisión oficial: el gold set necesita 40 nuevas.
+
 **Recomendación:** opción A (≥ 0.90). Nuestro baseline actual (6/6) la
 cumple en muestra pequeña, pero el propio documento prohíbe declarar
 superioridad con bancos pequeños: la decisión oficial se toma con las

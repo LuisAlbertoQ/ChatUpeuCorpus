@@ -80,6 +80,11 @@ RAG_CONTEXTO_ARTICULO = os.getenv("RAG_CONTEXTO_ARTICULO", "0").strip() == "1"
 RAG_ARTICULO_MAX_CHARS = _get_int_env("RAG_ARTICULO_MAX_CHARS", 4000, 500)
 # Solo para ablación/experimentos: "1" reproduce el recorte antiguo (700 chars).
 RAG_RECORTE_LEGACY_700 = os.getenv("RAG_RECORTE_LEGACY_700", "0").strip() == "1"
+# Solo para experimentos (Revisión 3, sistema S0): "1" responde SIN recuperación,
+# solo con el conocimiento del LLM. Se mantienen las validaciones previas (ambigua,
+# ética, multi-intención, fuera de dominio por palabras clave); no hay fuentes ni
+# filtro por distancia. Nunca activar en producción.
+RAG_SIN_RECUPERACION = os.getenv("RAG_SIN_RECUPERACION", "0").strip() == "1"
 # Ventana de Ollama: explícita para que el prompt nunca se recorte en silencio.
 # 8192 cuesta +0.2 GB de VRAM frente a 4096, sin pérdida de velocidad (medido).
 OLLAMA_NUM_CTX = _get_int_env("OLLAMA_NUM_CTX", 8192, 2048)

@@ -81,13 +81,31 @@ Herramientas nuevas: `comparacion_v2_v3/correr_17q_e2e.py` (banco end-to-end con
 `retrieval/calibrar_v3_bgem3.py`, `retrieval/evaluar_reranker.py`, `banco/construir_banco_v32.py` y
 `banco/auditar_banco_17q.py`.
 
+## Revisión 3 (.docx): avance del 2026-11-22
+
+Auditoría del .docx contra el sistema: hipótesis, corpus y pool de 260 ya estaban; faltaban la estadística,
+S0/S1/S2, el experimento A sobre el corpus V3, el C completo, la anotación del gold set y las tablas.
+Hecho el 2026-11-22 (todo con la configuración congelada en `REPRODUCIBILIDAD.md`, commit `c47d455a`):
+
+| Pieza | Dónde | Estado |
+|---|---|---|
+| Ficha de reproducibilidad (§10) | `REPRODUCIBILIDAD.md` | lista |
+| Estadística (§9): bootstrap, Wilson, Wilcoxon, Holm, efecto | `estadistica/estadistica.py` | lista, 15 tests |
+| S0 sin recuperación | `RAG_SIN_RECUPERACION=1` (backend) | lista, 6 tests; falta correrla |
+| S5 Llama 3 | `OLLAMA_MODEL=llama3:latest` (ya descargado) | lista para el Exp. B |
+| Exp. A recuperación (S1 BM25, S3 mpnet, S4 bge-m3) | `retrieval/exp_a_recuperacion.py`, `retrieval/exp_a/` | preliminar con bancos de desarrollo; falta MiniLM y los tamaños de chunk |
+| Exp. C abstención | `exp_c/` | preliminar: 40/40 fuera de dominio (vistas en desarrollo), 14/20 ambiguas |
+| Gold set 260 | `banco/` | **pendiente: doble anotación** (las 178 preguntas de dominio con artículo apuntan a artículos que existen en V3) |
+
 ## Estructura (reorganizada 2026-09-27; actualizada 2026-11-22)
 
 | Carpeta | Contenido |
 |---|---|
 | `banco/` | **`banco_v32.json` (30 Q + 6 negativas, vigente)** y `construir_banco_v32.py`; auditoría del banco de 17 Q; v3.1 congelada (`preguntas_comparacion.json`, `CHANGELOG_GROUNDTRUTH_V31.md`); pool Gold Set 260 (`cuotas_pool_260.json`, `draft/`, `generar_pool_260.py`); `banco_oe1_162.csv` (calibración) |
-| `retrieval/` | `evaluar_rag_v3.py` (colección desde config), `calibrar_v3_bgem3.py` + `calibracion_v3_bgem3/`, `evaluar_reranker.py` + `reranker_v3_bgem3.json`; históricos `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`; métricas `EXP_*.csv` |
+| `retrieval/` | `evaluar_rag_v3.py` (colección desde config), `calibrar_v3_bgem3.py` + `calibracion_v3_bgem3/`, `evaluar_reranker.py` + `reranker_v3_bgem3.json`; **`exp_a_recuperacion.py` + `exp_a/` (Exp. A Revisión 3)**; históricos `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`; métricas `EXP_*.csv` |
 | `comparacion_v2_v3/` | `COMPARACION_V2_V3.md` (informe 2026-11-21/22), `correr_17q_e2e.py`, `ablacion.ps1`, `completitud_auto.py`, corridas `E2E_*.json/.csv` |
+| `estadistica/` | `estadistica.py`: IC95 bootstrap, Wilson, Wilcoxon, Holm y tamaño de efecto (Revisión 3 §9) |
+| `exp_c/` | Experimento C (abstención): `exp_c_abstencion.py`, `resumen_exp_c.csv`, `detalle_exp_c.csv` |
 | `generacion/` | `baseline_generacion_v3_oficial.py`, harnesses, JSON/CSV de experimentos |
 | `humana/` | Fichas Q01-Q17 (`fichas_humanas_v31/`, 66 puntos), `importar_ficha_humana.py`, `calcular_metricas_humanas.py`, guía |
 | `madurez_oe8/` | `calcular_madurez.py`, instrumento piloto 30 ítems, `importar_piloto.py`, reportes |

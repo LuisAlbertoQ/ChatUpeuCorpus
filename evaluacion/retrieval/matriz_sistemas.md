@@ -17,12 +17,12 @@ Todos los sistemas son locales. No existe comparador cloud/no-code
 
 | ID | Recuperador | Generador | Rol | Estado |
 |---|---|---|---|---|
-| S0 | Sin recuperación | Qwen2.5-7B | Control: generación local sin contexto RAG | pendiente |
-| S1 | BM25 (`retrieval/bm25_local.py`) | Qwen2.5-7B | Línea base léxica | pendiente (implementar) |
-| S2 | MiniLM-L12-v2 | Qwen2.5-7B | Recuperación semántica local | comparativa previa hecha, falta réplica controlada |
-| S3 | mpnet-base-v2 | Qwen2.5-7B | Configuración anterior / referencia | operativo hasta 2026-11-21 (V2); réplica de control `EXP_20261122_000124_31a0b8` idéntica al baseline de septiembre |
+| S0 | Sin recuperación | Qwen2.5-7B | Control: generación local sin contexto RAG | **implementado 2026-11-22** (`RAG_SIN_RECUPERACION=1`, prompt `s0-sin-rag`); falta correrlo sobre el gold set |
+| S1 | BM25 (`retrieval/exp_a_recuperacion.py`, k1 1.5, b 0.75) | Qwen2.5-7B | Línea base léxica | **recuperación implementada 2026-11-22**; preliminar R@5 0.675 (154 Q OE1) |
+| S2 | MiniLM-L12-v2 | Qwen2.5-7B | Recuperación semántica local | perfil listo en `exp_a_recuperacion.py`; falta descargar el modelo (~470 MB) |
+| S3 | mpnet-base-v2 | Qwen2.5-7B | Configuración anterior / referencia | operativo hasta 2026-11-21 (V2); réplica de control `EXP_20261122_000124_31a0b8` idéntica al baseline de septiembre; sobre los chunks V3: R@5 0.617 (154 Q), lee el 56 % del texto (128 tokens) |
 | S4 | bge-m3 | Qwen2.5-7B | **Configuración vigente** (corpus V3, umbral 0.41, boost 0.02) | operativo desde 2026-11-21; comparado con S3 en 17 Q y 30 Q (`comparacion_v2_v3/`); falta sobre el gold set |
-| S5 | Mejor recuperador del Exp. A | Llama 3 8B | Comparación de generación local | pendiente (`ollama pull llama3:8b`) |
+| S5 | Mejor recuperador del Exp. A | Llama 3 8B | Comparación de generación local | modelo ya descargado (`llama3:latest`, ID `365c0bd3c000`); se selecciona con `OLLAMA_MODEL=llama3:latest` |
 | S6 | Mejor recuperador del Exp. A | Qwen2.5-7B | Comparación de generación local | pendiente (réplica controlada) |
 
 ## Notas
@@ -30,3 +30,5 @@ Todos los sistemas son locales. No existe comparador cloud/no-code
 - Si alguna herramienta local cambia durante el desarrollo, se documenta
   como cambio de implementación, no como comparación local-vs-nube.
 - Exp. A usa S0–S4; Exp. B usa S5–S6 con el ganador de A.
+
+- 2026-11-22: configuración congelada en `../REPRODUCIBILIDAD.md` (commit `c47d455a`). Resultados preliminares del Exp. A en `exp_a/` (ver README de esta carpeta).

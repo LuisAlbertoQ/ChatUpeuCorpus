@@ -335,3 +335,53 @@ class TestAbstencionEncadenada:
                 "Los fragmentos indican además que el plazo es de cinco días (DOC A, Artículo 1°).")
         res, _ = pipeline(["texto"], [_meta("DOC A")], [0.10], llm=resp)
         assert res["tipo_mensaje"] == "M02" and "cinco días" in res["respuesta"]
+
+
+# ---------------------------------------------------------------------------
+# Revisión 3 — sistema S0 (sin recuperación)
+# ---------------------------------------------------------------------------
+class TestSistemaS0:
+    S0 = {"RAG_SIN_RECUPERACION": "1"}
+
+    def test_apagado_por_defecto(self, monkeypatch):
+        monkeypatch.delenv("RAG_SIN_RECUPERACION", raising=False)
+        import config
+        importlib.reload(config)
+        assert config.RAG_SIN_RECUPERACION is False
+
+    def test_no_consulta_la_base_y_no_lleva_fuentes(self, pipeline):
+        res, cap = pipeline(["texto"], [_meta("DOC A")], [0.10],
+                            llm="Se requiere ser estudiante regular (Reglamento X, Artículo 5°).", env=self.S0)
+        import rag_pipeline as rp
+        rp.collection.query.assert_not_called()
+        rp.model.encode.assert_not_called()
+        assert res["tipo_mensaje"] == "M02" and res["fuentes"] == []
+        assert "Fragmentos del corpus" not in cap["prompts"][0]
+        assert "pregunta de prueba" in cap["prompts"][0]
+
+    def test_conserva_citas_inventadas_para_evaluarlas(self, pipeline):
+        # Con el pipeline normal la cita a un documento ausente se repararía o borraría.
+        llm = "Debes presentar tu solicitud (Reglamento Inventado 2099, Artículo 77°)."
+        res, _ = pipeline([], [], [], llm=llm, env=self.S0)
+        assert "Reglamento Inventado 2099, Artículo 77°" in res["respuesta"]
+
+    def test_no_sabe_es_m04(self, pipeline):
+        res, _ = pipeline([], [], [], llm="No hay información sobre ese trámite.", env=self.S0)
+        assert res["tipo_mensaje"] == "M04"
+
+    def test_validaciones_previas_siguen_activas(self, pipeline, monkeypatch):
+        import rag_pipeline as rp  # noqa: F401  (el fixture recarga el módulo)
+        res, cap = pipeline([], [], [], env={**self.S0})
+        assert cap["prompts"]  # sin validación que corte, llega al LLM
+        monkeypatch.setattr(sys.modules["rag_pipeline"], "_es_etica_sensible", lambda x: True)
+        res = sys.modules["rag_pipeline"].generar_respuesta("pregunta", sesion_id="t")
+        assert res["tipo_mensaje"] == "M03"
+
+    def test_registra_version_s0(self, pipeline):
+        import sqlite3
+        import logger
+        pipeline([], [], [], llm="Respuesta suficientemente larga para no ser abstención.", env=self.S0)
+        fila = sqlite3.connect(logger.DB_PATH).execute(
+            "SELECT prompt_version, corpus_version, embedding_model FROM interacciones ORDER BY rowid DESC LIMIT 1"
+        ).fetchone()
+        assert fila == ("s0-sin-rag", "ninguno", "ninguno")
