@@ -20,6 +20,7 @@ import datetime
 import hashlib
 import json
 import math
+import os
 import re
 import sqlite3
 import sys
@@ -214,7 +215,7 @@ def main():
     # Registrar snapshot de configuración
     conn.execute(
         "INSERT INTO experimentos_rag (experimento_id, fecha, corpus_version, embedding_model, llm_model, top_k_raw, top_k_final, threshold, ranking_method, ranking_version, prompt_version, descripcion, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        (exp_id, ts, config.CORPUS_VERSION, config.EMBEDDING_MODEL, config.OLLAMA_MODEL, config.RAG_TOP_K_RAW, config.RAG_TOP_K_FINAL, config.RAG_DISTANCE_THRESHOLD, config.RANKING_METHOD, config.RANKING_VERSION, config.PROMPT_VERSION, "Evaluación retrieval offline banco v3_curado [BASELINE V3]", "completado"),
+        (exp_id, ts, config.CORPUS_VERSION, config.EMBEDDING_MODEL, config.OLLAMA_MODEL, config.RAG_TOP_K_RAW, config.RAG_TOP_K_FINAL, config.RAG_DISTANCE_THRESHOLD, config.RANKING_METHOD, config.RANKING_VERSION, config.PROMPT_VERSION, os.getenv("EVAL_DESCRIPCION", "Evaluación retrieval offline banco v3_curado [BASELINE V3]"), "completado"),
     )
     conn.commit()
 
@@ -228,9 +229,11 @@ def main():
     from sentence_transformers import SentenceTransformer
     import chromadb
     from chromadb.config import Settings
-    model = SentenceTransformer(config.EMBEDDING_MODEL)
+    # 2026-11-21: colección y revisión del modelo desde config (antes fijo
+    # "corpus_upeu_v2"); con la V2 el comportamiento es idéntico.
+    model = SentenceTransformer(config.EMBEDDING_MODEL, revision=getattr(config, "EMBEDDING_REVISION", None))
     client = chromadb.PersistentClient(path=str(vector_path), settings=Settings(anonymized_telemetry=False))
-    collection = client.get_collection("corpus_upeu_v2")
+    collection = client.get_collection(config.CORPUS_VERSION)
 
     # Para métricas agregadas
     all_metrics = []

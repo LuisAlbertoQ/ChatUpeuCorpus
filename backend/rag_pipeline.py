@@ -30,6 +30,7 @@ from config import (
     DEBUG_LOG,
     DOMINIO_CATEGORIAS,
     EMBEDDING_MODEL,
+    EMBEDDING_REVISION,
     KEYWORDS_DOMINIO,
     KEYWORDS_ETICA,
     KEYWORDS_FUERA_DOMINIO,
@@ -133,10 +134,18 @@ def inicializar():
     """Carga la base vectorial y el modelo de embeddings (llamada en startup)."""
     global client, collection, model
     client = chromadb.PersistentClient(path="/data/vector_store")
-    #collection = client.get_collection("corpus_upeu")
-    collection = client.get_collection("corpus_upeu_v2")
-    model = SentenceTransformer("paraphrase-multilingual-mpnet-base-v2")
-    log.info("Recursos RAG inicializados.")
+    # Colección y modelo desde config (antes fijos a corpus_upeu_v2 + mpnet).
+    collection = client.get_collection(CORPUS_VERSION)
+    model = SentenceTransformer(EMBEDDING_MODEL, revision=EMBEDDING_REVISION)
+    _dim = getattr(model, "get_embedding_dimension", None) or model.get_sentence_embedding_dimension
+    dim_modelo = _dim()
+    muestra = collection.get(limit=1, include=["embeddings"])["embeddings"]
+    if muestra is not None and len(muestra) and len(muestra[0]) != dim_modelo:
+        raise RuntimeError(
+            f"Dimensión incompatible: {EMBEDDING_MODEL} produce {dim_modelo} y "
+            f"la colección {CORPUS_VERSION} tiene {len(muestra[0])}."
+        )
+    log.info("Recursos RAG inicializados: %s | %s (%s dim)", CORPUS_VERSION, EMBEDDING_MODEL, dim_modelo)
     print("Recursos RAG inicializados correctamente.")
 
 

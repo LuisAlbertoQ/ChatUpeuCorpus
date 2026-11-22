@@ -196,8 +196,17 @@ OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen2.5:7b")
 # -----------------------------------------------------------------------------
 # Versionado técnico (Fase 5, §20) — centralizado para trazabilidad
 # -----------------------------------------------------------------------------
-EMBEDDING_MODEL = "paraphrase-multilingual-mpnet-base-v2"  # 768 dim, mpnet
-CORPUS_VERSION = "corpus_upeu_v2"  # colección ChromaDB vigente
+# 2026-11-21: migración a corpus V3 (OE1) + bge-m3. Configurables por entorno
+# para poder volver a la V2 (S3 de la matriz de sistemas) sin tocar código:
+#   EMBEDDING_MODEL=paraphrase-multilingual-mpnet-base-v2 EMBEDDING_REVISION=
+#   CORPUS_VERSION=corpus_upeu_v2  (+ montar vector_store_backup_v2_20261121)
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "BAAI/bge-m3")  # 1024 dim
+# Revisión fijada del modelo (la misma con la que OE1 indexó el corpus V3).
+# Vacía → última versión del modelo (solo para mpnet/V2).
+EMBEDDING_REVISION = os.getenv(
+    "EMBEDDING_REVISION", "5617a9f61b028005a4858fdac845db406aefb181"
+) or None
+CORPUS_VERSION = os.getenv("CORPUS_VERSION", "corpus_upeu_v3_bgem3")  # colección ChromaDB vigente
 PROMPT_VERSION = "v2-adaptativo"  # prompt con formato adaptativo y guardrails
 RANKING_METHOD = "heuristic_keyword_boost"
 RANKING_VERSION = "1.0"  # boost +0.07 por keyword en nombre de documento

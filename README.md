@@ -74,7 +74,7 @@ oe5_chatbot_upeu/
 │   ├── PARTE_3_EVALUACION_MADUREZ.md # Fases 1-6 de evaluación y madurez OE8
 │   └── FLUJO_CONSULTA.txt            # Diagrama del flujo de una consulta
 ├── vector_store/                     # Base vectorial ChromaDB (corpus persiste aquí)
-│   ├── chroma.sqlite3                # corpus_upeu_v2, 5126 chunks, mpnet-768
+│   ├── chroma.sqlite3                # corpus_upeu_v3_bgem3, 5117 chunks, bge-m3 1024 (desde 2026-11-21)
 │   └── [uuid]/
 ├── registro_interacciones.db         # DB oficial: interacciones, banco_preguntas,
 │                                     # experimentos_rag, evaluacion_retrieval/generacion,
@@ -110,8 +110,8 @@ se montan en un path padre distinto al del código:
 | **Servidor ASGI** | Uvicorn | 0.27.0 |
 | **Lenguaje (backend)** | Python | 3.10 |
 | **Orquestación RAG** | LangChain | 0.1.0 + community 0.0.10 |
-| **Modelo de embeddings** | Sentence-Transformers | `paraphrase-multilingual-mpnet-base-v2` (768 dims, ganador 10/10) |
-| **Base vectorial** | ChromaDB | 0.4.22, colección `corpus_upeu_v2`, distancia coseno |
+| **Modelo de embeddings** | Sentence-Transformers | `BAAI/bge-m3` rev. `5617a9f6` (1024 dims, ganador OE1 V3, 2026-11-21). Antes: mpnet 768 (V2) |
+| **Base vectorial** | ChromaDB | 0.4.22, colección `corpus_upeu_v3_bgem3` (configurable: `CORPUS_VERSION`), distancia coseno. Respaldo V2: `vector_store_backup_v2_20261121/` · comparación: `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md` |
 | **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_predict=1024`, `temperature=0.2` |
 | **Contenedor LLM** | Ollama | latest con CUDA v13. Modelo por defecto: Qwen2.5-7B |
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
@@ -217,7 +217,7 @@ Solo `build` si cambia `requirements.txt` o `Dockerfile`.
 1. Usuario escribe pregunta → 2. Frontend envía `POST /consulta`
 3. Backend valida sesión (T07) y ejecuta pipeline RAG:
    - Validaciones (ambigua M05, ética M03, multi-intención M05, fuera-dominio M03)
-   - Embedding con `paraphrase-multilingual-mpnet-base-v2` (multilingüe, 768 dim)
+   - Embedding con `BAAI/bge-m3` (multilingüe, 1024 dim; `EMBEDDING_MODEL`)
    - Retrieval top-15 en ChromaDB (TOP_K_RAW=15, 3x top-K final)
    - Re-ranking por keywords: boost de 0.07 por match en `meta["documento"]`
    - Selección top-3 por distancia boosted, filtro UMBRAL=0.40 (sobre boosted)

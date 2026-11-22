@@ -230,8 +230,8 @@ class TestExperimentos:
             ("EXP_TEST", config.CORPUS_VERSION, config.EMBEDDING_MODEL, config.OLLAMA_MODEL, config.RAG_TOP_K_RAW, config.RAG_TOP_K_FINAL, config.RAG_DISTANCE_THRESHOLD, config.RANKING_METHOD, config.RANKING_VERSION, config.PROMPT_VERSION),
         )
         row = conn.execute("SELECT corpus_version, embedding_model, threshold FROM experimentos_rag WHERE experimento_id='EXP_TEST'").fetchone()
-        assert row[0] == "corpus_upeu_v2"
-        assert row[1] == "paraphrase-multilingual-mpnet-base-v2"
+        assert row[0] == config.CORPUS_VERSION
+        assert row[1] == config.EMBEDDING_MODEL
         assert row[2] == 0.40
         conn.close()
 

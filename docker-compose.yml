@@ -35,6 +35,7 @@ services:
       - ./evaluacion:/data/evaluacion
       - ./vector_store:/data/vector_store
       - ./registro_interacciones.db:/data/registro_interacciones.db
+      - hf_cache:/root/.cache/huggingface  # modelos de embeddings (bge-m3 ~2.2 GB) persisten entre recreaciones
     environment:
       OLLAMA_BASE_URL: http://llm:11434
       OLLAMA_MODEL: qwen2.5:7b
@@ -45,6 +46,11 @@ services:
       RAG_DISTANCE_THRESHOLD: "0.40"
       RAG_TOP_K_RAW: "15"
       RAG_TOP_K_FINAL: "4"
+      # Corpus V3 (OE1, 2026-11-21) + bge-m3. Para volver a V2: mpnet,
+      # EMBEDDING_REVISION "" y corpus_upeu_v2 con vector_store_backup_v2_20261121.
+      CORPUS_VERSION: corpus_upeu_v3_bgem3
+      EMBEDDING_MODEL: BAAI/bge-m3
+      EMBEDDING_REVISION: 5617a9f61b028005a4858fdac845db406aefb181
     depends_on:
       llm:
         condition: service_healthy
@@ -77,3 +83,4 @@ services:
 
 volumes:
   llm_data:
+  hf_cache:

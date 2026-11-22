@@ -419,7 +419,7 @@ class TestVersionado:
         assert row[0] == config.EMBEDDING_MODEL
         assert row[1] == config.OLLAMA_MODEL
         assert row[2] == config.PROMPT_VERSION
-        assert row[3] == config.CORPUS_VERSION == "corpus_upeu_v2"
+        assert row[3] == config.CORPUS_VERSION
         assert row[4] == config.RANKING_METHOD
         assert row[5] == config.RANKING_VERSION
 
