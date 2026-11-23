@@ -519,7 +519,8 @@ Top20 → Top5 → threshold 0.40
 >   latencia 20 vs 39 s; Llama 3 no cabe en la GPU de 6 GB (17 % timeouts). S0 sin recuperación: completitud 0.03.
 > - Decisión 2026-11-22: Llama 3 8B descartado por inviabilidad en el hardware; el Exp. B comparará Qwen2.5-7B con
 >   `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b`. Resumen completo: `evaluacion/ESTADO_REVISION_3.md`.
-> - Pendiente: generadores nuevos, corridas oficiales sobre el gold set, evaluación humana y tablas 1–6.
+> - Exp. B con los modelos nuevos (2026-11-23, `evaluacion/generacion/exp_b_nuevos/`): Modelos nuevos (2 semillas, 2026-11-23): completitud `qwen3:4b-instruct` 0.63, `gemma3:4b` 0.58, `llama3.2:3b` 0.51 vs Qwen2.5-7B 0.53, ninguna diferencia significativa con Holm; los tres más rápidos (p50 7 / 22 / 17 s vs 20 s; p95 18 / 26 / 34 s vs 58 s), 0 timeouts, 12/12 negativas.
+> - Pendiente: corridas oficiales sobre el gold set, evaluación humana y tablas 1–6.
 
 y, si se incorpora un reranker real:
 

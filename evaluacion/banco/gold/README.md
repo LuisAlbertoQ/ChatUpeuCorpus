@@ -1,6 +1,7 @@
 # Gold set 260 — fichas de anotación, acuerdo y consolidación (Revisión 3, §3)
 
-Preparado el 2026-11-22. Las reglas de anotación están en `../guia_anotacion.md`.
+Preparado el 2026-11-22. Las reglas de anotación están en `../guia_anotacion.md`. Resumen para repartir el trabajo
+(quién recibe qué y qué devuelve): `../../ENTREGA_EVALUADORES.md`.
 
 ## Archivos para el equipo
 

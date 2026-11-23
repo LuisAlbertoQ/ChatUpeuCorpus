@@ -136,7 +136,7 @@ CONFIGURACION VIGENTE (2026-11-22; todas son variables de entorno en docker-comp
   - OLLAMA_NUM_CTX 8192, OLLAMA_NUM_PREDICT 1024, OLLAMA_SEED 42, temperature 0.2
   - PROMPT_VERSION v3-completo (completitud 0.40 -> 0.57); TIMEOUT_RESPUESTA 120
   - Re-ranker cross-encoder evaluado y descartado; RAG_CONTEXTO_ARTICULO=0 (apagado)
-  - RAG_SIN_RECUPERACION=0 (1 = sistema S0) y OLLAMA_MODEL=qwen2.5:7b (Exp. B: llama3.2:3b, qwen3:4b, gemma3:4b; Llama 3 8B descartado), Revision 3
+  - RAG_SIN_RECUPERACION=0 (1 = sistema S0) y OLLAMA_MODEL=qwen2.5:7b (Exp. B: llama3.2:3b, qwen3:4b-instruct, gemma3:4b; Llama 3 8B descartado), Revision 3
   - Configuracion congelada para la Revision 3: commit c47d455a (evaluacion/REPRODUCIBILIDAD.md)
 
 HISTORIAL (hasta 2026-11-20, corpus v2 + mpnet):

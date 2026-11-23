@@ -45,7 +45,8 @@ de preguntas nuevas o corregidas son **literales**; 21 heredadas de la v3.1 son 
 con 69–100 % de coincidencia (avisos, no errores).
 
 **Estado**: 15 preguntas `CURADO_V31` y 15 `PROPUESTA_V32_PENDIENTE_REVISION_HUMANA` (Q05, Q16, Q18–Q30).
-Antes de usarlas como ground truth definitivo deben pasar por un segundo anotador (Revisión 3 §3).
+Antes de usarlas como ground truth definitivo deben pasar por un segundo anotador (Revisión 3 §3; fichas en `gold/`,
+reparto en `../ENTREGA_EVALUADORES.md`).
 
 ⚠️ **Sesgo de facilidad**: las preguntas nuevas se redactaron leyendo el artículo y comparten su
 vocabulario, por eso se recuperan mejor (documento 13/13 vs 13/17). Reportar los dos subconjuntos por
