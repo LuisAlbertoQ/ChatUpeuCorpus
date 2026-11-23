@@ -1,0 +1,66 @@
+{
+  "qwen": [
+    {
+      "archivo": "E2E_B_qwen_s42_20261122_221919.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_B_qwen_s7_20261122_223215.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 7,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ],
+  "llama32": [
+    {
+      "archivo": "E2E_B_llama32_s42_20261123_144803.json",
+      "llm": "llama3.2:3b",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_B_llama32_s7_20261123_145341.json",
+      "llm": "llama3.2:3b",
+      "semilla": 7,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ],
+  "qwen3": [
+    {
+      "archivo": "E2E_B_qwen3_s42_20261123_145838.json",
+      "llm": "qwen3:4b-instruct",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_B_qwen3_s7_20261123_150912.json",
+      "llm": "qwen3:4b-instruct",
+      "semilla": 7,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ],
+  "gemma3": [
+    {
+      "archivo": "E2E_B_gemma3_s42_20261123_151924.json",
+      "llm": "gemma3:4b",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_B_gemma3_s7_20261123_153011.json",
+      "llm": "gemma3:4b",
+      "semilla": 7,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ]
+}

@@ -98,7 +98,7 @@ estas variables leídas del backend, así que el valor exacto de cada experiment
 | 2026-11-22 | `OLLAMA_MODEL` del backend pasa a `${OLLAMA_MODEL:-qwen2.5:7b}` en `docker-compose.yml` (para S5) | No: el valor por defecto es el mismo |
 | 2026-11-22 | `ablacion.ps1` no arranca si ya hay una corrida activa en `oe5-backend` (dos corridas a la vez compiten por Ollama y dan timeouts falsos) | No |
 | 2026-11-22 | `correr_17q_e2e.py` guarda `rag_sin_recuperacion` en el `meta` de cada corrida | No |
-| 2026-11-22 | **Se descarta Llama 3 8B (S5)** por inviabilidad en el hardware y se reemplaza por `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (decisión del equipo; motivo en `ESTADO_REVISION_3.md` §4). Debe registrarse con el asesor porque el .docx nombra a Llama 3 8B | No: el chatbot sigue con Qwen2.5-7B |
+| 2026-11-22 | **Se descarta Llama 3 8B (S5)** por inviabilidad en el hardware y se reemplaza por `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (decisión del equipo; motivo en `ESTADO_REVISION_3.md` §4). **Aprobado por el asesor el 2026-11-23** (el .docx nombraba a Llama 3 8B) | No: el chatbot sigue con Qwen2.5-7B |
 
 ### Nota sobre `qwen3:4b-instruct` (2026-11-22)
 

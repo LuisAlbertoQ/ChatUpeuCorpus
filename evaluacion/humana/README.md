@@ -16,4 +16,5 @@ Resultados FASE 4: completitud micro 0.106 · faithfulness micro 0.918 · citati
 El .docx (§8) pide una submuestra **ciega** de respuestas del sistema final (y de los generadores del Exp. B: Qwen2.5-7B vs `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`),
 con la rúbrica fijada antes de ver los resultados y acuerdo entre evaluadores. Las fichas de esta carpeta
 (FASE 4) evaluaron el sistema V2 de septiembre, así que sirven como antecedente y para reutilizar la rúbrica
-(`GUIA_EVALUACION_HUMANA_V3.md`), no como resultado del estudio. Se hace después del gold set y del Exp. B.
+(`GUIA_EVALUACION_HUMANA_V3.md`), no como resultado del estudio. Se hace después del gold set y del Exp. B oficial; decide el generador final del chatbot (candidato `qwen3:4b-instruct`,
+ver `../ESTADO_REVISION_3.md` §5). Qué reciben los evaluadores: `../ENTREGA_EVALUADORES.md` (ronda 2).

@@ -1,0 +1,13 @@
+metrica,comparacion,n,media_a,media_b,diferencia,ic95_lo,ic95_hi,p,metodo,r_rango_biserial,magnitud,d_z,p_holm,significativo
+completitud,llama32 vs qwen,30,0.5333,0.5075,-0.0258,-0.1022,0.0475,0.4365,normal,-0.2206,pequeño,-0.1223,0.4365,False
+completitud,qwen3 vs qwen,30,0.5333,0.6311,0.0978,0.0239,0.1806,0.0350,normal,0.6167,grande,0.4335,0.1051,False
+completitud,gemma3 vs qwen,30,0.5333,0.5839,0.0506,-0.0286,0.1283,0.1255,normal,0.5000,grande,0.2260,0.2510,False
+atrib_exacta,llama32 vs qwen,30,0.4167,0.3500,-0.0667,-0.2000,0.0667,0.3573,normal,-0.3333,mediano,-0.1718,0.7145,False
+atrib_exacta,qwen3 vs qwen,30,0.4167,0.5167,0.1000,0.0167,0.2000,0.0633,normal,1.0000,grande,0.3631,0.1900,False
+atrib_exacta,gemma3 vs qwen,30,0.4167,0.4667,0.0500,-0.0667,0.1667,0.4530,normal,0.3333,mediano,0.1405,0.7145,False
+falsa_abstencion,llama32 vs qwen,30,0.0333,0.0000,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+falsa_abstencion,qwen3 vs qwen,30,0.0333,0.0000,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+falsa_abstencion,gemma3 vs qwen,30,0.0333,0.0000,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+latencia_s,llama32 vs qwen,30,24.3815,8.5505,-15.8310,-20.3842,-11.6350,0.0000,normal,-0.9828,grande,-1.2797,0.0000,True
+latencia_s,qwen3 vs qwen,30,24.3815,18.9927,-5.3889,-9.8170,-1.1021,0.0333,normal,-0.4452,mediano,-0.4312,0.0413,True
+latencia_s,gemma3 vs qwen,30,24.3815,18.7698,-5.6117,-9.8415,-1.3960,0.0207,normal,-0.4839,mediano,-0.4675,0.0413,True

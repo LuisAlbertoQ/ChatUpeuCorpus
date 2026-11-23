@@ -41,9 +41,10 @@ Detalle completo (método, ablaciones, corridas y decisiones): [`evaluacion/comp
 artículo correcto 16/27, completitud ~0.57, 6/6 negativas abstenidas, tiempo típico ~23 s.
 Todos los parámetros son variables de entorno (`docker-compose.yml`), así que cada cambio se puede revertir sin tocar código.
 
-## Revisión 3 (.docx): avance al 22 de noviembre de 2026
+## Revisión 3 (.docx): avance al 23 de noviembre de 2026
 
 > **Resumen de fase, resultados y decisiones en un solo lugar:** [`evaluacion/ESTADO_REVISION_3.md`](evaluacion/ESTADO_REVISION_3.md).
+> **Qué entregar a los evaluadores (gold set y fidelidad):** [`evaluacion/ENTREGA_EVALUADORES.md`](evaluacion/ENTREGA_EVALUADORES.md).
 
 El documento `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (03-09-2026) define el estudio experimental:
 H1–H5, gold set de 260 preguntas, sistemas S0–S6, experimentos A (recuperación), B (generación) y C
@@ -58,7 +59,7 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
 | 3 Gold set 260 | 🟡 pool listo + fichas ciegas, κ y consolidación listas; **falta que el equipo anote** y redacte 40 preguntas fuera de dominio nuevas | `evaluacion/banco/gold/` |
 | 4 Sistemas S0–S8 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S6 Qwen2.5-7B; S5 Llama 3 8B **descartado**; S5b `llama3.2:3b`, S7 `qwen3:4b-instruct`, S8 `gemma3:4b` descargados 2026-11-22 | `evaluacion/retrieval/matriz_sistemas.md` |
 | 5A Recuperación (H1, H2, H4) | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk con bancos de desarrollo | `evaluacion/retrieval/exp_a/` |
-| 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Siguiente: Qwen vs `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`. S0: 0.03 | `evaluacion/generacion/` |
+| 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Modelos nuevos (2 semillas, 2026-11-23): completitud `qwen3:4b-instruct` 0.63, `gemma3:4b` 0.58, `llama3.2:3b` 0.51 vs Qwen2.5-7B 0.53, ninguna diferencia significativa con Holm; los tres más rápidos (p50 7 / 22 / 17 s vs 20 s; p95 18 / 26 / 34 s vs 58 s), 0 timeouts, 12/12 negativas. S0: 0.03 | `evaluacion/generacion/` |
 | 5C Abstención (H5) | 🟡 preliminar: 40/40 fuera de dominio (ya vistas en el desarrollo), 14/20 ambiguas | `evaluacion/exp_c/` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, abstención, latencia; ❌ falta medir la fidelidad | — |
 | 8 Evaluación humana | ❌ la existente es del sistema V2 (septiembre); hay que repetirla | `evaluacion/humana/` |
@@ -76,11 +77,18 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
   14/20, solo 4 reciben pregunta de aclaración (6 reciben una respuesta inventando el contexto).
 - **H3** (banco v3.2): Qwen2.5-7B supera a Llama 3 8B en completitud (0.53 vs 0.39, p Holm 0.03) y latencia
   (p50 20 vs 39 s); atribución exacta igual. Llama 3 8B no cabe en la GPU de 6 GB (17 % de timeouts) → **descartado
-  el 2026-11-22**; se comparará Qwen con `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b`. S0 (sin recuperación):
+  el 2026-11-22** (aprobado por el asesor). Con los reemplazos (2026-11-23): `qwen3:4b-instruct` 0.63, `gemma3:4b` 0.58,
+  `llama3.2:3b` 0.51 de completitud vs 0.53 de Qwen, sin diferencias significativas tras Holm; los tres son más rápidos
+  (p < 0.05) y no tienen timeouts. S0 (sin recuperación):
   completitud 0.03, lo que confirma el aporte del RAG.
 
-**Lo que falta:** instalar y comparar los generadores de 3–4B → anotación del gold set (equipo) → experimentos A, B
-y C oficiales sobre las 260 → evaluación humana ciega de la fidelidad → tablas 1–6.
+**Modelo del chatbot:** sigue con Qwen2.5-7B (configuración congelada). Candidato: `qwen3:4b-instruct` (mejor en el
+preliminar y más rápido, pero sin diferencia significativa con 30 preguntas); se decide con el Exp. B oficial y la
+fidelidad humana (`evaluacion/ESTADO_REVISION_3.md` §5).
+
+**Lo que falta:** anotación del gold set y 40 preguntas fuera de dominio nuevas (equipo, ronda 1) → experimentos A, B
+y C oficiales sobre las 260 → evaluación humana ciega de la fidelidad (equipo, ronda 2) → decisión del generador →
+tablas 1–6. Qué recibe y devuelve cada evaluador: `evaluacion/ENTREGA_EVALUADORES.md`.
 
 ## Estructura del proyecto
 
@@ -128,6 +136,7 @@ oe5_chatbot_upeu/
 │   ├── README_EVALUACION.md          # Flujo de trabajo de evaluación
 │   ├── REPRODUCIBILIDAD.md           # Configuración congelada para la Revisión 3 (commit c47d455a)
 │   ├── ESTADO_REVISION_3.md          # Fase actual, resultados preliminares y decisiones (Revisión 3)
+│   ├── ENTREGA_EVALUADORES.md        # Qué archivos recibe y devuelve cada evaluador (gold set, fidelidad)
 │   ├── banco/                        # banco_v32.json (30 Q + 6 negativas, VIGENTE) + construir_banco_v32.py,
 │   │   │                             # auditoría del banco 17 Q, v3.1 (congelada), pool 260, banco_exp_c_pool.json
 │   │   └── gold/                     # Gold set 260: fichas ciegas A/B (.xlsx), plantilla OOD nuevas, acuerdo_gold.py (κ)
@@ -572,6 +581,6 @@ Proyecto académico y educativo. Contacta con los autores para cualquier uso com
 
 ---
 
-**Última actualización:** 22 de noviembre de 2026 (migración a corpus V3 + bge-m3, calibración, mejoras del chatbot, prompt v3-completo, banco v3.2 y avance de la Revisión 3: estadística, S0, experimentos A y C preliminares, herramientas del gold set)
+**Última actualización:** 23 de noviembre de 2026 (Exp. B con `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`; aprobación del asesor; guía de entrega a evaluadores). Antes, 22 de noviembre (migración a corpus V3 + bge-m3, calibración, mejoras del chatbot, prompt v3-completo, banco v3.2 y avance de la Revisión 3: estadística, S0, experimentos A y C preliminares, herramientas del gold set)
 **Estado:** OE4-5-6 completados · PARTE_3 FASE 1-5 cerradas (retrieval/generación/humana/negativo/auto) · OE7 pendiente · OE8 FASE 6 pendiente de datos
-**Próximos pasos:** Validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8, instrumento v1 listo)
+**Próximos pasos:** Revisión 3: anotación del gold set por el equipo (`evaluacion/ENTREGA_EVALUADORES.md`); validar instrumentos con expertos (OE7) y ejecutar piloto con usuarios (OE8, instrumento v1 listo)

@@ -1,6 +1,6 @@
 # Estado de la Revisión 3 — dónde está el proyecto
 
-Actualizado: **2026-11-22**. Documento guía: `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (03-09-2026).
+Actualizado: **2026-11-23** (Exp. B con modelos nuevos). Documento guía: `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (03-09-2026).
 Este archivo resume en qué fase está el estudio, qué se hizo, qué salió y qué falta. El detalle de cada
 pieza está en los archivos enlazados.
 
@@ -26,7 +26,7 @@ experimentos se corren con ella y cualquier cambio posterior se registra allí.
 | 3 Gold set 260 | 🟡 pool + fichas ciegas + κ + consolidación listos; **falta la anotación del equipo** y 40 preguntas fuera de dominio nuevas | `banco/gold/README.md` |
 | 4 Sistemas | ✅ S0–S4 listos; S5 (Llama 3 8B) **descartado**; generadores nuevos S5b `llama3.2:3b`, S7 `qwen3:4b-instruct`, S8 `gemma3:4b` descargados el 2026-11-22 (§4) | `retrieval/matriz_sistemas.md` |
 | 5A Recuperación | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk | `retrieval/README.md`, `retrieval/exp_a/` |
-| 5B Generación | 🟡 preliminar: Qwen vs Llama 3 8B y S0; siguiente: modelos de 3–4B | `generacion/README.md`, `generacion/exp_b/` |
+| 5B Generación | 🟡 preliminar: Qwen vs Llama 3 8B (descartado), S0 y los 3 modelos de 3–4B (2026-11-23) | `generacion/README.md`, `generacion/exp_b/`, `generacion/exp_b_nuevos/` |
 | 5C Abstención | 🟡 preliminar: 40/40 fuera de dominio (preguntas ya vistas), 14/20 ambiguas | `exp_c/README.md` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, completitud, abstención, latencia; ❌ fidelidad | — |
 | 8 Evaluación humana | ❌ por hacer sobre el sistema final | `humana/README.md` |
@@ -59,13 +59,20 @@ máximo en 300. Ninguna diferencia es significativa. BM25 mejora con chunks gran
 | Qwen2.5-7B (vigente) | **0.53** | 0.42 | 20 s / 58 s | 0 % | 12/12 |
 | Llama 3 8B | 0.39 | 0.40 | 39 s / 121 s | 17 % | 6/6 |
 | S0 sin recuperación | 0.03 | 0.02 | 8 s / 23 s | 0 % | 11/12 |
+| `llama3.2:3b` (S5b) | 0.51 | 0.35 | **7 s / 18 s** | 0 % | 12/12 |
+| `qwen3:4b-instruct` (S7) | **0.63** | **0.52** | 22 s / 26 s | 0 % | 12/12 |
+| `gemma3:4b` (S8) | 0.58 | 0.47 | 17 s / 34 s | 0 % | 12/12 |
+
+Modelos nuevos (2 semillas, 2026-11-23): ninguno difiere de Qwen2.5-7B en completitud ni atribución tras Holm
+(Qwen3 +0.10, IC95 [+0.02, +0.18], p Holm 0.11); los tres son más rápidos (p Holm ≤ 0.04). Qwen3 y Gemma escriben
+respuestas ~1.8 veces más largas, lo que favorece al proxy de completitud: la fidelidad humana decidirá.
 
 **H4 — por categoría:** sin datos suficientes (requiere el gold set).
 
 **H5 — abstención:** fuera de dominio 40/40 (IC95 Wilson [0.91, 1.00]) pero con preguntas usadas en la
 calibración, así que no vale para la decisión; ambiguas 14/20, solo 4 piden aclaración.
 
-## 4. Decisión del 2026-11-22: se descarta Llama 3 8B
+## 4. Decisión del 2026-11-22: se descarta Llama 3 8B (aprobada por el asesor el 2026-11-23)
 
 **Qué:** el sistema S5 del .docx (Llama 3 8B) sale de la comparación de generadores. Se reemplaza por tres
 modelos que caben en la GPU: `llama3.2:3b` (S5b, mantiene la familia Llama que pide el .docx), `qwen3:4b-instruct`
@@ -83,19 +90,35 @@ Qwen2.5-7B sigue como referencia (S6).
 5. Bajar su contexto para que quepa cambiaría las condiciones de la comparación, que el .docx exige iguales.
 
 **Cómo se reporta:** como "evaluado y descartado por inviabilidad en el hardware", con estos datos, no como
-omitido. El .docx pide comparar "al menos" Qwen2.5-7B y Llama 3 8B, así que el cambio debe registrarlo el equipo
-con el asesor. Las corridas de Llama 3 se conservan en `comparacion_v2_v3/E2E_B_llama_*`.
+omitido. El .docx pide comparar "al menos" Qwen2.5-7B y Llama 3 8B; **el asesor aprobó el descarte y la
+comparación con los modelos nuevos el 2026-11-23**. Las corridas de Llama 3 se conservan en `comparacion_v2_v3/E2E_B_llama_*`.
 
 **Qué cambia en el estudio:** H3 pasa a comparar Qwen2.5-7B con tres modelos de 3–4B; la pregunta práctica es si un
 modelo más chico que cabe entero en la GPU da una calidad parecida con menos latencia. Son 3 comparaciones contra
 Qwen con Holm.
 
-## 5. Próximos pasos
+## 5. Modelo del chatbot (2026-11-23)
 
-1. Instalar `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (≈ 2.0 / 2.5 / 3.3 GB) y adaptar lo necesario (ver
-   `generacion/README.md`, "Modelos nuevos").
-2. Exp. B preliminar con los cuatro generadores (banco v3.2, 2 semillas).
-3. El equipo anota el gold set y redacta 40 preguntas fuera de dominio nuevas (`banco/gold/`).
+**El chatbot sigue con Qwen2.5-7B.** Candidato a reemplazarlo: `qwen3:4b-instruct`.
+
+- `qwen3:4b-instruct` es el mejor del Exp. B preliminar (completitud 0.63 vs 0.53, atribución exacta 0.52 vs 0.42,
+  p95 26 s vs 58 s), pero con 30 preguntas la ventaja en calidad **no es significativa** tras Holm, y parte puede
+  deberse a que escribe respuestas ~1.8 veces más largas (el proxy de completitud lo favorece).
+- Cambiar ahora rompería la configuración congelada (`c47d455a`) con la que se corren los experimentos oficiales.
+- `llama3.2:3b` es la opción si la prioridad fuera la velocidad (p50 7 s), con calidad algo menor (no significativa).
+- **Cuándo se decide:** tras el Exp. B oficial con el gold set y la evaluación humana de fidelidad. Si
+  `qwen3:4b-instruct` iguala o supera a Qwen2.5-7B en fidelidad, se adopta (más rápido y cabe en la GPU); se registra
+  en `REPRODUCIBILIDAD.md` y se cambia `OLLAMA_MODEL` en `docker-compose.yml`.
+
+## 6. Próximos pasos
+
+Qué entrega cada evaluador y qué devuelve: **`ENTREGA_EVALUADORES.md`**.
+
+
+1. ~~Instalar `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b`~~ ✅ 2026-11-22 (sin cambios en el código del chatbot).
+2. ~~Exp. B preliminar con los cuatro generadores~~ ✅ 2026-11-23 (`generacion/exp_b_nuevos/`).
+3. **Ronda 1 humana:** el equipo anota el gold set (anotadores A y B + juez) y redacta 40 preguntas fuera de dominio
+   nuevas (`banco/gold/`, `ENTREGA_EVALUADORES.md`). **Es lo que bloquea todo lo demás.**
 4. Con el gold set: experimentos A, B y C oficiales.
-5. Evaluación humana ciega de la fidelidad (sistema final y generadores del Exp. B).
+5. **Ronda 2 humana:** evaluación ciega de la fidelidad (generadores del Exp. B oficial) → decisión del modelo (§5).
 6. Tablas 1–6 y figuras del artículo.

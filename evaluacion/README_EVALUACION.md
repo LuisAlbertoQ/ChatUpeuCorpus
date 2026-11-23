@@ -83,7 +83,7 @@ Herramientas nuevas: `comparacion_v2_v3/correr_17q_e2e.py` (banco end-to-end con
 
 ## Revisión 3 (.docx): avance del 2026-11-22
 
-> Resumen de fase, resultados y decisiones: **[`ESTADO_REVISION_3.md`](ESTADO_REVISION_3.md)**.
+> Resumen de fase, resultados y decisiones: **[`ESTADO_REVISION_3.md`](ESTADO_REVISION_3.md)**. Qué entregar a los evaluadores: **[`ENTREGA_EVALUADORES.md`](ENTREGA_EVALUADORES.md)**.
 
 Auditoría del .docx contra el sistema: hipótesis, corpus y pool de 260 ya estaban; faltaban la estadística,
 S0/S1/S2, el experimento A sobre el corpus V3, el C completo, la anotación del gold set y las tablas.
@@ -94,7 +94,7 @@ Hecho el 2026-11-22 (todo con la configuración congelada en `REPRODUCIBILIDAD.m
 | Ficha de reproducibilidad (§10) | `REPRODUCIBILIDAD.md` | lista |
 | Estadística (§9): bootstrap, Wilson, Wilcoxon, Holm, efecto | `estadistica/estadistica.py` | lista, 18 tests (incluye κ de Cohen) |
 | S0 sin recuperación | `RAG_SIN_RECUPERACION=1` (backend) | lista, 6 tests; falta correrla |
-| Exp. B generación + S0 | `generacion/exp_b_generacion.py`, `generacion/exp_b/` | preliminar (banco v3.2): Qwen > Llama 3 8B en completitud y latencia; **Llama 3 8B descartado** (no cabe en la GPU, 17 % timeouts); siguiente: `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`; S0 completitud 0.03 |
+| Exp. B generación + S0 | `generacion/exp_b_generacion.py`, `generacion/exp_b/` | preliminar (banco v3.2): Qwen > Llama 3 8B en completitud y latencia; **Llama 3 8B descartado** (no cabe en la GPU, 17 % timeouts); modelos nuevos en `generacion/exp_b_nuevos/`: Modelos nuevos (2 semillas, 2026-11-23): completitud `qwen3:4b-instruct` 0.63, `gemma3:4b` 0.58, `llama3.2:3b` 0.51 vs Qwen2.5-7B 0.53, ninguna diferencia significativa con Holm; los tres más rápidos (p50 7 / 22 / 17 s vs 20 s; p95 18 / 26 / 34 s vs 58 s), 0 timeouts, 12/12 negativas; S0 completitud 0.03 |
 | Exp. A recuperación (S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3) | `retrieval/exp_a_recuperacion.py`, `retrieval/exp_a/` | preliminar con bancos de desarrollo: 4 recuperadores × 4 tamaños de chunk (150/300/350/600, chunks del OE1); H2 en `retrieval/analisis_h2.py` |
 | Exp. C abstención | `exp_c/` | preliminar: 40/40 fuera de dominio (vistas en desarrollo), 14/20 ambiguas |
 | Gold set 260: fichas, κ y consolidación | `banco/gold/` | **herramientas listas** (fichas Excel ciegas para A y B, plantilla de 40 fuera de dominio nuevas, κ, conflictos para el juez, consolidación); **pendiente: que el equipo anote** |
@@ -106,7 +106,8 @@ Hecho el 2026-11-22 (todo con la configuración congelada en `REPRODUCIBILIDAD.m
 | `banco/` | **`banco_v32.json` (30 Q + 6 negativas, vigente)** y `construir_banco_v32.py`; auditoría del banco de 17 Q; v3.1 congelada (`preguntas_comparacion.json`, `CHANGELOG_GROUNDTRUTH_V31.md`); pool Gold Set 260 (`cuotas_pool_260.json`, `draft/`, `generar_pool_260.py`); `banco_oe1_162.csv` (calibración) |
 | `retrieval/` | `evaluar_rag_v3.py` (colección desde config), `calibrar_v3_bgem3.py` + `calibracion_v3_bgem3/`, `evaluar_reranker.py` + `reranker_v3_bgem3.json`; **`exp_a_recuperacion.py` + `exp_a/` (Exp. A Revisión 3)**; históricos `evaluar_rag.py`, `calibrar_umbral.py`, `diagnostico_banco.py`, `sondeo_top3.py`; métricas `EXP_*.csv` |
 | `comparacion_v2_v3/` | `COMPARACION_V2_V3.md` (informe 2026-11-21/22), `correr_17q_e2e.py`, `ablacion.ps1`, `completitud_auto.py`, corridas `E2E_*.json/.csv` |
-| `ESTADO_REVISION_3.md` | Resumen de la fase actual: qué se hizo, resultados, decisión sobre Llama 3 y próximos pasos |
+| `ESTADO_REVISION_3.md` | Resumen de la fase actual: qué se hizo, resultados, decisión sobre Llama 3, modelo del chatbot y próximos pasos |
+| `ENTREGA_EVALUADORES.md` | Qué archivos recibe y devuelve cada evaluador: ronda 1 (gold set) y ronda 2 (fidelidad) |
 | `REPRODUCIBILIDAD.md` | Configuración congelada (commit `c47d455a`) y cambios posteriores |
 | `estadistica/` | `estadistica.py`: IC95 bootstrap, Wilson, Wilcoxon, Holm y tamaño de efecto (Revisión 3 §9) |
 | `exp_c/` | Experimento C (abstención): `exp_c_abstencion.py`, `resumen_exp_c.csv`, `detalle_exp_c.csv` |
