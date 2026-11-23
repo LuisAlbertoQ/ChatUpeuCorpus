@@ -94,7 +94,7 @@ Hecho el 2026-11-22 (todo con la configuración congelada en `REPRODUCIBILIDAD.m
 | Ficha de reproducibilidad (§10) | `REPRODUCIBILIDAD.md` | lista |
 | Estadística (§9): bootstrap, Wilson, Wilcoxon, Holm, efecto | `estadistica/estadistica.py` | lista, 18 tests (incluye κ de Cohen) |
 | S0 sin recuperación | `RAG_SIN_RECUPERACION=1` (backend) | lista, 6 tests; falta correrla |
-| Exp. B generación + S0 | `generacion/exp_b_generacion.py`, `generacion/exp_b/` | preliminar (banco v3.2): Qwen > Llama 3 8B en completitud y latencia; **Llama 3 8B descartado** (no cabe en la GPU, 17 % timeouts); siguiente: `llama3.2:3b`, `qwen3:4b`, `gemma3:4b`; S0 completitud 0.03 |
+| Exp. B generación + S0 | `generacion/exp_b_generacion.py`, `generacion/exp_b/` | preliminar (banco v3.2): Qwen > Llama 3 8B en completitud y latencia; **Llama 3 8B descartado** (no cabe en la GPU, 17 % timeouts); siguiente: `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`; S0 completitud 0.03 |
 | Exp. A recuperación (S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3) | `retrieval/exp_a_recuperacion.py`, `retrieval/exp_a/` | preliminar con bancos de desarrollo: 4 recuperadores × 4 tamaños de chunk (150/300/350/600, chunks del OE1); H2 en `retrieval/analisis_h2.py` |
 | Exp. C abstención | `exp_c/` | preliminar: 40/40 fuera de dominio (vistas en desarrollo), 14/20 ambiguas |
 | Gold set 260: fichas, κ y consolidación | `banco/gold/` | **herramientas listas** (fichas Excel ciegas para A y B, plantilla de 40 fuera de dominio nuevas, κ, conflictos para el juez, consolidación); **pendiente: que el equipo anote** |

@@ -23,9 +23,9 @@ Todos los sistemas son locales. No existe comparador cloud/no-code
 | S3 | mpnet-base-v2 | Qwen2.5-7B | Configuración anterior / referencia | operativo hasta 2026-11-21 (V2); réplica de control `EXP_20261122_000124_31a0b8` idéntica al baseline de septiembre; sobre los chunks V3: R@5 0.617 (154 Q), lee el 56 % del texto (128 tokens) |
 | S4 | bge-m3 | Qwen2.5-7B | **Configuración vigente** (corpus V3, umbral 0.41, boost 0.02) | operativo desde 2026-11-21; comparado con S3 en 17 Q y 30 Q (`comparacion_v2_v3/`); falta sobre el gold set |
 | ~~S5~~ | Mejor recuperador del Exp. A | Llama 3 8B | Comparación de generación local | **descartado 2026-11-22** por inviabilidad en el hardware: no cabe en la GPU de 6 GB (10/33 capas en CPU), 17 % de timeouts, se degrada con el uso; completitud 0.39 vs 0.53 de Qwen. Ver `../ESTADO_REVISION_3.md` §4 |
-| S5b | Mejor recuperador del Exp. A (bge-m3) | Llama 3.2 3B (`llama3.2:3b`) | Familia Llama que cabe en la GPU | por instalar |
-| S7 | Mejor recuperador del Exp. A (bge-m3) | Qwen3 4B (`qwen3:4b`, modo "pensar" apagado) | Misma familia que S6, más chico | por instalar |
-| S8 | Mejor recuperador del Exp. A (bge-m3) | Gemma 3 4B (`gemma3:4b`) | Otra familia, multilingüe | por instalar |
+| S5b | Mejor recuperador del Exp. A (bge-m3) | Llama 3.2 3B (`llama3.2:3b`) | Familia Llama que cabe en la GPU | descargado 2026-11-22 (ID `a80c4f17acd5`); 100 % en GPU |
+| S7 | Mejor recuperador del Exp. A (bge-m3) | Qwen3 4B Instruct (`qwen3:4b-instruct`) | Misma familia que S6, más chico | descargado 2026-11-22 (ID `0edcdef34593`); 90 % en GPU. (`qwen3:4b` se descartó: es la variante de razonamiento) |
+| S8 | Mejor recuperador del Exp. A (bge-m3) | Gemma 3 4B (`gemma3:4b`) | Otra familia, multilingüe | descargado 2026-11-22 (ID `68ceab7e468a`); 79 % en GPU |
 | S6 | Mejor recuperador del Exp. A | Qwen2.5-7B | Comparación de generación local | pendiente (réplica controlada) |
 
 ## Notas

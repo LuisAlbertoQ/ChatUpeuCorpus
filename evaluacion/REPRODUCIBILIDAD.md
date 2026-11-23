@@ -32,7 +32,10 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | Embeddings (S2) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, 384 dim | revisión `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` (descargada 2026-11-22) |
 | Generador (S0–S4, S6) | Ollama `qwen2.5:7b` | ID `845dbda0ea48` (Q4_K_M, 4.7 GB) |
 | ~~Generador (S5)~~ | Ollama `llama3:latest` (Llama 3 8B Instruct) — **descartado 2026-11-22** | ID `365c0bd3c000` (4.7 GB) |
-| Generadores nuevos (S5b / S7 / S8) | `llama3.2:3b` / `qwen3:4b` / `gemma3:4b` | por instalar: registrar aquí el ID de cada uno al descargarlo |
+| Generador S5b | Ollama `llama3.2:3b` (Llama 3.2 3B Instruct, Q4_K_M, contexto 128k) | ID `a80c4f17acd5` (2.0 GB), descargado 2026-11-22 · con `num_ctx` 8192: 3.5 GB, **100 % GPU** |
+| Generador S7 | Ollama `qwen3:4b-instruct` (Qwen3 4B Instruct, Q4_K_M, contexto 256k, sin razonamiento) | ID `0edcdef34593` (2.5 GB), descargado 2026-11-22 · con `num_ctx` 8192: 4.7 GB, 90 % GPU |
+| (no usado) | Ollama `qwen3:4b` (variante de razonamiento) | ID `359d7dd4bcda` (2.5 GB); reemplazado por `qwen3:4b-instruct`, ver nota |
+| Generador S8 | Ollama `gemma3:4b` (Gemma 3 4B, Q4_K_M, contexto 128k, con módulo de visión) | ID `68ceab7e468a` (3.4 GB), descargado 2026-11-22 · 3.9 GB, 79 % GPU |
 
 ## Parámetros del pipeline (variables de entorno en `docker-compose.yml`)
 
@@ -46,7 +49,7 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | `RAG_CONTEXTO_ARTICULO` | 0 (apagado) |
 | `RAG_RECORTE_LEGACY_700` | 0 |
 | `RAG_SIN_RECUPERACION` | 0 (1 = sistema S0) |
-| `OLLAMA_MODEL` | `qwen2.5:7b` (para el Exp. B: `llama3.2:3b`, `qwen3:4b`, `gemma3:4b`) |
+| `OLLAMA_MODEL` | `qwen2.5:7b` (para el Exp. B: `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`) |
 | `OLLAMA_NUM_CTX` / `OLLAMA_NUM_PREDICT` | 8192 / 1024 |
 | `OLLAMA_SEED` | 42 (corridas repetidas con semilla 7) |
 | temperatura | 0.2 |
@@ -95,7 +98,14 @@ estas variables leídas del backend, así que el valor exacto de cada experiment
 | 2026-11-22 | `OLLAMA_MODEL` del backend pasa a `${OLLAMA_MODEL:-qwen2.5:7b}` en `docker-compose.yml` (para S5) | No: el valor por defecto es el mismo |
 | 2026-11-22 | `ablacion.ps1` no arranca si ya hay una corrida activa en `oe5-backend` (dos corridas a la vez compiten por Ollama y dan timeouts falsos) | No |
 | 2026-11-22 | `correr_17q_e2e.py` guarda `rag_sin_recuperacion` en el `meta` de cada corrida | No |
-| 2026-11-22 | **Se descarta Llama 3 8B (S5)** por inviabilidad en el hardware y se reemplaza por `llama3.2:3b`, `qwen3:4b` y `gemma3:4b` (decisión del equipo; motivo en `ESTADO_REVISION_3.md` §4). Debe registrarse con el asesor porque el .docx nombra a Llama 3 8B | No: el chatbot sigue con Qwen2.5-7B |
+| 2026-11-22 | **Se descarta Llama 3 8B (S5)** por inviabilidad en el hardware y se reemplaza por `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (decisión del equipo; motivo en `ESTADO_REVISION_3.md` §4). Debe registrarse con el asesor porque el .docx nombra a Llama 3 8B | No: el chatbot sigue con Qwen2.5-7B |
+
+### Nota sobre `qwen3:4b-instruct` (2026-11-22)
+
+La etiqueta `qwen3:4b` de Ollama apunta a la versión de razonamiento (contexto 256k, capacidad `thinking`): aun
+pidiéndole `"think": false`, escribe su razonamiento ("Okay, the user said…") dentro de la respuesta. Para
+compararlo en igualdad con los demás se usa la variante sin razonamiento, `qwen3:4b-instruct` (descargada el
+2026-11-22; responde directo, sin texto de razonamiento).
 
 ### Observación de hardware (Exp. B, 2026-11-22)
 

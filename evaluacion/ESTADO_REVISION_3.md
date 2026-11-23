@@ -24,7 +24,7 @@ experimentos se corren con ella y cualquier cambio posterior se registra allí.
 | 0 Hipótesis H1–H5 | ✅ aprobadas; criterio H5 ratificado (≥ 0.90 con IC95) | `banco/hipotesis.md`, `retrieval/criterio_h5.md` |
 | 2 Corpus | ✅ V3 (48 docs, 5,117 chunks) + variantes de 150/300/600 tokens del OE1 | `REPRODUCIBILIDAD.md` |
 | 3 Gold set 260 | 🟡 pool + fichas ciegas + κ + consolidación listos; **falta la anotación del equipo** y 40 preguntas fuera de dominio nuevas | `banco/gold/README.md` |
-| 4 Sistemas | ✅ S0–S4 listos; S5 (Llama 3 8B) **descartado**; generadores nuevos S5b/S7/S8 por instalar (§4) | `retrieval/matriz_sistemas.md` |
+| 4 Sistemas | ✅ S0–S4 listos; S5 (Llama 3 8B) **descartado**; generadores nuevos S5b `llama3.2:3b`, S7 `qwen3:4b-instruct`, S8 `gemma3:4b` descargados el 2026-11-22 (§4) | `retrieval/matriz_sistemas.md` |
 | 5A Recuperación | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk | `retrieval/README.md`, `retrieval/exp_a/` |
 | 5B Generación | 🟡 preliminar: Qwen vs Llama 3 8B y S0; siguiente: modelos de 3–4B | `generacion/README.md`, `generacion/exp_b/` |
 | 5C Abstención | 🟡 preliminar: 40/40 fuera de dominio (preguntas ya vistas), 14/20 ambiguas | `exp_c/README.md` |
@@ -68,7 +68,7 @@ calibración, así que no vale para la decisión; ambiguas 14/20, solo 4 piden a
 ## 4. Decisión del 2026-11-22: se descarta Llama 3 8B
 
 **Qué:** el sistema S5 del .docx (Llama 3 8B) sale de la comparación de generadores. Se reemplaza por tres
-modelos que caben en la GPU: `llama3.2:3b` (S5b, mantiene la familia Llama que pide el .docx), `qwen3:4b`
+modelos que caben en la GPU: `llama3.2:3b` (S5b, mantiene la familia Llama que pide el .docx), `qwen3:4b-instruct`
 (S7, misma familia que el vigente pero más chico) y `gemma3:4b` (S8, otra familia, buena en español).
 Qwen2.5-7B sigue como referencia (S6).
 
@@ -92,7 +92,7 @@ Qwen con Holm.
 
 ## 5. Próximos pasos
 
-1. Instalar `llama3.2:3b`, `qwen3:4b` y `gemma3:4b` (≈ 2.0 / 2.5 / 3.3 GB) y adaptar lo necesario (ver
+1. Instalar `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (≈ 2.0 / 2.5 / 3.3 GB) y adaptar lo necesario (ver
    `generacion/README.md`, "Modelos nuevos").
 2. Exp. B preliminar con los cuatro generadores (banco v3.2, 2 semillas).
 3. El equipo anota el gold set y redacta 40 preguntas fuera de dominio nuevas (`banco/gold/`).

@@ -56,9 +56,9 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
 | 0 Hipótesis H1–H5 | ✅ aprobadas; criterio H5 ratificado (≥ 0.90 con IC95) | `evaluacion/banco/hipotesis.md`, `evaluacion/retrieval/criterio_h5.md` |
 | 2 Corpus | ✅ V3, 48 documentos, 5,117 chunks; variantes de 150/300/600 tokens generadas por el OE1 | `REPRODUCIBILIDAD.md` |
 | 3 Gold set 260 | 🟡 pool listo + fichas ciegas, κ y consolidación listas; **falta que el equipo anote** y redacte 40 preguntas fuera de dominio nuevas | `evaluacion/banco/gold/` |
-| 4 Sistemas S0–S8 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S6 Qwen2.5-7B; S5 Llama 3 8B **descartado**; S5b `llama3.2:3b`, S7 `qwen3:4b`, S8 `gemma3:4b` por instalar | `evaluacion/retrieval/matriz_sistemas.md` |
+| 4 Sistemas S0–S8 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S6 Qwen2.5-7B; S5 Llama 3 8B **descartado**; S5b `llama3.2:3b`, S7 `qwen3:4b-instruct`, S8 `gemma3:4b` descargados 2026-11-22 | `evaluacion/retrieval/matriz_sistemas.md` |
 | 5A Recuperación (H1, H2, H4) | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk con bancos de desarrollo | `evaluacion/retrieval/exp_a/` |
-| 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Siguiente: Qwen vs `llama3.2:3b`, `qwen3:4b`, `gemma3:4b`. S0: 0.03 | `evaluacion/generacion/` |
+| 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Siguiente: Qwen vs `llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`. S0: 0.03 | `evaluacion/generacion/` |
 | 5C Abstención (H5) | 🟡 preliminar: 40/40 fuera de dominio (ya vistas en el desarrollo), 14/20 ambiguas | `evaluacion/exp_c/` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, abstención, latencia; ❌ falta medir la fidelidad | — |
 | 8 Evaluación humana | ❌ la existente es del sistema V2 (septiembre); hay que repetirla | `evaluacion/humana/` |
@@ -76,7 +76,7 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
   14/20, solo 4 reciben pregunta de aclaración (6 reciben una respuesta inventando el contexto).
 - **H3** (banco v3.2): Qwen2.5-7B supera a Llama 3 8B en completitud (0.53 vs 0.39, p Holm 0.03) y latencia
   (p50 20 vs 39 s); atribución exacta igual. Llama 3 8B no cabe en la GPU de 6 GB (17 % de timeouts) → **descartado
-  el 2026-11-22**; se comparará Qwen con `llama3.2:3b`, `qwen3:4b` y `gemma3:4b`. S0 (sin recuperación):
+  el 2026-11-22**; se comparará Qwen con `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b`. S0 (sin recuperación):
   completitud 0.03, lo que confirma el aporte del RAG.
 
 **Lo que falta:** instalar y comparar los generadores de 3–4B → anotación del gold set (equipo) → experimentos A, B
@@ -265,7 +265,7 @@ Para volver a la configuración V2: renombrar `vector_store_backup_v2_20261121` 
 | Variable | Default | Descripción |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
-| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar. En el Exp. B de la Revisión 3 se comparan `llama3.2:3b`, `qwen3:4b` y `gemma3:4b` (Llama 3 8B descartado) |
+| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar. En el Exp. B de la Revisión 3 se comparan `llama3.2:3b`, `qwen3:4b-instruct` y `gemma3:4b` (Llama 3 8B descartado) |
 | `CORPUS_VERSION` / `EMBEDDING_MODEL` / `EMBEDDING_REVISION` | `corpus_upeu_v3_bgem3` / `BAAI/bge-m3` / `5617a9f6…` | Colección y modelo de embeddings (al arrancar se verifica que las dimensiones coincidan) |
 | `RAG_DISTANCE_THRESHOLD` / `RAG_MARGEN_FUERA_DOMINIO` / `RAG_KEYWORD_BOOST` | `0.41` / `0.09` / `0.02` | Calibrados para bge-m3 (2026-11-21) |
 | `RAG_TOP_K_RAW` / `RAG_TOP_K_FINAL` | `15` / `4` | Candidatos y fuentes al LLM |

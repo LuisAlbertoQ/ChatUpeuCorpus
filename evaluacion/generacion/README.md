@@ -42,9 +42,20 @@ Completitud = proporción de puntos cubiertos por pregunta (proxy automático); 
 - **Decisión (2026-11-22): Llama 3 8B queda descartado** por inviabilidad en el hardware (motivo completo en
   `../ESTADO_REVISION_3.md` §4). Se reporta como evaluado y descartado, con estos datos.
 
-### Modelos nuevos: `llama3.2:3b` (S5b), `qwen3:4b` (S7), `gemma3:4b` (S8) — por instalar
+### Modelos nuevos: `llama3.2:3b` (S5b), `qwen3:4b-instruct` (S7), `gemma3:4b` (S8) — descargados 2026-11-22
 
-| | `llama3.2:3b` | `qwen3:4b` | `gemma3:4b` |
+Prueba de carga con `num_ctx` 8192 (una consulta corta, sin el chatbot):
+
+| Modelo | ID | Memoria con contexto 8192 | GPU / CPU | Observación |
+|---|---|---|---|---|
+| `llama3.2:3b` | `a80c4f17acd5` | 3.5 GB | 100 % GPU | Responde normal |
+| `qwen3:4b` | `359d7dd4bcda` | 4.7 GB | 90 / 10 | Es la variante **de razonamiento**: sin `think` deja la respuesta vacía (todo va a "thinking"); con `think: false` igual escribe el razonamiento en la respuesta. Reemplazado por `qwen3:4b-instruct` |
+| **`qwen3:4b-instruct`** (S7) | `0edcdef34593` | 4.7 GB | 90 / 10 | Responde directo, sin razonamiento: **es el que se usa** |
+| `gemma3:4b` | `68ceab7e468a` | 3.9 GB | 79 / 21 | Incluye un módulo de visión que ocupa memoria; queda parte en CPU |
+
+Plan original (antes de descargar):
+
+| | `llama3.2:3b` | `qwen3:4b-instruct` | `gemma3:4b` |
 |---|---|---|---|
 | Tamaño (Q4) | ~2.0 GB | ~2.5 GB | ~3.3 GB |
 | ¿Cabe en ~5 GB de GPU con `num_ctx` 8192? | sí, holgado | sí | justo (verificar capas en GPU) |
@@ -53,7 +64,7 @@ Completitud = proporción de puntos cubiertos por pregunta (proxy automático); 
 
 Qué hay que tocar para correrlos:
 1. **Descargarlos** en el volumen de Ollama (`ollama pull`, ~7.8 GB en total) y registrar su ID en `../REPRODUCIBILIDAD.md`.
-2. **Qwen3 "pensar":** `qwen3:4b` razona en un bloque `<think>` antes de responder; con él la respuesta se ensucia y
+2. **Qwen3 "pensar":** `qwen3:4b-instruct` razona en un bloque `<think>` antes de responder; con él la respuesta se ensucia y
    tarda mucho más. Agregar una variable (p. ej. `OLLAMA_THINK=false`) que mande `"think": false` a Ollama, con un
    test, y limpiar cualquier `<think>` que quede.
 3. **Post-proceso:** revisar las primeras respuestas de cada modelo. La reparación de citas y la detección de "no hay
