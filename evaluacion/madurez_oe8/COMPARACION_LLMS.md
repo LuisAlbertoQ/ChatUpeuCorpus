@@ -1,5 +1,9 @@
 # Comparación de Modelos LLM: Llama 3 8B vs Qwen2.5-7B
 
+> **Nota 2026-11-22:** comparación histórica (junio, corpus v1, 10 preguntas). En el Exp. B preliminar de la Revisión 3
+> (corpus V3, banco v3.2) Qwen2.5-7B volvió a superar a Llama 3 8B (completitud 0.53 vs 0.39, latencia 20 vs 39 s) y
+> Llama 3 8B quedó **descartado** porque no cabe en la GPU de 6 GB. Ver `../ESTADO_REVISION_3.md` §4.
+
 > **Nota 2026-11-22 (documento histórico, no se reescribe):** comparación de junio (corpus v1, mpnet, 10 preguntas, recorte de fragmentos). Sigue siendo la base de la elección de Qwen2.5-7B, pero no cumple el protocolo de la Revisión 3 para H3 (Qwen vs Llama con gold set). Configuración vigente del chatbot: `../comparacion_v2_v3/COMPARACION_V2_V3.md`.
 
 **Fecha:** Junio 2026

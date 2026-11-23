@@ -43,6 +43,8 @@ Todos los parámetros son variables de entorno (`docker-compose.yml`), así que 
 
 ## Revisión 3 (.docx): avance al 22 de noviembre de 2026
 
+> **Resumen de fase, resultados y decisiones en un solo lugar:** [`evaluacion/ESTADO_REVISION_3.md`](evaluacion/ESTADO_REVISION_3.md).
+
 El documento `docs/Revisión_3_Actualizada_RAG_Local_UpeU.docx` (03-09-2026) define el estudio experimental:
 H1–H5, gold set de 260 preguntas, sistemas S0–S6, experimentos A (recuperación), B (generación) y C
 (abstención), evaluación humana, estadística y tablas 1–6. El 22 de noviembre se auditó contra el sistema y se
@@ -54,9 +56,9 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
 | 0 Hipótesis H1–H5 | ✅ aprobadas; criterio H5 ratificado (≥ 0.90 con IC95) | `evaluacion/banco/hipotesis.md`, `evaluacion/retrieval/criterio_h5.md` |
 | 2 Corpus | ✅ V3, 48 documentos, 5,117 chunks; variantes de 150/300/600 tokens generadas por el OE1 | `REPRODUCIBILIDAD.md` |
 | 3 Gold set 260 | 🟡 pool listo + fichas ciegas, κ y consolidación listas; **falta que el equipo anote** y redacte 40 preguntas fuera de dominio nuevas | `evaluacion/banco/gold/` |
-| 4 Sistemas S0–S6 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S5 Llama 3 (`OLLAMA_MODEL=llama3:latest`) | `evaluacion/retrieval/matriz_sistemas.md` |
+| 4 Sistemas S0–S8 | ✅ S0 (`RAG_SIN_RECUPERACION=1`), S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3, S6 Qwen2.5-7B; S5 Llama 3 8B **descartado**; S5b `llama3.2:3b`, S7 `qwen3:4b`, S8 `gemma3:4b` por instalar | `evaluacion/retrieval/matriz_sistemas.md` |
 | 5A Recuperación (H1, H2, H4) | 🟡 preliminar: 4 recuperadores × 4 tamaños de chunk con bancos de desarrollo | `evaluacion/retrieval/exp_a/` |
-| 5B Qwen vs Llama (H3) | ❌ listo para correr, no corrido | — |
+| 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Siguiente: Qwen vs `llama3.2:3b`, `qwen3:4b`, `gemma3:4b`. S0: 0.03 | `evaluacion/generacion/` |
 | 5C Abstención (H5) | 🟡 preliminar: 40/40 fuera de dominio (ya vistas en el desarrollo), 14/20 ambiguas | `evaluacion/exp_c/` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, abstención, latencia; ❌ falta medir la fidelidad | — |
 | 8 Evaluación humana | ❌ la existente es del sistema V2 (septiembre); hay que repetirla | `evaluacion/humana/` |
@@ -72,9 +74,13 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
   BM25 mejora con chunks grandes (600 vs 150: +0.078, p Holm 0.02).
 - **H5**: 40/40 fuera de dominio (IC95 [0.91, 1.00]), pero esas 40 se usaron al calibrar el umbral; ambiguas
   14/20, solo 4 reciben pregunta de aclaración (6 reciben una respuesta inventando el contexto).
+- **H3** (banco v3.2): Qwen2.5-7B supera a Llama 3 8B en completitud (0.53 vs 0.39, p Holm 0.03) y latencia
+  (p50 20 vs 39 s); atribución exacta igual. Llama 3 8B no cabe en la GPU de 6 GB (17 % de timeouts) → **descartado
+  el 2026-11-22**; se comparará Qwen con `llama3.2:3b`, `qwen3:4b` y `gemma3:4b`. S0 (sin recuperación):
+  completitud 0.03, lo que confirma el aporte del RAG.
 
-**Lo que falta:** anotación del gold set (equipo) → experimentos A, B y C oficiales sobre las 260 →
-evaluación humana ciega de la fidelidad → tablas 1–6.
+**Lo que falta:** instalar y comparar los generadores de 3–4B → anotación del gold set (equipo) → experimentos A, B
+y C oficiales sobre las 260 → evaluación humana ciega de la fidelidad → tablas 1–6.
 
 ## Estructura del proyecto
 
@@ -121,6 +127,7 @@ oe5_chatbot_upeu/
 ├── evaluacion/                       # Evaluación técnica + madurez (ver README_EVALUACION.md)
 │   ├── README_EVALUACION.md          # Flujo de trabajo de evaluación
 │   ├── REPRODUCIBILIDAD.md           # Configuración congelada para la Revisión 3 (commit c47d455a)
+│   ├── ESTADO_REVISION_3.md          # Fase actual, resultados preliminares y decisiones (Revisión 3)
 │   ├── banco/                        # banco_v32.json (30 Q + 6 negativas, VIGENTE) + construir_banco_v32.py,
 │   │   │                             # auditoría del banco 17 Q, v3.1 (congelada), pool 260, banco_exp_c_pool.json
 │   │   └── gold/                     # Gold set 260: fichas ciegas A/B (.xlsx), plantilla OOD nuevas, acuerdo_gold.py (κ)
@@ -185,7 +192,7 @@ se montan en un path padre distinto al del código:
 | **Modelo LLM** | Qwen2.5-7B | Servido por Ollama, `num_ctx=8192`, `num_predict=1024`, `temperature=0.2`, `seed=42`. Prompt **v3-completo** desde 2026-11-22 (respuestas completas; timeout 120 s; v2 disponible con `PROMPT_VERSION=v2-adaptativo`). Contexto: chunks completos hasta 9000 caracteres (sin recorte de 700 desde 2026-11-21; ver `evaluacion/comparacion_v2_v3/COMPARACION_V2_V3.md` §6) |
 | **Contenedor LLM** | Ollama | latest con CUDA v13. Modelo por defecto: Qwen2.5-7B |
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
-| **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` **→ Se adoptó Qwen2.5-7B** |
+| **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` (junio) **→ Se adoptó Qwen2.5-7B**; confirmado en el Exp. B preliminar (2026-11-22), donde Llama 3 8B quedó descartado |
 | **Registro de datos** | SQLite 3 | ~20 tablas (ver `evaluacion/README_EVALUACION.md`) |
 | **Suite de tests** | pytest (Docker) | 388 passed (2026-11-22) |
 | **Frontend build tool** | Node.js + npm | 18-alpine en contenedor |
@@ -258,7 +265,7 @@ Para volver a la configuración V2: renombrar `vector_store_backup_v2_20261121` 
 | Variable | Default | Descripción |
 |---|---|---|
 | `OLLAMA_BASE_URL` | `http://llm:11434` | URL del servicio Ollama |
-| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar; `llama3:latest` = sistema S5 de la Revisión 3 (ver `evaluacion/madurez_oe8/COMPARACION_LLMS.md`) |
+| `OLLAMA_MODEL` | `qwen2.5:7b` | Modelo a usar. En el Exp. B de la Revisión 3 se comparan `llama3.2:3b`, `qwen3:4b` y `gemma3:4b` (Llama 3 8B descartado) |
 | `CORPUS_VERSION` / `EMBEDDING_MODEL` / `EMBEDDING_REVISION` | `corpus_upeu_v3_bgem3` / `BAAI/bge-m3` / `5617a9f6…` | Colección y modelo de embeddings (al arrancar se verifica que las dimensiones coincidan) |
 | `RAG_DISTANCE_THRESHOLD` / `RAG_MARGEN_FUERA_DOMINIO` / `RAG_KEYWORD_BOOST` | `0.41` / `0.09` / `0.02` | Calibrados para bge-m3 (2026-11-21) |
 | `RAG_TOP_K_RAW` / `RAG_TOP_K_FINAL` | `15` / `4` | Candidatos y fuentes al LLM |

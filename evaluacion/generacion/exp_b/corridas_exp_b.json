@@ -1,0 +1,43 @@
+{
+  "qwen": [
+    {
+      "archivo": "E2E_B_qwen_s42_20261122_221919.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_B_qwen_s7_20261122_223215.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 7,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ],
+  "llama_s42": [
+    {
+      "archivo": "E2E_B_llama_s42_20261122_232709.json",
+      "llm": "llama3:latest",
+      "semilla": 42,
+      "s0": false,
+      "prompt": "v3-completo"
+    }
+  ],
+  "s0": [
+    {
+      "archivo": "E2E_S0_qwen_s42_20261123_005421.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 42,
+      "s0": true,
+      "prompt": "v3-completo"
+    },
+    {
+      "archivo": "E2E_S0_qwen_s7_20261123_010039.json",
+      "llm": "qwen2.5:7b",
+      "semilla": 7,
+      "s0": true,
+      "prompt": "v3-completo"
+    }
+  ]
+}

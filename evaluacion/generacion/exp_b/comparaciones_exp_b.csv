@@ -1,0 +1,9 @@
+metrica,comparacion,n,media_a,media_b,diferencia,ic95_lo,ic95_hi,p,metodo,r_rango_biserial,magnitud,d_z,p_holm,significativo
+completitud,llama_s42 vs qwen,30,0.5333,0.3906,-0.1428,-0.2650,-0.0278,0.0317,normal,-0.6103,grande,-0.4277,0.0317,True
+completitud,s0 vs qwen,30,0.5333,0.0289,-0.5044,-0.6367,-0.3700,0.0000,normal,-1.0000,grande,-1.3312,0.0000,True
+atrib_exacta,llama_s42 vs qwen,30,0.4167,0.4000,-0.0167,-0.1667,0.1333,0.7389,normal,-0.1429,pequeño,-0.0392,0.7389,False
+atrib_exacta,s0 vs qwen,30,0.4167,0.0167,-0.4000,-0.5667,-0.2333,0.0006,normal,-1.0000,grande,-0.8322,0.0013,True
+falsa_abstencion,llama_s42 vs qwen,30,0.0333,0.0000,-0.0333,-0.1000,0.0000,1.0000,exacto,-1.0000,grande,-0.1826,1.0000,False
+falsa_abstencion,s0 vs qwen,30,0.0333,0.1333,0.1000,-0.0333,0.2333,0.1797,normal,0.6000,grande,0.2484,0.3594,False
+latencia_s,llama_s42 vs qwen,30,24.3815,51.9451,27.5636,15.3783,41.5757,0.0000,normal,0.9398,grande,0.7398,0.0000,True
+latencia_s,s0 vs qwen,30,24.3815,11.0884,-13.2931,-17.9622,-8.7836,0.0000,normal,-0.8581,grande,-1.0282,0.0000,True

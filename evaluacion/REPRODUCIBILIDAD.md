@@ -31,7 +31,8 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | Embeddings (S3) | `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`, 768 dim | revisión `4328cf26390c98c5e3c738b4460a05b95f4911f5` |
 | Embeddings (S2) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, 384 dim | revisión `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` (descargada 2026-11-22) |
 | Generador (S0–S4, S6) | Ollama `qwen2.5:7b` | ID `845dbda0ea48` (Q4_K_M, 4.7 GB) |
-| Generador (S5) | Ollama `llama3:latest` (Llama 3 8B Instruct) | ID `365c0bd3c000` (4.7 GB) |
+| ~~Generador (S5)~~ | Ollama `llama3:latest` (Llama 3 8B Instruct) — **descartado 2026-11-22** | ID `365c0bd3c000` (4.7 GB) |
+| Generadores nuevos (S5b / S7 / S8) | `llama3.2:3b` / `qwen3:4b` / `gemma3:4b` | por instalar: registrar aquí el ID de cada uno al descargarlo |
 
 ## Parámetros del pipeline (variables de entorno en `docker-compose.yml`)
 
@@ -45,7 +46,7 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | `RAG_CONTEXTO_ARTICULO` | 0 (apagado) |
 | `RAG_RECORTE_LEGACY_700` | 0 |
 | `RAG_SIN_RECUPERACION` | 0 (1 = sistema S0) |
-| `OLLAMA_MODEL` | `qwen2.5:7b` (`llama3:latest` = sistema S5) |
+| `OLLAMA_MODEL` | `qwen2.5:7b` (para el Exp. B: `llama3.2:3b`, `qwen3:4b`, `gemma3:4b`) |
 | `OLLAMA_NUM_CTX` / `OLLAMA_NUM_PREDICT` | 8192 / 1024 |
 | `OLLAMA_SEED` | 42 (corridas repetidas con semilla 7) |
 | temperatura | 0.2 |
@@ -92,3 +93,13 @@ estas variables leídas del backend, así que el valor exacto de cada experiment
 |---|---|---|
 | 2026-11-22 | Se agrega `RAG_SIN_RECUPERACION` (sistema S0); la limpieza de respuestas pasa a una función común (`_sanear_basico`), sin cambiar su comportamiento | No: por defecto vale 0 |
 | 2026-11-22 | `OLLAMA_MODEL` del backend pasa a `${OLLAMA_MODEL:-qwen2.5:7b}` en `docker-compose.yml` (para S5) | No: el valor por defecto es el mismo |
+| 2026-11-22 | `ablacion.ps1` no arranca si ya hay una corrida activa en `oe5-backend` (dos corridas a la vez compiten por Ollama y dan timeouts falsos) | No |
+| 2026-11-22 | `correr_17q_e2e.py` guarda `rag_sin_recuperacion` en el `meta` de cada corrida | No |
+| 2026-11-22 | **Se descarta Llama 3 8B (S5)** por inviabilidad en el hardware y se reemplaza por `llama3.2:3b`, `qwen3:4b` y `gemma3:4b` (decisión del equipo; motivo en `ESTADO_REVISION_3.md` §4). Debe registrarse con el asesor porque el .docx nombra a Llama 3 8B | No: el chatbot sigue con Qwen2.5-7B |
+
+### Observación de hardware (Exp. B, 2026-11-22)
+
+Ollama tiene ~5 GB libres de los 6 GB de la GPU (Windows usa ~1 GB): Qwen2.5-7B carga 23/29 capas en GPU y Llama 3
+8B 23/33. Docker dispone de 7.7 GB de RAM; la parte del modelo que queda en CPU compite con la caché de prompts de
+Ollama, y Llama 3 se degrada con el uso (corrida `E2E_B_llama_s7_*` inválida: 27/30 timeouts). Para corridas
+largas con modelos que no caben en la GPU, reiniciar `oe5-llm` antes de cada corrida.

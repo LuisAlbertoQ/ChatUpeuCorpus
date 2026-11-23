@@ -111,7 +111,7 @@ migración al corpus V3 y las mejoras medidas del 21–22 de noviembre de 2026, 
 | Re-ranking | keyword boost | keyword boost (`ranking_version` 1.1) | Cross-encoder `bge-reranker-v2-m3` evaluado y descartado |
 | Contexto por artículo | — | implementado, apagado (`RAG_CONTEXTO_ARTICULO=0`) | Sin efecto medible con 17 preguntas |
 | Sistema S0 (Revisión 3) | — | `RAG_SIN_RECUPERACION=0`; con `1` responde sin documentos (prompt `s0-sin-rag`) | Control sin recuperación del .docx; solo para experimentos |
-| Modelo LLM | Qwen2.5-7B | Qwen2.5-7B; `OLLAMA_MODEL=llama3:latest` = sistema S5 | Experimento B de la Revisión 3 |
+| Modelo LLM | Qwen2.5-7B | Qwen2.5-7B (sin cambio); Exp. B de la Revisión 3 con `llama3.2:3b`, `qwen3:4b`, `gemma3:4b` vía `OLLAMA_MODEL` | Llama 3 8B descartado el 2026-11-22: no cabe en la GPU de 6 GB |
 
 **Configuración congelada (2026-11-22):** para los experimentos de la Revisión 3 estos valores quedan fijos en el
 commit `c47d455a` (`evaluacion/REPRODUCIBILIDAD.md`). Todo cambio posterior se registra allí con fecha y motivo.
