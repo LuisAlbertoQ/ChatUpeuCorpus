@@ -31,10 +31,10 @@ se registra en la sección "Cambios después de congelar" con fecha y motivo.
 | Embeddings (S3) | `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`, 768 dim | revisión `4328cf26390c98c5e3c738b4460a05b95f4911f5` |
 | Embeddings (S2) | `sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2`, 384 dim | revisión `e8f8c211226b894fcb81acc59f3b34ba3efd5f42` (descargada 2026-11-22) |
 | Generador (S0–S4, S6) | Ollama `qwen2.5:7b` | ID `845dbda0ea48` (Q4_K_M, 4.7 GB) |
-| ~~Generador (S5)~~ | Ollama `llama3:latest` (Llama 3 8B Instruct) — **descartado 2026-11-22** | ID `365c0bd3c000` (4.7 GB) |
+| ~~Generador (S5)~~ | Ollama `llama3:latest` (Llama 3 8B Instruct) — **descartado 2026-11-22**, borrado de Ollama el 2026-11-23 | ID `365c0bd3c000` (4.7 GB); se recupera con `ollama pull llama3:latest` (verificar el ID) |
 | Generador S5b | Ollama `llama3.2:3b` (Llama 3.2 3B Instruct, Q4_K_M, contexto 128k) | ID `a80c4f17acd5` (2.0 GB), descargado 2026-11-22 · con `num_ctx` 8192: 3.5 GB, **100 % GPU** |
 | Generador S7 | Ollama `qwen3:4b-instruct` (Qwen3 4B Instruct, Q4_K_M, contexto 256k, sin razonamiento) | ID `0edcdef34593` (2.5 GB), descargado 2026-11-22 · con `num_ctx` 8192: 4.7 GB, 90 % GPU |
-| (no usado) | Ollama `qwen3:4b` (variante de razonamiento) | ID `359d7dd4bcda` (2.5 GB); reemplazado por `qwen3:4b-instruct`, ver nota |
+| (no usado) | Ollama `qwen3:4b` (variante de razonamiento) | ID `359d7dd4bcda` (2.5 GB); reemplazado por `qwen3:4b-instruct`, ver nota; borrado de Ollama el 2026-11-23 |
 | Generador S8 | Ollama `gemma3:4b` (Gemma 3 4B, Q4_K_M, contexto 128k, con módulo de visión) | ID `68ceab7e468a` (3.4 GB), descargado 2026-11-22 · 3.9 GB, 79 % GPU |
 
 ## Parámetros del pipeline (variables de entorno en `docker-compose.yml`)

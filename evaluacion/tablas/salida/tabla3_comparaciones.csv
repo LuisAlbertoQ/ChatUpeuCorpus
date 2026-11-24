@@ -1,0 +1,13 @@
+métrica,comparación,diferencia,IC95,p Holm,r,significativo
+completitud,llama32 vs qwen,-0.026,"[-0.102, 0.048]",0.436,-0.221,no
+completitud,qwen3 vs qwen,0.098,"[0.024, 0.181]",0.105,0.617,no
+completitud,gemma3 vs qwen,0.051,"[-0.029, 0.128]",0.251,0.500,no
+atrib_exacta,llama32 vs qwen,-0.067,"[-0.200, 0.067]",0.715,-0.333,no
+atrib_exacta,qwen3 vs qwen,0.100,"[0.017, 0.200]",0.190,1.000,no
+atrib_exacta,gemma3 vs qwen,0.050,"[-0.067, 0.167]",0.715,0.333,no
+falsa_abstencion,llama32 vs qwen,-0.033,"[-0.100, 0.000]",1.000,-1.000,no
+falsa_abstencion,qwen3 vs qwen,-0.033,"[-0.100, 0.000]",1.000,-1.000,no
+falsa_abstencion,gemma3 vs qwen,-0.033,"[-0.100, 0.000]",1.000,-1.000,no
+latencia_s,llama32 vs qwen,-15.831,"[-20.384, -11.635]",0.000,-0.983,sí
+latencia_s,qwen3 vs qwen,-5.389,"[-9.817, -1.102]",0.041,-0.445,sí
+latencia_s,gemma3 vs qwen,-5.612,"[-9.841, -1.396]",0.041,-0.484,sí

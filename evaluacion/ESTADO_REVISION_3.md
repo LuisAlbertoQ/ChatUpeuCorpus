@@ -29,10 +29,10 @@ experimentos se corren con ella y cualquier cambio posterior se registra allí.
 | 5B Generación | 🟡 preliminar: Qwen vs Llama 3 8B (descartado), S0 y los 3 modelos de 3–4B (2026-11-23) | `generacion/README.md`, `generacion/exp_b/`, `generacion/exp_b_nuevos/` |
 | 5C Abstención | 🟡 preliminar: 40/40 fuera de dominio (preguntas ya vistas), 14/20 ambiguas | `exp_c/README.md` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, completitud, abstención, latencia; ❌ fidelidad | — |
-| 8 Evaluación humana | ❌ por hacer sobre el sistema final | `humana/README.md` |
+| 8 Evaluación humana | 🟡 rúbrica fijada y generador de fichas ciegas listo (2026-11-23); falta evaluar (ronda 2) | `humana/RUBRICA_FIDELIDAD_REV3.md`, `humana/fichas_fidelidad.py` |
 | 9 Estadística | ✅ bootstrap IC95, Wilson, Wilcoxon, Holm, efecto, κ | `estadistica/README.md` |
 | 10 Reproducibilidad | ✅ | `REPRODUCIBILIDAD.md` |
-| 11 Tablas y figuras | ❌ (hay datos preliminares para Tabla 2 y Figura 1) | `retrieval/exp_a/h2_*` |
+| 11 Tablas y figuras | 🟡 esqueleto de las tablas 1–6 y figuras 1–3 con datos preliminares (2026-11-23); se regenera con el gold set | `tablas/generar_tablas.py`, `tablas/salida/TABLAS.md` |
 
 ## 3. Resultados preliminares
 
@@ -121,4 +121,4 @@ Qué entrega cada evaluador y qué devuelve: **`ENTREGA_EVALUADORES.md`**.
    nuevas (`banco/gold/`, `ENTREGA_EVALUADORES.md`). **Es lo que bloquea todo lo demás.**
 4. Con el gold set: experimentos A, B y C oficiales.
 5. **Ronda 2 humana:** evaluación ciega de la fidelidad (generadores del Exp. B oficial) → decisión del modelo (§5).
-6. Tablas 1–6 y figuras del artículo.
+6. Tablas 1–6 y figuras: regenerar `tablas/generar_tablas.py` con los resultados oficiales (el esqueleto ya existe).

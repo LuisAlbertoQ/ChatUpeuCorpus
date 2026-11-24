@@ -1,0 +1,4 @@
+grupo,correctas / n,tasa,IC95 Wilson,H5 (≥ 0.90),respuestas
+fuera de dominio (40),40/40,1.000,"[0.912, 1.000]",confirmada,"{'M03': 26, 'M04': 14}"
+fuera de dominio no vistas en desarrollo,0/0,—,—,—,{}
+ambiguas (20),14/20,0.700,"[0.481, 0.855]",no confirmada,"{'M02': 6, 'M04': 7, 'M05': 4, 'M03': 3}"

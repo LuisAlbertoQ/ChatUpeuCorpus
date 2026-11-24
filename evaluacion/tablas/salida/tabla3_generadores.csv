@@ -1,0 +1,5 @@
+sistema,fidelidad (humana),corrección (humana),relevancia 1–5 (humana),completitud (auto),atrib. exacta,atrib. parcial,sin cita,latencia p50 / p95 (s),timeouts,negativas
+qwen,pendiente,pendiente,pendiente,0.533,0.417,0.350,0.133,20.0 / 58.3,0.000,12/12
+llama32,pendiente,pendiente,pendiente,0.507,0.350,0.333,0.217,7.4 / 18.4,0.000,12/12
+qwen3,pendiente,pendiente,pendiente,0.631,0.517,0.333,0.033,22.1 / 25.7,0.000,12/12
+gemma3,pendiente,pendiente,pendiente,0.584,0.467,0.367,0.000,17.0 / 34.3,0.000,12/12

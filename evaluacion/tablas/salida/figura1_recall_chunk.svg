@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 360" font-family="sans-serif" font-size="12">
+<rect width="560" height="360" fill="#fff"/>
+<line x1="60" x2="410" y1="310" y2="310" stroke="#e5e7eb"/><text x="52" y="314" text-anchor="end" fill="#374151">0.00</text>
+<line x1="60" x2="410" y1="240.0" y2="240.0" stroke="#e5e7eb"/><text x="52" y="244.0" text-anchor="end" fill="#374151">0.25</text>
+<line x1="60" x2="410" y1="170.0" y2="170.0" stroke="#e5e7eb"/><text x="52" y="174.0" text-anchor="end" fill="#374151">0.50</text>
+<line x1="60" x2="410" y1="100.0" y2="100.0" stroke="#e5e7eb"/><text x="52" y="104.0" text-anchor="end" fill="#374151">0.75</text>
+<line x1="60" x2="410" y1="30" y2="30" stroke="#e5e7eb"/><text x="52" y="34" text-anchor="end" fill="#374151">1.00</text>
+<text x="60.0" y="328" text-anchor="middle" fill="#374151">150</text>
+<text x="176.66666666666669" y="328" text-anchor="middle" fill="#374151">300</text>
+<text x="293.33333333333337" y="328" text-anchor="middle" fill="#374151">350</text>
+<text x="410.0" y="328" text-anchor="middle" fill="#374151">600</text>
+<text x="235.0" y="350" text-anchor="middle" fill="#111">Tamaño de chunk (tokens)</text><text x="14" y="170.0" transform="rotate(-90 14 170.0)" text-anchor="middle" fill="#111">Recall@5</text>
+<polyline fill="none" stroke="#6b7280" stroke-width="2" points="60.0,137.268 176.66666666666669,124.556 293.33333333333337,120.916 410.0,115.456"/>
+<line x1="60.0" x2="60.0" y1="159.07999999999998" y2="115.456" stroke="#6b7280" opacity=".5"/><circle cx="60.0" cy="137.268" r="4" fill="#6b7280"/>
+<line x1="176.66666666666669" x2="176.66666666666669" y1="146.368" y2="104.536" stroke="#6b7280" opacity=".5"/><circle cx="176.66666666666669" cy="124.556" r="4" fill="#6b7280"/>
+<line x1="293.33333333333337" x2="293.33333333333337" y1="142.728" y2="100.896" stroke="#6b7280" opacity=".5"/><circle cx="293.33333333333337" cy="120.916" r="4" fill="#6b7280"/>
+<line x1="410.0" x2="410.0" y1="137.268" y2="95.464" stroke="#6b7280" opacity=".5"/><circle cx="410.0" cy="115.456" r="4" fill="#6b7280"/>
+<rect x="425" y="32" width="12" height="3" fill="#6b7280"/><text x="442" y="37" fill="#111">BM25 (S1)</text>
+<polyline fill="none" stroke="#d97706" stroke-width="2" points="60.0,164.54000000000002 176.66666666666669,166.35999999999999 293.33333333333337,162.72 410.0,166.35999999999999"/>
+<line x1="60.0" x2="60.0" y1="186.352" y2="142.728" stroke="#d97706" opacity=".5"/><circle cx="60.0" cy="164.54000000000002" r="4" fill="#d97706"/>
+<line x1="176.66666666666669" x2="176.66666666666669" y1="188.172" y2="144.548" stroke="#d97706" opacity=".5"/><circle cx="176.66666666666669" cy="166.35999999999999" r="4" fill="#d97706"/>
+<line x1="293.33333333333337" x2="293.33333333333337" y1="184.532" y2="140.90800000000002" stroke="#d97706" opacity=".5"/><circle cx="293.33333333333337" cy="162.72" r="4" fill="#d97706"/>
+<line x1="410.0" x2="410.0" y1="188.172" y2="144.548" stroke="#d97706" opacity=".5"/><circle cx="410.0" cy="166.35999999999999" r="4" fill="#d97706"/>
+<rect x="425" y="52" width="12" height="3" fill="#d97706"/><text x="442" y="57" fill="#111">MiniLM (S2)</text>
+<polyline fill="none" stroke="#2563eb" stroke-width="2" points="60.0,151.82800000000003 176.66666666666669,137.268 293.33333333333337,137.268 410.0,146.368"/>
+<line x1="60.0" x2="60.0" y1="173.64000000000001" y2="129.988" stroke="#2563eb" opacity=".5"/><circle cx="60.0" cy="151.82800000000003" r="4" fill="#2563eb"/>
+<line x1="176.66666666666669" x2="176.66666666666669" y1="159.07999999999998" y2="115.456" stroke="#2563eb" opacity=".5"/><circle cx="176.66666666666669" cy="137.268" r="4" fill="#2563eb"/>
+<line x1="293.33333333333337" x2="293.33333333333337" y1="159.07999999999998" y2="115.456" stroke="#2563eb" opacity=".5"/><circle cx="293.33333333333337" cy="137.268" r="4" fill="#2563eb"/>
+<line x1="410.0" x2="410.0" y1="168.18" y2="124.556" stroke="#2563eb" opacity=".5"/><circle cx="410.0" cy="146.368" r="4" fill="#2563eb"/>
+<rect x="425" y="72" width="12" height="3" fill="#2563eb"/><text x="442" y="77" fill="#111">mpnet (S3)</text>
+<polyline fill="none" stroke="#059669" stroke-width="2" points="60.0,57.27200000000001 176.66666666666669,49.992000000000004 293.33333333333337,53.632000000000005 410.0,55.452"/>
+<line x1="60.0" x2="60.0" y1="71.832" y2="44.53199999999998" stroke="#059669" opacity=".5"/><circle cx="60.0" cy="57.27200000000001" r="4" fill="#059669"/>
+<line x1="176.66666666666669" x2="176.66666666666669" y1="62.732" y2="39.099999999999994" stroke="#059669" opacity=".5"/><circle cx="176.66666666666669" cy="49.992000000000004" r="4" fill="#059669"/>
+<line x1="293.33333333333337" x2="293.33333333333337" y1="66.37200000000001" y2="42.739999999999995" stroke="#059669" opacity=".5"/><circle cx="293.33333333333337" cy="53.632000000000005" r="4" fill="#059669"/>
+<line x1="410.0" x2="410.0" y1="68.192" y2="42.739999999999995" stroke="#059669" opacity=".5"/><circle cx="410.0" cy="55.452" r="4" fill="#059669"/>
+<rect x="425" y="92" width="12" height="3" fill="#059669"/><text x="442" y="97" fill="#111">bge-m3 (S4)</text>
+</svg>

@@ -1,0 +1,6 @@
+categoria,n,recall@5,ic95,mrr@10,rdoc@5
+A Gobierno y estatuto,20,0.950,"[0.850, 1.000]",0.746,0.950
+B Académico,47,0.915,"[0.830, 0.979]",0.698,0.936
+C Investigación,19,0.947,"[0.842, 1.000]",0.844,1.000
+D Bienestar,25,0.960,"[0.880, 1.000]",0.811,1.000
+"E Laboral, docencia y políticas",43,0.860,"[0.744, 0.953]",0.755,0.930

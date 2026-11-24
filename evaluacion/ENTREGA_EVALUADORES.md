@@ -1,6 +1,6 @@
 # Qué entregar a los evaluadores — Revisión 3
 
-Actualizado: **2026-11-23**. Este archivo dice exactamente qué archivos recibe cada persona, qué hace con ellos y
+Actualizado: **2026-11-23** (con generador de fichas de fidelidad). Este archivo dice exactamente qué archivos recibe cada persona, qué hace con ellos y
 qué devuelve. Hay **dos rondas de trabajo humano** en el .docx; la segunda depende de la primera.
 
 ## Ronda 1 — Gold set de 260 preguntas (.docx §3) · ahora
@@ -33,10 +33,15 @@ Es la que decide el generador final (ver "Modelo del chatbot" en `ESTADO_REVISIO
 
 | Rol | Quién | Recibe | Hace | Devuelve |
 |---|---|---|---|---|
-| **Evaluadores 1 y 2** | Dos personas, por separado (pueden ser A y B) | Fichas **ciegas** con una submuestra de respuestas (no dicen qué modelo las escribió) + los fragmentos citados + `humana/GUIA_EVALUACION_HUMANA_V3.md` | Por cada afirmación: ¿está en la fuente? ¿la cita es correcta? ¿cubre los puntos clave? | Fichas completas |
+| **Evaluadores 1 y 2** | Dos personas, por separado (pueden ser A y B) | `ficha_fidelidad_E1.xlsx` / `_E2.xlsx` (respuestas **ciegas**, sin decir qué modelo las escribió, con la hoja "Fuentes") + `humana/RUBRICA_FIDELIDAD_REV3.md` | Por cada respuesta: fidelidad 0–2 (¿está en las fuentes?), corrección 0–2, atribución (exacta/parcial/incorrecta/ausente) y relevancia 1–5 | Fichas completas con sus iniciales |
 
-Estas fichas **todavía no existen**: se generan cuando estén las corridas oficiales del Exp. B (Qwen2.5-7B,
-`llama3.2:3b`, `qwen3:4b-instruct`, `gemma3:4b`) sobre el gold set. La rúbrica se fija antes de ver los resultados.
+El generador ya está listo (`humana/fichas_fidelidad.py`) y la rúbrica fijada (`humana/RUBRICA_FIDELIDAD_REV3.md`).
+Las fichas oficiales se generan cuando estén las corridas del Exp. B (Qwen2.5-7B, `llama3.2:3b`, `qwen3:4b-instruct`,
+`gemma3:4b`) sobre el gold set: 50 preguntas × 4 modelos = 200 respuestas por evaluador. Para ver cómo se verán:
+`humana/fidelidad_rev3/prueba_banco_v32/ficha_fidelidad_E1.xlsx` (prueba, no se entrega).
+
+Entregables de la ronda 2: `ficha_fidelidad_E1.xlsx` al evaluador 1 y `ficha_fidelidad_E2.xlsx` al evaluador 2, más
+la rúbrica. **Nunca** entregar `clave_NO_ENTREGAR.json`. Devuelven `ficha_fidelidad_E1_<INICIALES>.xlsx` y `_E2_…`.
 
 ## Resumen de lo que falta del .docx
 

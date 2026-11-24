@@ -1,0 +1,312 @@
+{
+  "banco": "v3.2",
+  "semilla": 2026,
+  "sistemas": {
+    "qwen": {
+      "archivo": "E2E_B_qwen_s42_20261122_221919.json",
+      "llm": "qwen2.5:7b"
+    },
+    "llama32": {
+      "archivo": "E2E_B_llama32_s42_20261123_144803.json",
+      "llm": "llama3.2:3b"
+    },
+    "qwen3": {
+      "archivo": "E2E_B_qwen3_s42_20261123_145838.json",
+      "llm": "qwen3:4b-instruct"
+    },
+    "gemma3": {
+      "archivo": "E2E_B_gemma3_s42_20261123_151924.json",
+      "llm": "gemma3:4b"
+    }
+  },
+  "items": {
+    "R001": {
+      "sistema": "qwen",
+      "pregunta_id": "Q19",
+      "pregunta_cod": "P005",
+      "tipo_mensaje": "M02"
+    },
+    "R002": {
+      "sistema": "qwen",
+      "pregunta_id": "Q21",
+      "pregunta_cod": "P006",
+      "tipo_mensaje": "M02"
+    },
+    "R003": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q28",
+      "pregunta_cod": "P003",
+      "tipo_mensaje": "M02"
+    },
+    "R004": {
+      "sistema": "llama32",
+      "pregunta_id": "Q21",
+      "pregunta_cod": "P006",
+      "tipo_mensaje": "M02"
+    },
+    "R005": {
+      "sistema": "qwen",
+      "pregunta_id": "Q01",
+      "pregunta_cod": "P004",
+      "tipo_mensaje": "M02"
+    },
+    "R006": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q21",
+      "pregunta_cod": "P006",
+      "tipo_mensaje": "M02"
+    },
+    "R007": {
+      "sistema": "llama32",
+      "pregunta_id": "Q23",
+      "pregunta_cod": "P002",
+      "tipo_mensaje": "M02"
+    },
+    "R008": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q01",
+      "pregunta_cod": "P004",
+      "tipo_mensaje": "M02"
+    },
+    "R009": {
+      "sistema": "llama32",
+      "pregunta_id": "Q11",
+      "pregunta_cod": "P007",
+      "tipo_mensaje": "M02"
+    },
+    "R010": {
+      "sistema": "llama32",
+      "pregunta_id": "Q06",
+      "pregunta_cod": "P012",
+      "tipo_mensaje": "M02"
+    },
+    "R011": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q19",
+      "pregunta_cod": "P005",
+      "tipo_mensaje": "M02"
+    },
+    "R012": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q24",
+      "pregunta_cod": "P010",
+      "tipo_mensaje": "M02"
+    },
+    "R013": {
+      "sistema": "qwen",
+      "pregunta_id": "Q28",
+      "pregunta_cod": "P003",
+      "tipo_mensaje": "M02"
+    },
+    "R014": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q28",
+      "pregunta_cod": "P003",
+      "tipo_mensaje": "M02"
+    },
+    "R015": {
+      "sistema": "llama32",
+      "pregunta_id": "Q26",
+      "pregunta_cod": "P008",
+      "tipo_mensaje": "M02"
+    },
+    "R016": {
+      "sistema": "qwen",
+      "pregunta_id": "Q06",
+      "pregunta_cod": "P012",
+      "tipo_mensaje": "M02"
+    },
+    "R017": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q11",
+      "pregunta_cod": "P007",
+      "tipo_mensaje": "M02"
+    },
+    "R018": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q23",
+      "pregunta_cod": "P002",
+      "tipo_mensaje": "M02"
+    },
+    "R019": {
+      "sistema": "llama32",
+      "pregunta_id": "Q01",
+      "pregunta_cod": "P004",
+      "tipo_mensaje": "M02"
+    },
+    "R020": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q03",
+      "pregunta_cod": "P001",
+      "tipo_mensaje": "M02"
+    },
+    "R021": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q01",
+      "pregunta_cod": "P004",
+      "tipo_mensaje": "M02"
+    },
+    "R022": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q27",
+      "pregunta_cod": "P009",
+      "tipo_mensaje": "M02"
+    },
+    "R023": {
+      "sistema": "llama32",
+      "pregunta_id": "Q24",
+      "pregunta_cod": "P010",
+      "tipo_mensaje": "M02"
+    },
+    "R024": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q06",
+      "pregunta_cod": "P012",
+      "tipo_mensaje": "M02"
+    },
+    "R025": {
+      "sistema": "qwen",
+      "pregunta_id": "Q26",
+      "pregunta_cod": "P008",
+      "tipo_mensaje": "M02"
+    },
+    "R026": {
+      "sistema": "llama32",
+      "pregunta_id": "Q03",
+      "pregunta_cod": "P001",
+      "tipo_mensaje": "M02"
+    },
+    "R027": {
+      "sistema": "qwen",
+      "pregunta_id": "Q23",
+      "pregunta_cod": "P002",
+      "tipo_mensaje": "M02"
+    },
+    "R028": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q24",
+      "pregunta_cod": "P010",
+      "tipo_mensaje": "M02"
+    },
+    "R029": {
+      "sistema": "qwen",
+      "pregunta_id": "Q11",
+      "pregunta_cod": "P007",
+      "tipo_mensaje": "M02"
+    },
+    "R030": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q03",
+      "pregunta_cod": "P001",
+      "tipo_mensaje": "M02"
+    },
+    "R031": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q23",
+      "pregunta_cod": "P002",
+      "tipo_mensaje": "M02"
+    },
+    "R032": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q19",
+      "pregunta_cod": "P005",
+      "tipo_mensaje": "M02"
+    },
+    "R033": {
+      "sistema": "llama32",
+      "pregunta_id": "Q27",
+      "pregunta_cod": "P009",
+      "tipo_mensaje": "M02"
+    },
+    "R034": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q06",
+      "pregunta_cod": "P012",
+      "tipo_mensaje": "M02"
+    },
+    "R035": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q11",
+      "pregunta_cod": "P007",
+      "tipo_mensaje": "M02"
+    },
+    "R036": {
+      "sistema": "qwen",
+      "pregunta_id": "Q24",
+      "pregunta_cod": "P010",
+      "tipo_mensaje": "M02"
+    },
+    "R037": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q21",
+      "pregunta_cod": "P006",
+      "tipo_mensaje": "M02"
+    },
+    "R038": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q26",
+      "pregunta_cod": "P008",
+      "tipo_mensaje": "M02"
+    },
+    "R039": {
+      "sistema": "qwen",
+      "pregunta_id": "Q13",
+      "pregunta_cod": "P011",
+      "tipo_mensaje": "M02"
+    },
+    "R040": {
+      "sistema": "llama32",
+      "pregunta_id": "Q28",
+      "pregunta_cod": "P003",
+      "tipo_mensaje": "M02"
+    },
+    "R041": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q13",
+      "pregunta_cod": "P011",
+      "tipo_mensaje": "M02"
+    },
+    "R042": {
+      "sistema": "llama32",
+      "pregunta_id": "Q19",
+      "pregunta_cod": "P005",
+      "tipo_mensaje": "M02"
+    },
+    "R043": {
+      "sistema": "qwen",
+      "pregunta_id": "Q27",
+      "pregunta_cod": "P009",
+      "tipo_mensaje": "M02"
+    },
+    "R044": {
+      "sistema": "qwen",
+      "pregunta_id": "Q03",
+      "pregunta_cod": "P001",
+      "tipo_mensaje": "M02"
+    },
+    "R045": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q26",
+      "pregunta_cod": "P008",
+      "tipo_mensaje": "M02"
+    },
+    "R046": {
+      "sistema": "gemma3",
+      "pregunta_id": "Q27",
+      "pregunta_cod": "P009",
+      "tipo_mensaje": "M02"
+    },
+    "R047": {
+      "sistema": "qwen3",
+      "pregunta_id": "Q13",
+      "pregunta_cod": "P011",
+      "tipo_mensaje": "M02"
+    },
+    "R048": {
+      "sistema": "llama32",
+      "pregunta_id": "Q13",
+      "pregunta_cod": "P011",
+      "tipo_mensaje": "M02"
+    }
+  }
+}

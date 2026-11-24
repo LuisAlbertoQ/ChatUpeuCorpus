@@ -18,3 +18,15 @@ con la rúbrica fijada antes de ver los resultados y acuerdo entre evaluadores. 
 (FASE 4) evaluaron el sistema V2 de septiembre, así que sirven como antecedente y para reutilizar la rúbrica
 (`GUIA_EVALUACION_HUMANA_V3.md`), no como resultado del estudio. Se hace después del gold set y del Exp. B oficial; decide el generador final del chatbot (candidato `qwen3:4b-instruct`,
 ver `../ESTADO_REVISION_3.md` §5). Qué reciben los evaluadores: `../ENTREGA_EVALUADORES.md` (ronda 2).
+
+**Herramienta lista (2026-11-23):**
+- `RUBRICA_FIDELIDAD_REV3.md`: rúbrica fijada antes de ver resultados (fidelidad 0–2, corrección 0–2, atribución
+  exacta/parcial/incorrecta/ausente, relevancia 1–5) y cómo se resume.
+- `fichas_fidelidad.py preparar`: fichas ciegas idénticas para dos evaluadores (`ficha_fidelidad_E1.xlsx` / `_E2.xlsx`):
+  respuestas de los 4 generadores mezcladas con código R001…, hoja "Fuentes" con el texto de los artículos que recibió
+  el modelo; la clave código → modelo queda en `clave_NO_ENTREGAR.json`.
+- `fichas_fidelidad.py analizar`: κ por dimensión, desacuerdos, comparación contra Qwen2.5-7B (Wilcoxon + Holm,
+  IC95) y `detalle_fidelidad.csv` para la Tabla 6.
+- Prueba con el banco v3.2 (12 preguntas × 4 modelos = 48 respuestas): `fidelidad_rev3/prueba_banco_v32/` — **solo
+  para revisar el formato, no se entrega**. Las fichas oficiales se generan con el gold set (50 preguntas × 4 = 200).
+  Tests: `backend/tests/test_fichas_fidelidad.py`.

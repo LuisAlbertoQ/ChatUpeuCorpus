@@ -62,10 +62,10 @@ commit `c47d455a` ([`evaluacion/REPRODUCIBILIDAD.md`](evaluacion/REPRODUCIBILIDA
 | 5B Generadores (H3) | 🟡 preliminar (banco v3.2): Qwen 0.53 vs Llama 3 8B 0.39 de completitud (p Holm 0.03), 20 vs 39 s; Llama 3 8B **descartado** (no cabe en la GPU, 17 % timeouts). Modelos nuevos (2 semillas, 2026-11-23): completitud `qwen3:4b-instruct` 0.63, `gemma3:4b` 0.58, `llama3.2:3b` 0.51 vs Qwen2.5-7B 0.53, ninguna diferencia significativa con Holm; los tres más rápidos (p50 7 / 22 / 17 s vs 20 s; p95 18 / 26 / 34 s vs 58 s), 0 timeouts, 12/12 negativas. S0: 0.03 | `evaluacion/generacion/` |
 | 5C Abstención (H5) | 🟡 preliminar: 40/40 fuera de dominio (ya vistas en el desarrollo), 14/20 ambiguas | `evaluacion/exp_c/` |
 | 7 Métricas | ✅ R@k, MRR, nDCG@5, atribución, abstención, latencia; ❌ falta medir la fidelidad | — |
-| 8 Evaluación humana | ❌ la existente es del sistema V2 (septiembre); hay que repetirla | `evaluacion/humana/` |
+| 8 Evaluación humana | 🟡 rúbrica fijada y generador de fichas ciegas listo (2026-11-23); falta que evalúe el equipo (ronda 2) | `evaluacion/humana/RUBRICA_FIDELIDAD_REV3.md`, `fichas_fidelidad.py` |
 | 9 Estadística | ✅ bootstrap IC95, Wilson, Wilcoxon, Holm, tamaño de efecto, κ de Cohen | `evaluacion/estadistica/` |
 | 10 Reproducibilidad | ✅ ficha con commit, versiones, revisiones, hardware y semillas | `evaluacion/REPRODUCIBILIDAD.md` |
-| 11 Tablas 1–6 y figuras | ❌ hay datos preliminares para la Tabla 2 y la Figura 1 | `evaluacion/retrieval/exp_a/h2_*` |
+| 11 Tablas 1–6 y figuras | 🟡 esqueleto con datos preliminares (2026-11-23); se regenera con el gold set | `evaluacion/tablas/` |
 
 **Resultados preliminares** (bancos de desarrollo: 154 preguntas del OE1 y banco v3.2; no son los oficiales):
 
@@ -111,7 +111,7 @@ oe5_chatbot_upeu/
 │   │                                 # + contexto completo (sin recorte 700) + retry policy + guardrails de citas
 │   ├── context_builder.py            # Construcción determinística de contexto/fuentes (Fase 2)
 │   ├── validators_evaluacion.py      # source_validity / citation_match determinísticos
-│   ├── tests/                        # Suite pytest (388 tests en verde; test_mejoras_chatbot.py = mejoras 2026-11; test_estadistica, test_exp_a_recuperacion, test_gold_acuerdo = Revisión 3)
+│   ├── tests/                        # Suite pytest (403 tests en verde; test_mejoras_chatbot.py = mejoras 2026-11; test_estadistica, test_exp_a_recuperacion, test_gold_acuerdo, test_exp_b_generacion, test_fichas_fidelidad, test_generar_tablas = Revisión 3)
 │   ├── POLITICA_PRIVACIDAD.md        # Política de privacidad (Ley 29733)
 │   ├── requirements.txt
 │   ├── Dockerfile                    # Con HEALTHCHECK
@@ -149,7 +149,9 @@ oe5_chatbot_upeu/
 │   ├── generacion/                   # baseline_generacion_v3_oficial.py, harnesses, JSON/CSV
 │   ├── humana/                       # Fichas Q01-Q17 (fichas_humanas_v31/, 66 puntos),
 │   │                                 # importar_ficha_humana.py, calcular_metricas_humanas.py,
-│   │                                 # GUIA_EVALUACION_HUMANA_V3.md
+│   │                                 # GUIA_EVALUACION_HUMANA_V3.md; Rev. 3: RUBRICA_FIDELIDAD_REV3.md,
+│   │                                 # fichas_fidelidad.py (fichas ciegas + κ + comparación)
+│   ├── tablas/                       # generar_tablas.py → salida/TABLAS.md (tablas 1–6, figuras 1–3)
 │   ├── madurez_oe8/                  # calcular_madurez.py, instrumento piloto 30 ítems,
 │   │                                 # importar_piloto.py, reporte_madurez.md
 │   └── legacy/                       # Scripts/resultados históricos (evaluar_modelo.ps1…)
@@ -203,7 +205,7 @@ se montan en un path padre distinto al del código:
 | **GPU (opcional)** | NVIDIA CUDA | v13 (RTX 4050 compatible) |
 | **Comparativa LLM** | Llama 3 8B vs Qwen2.5-7B | `evaluacion/madurez_oe8/COMPARACION_LLMS.md` (junio) **→ Se adoptó Qwen2.5-7B**; confirmado en el Exp. B preliminar (2026-11-22), donde Llama 3 8B quedó descartado |
 | **Registro de datos** | SQLite 3 | ~20 tablas (ver `evaluacion/README_EVALUACION.md`) |
-| **Suite de tests** | pytest (Docker) | 388 passed (2026-11-22) |
+| **Suite de tests** | pytest (Docker) | 403 passed (2026-11-23) |
 | **Frontend build tool** | Node.js + npm | 18-alpine en contenedor |
 
 ## Requisitos previos
@@ -450,7 +452,7 @@ docker compose run --rm backend python /data/evaluacion/legacy/generar_ficha.py
 docker compose run --rm backend python /data/evaluacion/madurez_oe8/calcular_madurez.py --auto-only
 
 # Suite completa de tests
-docker compose exec backend pytest tests -q   # 388 passed
+docker compose exec backend pytest tests -q   # 403 passed
 ```
 
 ### 6. Ver logs

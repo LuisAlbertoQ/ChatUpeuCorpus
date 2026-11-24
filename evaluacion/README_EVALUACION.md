@@ -98,6 +98,8 @@ Hecho el 2026-11-22 (todo con la configuración congelada en `REPRODUCIBILIDAD.m
 | Exp. A recuperación (S1 BM25, S2 MiniLM, S3 mpnet, S4 bge-m3) | `retrieval/exp_a_recuperacion.py`, `retrieval/exp_a/` | preliminar con bancos de desarrollo: 4 recuperadores × 4 tamaños de chunk (150/300/350/600, chunks del OE1); H2 en `retrieval/analisis_h2.py` |
 | Exp. C abstención | `exp_c/` | preliminar: 40/40 fuera de dominio (vistas en desarrollo), 14/20 ambiguas |
 | Gold set 260: fichas, κ y consolidación | `banco/gold/` | **herramientas listas** (fichas Excel ciegas para A y B, plantilla de 40 fuera de dominio nuevas, κ, conflictos para el juez, consolidación); **pendiente: que el equipo anote** |
+| Evaluación humana de fidelidad (§8) | `humana/fichas_fidelidad.py`, `humana/RUBRICA_FIDELIDAD_REV3.md` | rúbrica fijada y fichas ciegas listas (prueba con banco v3.2); 5 tests; se aplica tras el Exp. B oficial |
+| Tablas 1–6 y figuras (§11) | `tablas/generar_tablas.py` → `tablas/salida/` | esqueleto con datos preliminares; 4 tests; se regenera con el gold set |
 
 ## Estructura (reorganizada 2026-09-27; actualizada 2026-11-22)
 
